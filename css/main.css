@@ -14,12 +14,18 @@ padding-top: 20px;
 }
 
 .sidebar a {
-padding: 10px;
+padding: 25px;
 text-decoration: none;
-font-size: 18px;
+font-size: 20px;
 color: white;
 display: block;
 transition: 0.3s;
+font-family: monaco;
+}
+
+.sidebar a.listt{
+    padding: 5px;
+    font-size: 14px;
 }
 
 .sidebar a:hover {
@@ -43,6 +49,7 @@ margin-left: 20%;
     text-decoration: none;
     color: white;
     margin: 0 20px;
+    font-family: monaco;
 }
 
 .outer {
@@ -75,3 +82,41 @@ margin-left: 20%;
     margin-right: auto;
     width: 90%;
   }
+.center-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+p {
+      font-family: monaco;
+  }
+
+
+.code-text {
+    background-color: #f5fdff;
+    font-family: 'Courier New';
+}
+
+li{
+    font-family: monaco;
+}
+h1{
+    font-family: monaco;
+}
+h2{
+    font-family: monaco;
+}
+h3{
+    font-family: monaco;
+}
+mark{
+    background-color: #f5fdff;
+    color: green;
+}
+.important{
+    background-color: #faddcd;
+    color: green;
+    display: inline-block;
+}
