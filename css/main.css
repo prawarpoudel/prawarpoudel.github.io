@@ -1,45 +1,76 @@
-  body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .sidebar {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    padding-top: 20px;
-  }
-  
-  .sidebar a {
-    padding: 10px;
+body {
+margin: 0;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.sidebar {
+height: 100%;
+width: 250px;
+position: fixed;
+top: 0;
+left: 0;
+background-color: #111;
+padding-top: 20px;
+}
+
+.sidebar a {
+padding: 10px;
+text-decoration: none;
+font-size: 18px;
+color: white;
+display: block;
+transition: 0.3s;
+}
+
+.sidebar a:hover {
+background-color: #444;
+}
+
+.content {
+margin-left: 250px;
+padding: 20px;
+}
+
+.navbar {
+background-color: #333;
+color: white;
+text-align: center;
+padding: 10px 0;
+}
+
+.navbar a {
     text-decoration: none;
-    font-size: 18px;
     color: white;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  .sidebar a:hover {
-    background-color: #444;
-  }
-  
-  .content {
-    margin-left: 250px;
+    margin: 0 20px;
+}
+
+.outer {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 20px;
+}
+/* Styling for the parent div */
+.topics {
+    width: 90%;
+    display: flex; /* Make the child divs flex items */
+    justify-content: wrap; /* Spread child divs horizontally */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+/* Styling for the child divs */
+.box {
+    width: calc(33.33% - 20px); /* Adjust the width as needed */
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    margin: 10px;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
   }
-
-  .navbar {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    }
-
-    .navbar a {
-        text-decoration: none;
-        color: white;
-        margin: 0 20px;
-    }
