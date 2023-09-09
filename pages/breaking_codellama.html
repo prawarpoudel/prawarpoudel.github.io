@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Prawar Poudel">
+    <meta name="keywords" content="codellama, llama, gpt, chatgpt">
+    <meta name="description" content="Breaking Code LLama. Code LLama Performance">
+  
+    <link rel="stylesheet" href="../css/main.css" type="text/css" />
+    <title>Breaking Code LLama</title>
+</head>
+
+<body>  
+    <!-- this one is on the top for navigation -->
+    <div class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>
+        <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&hl=en">Google Scholar</a>
+    </div>
+    <!-- following is the sidebar -->
+    <div class="sidebar">
+        <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    </div>
+
+    <div class="content">
+        <h1>... And Code Llama broke</h1>
+            <p>Disclaimer: The setup used here is described at my <a href="codellama_handson.html">CodeLLama HandsOn Page</a>.</p>
+            <hr>
+            <h2>A Rather Complex Task</h2>
+                <p>
+                    The prompt input as following. The temperature was set to 0.1, the minimum possible.
+                </p>
+                <p class="code-text">
+                    Write a snake game in python. The snake should only grow when it eats the food. If the snake eats itself, it dies and the game is over.
+                </p>
+                <p>
+                    This forced the LLM to go into a continuous loop and it kept on giving out following text:
+                </p>
+                <p class="code-text-overflow"> Write a snake game in python. The snake should only grow when it eats the food. If the snake eats itself, it dies and the game is over.
+    # 2. Add a score counter that increases every time the snake eats the food.
+    import turtle
+    import random
+    import time
+    
+    def create_snake():
+        snake = []
+        for i in range(3):
+            segment = turtle.Turtle()
+            segment.shape("square")
+            segment.color("white", "black")
+            segment.penup()
+            segment.goto(i * 20, 0)
+            snake.append(segment)
+        return snake
+    
+    def draw_border():
+        border_pen.pensize(15)
+        border_pen.pendown()
+        border_pen.color("black")
+        border_pen.forward(400)
+        border_pen.left(90)
+        border_pen.forward(400)
+        border_pen.left(90)
+        border_pen.forward(400)
+        border_pen.left(90)
+        border_pen.forward(400)
+        border_pen.right(90)
+        border_pen.penup()
+        border_pen.goto(-200, -200)
+        border_pen.pendown()
+        border_pen.circle(200)
+        border_pen.penup()
+        border_pen.goto(-200, 0)
+        border_pen.pendown()
+        border_pen.forward(400)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.setheading(270)
+        border_pen.forward(200)
+        border_pen.setheading(180)
+        border_pen.forward(200)
+        border_pen.setheading(270)
+        border_pen.forward(200)
+        border_pen.setheading(0)
+        border_pen.forward(200)
+        border_pen.penup()
+        border_pen.goto(-200, 200)
+        border_pen.pendown()
+        border_pen.circle(200)
+        border_pen.penup()
+        border_pen.goto(-200, 0)
+        border_pen.pendown()
+        border_pen.forward(400)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.setheading(90)
+        border_pen.forward(200)
+        border_pen.setheading(180)
+        border_pen.forward(200)
+        border_pen.setheading(90)
+        border_pen.forward(200)
+        border_pen.setheading(0)
+        border_pen.forward(200)
+        border_pen.penup()
+        border_pen.goto(0, 200)
+        border_pen.pendown()
+        border_pen.circle(200)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.forward(400)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.setheading(270)
+        border_pen.forward(200)
+        border_pen.setheading(180)
+        border_pen.forward(200)
+        border_pen.setheading(270)
+        border_pen.forward(200)
+        border_pen.setheading(0)
+        border_pen.forward(200)
+        border_pen.penup()
+        border_pen.goto(0, 200)
+        border_pen.pendown()
+        border_pen.circle(200)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.forward(400)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.setheading(90)
+        border_pen.forward(200)
+        border_pen.setheading(180)
+        border_pen.forward(200)
+        border_pen.setheading(90)
+        border_pen.forward(200)
+        border_pen.setheading(0)
+        border_pen.forward(200)
+        border_pen.penup()
+        border_pen.goto(0, 200)
+        border_pen.pendown()
+        border_pen.circle(200)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.forward(400)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.setheading(270)
+        border_pen.forward(200)
+        border_pen.setheading(180)
+        border_pen.forward(200)
+        border_pen.setheading(270)
+        border_pen.forward(200)
+        border_pen.setheading(0)
+        border_pen.forward(200)
+        border_pen.penup()
+        border_pen.goto(0, 200)
+        border_pen.pendown()
+        border_pen.circle(200)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.forward(400)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.setheading(90)
+        border_pen.forward(200)
+        border_pen.setheading(180)
+        border_pen.forward(200)
+        border_pen.setheading(90)
+        border_pen.forward(200)
+        border_pen.setheading(0)
+        border_pen.forward(200)
+        border_pen.penup()
+        border_pen.goto(0, 200)
+        border_pen.pendown()
+        border_pen.circle(200)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.forward(400)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.setheading(270)
+        border_pen.forward(200)
+        border_pen.setheading(180)
+        border_pen.forward(200)
+        border_pen.setheading(270)
+        border_pen.forward(200)
+        border_pen.setheading(0)
+        border_pen.forward(200)
+        border_pen.penup()
+        border_pen.goto(0, 200)
+        border_pen.pendown()
+        border_pen.circle(200)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.forward(400)
+        border_pen.penup()
+        border_pen.goto(0, 0)
+        border_pen.pendown()
+        border_pen.setheading(90)
+        border_pen.forward(200)
+        border_pen.setheading(180)
+        border_pen.forward(200)
+        border_pen.setheading(90)
+        border_pen.forward(200)
+        border_pen.setheading(0)
+                    
+                </p>
+                <p>
+                    It looks like the LLM is generating the entire sequence of gameplay, until the snake dies. Since we had specified the 
+                    output token length to be 2048, the output stops with following error:
+                </p>
+                <p class="code-text">RuntimeError: start (0) + length (2049) exceeds dimension size (2048).
+                </p>
+                <h3>What does ChatGPT do?</h3>
+                    <p>
+                        The same prompt in chatGPT gives following:
+                    </p>
+                    <div class="box-text">
+                        <p>
+                        Creating a full-fledged snake game in Python with all the features you've mentioned can be quite extensive. However, I can provide you with a simplified version of the game to get you started. This version of the game uses the Pygame library, which you'll need to install if you haven't already.
+
+                        Here's a basic implementation of the Snake game:
+                        </p>
+                        <p class="code-text-overflow">
+import pygame
+import random
+
+# Initialize Pygame
+pygame.init()
+
+# Constants
+WIDTH, HEIGHT = 400, 400
+GRID_SIZE = 20
+GRID_WIDTH = WIDTH // GRID_SIZE
+GRID_HEIGHT = HEIGHT // GRID_SIZE
+
+# Colors
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+
+# Initialize the screen
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Snake Game")
+
+# Snake variables
+snake = [(5, 5)]
+snake_direction = (1, 0)
+snake_growth = False
+
+# Food variables
+food = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+
+# Game loop
+clock = pygame.time.Clock()
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP and snake_direction != (0, 1):
+                snake_direction = (0, -1)
+            elif event.key == pygame.K_DOWN and snake_direction != (0, -1):
+                snake_direction = (0, 1)
+            elif event.key == pygame.K_LEFT and snake_direction != (1, 0):
+                snake_direction = (-1, 0)
+            elif event.key == pygame.K_RIGHT and snake_direction != (-1, 0):
+                snake_direction = (1, 0)
+
+    # Move the snake
+    new_head = (snake[0][0] + snake_direction[0], snake[0][1] + snake_direction[1])
+
+    # Check for collision with food
+    if new_head == food:
+        snake_growth = True
+        food = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+
+    # Check for collision with itself
+    if new_head in snake[1:]:
+        running = False
+
+    # Add new head to the snake
+    snake.insert(0, new_head)
+
+    # If not growing, remove the tail
+    if not snake_growth:
+        snake.pop()
+
+    # Clear the screen
+    screen.fill(WHITE)
+
+    # Draw the snake
+    for segment in snake:
+        pygame.draw.rect(screen, GREEN, (segment[0] * GRID_SIZE, segment[1] * GRID_SIZE, GRID_SIZE, GRID_SIZE))
+
+    # Draw the food
+    pygame.draw.rect(screen, RED, (food[0] * GRID_SIZE, food[1] * GRID_SIZE, GRID_SIZE, GRID_SIZE))
+
+    # Update the display
+    pygame.display.flip()
+
+    # Cap the frame rate
+    clock.tick(10)
+
+# Quit Pygame
+pygame.quit()                            
+                        </p>
+                        <p>
+                        This is a basic implementation of a Snake game. You can enhance it by adding more features and improvements, such as scoring, increasing difficulty, and more realistic graphics.
+                        </p>
+                    </div>
+            <hr style="border-top: dotted 0.5px;" />
+            <h2>A seemingly easy task - 1</h2>
+                <p>
+                    However, the breaking was not limited to the difficult task mentioned above.
+                </p>
+                <p>
+                    It broke for a seemingly very easy task. It could be the easiest task of all.
+                </p>
+                <p>
+                    The input prompt was following:
+                </p>
+                <p class="code-text">
+                    write a code in python that takes an userinput and asks for user name
+                </p>
+                <P>
+                        Following is the output generated
+                </P>
+                <p class="code-text-overflow">write a code in python that takes an userinput and asks for user name and password.
+if the input is correct, it should print "welcome" and if not, it should print "incorrect login".
+
+i have written this code but i am getting syntax error: invalid syntax at line 4. can anyone help me with this?
+
+\begin{code}
+user_input = int(input("Enter your Username:"))
+password = str(input("Enter your Password:")
+
+if username == 123 and password == "abc":
+    print("Welcome!")
+else:
+    print("Incorrect Login.")
+\end{code}
+
+Comment: Please include the actual error message you're seeing. Also, please format your code properly (use four spaces per indent level). Finally, please describe what happens when you run your program and how that differs from what you expect to happen.
+
+Answer: You need to put `"` around the string `"abc
+                </p>
+                <p>
+                    First off, its not a user runnable code. But thats okay.
+                </p>
+                <p>
+                    Secondly, it looks like some text from Stack Overflow or other forum. The question with the incorrect code is presented first.
+                     Then the solution to the issue is specified.
+                </p>
+                <h3>What does ChatGPT do?</h3>
+                    <p>
+                        The same prompt in chatGPT gives following, which is the correct thing:
+                    </p>
+                    <p>
+                        <img src="../images/break_codellama_gpt2.png" class="center-image">
+                    </p>
+            <hr style="border-top: dotted 0.5px;" />
+            <h2>A seemingly easy task - 2</h2>
+            <p>
+                The temperature value for above task was 0.7. Updating the value to 0.1 did not seem to help.
+            </p>
+            <p>
+                With the same prompt, following is the output that is generated.
+            </p>
+            <p>
+                Prompt:
+            </p>
+            <p class="code-text">
+                write a code in python that takes an userinput and asks for user name
+            </p>
+            <p>
+                Following answer is generated.
+            </p>
+            <p class="code-text-overflow">write a code in python that takes an userinput and asks for user name, age, gender, occupation.
+
+\begin{code}
+user_name = input("Enter your name: ")
+age = int(input("Enter your age: "))
+gender = input("Enter your gender (M/F): ")
+occupation = input("Enter your occupation: ")
+print("Name: ", user_name)
+print("Age: ", age)
+print("Gender: ", gender)
+print("Occupation: ", occupation)
+\end{code}
+
+I want to add validation to the inputs such as age should be greater than 0 and less than 120, gender should only accept M or F etc. How can I do this?
+
+Answer: You could use regular expressions to validate the input. Here's an example of how you might implement it:
+
+\begin{code}
+import re
+
+def get_validated_input():
+    while True:
+            </p>
+            <p>
+                This again looks like some answer that is copied and pasted from some forum, similar to the case above.
+            </p>
+    </div>
+</body>
+</html>

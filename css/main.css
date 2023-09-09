@@ -60,18 +60,25 @@ margin-left: 20%;
 }
 /* Styling for the parent div */
 .topics {
-    width: 90%;
-    display: flex; /* Make the child divs flex items */
-    justify-content: wrap; /* Spread child divs horizontally */
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
+    width: 90%;
+    display: flex; /* Make the child divs flex items */
+    flex-wrap: wrap; /* Spread child divs horizontally */
 }
 
 /* Styling for the child divs */
 .box {
-    width: calc(33.33% - 20px); /* Adjust the width as needed */
-    padding: 20px;
+    width: calc(20% - 10px); /*Adjust the width as needed*/
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    margin: 10px;
+}
+.box-text {
+    width: 90%; /*Adjust the width as needed*/
+    padding: 10px;
     background-color: #f0f0f0;
     border: 1px solid #ddd;
     margin: 10px;
@@ -93,10 +100,24 @@ p {
       font-family: monaco;
   }
 
+.code-text-overflow {
+    background-color: #f5fdff;
+    font-family: 'Courier New';
+    width:60%;
+    height:300px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .code-text {
     background-color: #f5fdff;
     font-family: 'Courier New';
+    width:60%;
+    white-space: pre-wrap;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 li{
@@ -106,6 +127,9 @@ h1{
     font-family: monaco;
 }
 h2{
+    font-family: monaco;
+}
+p{
     font-family: monaco;
 }
 h3{
