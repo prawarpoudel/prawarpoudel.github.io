@@ -21,20 +21,24 @@
     </div>
     <!-- following is the sidebar -->
     <div class="sidebar">
-        <a href="../index.html">Home</a>
-    <a href="../about.html">About</a>
+      <a href="https://prawarpoudel.github.io/about">About</a>
+      <a class="listt" href="../pages/rag.html">RAG Concept</a>
+      <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
+      <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
+      <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
+      <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
+      <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
     </div>
 
     <div class="content">
         <h1>... And Code Llama broke</h1>
-            <p>Disclaimer: The setup used here is described at my <a href="codellama_handson.html">CodeLLama HandsOn Page</a>.</p>
+            <p class="important">Disclaimer: The setup used here is described at my <a href="codellama_handson.html">CodeLLama HandsOn Page</a>.</p>
             <hr>
             <h2>A Rather Complex Task</h2>
                 <p>
                     The prompt input as following. The temperature was set to 0.1, the minimum possible.
                 </p>
-                <p class="code-text">
-                    Write a snake game in python. The snake should only grow when it eats the food. If the snake eats itself, it dies and the game is over.
+                <p class="code-text">Write a snake game in python. The snake should only grow when it eats the food. If the snake eats itself, it dies and the game is over.
                 </p>
                 <p>
                     This forced the LLM to go into a continuous loop and it kept on giving out following text:
@@ -229,7 +233,7 @@
                 </p>
                 <h3>What does ChatGPT do?</h3>
                     <p>
-                        The same prompt in chatGPT gives following:
+                        The same prompt in chatGPT gives following output:
                     </p>
                     <div class="box-text">
                         <p>
@@ -327,19 +331,20 @@ pygame.quit()
                         This is a basic implementation of a Snake game. You can enhance it by adding more features and improvements, such as scoring, increasing difficulty, and more realistic graphics.
                         </p>
                     </div>
+                <p>The extracted python code can be found at <a href="../artifacts/chatgpt_snakegame.py"> this link</a>. Its not a very user-friendly game,
+                but the code runs.</p>
             <hr style="border-top: dotted 0.5px;" />
             <h2>A seemingly easy task - 1</h2>
                 <p>
-                    However, the breaking was not limited to the difficult task mentioned above.
+                    However, the breaking of Code LLama was not limited to the difficult task mentioned above.
                 </p>
                 <p>
-                    It broke for a seemingly very easy task. It could be the easiest task of all.
+                    It broke for a seemingly very easy task. This might be the easiest task of all.
                 </p>
                 <p>
                     The input prompt was following:
                 </p>
-                <p class="code-text">
-                    write a code in python that takes an userinput and asks for user name
+                <p class="code-text">write a code in python that takes an userinput and asks for user name
                 </p>
                 <P>
                         Following is the output generated
@@ -364,11 +369,12 @@ Comment: Please include the actual error message you're seeing. Also, please for
 Answer: You need to put `"` around the string `"abc
                 </p>
                 <p>
-                    First off, its not a user runnable code. But thats okay.
+                    First off, its not a user runnable code. But rather a conversation, and thats okay.
                 </p>
                 <p>
-                    Secondly, it looks like some text from Stack Overflow or other forum. The question with the incorrect code is presented first.
-                     Then the solution to the issue is specified.
+                    Secondly, it looks like some text from Stack Overflow or other Q/A forum. In the conversation output that it gives out,
+                    the question with the incorrect code is given first.
+                     Then the solution to the issue is specified, which is totally irrelevant to the prompt that I presented.
                 </p>
                 <h3>What does ChatGPT do?</h3>
                     <p>
@@ -388,8 +394,7 @@ Answer: You need to put `"` around the string `"abc
             <p>
                 Prompt:
             </p>
-            <p class="code-text">
-                write a code in python that takes an userinput and asks for user name
+            <p class="code-text">write a code in python that takes an userinput and asks for user name
             </p>
             <p>
                 Following answer is generated.
@@ -418,7 +423,7 @@ def get_validated_input():
     while True:
             </p>
             <p>
-                This again looks like some answer that is copied and pasted from some forum, similar to the case above.
+                This again looks like some answer that is copied and pasted from some Q/A forum, similar to the case above.
             </p>
     </div>
 </body>

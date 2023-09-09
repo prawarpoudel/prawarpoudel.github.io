@@ -21,35 +21,42 @@
     </div>
     <!-- following is the sidebar -->
     <div class="sidebar">
-        <a href="../index.html">Home</a>
-    <a href="../about.html">About</a>
+      <a href="https://prawarpoudel.github.io/about">About</a>
+      <a class="listt" href="../pages/rag.html">RAG Concept</a>
+      <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
+      <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
+      <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
+      <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
+      <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
     </div>
 
     <div class="content">
-    <h1>Retrieval Augmented Generation (RAG)</h1>
-    <h2>Introduction</h2>
-    <p>
-        RAG is the technique to harness the power of LLMs such that LLMs can be used to serve a user's custom purpose. LLMs are, in almost all the cases, trained with the data that is available online. 
-        This means the contents to train LLMs have following properties:
-        <ul>
-            <li>has <mark>too much information</mark>, which are oftentimes unnecessary,</li>
-            <li><mark>may not contain enough information</mark> about the documents that a user is interested in.</li>
-        </ul>
-    </p>
-    <p>
-    Let us take an example of some proprietary documents from your company. You want use the power of LLM to be able to answer questions from the information contained within those documents. 
-    Training of LLMs could pose unnecessary cost; plus, your company may not have enough data or resource or time to train a model for this specific case. 
-    This is where the concept of RAG comes into play.
-    </p>
-    <p>
-    RAG still uses LLMs to be able to answer questions. However, the text string that is fed into the LLM as a prompt is modified such that the LLM is forced to derive answer from the content of the string or the prompt.
-    If we can construct the prompt from the documents that we are interested in, and force the LLM to answer from the content of the prompt, we achieve our goal of acquiring answers from the document that we want the answers from.
-    </p>
-    <p>Thus, <mark>Retrieval Augmented Generation (RAG)</mark> is a type of prompt engineering that unleashes the power of <mark>pre-trained LLM</mark> to extract information from user prescribed documents.</p>
 
-    <p class="important">Please visit the <a href="rag.html"> RAG description page </a> for a complete picture on the concept of RAG.</p>
-    <h2>Code Development</h2>
-    <iframe src="https://giphy.com/embed/SV0eVzpjTHIQD0eK2s" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <h1>Retrieval Augmented Generation (RAG)</h1>
+        <h2>Introduction</h2>
+        <p>
+            RAG is the technique to harness the power of LLMs such that LLMs can be used to serve a user's custom purpose. LLMs are, in almost all the cases, trained with the data that is available online. 
+            This means the contents to train LLMs have following properties:
+            <ul>
+                <li>has <mark>too much information</mark>, which are oftentimes unnecessary,</li>
+                <li><mark>may not contain enough information</mark> about the documents that a user is interested in.</li>
+            </ul>
+        </p>
+        <p>
+        Let us take an example of some proprietary documents from your company. You want to use the power of LLM to be able to answer questions from the information 
+        contained within those documents. 
+        Training of LLMs could pose unnecessary cost; plus, your company may not have enough data or resource or time to train a model for this specific case. 
+        This is where the concept of RAG comes into play.
+        </p>
+        <p>
+        RAG still uses LLMs to be able to answer questions. However, the text string that is fed into the LLM as a prompt is modified such that the LLM is forced to derive answer from the content of the string or the prompt.
+        If we can construct the prompt from the documents that we are interested in, and force the LLM to answer from the content of the prompt, we achieve our goal of acquiring answers from the document that we want the answers from.
+        </p>
+        <p>Thus, <mark>Retrieval Augmented Generation (RAG)</mark> is a type of prompt engineering that unleashes the power of <mark>pre-trained LLM</mark> to extract information from user prescribed documents.</p>
+    
+        <p class="important">Please visit the <a href="rag.html"> RAG description page </a> for a complete picture on the concept of RAG.</p>
+        <h2>Code Development</h2>
+        <iframe src="https://giphy.com/embed/SV0eVzpjTHIQD0eK2s" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     </div>
 </body>
 </html>
