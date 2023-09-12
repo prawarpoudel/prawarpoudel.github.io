@@ -101,7 +101,8 @@ p {
   }
 
 .code-text-overflow {
-    background-color: #f5fdff;
+    background-color: #003938;
+    color: #faddcd;
     font-family: 'Courier New';
     width:60%;
     height:300px;
@@ -112,7 +113,8 @@ p {
 }
 
 .code-text {
-    background-color: #f5fdff;
+    background-color: #003938;
+    color: #faddcd;
     font-family: 'Courier New';
     width:60%;
     white-space: pre-wrap;
