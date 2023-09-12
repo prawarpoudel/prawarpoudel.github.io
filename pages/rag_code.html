@@ -56,7 +56,8 @@
     
         <p class="important">Please visit the <a href="rag.html"> RAG description page </a> for a complete picture on the concept of RAG.</p>
         
-        <h2>Code Development</h2>
+        <h1>RAG Development</h1>
+        <h2>Getting Ready</h2>
         <p>
             First, let us install the required components. Following are the items that we will be needing.
         </p>
@@ -65,8 +66,172 @@ pip install sentence_transformers
 pip install pandas
 pip install rouge_score
 pip install nltk
+pip install accelerate transformers
         </p>
-        <iframe class="center" src="https://giphy.com/embed/SV0eVzpjTHIQD0eK2s" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <h2>Code Development</h2>
+        <p>
+            We have identified 4 major steps in the process of RAG development. We will include a prelude section, that needs to be done 
+            before the 4 steps. The 4 steps will be included sequentially below, following the prelude section. <mark>All the code presented here,
+                collected and compiled should be runnable.</mark>
+        </p>
+        <p class="important">Please visit the <a href="rag.html"> RAG description page </a> for a complete picture on the concept of RAG,
+            and to know more about the steps.</p>
+        <h3>Prelude</h3>
+        <ul>
+            <li>Import Embedding Functions, and sentence transformers</li>
+<p class="code-text">
+try:
+    from sentence_transformers import SentenceTransformer
+except Exception as e:
+    print(f"Error importing Sentence Transformers.")
+    print(f"Actual error is: {str(e)}")
+
+
+try:
+    import chromadb
+    from chromadb.api.types import EmbeddingFunction
+except Exception as e:
+    print(f"Error importing chromadb")
+    print(f"Actual error is {str(e)}")
+</p>
+        <li>Let us create our embedding function using one of the most popular sentence embedding model available, <mark>all-MiniLM-L6-v2</mark>.</li>
+<p class="code-text">
+class embeddingFunc(EmbeddingFunction):
+    # this is from a list of sentence transformers
+    # https://www.sbert.net/docs/pretrained_models.html#sentence-embedding-models/
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    def __call__(self, texts):
+        return embeddingFunc.model.encode(texts).tolist()
+
+our_embedding_Func = embeddingFunc()
+</p>
+        <li></li>
+        </ul>
+        <h3>Step 1: Embedding Documents</h3>
+        <ul>
+            <li>Let us read the documents.</li>
+            <ul>
+                <li>The documents are derived from Wikipedia and online articles.</li>
+                <li>The document data are saved into a (.tsv) file.</li>
+                <li>Each document have a id and title, so the column name of the data read from the .tsv file are <mark>id, text and title</mark>.</li>
+                <li>In my case, the document is saved in a file name <mark>documents.tsv</mark> inside folder <mark>knowledge_base</mark>.</li>
+                <li>My dataframe is named <mark>knowledge_base</mark>.</li>
+            </ul>
+            <p class="code-text">
+import os
+
+
+folder_name = "knowledge_base"
+f_name = "documents.tsv"
+knowledge_base = pd.read_csv(os.path.join(folder_name,f_name),sep="\t")
+print(f"knowledge read of shape: {knowledge_base.shape}")
+print(f"{knowledge_base.columns}")
+            </p>
+            <li>Let us embed the document and save into the vector database.</li>
+            <ul>
+                <li>Let us first create a database and a collection inside the database.</li>
+                <li>I named my database as <mark>chroma_db</mark> and my collection as <mark>my_rag</mark>.</li>
+<p class="code-text">
+db_folder_name = "chroma_db"
+ch_client = chromadb.PersistentClient(path=db_folder_name)
+
+# let us create a colection; if the collection exists, it will get the collection
+collection_name = "my_rag"
+ch_collection = ch_client.get_or_create_collection(name = collection_name,
+                                        embedding_function = our_embedding_Func)
+</p>
+                <li>Let us describe a function that adds data into the collection of the vector database.</li>
+<p class="code-text">
+# upsert because upsert has benefits over just adding,
+# .. if id already exists, upsert updates the data; else adds the data
+def add(texts,metadata,id):
+    ch_collection.upsert(metadatas=metadata,documents=texts,ids=id)
+</p>
+                <li>Now, let us embed dataframe <mark>knowledge_base</mark> into the database.</li>
+                <li>We will create a metadata out of the <mark>title</mark> and <mark>id</mark>.</li>
+<p class="code-text">
+text_from_knowledgebase = knowledge_base['text'].tolist()
+metadata = [{'title':title, 'id': id} for (title,id) in zip(knowledge_base.title, knowledge_base.id)]
+ids = [str(i) for i in knowledge_base.id]
+add(text_from_knowledgebase,metadata,ids)
+</p>
+            </ul>
+        </ul>
+        <h3>Step 2 &amp; 3: Searching Relevant Contexts for Question</h3>
+        <ul>
+            <li>First, let us define a function to query the vector database.</li>
+<p class="code-text">
+# to search the dcuments from database
+def query(query_text,num_results=5):
+    return ch_collection.query(query_texts=query_text,n_results=num_results) 
+</p>
+            <li>To query, we need a question that we want answer from. So, let us read a set of questions first.</li>
+            <ul>
+                <li>The data consists of questions and answers. The column names are <mark>qid, question, answer</mark>.</li>
+<p class="code-text">
+qa_file_first = 'qa_first.tsv'
+
+first_data = pd.read_csv(qa_file_first,delimiter="\t")
+print(f"First data read is of shape {first_data.shape}") 
+</p>
+                <li>Let us select a question at random. We will select relevant contexts for this question.</li>
+<p class="code-text">
+# let us pick a randm question to play around with
+import random
+all_question_texts = first_data['question'].tolist()
+question_picked_now = random.choice(all_question_texts)
+</p>
+            </ul>
+            <li>Now, let us query 5 relevent contexts from the knowledge_base database.</li>
+<p class="code-text">
+question_contexts = query(question_picked_now,5)
+</p>
+        </ul>
+        <h3>Step 4: Getting Answer</h3>
+        <ul>
+            <li>Let us define the model. We will be using <mark>Google Flan-UL2 model</mark>. This will take a very long time to 
+            download for the first time. The model is saved into a cached folder, and will take significantly less time to load from 
+            second time onwards.</li>
+<p class="code-text">
+# hint from https://huggingface.co/google/flan-ul2
+
+from transformers import T5ForConditionalGeneration, AutoTokenizer
+import torch
+model = T5ForConditionalGeneration.from_pretrained("google/flan-ul2",
+          torch_dtype=torch.bfloat16, device_map="auto")                                                                 
+tokenizer = AutoTokenizer.from_pretrained("google/flan-ul2")
+</p>
+            <li>Let us create a prompt by modifying a question statement by adding the relevant context.</li>
+<p class="code-text">
+question_st = "Answer the following question based on the relevant contexts attached:"
+
+prompt = f"{question_st}"+\
+            "\n\n"+\
+            "contexts: "+\
+            "\n\n\n".join(question_contexts['documents'][0])+\
+            "\n\n"+\
+            "question: "+\
+            question_picked_now+\
+            "\n\n"+\
+            "answer:"
+</p>
+            <li>Let us feed the prompt into the model to get the answer. The final line of the following code prints the output.</li>
+<p class="code-text">
+inputs = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
+outputs = model.generate(inputs, max_length=200)
+print(tokenizer.decode(outputs[0]))
+</p>
+        </ul>
+    <h2>Validation</h2>
+    <p>
+        In my case, the question picked at random is shown below:
+        <img src="../images/rag_question.png" class="center-image">
+    </p>
+    <p>
+        Following is the answer produced:
+        <img src="../images/rag_answer.png" class="center-image">
+    </p>
+
     </div>
 </body>
 </html>
