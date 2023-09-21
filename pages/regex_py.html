@@ -8,7 +8,7 @@
     <meta name="description" content="">
   
     <link rel="stylesheet" href="../css/main.css" type="text/css" />
-    <title>Retrieval Augmented Generation (RAG)</title>
+    <title>Regex in Python</title>
 </head>
 
 <body>  
@@ -145,7 +145,11 @@ for each_str in strings:
     </p>
     <hr>
     <p>
-        Example III: Let us find a set of characters.
+        Example III: Let us find a set of characters. <mark>group()</mark> function can be used to print the first matching sequence of the <mark>re.Match</mark> object.
+        <br>
+        Similarly, <mark>.start()</mark> function can be used to print the starting position of the first matching sequence.
+        <br>
+        Similarly, <mark>.span()</mark> function can be used to access the tuple with start and end index of the matching sequence.
         <div class="box-text">
             <p class="code-text">import re
 
@@ -203,8 +207,119 @@ for each_str in strings:
 ------
              </p>
              <p>
-                If we look closely, we can see how the use of * differs from the use of + for repetition of the numbers [0-9]
+                If we look closely, we can see how the use of * differs from the use of + for repetition of the numbers [0-9].
              </p>
+        </div>
+    </p>
+    <hr>
+    <p>
+        Example IV:
+        <div class="box-text">
+            Let us look at hte special sequences
+            <p class="code-text">import re
+
+strings = ['this is sentence','his book']
+for each_str in strings:
+    x = re.search(r'\bhis',each_str)
+    print(x)
+    if x:
+        print(x.group())
+    print('--')
+    x = re.search(r'his\b',each_str)
+    print(x)
+    if x:
+        print(x.group())
+    print('--')
+    x = re.search(r'\Ath',each_str)
+    print(x)
+    if x:
+        print(x.group())
+    print('--')
+    print('--')
+            </p>
+            <p>
+                \b looks for either at the start or end of the word, \A looks at the beginning of the string.
+            </p>
+            <p class="code-text">None
+--
+&lt;re.Match object; span=(1, 4), match='his'&gt;
+his
+--
+&lt;re.Match object; span=(0, 2), match='th'&gt;
+th
+--
+--
+&lt;re.Match object; span=(0, 3), match='his'&gt;
+his
+--
+&lt;re.Match object; span=(0, 3), match='his'&gt;
+his
+--
+None
+--
+--                
+            </p>
+        </div>
+    </p>
+    <hr>
+    <p> Example V:
+        <div class="box-text">
+            Let us see how to exclude characters. Characters can be excluded by using caret sign as follows. The following 
+            example looks for sequence that is not a digit (as indicated by <mark>[^0-9]</mark>). The curly braces indicates
+            the no of repitiion to search for, i.e. in this case, it will group 4 characters that are not 0-9.
+            <p class="code-text">import re
+
+strings = ['this is sentence','his book']
+for each_str in strings:
+    x = re.search('[^0-9]{4}',each_str)
+    print(x)
+    if x:
+        print(x.group())
+    x = re.findall('[^0-9]{4}',each_str)
+    print(x)
+    print('--')
+            </p>
+            Following shows the output
+            <p class="code-text">&lt;re.Match object; span=(0, 4), match='this'&gt;
+this
+['this', ' is ', 'sent', 'ence']
+--
+&lt;re.Match object; span=(0, 4), match='his '&gt;
+his 
+['his ', 'book']
+--     
+            </p>
+        </div>
+    </p>
+    <p>
+        Example VI: Sub
+        <div class="box-text">
+            Let us modify the above code slightly and replace the first 4 non-digit characters of the strings with <mark>kera</mark>
+            <p class="code-text">import re
+
+strings = ['this is sentence','his book']
+for each_str in strings:
+    x = re.sub('^[^0-9]{4}','kera',each_str)
+    print(x)
+    print('--')
+            </p>
+            Following is the output
+            <p class="code-text">kera is sentence
+--
+kerabook
+--
+
+            </p>
+            <hr>
+            The same thing as above can be achieved by using the optional argument, <mark>maxsplit</mark>. 
+            <p class="code-text">import re
+
+strings = ['this is sentence','his book']
+for each_str in strings:
+    x = re.sub('[^0-9]{4}','kera',each_str,1)
+    print(x)
+    print('--')
+            </p>
         </div>
     </p>
     </div>
