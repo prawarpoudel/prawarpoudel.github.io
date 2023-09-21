@@ -21,14 +21,19 @@
     </div>
     <!-- following is the sidebar -->
     <div class="sidebar">
-      <a href="https://prawarpoudel.github.io/about">About</a>
-      <a class="listt" href="../pages/rag.html">RAG Concept</a>
-      <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
-      <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
-      <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
-      <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
-      <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
-      <a class="listt" href="../pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt?</a>
+        <a href="https://prawarpoudel.github.io/about">About</a>
+        <a class="listt" href="../pages/rag.html">RAG Concept</a>
+        <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
+        <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
+        <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
+        <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
+        <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
+        <a class="listt" href="../pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt</a>
+        <a class="listt" href="../pages/datascience_topics.html">Various Data Science Topics</a>
+        <a class="listt" href="../pages/discriminative.html">Discriminative Vs Generative Models</a>
+        <a class="listt" href="../pages/gan.html">Generative Adversarial Models</a>
+        <a class="listt" href="../pages/programming_topics.html">Various Programming Topics</a>
+        <a class="listt" href="../pages/regex_py.html">Regex in python</a>
     </div>
 
     <div class="content">
@@ -38,9 +43,114 @@
             How Non-AI Experts Try (and Fail) to Design LLM Prompts</mark>. The paper can be found
              at <a href="https://dl.acm.org/doi/pdf/10.1145/3544548.3581388">this link</a>.
     </p>
+    <hr>
     <p>
-        This paper explores whether non AI experts can engage in prompt engineering successfully. They design a
-        prototype LLM-based chat bot design tool supporting development and systematic evaluation of prompting strategies.
+        While prompting LLMs can appear efortless, designing efective prompting strategies requires identifying the contexts 
+        in which these LLMs’ errors arise, devising prompting strategies to overcome them, and systematically assessing those strategies’
+        efectiveness.
+    </p>
+    <p>
+        In this work, they investigate how non-AI-experts intuitively approach prompt design when designing LLM-based chatbots, with an eye towards how non-AI-expert-facing design tools might help.
+    </p>
+    <p>
+        They think that chat-based interactions with LLMs can provide a powerful engine for a wide variety of tasks, including joke-writing,
+        programming, writing college-level essays, medical diagnoses, and more.
+    </p>
+    <p>
+        So they creat a no-code LLM based chatbot design tool, <mark>BotDesigner</mark> that allows users to create
+        an LLM based chatbot solely through prompts.
+    </p>
+    <p>
+        They, then examine how 10 participants perform a chatbot design task using <mark>BotDesigner</mark>.
+    </p>
+    <p>
+        Their observations:
+        <ul>
+            <li>
+                People can make a final design but tend to design opportunistically
+            </li>
+            <li>
+                People struggle to make a systematic, robust progress
+            </li>
+            <li>
+                People tend to have inclinations to design prompts that resemble human-to-human instructions.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p class="important">
+        Contributions
+    </p>
+    <p>
+        <ul>
+            <li>
+                Describe a no-code LLM-and-prompt based chatbot design tool that encourages iterative design
+                 and evaluation of robust prompting strategies (rather than opportunistic experimentation).
+            </li>
+            <li>
+                Describe how non-AI experts approach prompt design; and where they struggle.
+            </li>
+            <li>
+                Identifies opportunities for non-AI experts-facing-prompt-design tools.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p class="important">
+        Today's Non Expert Prompt Design
+    </p>
+    <p> One of the desgin practice is as follows:
+        <ul>
+            <li>
+                First identify the chatbot's functionality or persona and draft ideal user-bot conversations
+            </li>
+            <li>
+                create a dialogue fow template (e.g., “(1) greeting message; (2) questions to collect user intention; (3) ...”);
+            </li>
+            <li>
+                fll the template with supervised NLP models (e.g., user intent classifer, response generator, etc.)
+            </li>
+            <li>
+                iterate on these components to achieve a desired conversational experience.
+            </li>
+        </ul>
+    </p>
+    <p>
+        But this requires substantial programming and machine learning knowledge.
+    </p>
+    <p>
+        Next design technique is <mark>pre-train, prompt, predict</mark>. This allows designers to create conversational
+        agents with little to no training data, programming or ML skill or even NLP knowledge. 
+        <ul>
+            <li>
+                Use of pre-trained LLM models, such as chatGPT
+            </li>
+            <li>
+                create conversational systems, but sometimes problematic performance
+            </li>
+            <li>
+                attach prompts to the user inputs to improve the performance.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        Some idea on improving the LLM outputs in a conversational contexts
+        <ul>
+            <li>
+                Give examples of desired interactions in prompts (for example, n-shot prompting)
+            </li>
+            <li>
+                Craft prompt that looks like code, for example like Jinja
+            </li>
+            <li>
+                Repeat yourself. For example, in DALL-E, they show that repeating like <i>a neon sign that reads backprop; backprop neon sign;
+                    a neon sign that backprop</i> produces more effective result. (unsure about text based tasks)
+            </li>
+        </ul>
+    </p>
+    <p>
+        TODO....
     </p>
     </div>
 </body>
