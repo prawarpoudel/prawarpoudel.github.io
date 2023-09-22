@@ -32,6 +32,15 @@
    <a class="" href="https://prawarpoudel.github.io/about">
     About
    </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    Various AI Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
    <a class="listt" href="../pages/rag.html">
     RAG Concept
    </a>
@@ -53,17 +62,11 @@
    <a class="listt" href="../pages/whyjohnnycantprompt.html">
     Why Jhonny Cant't Prompt
    </a>
-   <a class="listt" href="../pages/datascience_topics.html">
-    Various Data Science Topics
-   </a>
    <a class="listt" href="../pages/discriminative.html">
     Discriminative Vs Generative Models
    </a>
    <a class="listt" href="../pages/gan.html">
     Generative Adversarial Models
-   </a>
-   <a class="listt" href="../pages/programming_topics.html">
-    Various Programming Topics
    </a>
    <a class="listt" href="../pages/regex_py.html">
     Regex in python
@@ -211,103 +214,103 @@
      </mark>
     </li>
    </ul>
-   <hr style="border-top: dotted 0.5px;">
-    <h2>
-     Getting Hands Dirty: Download Model
-    </h2>
-    <p>
-     Now that installation is complete, and we have successfully run the UI, let us explore the UI.
-    </p>
-    <p>
-     On the top of the UI, we can see many tabs. Let us go to the
-     <mark>
-      Model
-     </mark>
-     tab. This is where we can select
+   <hr style="border-top: dotted 0.5px;"/>
+   <h2>
+    Getting Hands Dirty: Download Model
+   </h2>
+   <p>
+    Now that installation is complete, and we have successfully run the UI, let us explore the UI.
+   </p>
+   <p>
+    On the top of the UI, we can see many tabs. Let us go to the
+    <mark>
+     Model
+    </mark>
+    tab. This is where we can select
                     the LLM model that we want to use. If we do not have the model locally, we can provide the model name and it will
                     download the model from Hugging Face.
-    </p>
-    <p>
-     As shown in the figure below, we put in the name
-     <mark>
-      TheBloke/WizardCoder-Python-13B-V1.0-GPTQ
-     </mark>
-     . This is an
+   </p>
+   <p>
+    As shown in the figure below, we put in the name
+    <mark>
+     TheBloke/WizardCoder-Python-13B-V1.0-GPTQ
+    </mark>
+    . This is an
                     optimized version of
-     <mark>
-      Code LLama-Python
-     </mark>
-     . The download will take several minutes since the model is a huge file.
+    <mark>
+     Code LLama-Python
+    </mark>
+    . The download will take several minutes since the model is a huge file.
+   </p>
+   <p>
+    <img alt="model download" class="center-image" src="../images/break_codellama_1.png"/>
+   </p>
+   <hr style="border-top: dotted 0.5px;"/>
+   <h2>
+    Getting Hands Dirty: Set Up Model
+   </h2>
+   <p>
+    Once the model is downloaded, or if you already have a model that is downloaded and placed in folder
+    <mark>
+     model
+    </mark>
+    ,
+                   clicking on the refresh button (labelled as 1 in figure below) will list them in the dropdown list (marked as 2 in the figure below).
+   </p>
+   <p>
+    The recommened model loader for code llama is
+    <mark>
+     ExLlama_HF
+    </mark>
+    . This can be selected from the
+    <mark>
+     Model loader
+    </mark>
+    section 
+                    (marked as 3 in the figure below).
+   </p>
+   <p>
+    <img alt="select model and load" class="center-image" src="../images/break_codellama_2.png"/>
+   </p>
+   <p>
+    Once the model is selected, and the loader is selected, click on the
+    <mark>
+     Load
+    </mark>
+    button (labelled as 4) to load the model.
+   </p>
+   <hr>
+    <h2>
+     Prompting
+    </h2>
+    <p>
+     Now that we have got everything set up, let us test the LLM and see if it servers any of our purpose.
     </p>
     <p>
-     <img alt="model download" class="center-image" src="../images/break_codellama_1.png"/>
+     For this, switch over to the
+     <mark>
+      Default
+     </mark>
+     tab on the top of UI. Here, we can put in the prompt, and see the generated response.
     </p>
-    <hr style="border-top: dotted 0.5px;">
-     <h2>
-      Getting Hands Dirty: Set Up Model
-     </h2>
-     <p>
-      Once the model is downloaded, or if you already have a model that is downloaded and placed in folder
-      <mark>
-       model
-      </mark>
-      ,
-                   clicking on the refresh button (labelled as 1 in figure below) will list them in the dropdown list (marked as 2 in the figure below).
-     </p>
-     <p>
-      The recommened model loader for code llama is
-      <mark>
-       ExLlama_HF
-      </mark>
-      . This can be selected from the
-      <mark>
-       Model loader
-      </mark>
-      section 
-                    (marked as 3 in the figure below).
-     </p>
-     <p>
-      <img alt="select model and load" class="center-image" src="../images/break_codellama_2.png"/>
-     </p>
-     <p>
-      Once the model is selected, and the loader is selected, click on the
-      <mark>
-       Load
-      </mark>
-      button (labelled as 4) to load the model.
-     </p>
-     <hr/>
-     <h2>
-      Prompting
-     </h2>
-     <p>
-      Now that we have got everything set up, let us test the LLM and see if it servers any of our purpose.
-     </p>
-     <p>
-      For this, switch over to the
-      <mark>
-       Default
-      </mark>
-      tab on the top of UI. Here, we can put in the prompt, and see the generated response.
-     </p>
-     <h3>
-      Q1. A simple Task
-     </h3>
-     <p>
-      Following prompt was provided.
-     </p>
-     <p class="code-text">
-      Write a code for the question below:
+    <h3>
+     Q1. A simple Task
+    </h3>
+    <p>
+     Following prompt was provided.
+    </p>
+    <p class="code-text">
+     Write a code for the question below:
 
 Question:  Write a code in python that generates number from 1 to 100.
 
 Factual answer:
-     </p>
-     <p>
-      Following output is generated:
-     </p>
-     <p class="code-text-overflow">
-      Write a code for the question below:
+    </p>
+    <p>
+     Following output is generated:
+    </p>
+    <p class="code-text-overflow">
+     Write a code for the question below:
 
 Question:  Write a code in python that generates number from 1 to 100.
 
@@ -328,8 +331,8 @@ print(numbers)
 ```
 
 This creates a list called `numbers` containing all the integers from 1 to 100. You can then access individual elements by indexing into the list or iterate over it with a for loop.
-     </p>
-     <hr/>
+    </p>
+    <hr>
      <p>
       To look at cases where the output of the model breaks, please visit my
       <a href="breaking_codellama.html">

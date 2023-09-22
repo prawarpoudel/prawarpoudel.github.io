@@ -3,6 +3,18 @@ table_contents:
     class: ""
     href: "https://prawarpoudel.github.io/about"
     string: "About"
+  "13":
+    class: 'listt'
+    href: "../pages/ai_topics.html"
+    string: "Various AI Topics"
+  "9":
+    class: 'listt'
+    href: "../pages/datascience_topics.html"
+    string: "Various Data Science Topics"
+  "12":
+    class: 'listt'
+    href: "../pages/programming_topics.html"
+    string: "Various Programming Topics"
   "2":
     class: 'listt'
     href: "../pages/rag.html"
@@ -31,10 +43,6 @@ table_contents:
     class: 'listt'
     href: "../pages/whyjohnnycantprompt.html"
     string: "Why Jhonny Cant't Prompt"
-  "9":
-    class: 'listt'
-    href: "../pages/datascience_topics.html"
-    string: "Various Data Science Topics"
   "10":
     class: 'listt'
     href: "../pages/discriminative.html"
@@ -43,11 +51,7 @@ table_contents:
     class: 'listt'
     href: "../pages/gan.html"
     string: "Generative Adversarial Models"
-  "12":
-    class: 'listt'
-    href: "../pages/programming_topics.html"
-    string: "Various Programming Topics"
-  "13":
+  "14":
     class: 'listt'
     href: "../pages/regex_py.html"
     string: "Regex in python"
