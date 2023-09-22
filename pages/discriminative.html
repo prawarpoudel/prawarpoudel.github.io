@@ -1,212 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Prawar Poudel">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-  
-    <link rel="stylesheet" href="../css/main.css" type="text/css" />
-    <title>Discriminative Vs Generative Models</title>
-</head>
-
-<body>  
-    <!-- this one is on the top for navigation -->
-    <div class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../about.html">About</a>
-        <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&hl=en">Google Scholar</a>
-    </div>
-    <!-- following is the sidebar -->
-    <div class="sidebar">
-        <a href="https://prawarpoudel.github.io/about">About</a>
-        <a class="listt" href="../pages/rag.html">RAG Concept</a>
-        <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
-        <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
-        <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
-        <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
-        <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
-        <a class="listt" href="../pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt</a>
-        <a class="listt" href="../pages/datascience_topics.html">Various Data Science Topics</a>
-        <a class="listt" href="../pages/discriminative.html">Discriminative Vs Generative Models</a>
-        <a class="listt" href="../pages/gan.html">Generative Adversarial Models</a>
-        <a class="listt" href="../pages/programming_topics.html">Various Programming Topics</a>
-        <a class="listt" href="../pages/regex_py.html">Regex in python</a>
-    </div>
-
-    <div class="content">
-        <h1>Discriminative Vs Generative Models</h1>
-        <p> 
-            Reading through <a href="https://www.analyticsvidhya.com/blog/2021/07/deep-understanding-of-discriminative-and-generative-models-in-machine-learning/">analytics vidhya</a>,
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Discriminative Vs Generative Models
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Discriminative Vs Generative Models
+   </h1>
+   <p>
+    Reading through
+    <a href="https://www.analyticsvidhya.com/blog/2021/07/deep-understanding-of-discriminative-and-generative-models-in-machine-learning/">
+     analytics vidhya
+    </a>
+    ,
             following are the major points to take away:
-            <ul>
-                <li>
-                    Machine Learning models can be classified into two categories: (a) Discriminative, and (b) Generative
-                </li>
-                <li>
-                    Discriminative model tries to draw boundaries in the data space whereas Generative model tries to model how the data is placed/distributed.
-                </li>
-                <hr>
-                <li>
-                    <mark>Discriminative Models:</mark>
-                    <ul>
-                        <li>
-                            use (conditional) probability to discriminate the datasets.
-                        </li>
-                        <li>
-                            Data sets can be unseen.
-                        </li>
-                        <li>
-                            Used to make predictions, and used for classification and regression problems.
-                        </li>
-                        <li>
-                            unable to generate new data points, since they are focused only on generating boundaries
-                        </li>
-                        <li>
-                            mostly used for supervised learning tasks
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <mark>Generative Models:</mark>
-                    <ul>
-                        <li>
-                            focuses on the distribution of datasets
-                        </li>
-                        <li>
-                            to find the probability
-                        </li>
-                        <li>
-                            they are able to generate new data points similar to training datasets since they capture the distribution of the dataset
-                        </li>
-                        <li>
-                            mostly suited for unsupervised learning tasks
-                        </li>
-                    </ul>
-                </li>
-                <hr>
-                <li>
-                    Presents an example of spam email filtering using the two methods
-                </li>
-                <li>
-                    <mark>Discriminative Models:</mark>
-                    <ul>
-                        <li>
-                            Tries to define the <mark>boundary</mark> condition of what defines the spam vs not spam email, using training datasets
-                        </li>
-                        <li>
-                            i.e. somehow find the P(Y|X), Y being probability of email being spam, X being words in the email.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <mark>Generative Models:</mark>
-                    <ul>
-                        <li>
-                            derives the conditional probability that P(X|Y) and P(Y) from general observation or training datasets
-                        </li>
-                        <li>
-                            uses <mark>Bayes Theorem</mark> to calculate P(Y|X) after P(X|Y) and P(Y) is estimated
-                        </li>
-                    </ul>
-                </li>
-                <hr>
-                <li>
-                    Some more points on each 
-                </li>
-                <li>
-                    <mark>Discriminative Models:</mark>
-                    <ul>
-                        <li>
-                            Some of the popular examples are:
-                            <ul>
-                                <li>
-                                    Logistic regression, SVMs, NNs, Nearest Neighbour, Desicion Trees, Random Forests etc
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Impacted negligibly by outlier.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <mark>Generative Models:</mark>
-                    <ul>
-                        <li>
-                            they often rely on Bayes Theorem, so they can solve complex tasks than analgous discriminative model
-                        </li>
-                        <li>
-                            Examples are:
-                            <ul>
-                                <li>
-                                    Naiive Bayes, Bayesian Network, Markov Random fields, Hidden Markov Model, Latent Dirichlet Allocation, Generative Adversarial Networks, Autoregressive Model
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Impacted highly by any outlier.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </p>
-        <hr>
-        <hr>
-        <p>
-            Reading through <a href="https://www.turing.com/kb/generative-models-vs-discriminative-models-for-deep-learning">turing.com</a>, following are the major take aways:
-            <ul>
-                <li>
-                    They present an exmaple of topper twins, who are both toppers in their class. But, they have a different approach to preparing for tests.
-                </li>
-                <li>
-                    The first one
-                    <ul>
-                        <li>
-                            goes into detail of each topic,
-                        </li>
-                        <li>
-                            once he grasps, never forgets it
-                        </li>
-                        <li>
-                            but the process is cumbersome, and needs more time to prepare
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    The second one 
-                    <ul>
-                        <li>
-                            gets a general idea about any topic
-                        </li>
-                        <li>
-                            learns the differences and patterns of each subtopics,
-                        </li>
-                        <li>
-                            has more flexibility in thinking
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    Here the first is analogous to Generative Modeling while the second one is analogous to Discriminative modeling.
-                </li>
-                <li>
-                    Deep Learning algo like ANN, CNN, RNN use Discriminative approach.
-                </li>
-                <li>
-                    Deep Learning algo like autoencoder, Botlzmann machine, self organizing maps use Generative approach
-                </li>
-            </ul>
-        </p>
-        <hr>
-        <hr>
-        <p>
-            Having read through the above topics and after creating a faint idea, the google developer page was a very good source to learn. It can be found at
-             <a href="https://developers.google.com/machine-learning/gan/generative">this link</a>.
-        </p>
-
-    </div>
-</body>
+    <ul>
+     <li>
+      Machine Learning models can be classified into two categories: (a) Discriminative, and (b) Generative
+     </li>
+     <li>
+      Discriminative model tries to draw boundaries in the data space whereas Generative model tries to model how the data is placed/distributed.
+     </li>
+     <hr/>
+     <li>
+      <mark>
+       Discriminative Models:
+      </mark>
+      <ul>
+       <li>
+        use (conditional) probability to discriminate the datasets.
+       </li>
+       <li>
+        Data sets can be unseen.
+       </li>
+       <li>
+        Used to make predictions, and used for classification and regression problems.
+       </li>
+       <li>
+        unable to generate new data points, since they are focused only on generating boundaries
+       </li>
+       <li>
+        mostly used for supervised learning tasks
+       </li>
+      </ul>
+     </li>
+     <li>
+      <mark>
+       Generative Models:
+      </mark>
+      <ul>
+       <li>
+        focuses on the distribution of datasets
+       </li>
+       <li>
+        to find the probability
+       </li>
+       <li>
+        they are able to generate new data points similar to training datasets since they capture the distribution of the dataset
+       </li>
+       <li>
+        mostly suited for unsupervised learning tasks
+       </li>
+      </ul>
+     </li>
+     <hr/>
+     <li>
+      Presents an example of spam email filtering using the two methods
+     </li>
+     <li>
+      <mark>
+       Discriminative Models:
+      </mark>
+      <ul>
+       <li>
+        Tries to define the
+        <mark>
+         boundary
+        </mark>
+        condition of what defines the spam vs not spam email, using training datasets
+       </li>
+       <li>
+        i.e. somehow find the P(Y|X), Y being probability of email being spam, X being words in the email.
+       </li>
+      </ul>
+     </li>
+     <li>
+      <mark>
+       Generative Models:
+      </mark>
+      <ul>
+       <li>
+        derives the conditional probability that P(X|Y) and P(Y) from general observation or training datasets
+       </li>
+       <li>
+        uses
+        <mark>
+         Bayes Theorem
+        </mark>
+        to calculate P(Y|X) after P(X|Y) and P(Y) is estimated
+       </li>
+      </ul>
+     </li>
+     <hr/>
+     <li>
+      Some more points on each
+     </li>
+     <li>
+      <mark>
+       Discriminative Models:
+      </mark>
+      <ul>
+       <li>
+        Some of the popular examples are:
+        <ul>
+         <li>
+          Logistic regression, SVMs, NNs, Nearest Neighbour, Desicion Trees, Random Forests etc
+         </li>
+        </ul>
+       </li>
+       <li>
+        Impacted negligibly by outlier.
+       </li>
+      </ul>
+     </li>
+     <li>
+      <mark>
+       Generative Models:
+      </mark>
+      <ul>
+       <li>
+        they often rely on Bayes Theorem, so they can solve complex tasks than analgous discriminative model
+       </li>
+       <li>
+        Examples are:
+        <ul>
+         <li>
+          Naiive Bayes, Bayesian Network, Markov Random fields, Hidden Markov Model, Latent Dirichlet Allocation, Generative Adversarial Networks, Autoregressive Model
+         </li>
+        </ul>
+       </li>
+       <li>
+        Impacted highly by any outlier.
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <hr/>
+   <p>
+    Reading through
+    <a href="https://www.turing.com/kb/generative-models-vs-discriminative-models-for-deep-learning">
+     turing.com
+    </a>
+    , following are the major take aways:
+    <ul>
+     <li>
+      They present an exmaple of topper twins, who are both toppers in their class. But, they have a different approach to preparing for tests.
+     </li>
+     <li>
+      The first one
+      <ul>
+       <li>
+        goes into detail of each topic,
+       </li>
+       <li>
+        once he grasps, never forgets it
+       </li>
+       <li>
+        but the process is cumbersome, and needs more time to prepare
+       </li>
+      </ul>
+     </li>
+     <li>
+      The second one
+      <ul>
+       <li>
+        gets a general idea about any topic
+       </li>
+       <li>
+        learns the differences and patterns of each subtopics,
+       </li>
+       <li>
+        has more flexibility in thinking
+       </li>
+      </ul>
+     </li>
+     <li>
+      Here the first is analogous to Generative Modeling while the second one is analogous to Discriminative modeling.
+     </li>
+     <li>
+      Deep Learning algo like ANN, CNN, RNN use Discriminative approach.
+     </li>
+     <li>
+      Deep Learning algo like autoencoder, Botlzmann machine, self organizing maps use Generative approach
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <hr/>
+   <p>
+    Having read through the above topics and after creating a faint idea, the google developer page was a very good source to learn. It can be found at
+    <a href="https://developers.google.com/machine-learning/gan/generative">
+     this link
+    </a>
+    .
+   </p>
+  </div>
+ </body>
 </html>

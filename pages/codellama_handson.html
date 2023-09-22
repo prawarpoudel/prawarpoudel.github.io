@@ -1,153 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Prawar Poudel">
-    <meta name="keywords" content="Codellama, tutorial, chatgpt">
-    <meta name="description" content="Code Llama HandsOn">
-  
-    <link rel="stylesheet" href="../css/main.css" type="text/css" />
-    <title>Code LLama From Meta (HandsOn Example)</title>
-</head>
-
-<body>  
-    <!-- this one is on the top for navigation -->
-    <div class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../about.html">About</a>
-        <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&hl=en">Google Scholar</a>
-    </div>
-    <!-- following is the sidebar -->
-    <div class="sidebar">
-        <a href="https://prawarpoudel.github.io/about">About</a>
-        <a class="listt" href="../pages/rag.html">RAG Concept</a>
-        <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
-        <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
-        <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
-        <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
-        <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
-        <a class="listt" href="../pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt</a>
-        <a class="listt" href="../pages/datascience_topics.html">Various Data Science Topics</a>
-        <a class="listt" href="../pages/discriminative.html">Discriminative Vs Generative Models</a>
-        <a class="listt" href="../pages/gan.html">Generative Adversarial Models</a>
-        <a class="listt" href="../pages/programming_topics.html">Various Programming Topics</a>
-        <a class="listt" href="../pages/regex_py.html">Regex in python</a>
-    </div>
-
-    <div class="content">
-        <h1>Introduction</h1>
-        <p>
-            Code Llama is a suite of <mark>Large Language Models (LLMs)</mark> developed by Meta. Code LLama is inspired by Llama-2, and is 
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="Codellama, tutorial, chatgpt" name="keywords"/>
+  <meta content="Code Llama HandsOn" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Code LLama From Meta (HandsOn Example)
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Introduction
+   </h1>
+   <p>
+    Code Llama is a suite of
+    <mark>
+     Large Language Models (LLMs)
+    </mark>
+    developed by Meta. Code LLama is inspired by Llama-2, and is 
             geared towards generation of code. Please find the Meta's blog about the introduction to Code Llama at
-             <a href="https://about.fb.com/news/2023/08/code-llama-ai-for-coding/">this link</a>.
-        </p>
-        <p>
-            The original paper for Code Llama can be found at <a href="https://arxiv.org/abs/2308.12950">this link</a>. I read through
-           the paper, and have summarized my readings at <a href="codellama.html">this page</a>. It might still be a bit technical because its written
+    <a href="https://about.fb.com/news/2023/08/code-llama-ai-for-coding/">
+     this link
+    </a>
+    .
+   </p>
+   <p>
+    The original paper for Code Llama can be found at
+    <a href="https://arxiv.org/abs/2308.12950">
+     this link
+    </a>
+    . I read through
+           the paper, and have summarized my readings at
+    <a href="codellama.html">
+     this page
+    </a>
+    . It might still be a bit technical because its written
             as a go to place of reference for myself. If you have any comments or suggestions, please contact me via
-             <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>.
-        </p>
-        <hr>
-        <p class="important">
-            To look at cases to see some weird outputs generated by Code Llama, please visit my <a href="breaking_codellama.html">breaking Code LLama</a> page.
-        </p>
-        <hr>
-        <h1>Getting Started</h1>
-            <p>
-                The implementation that I am using here is heavily guided by the youtube video of Matthew Berman. The video can be found at
-                <a href="https://www.youtube.com/watch?v=g5uNdrxZ5wI">this link</a>. The example that he presents in his video is neat for following two reasons:
-                <ul>
-                    <li>First, the introduction of <mark>Text Generation UI</mark>, which I was unaware of. Available in Github at <a href="https://github.com/oobabooga/text-generation-webui">this link</a>. </li>
-                    <li>Second, introduction of <mark>quantized CodeLlama models</mark>. Models available from <a href="https://huggingface.co/TheBloke/WizardCoder-Python-13B-V1.0-GPTQ">Hugging Face</a>.
-                         These are optimized Code LLama models with some penalty on functionality.</li>
-                </ul>
-            </p>
-            <h2>Installation</h2>
-                <ul>
-                    <li>
-                        Installation of <mark>Text Generation UI</mark>
-                    </li>
-                    <ul>
-                        <li>Download the project from <a href="https://github.com/oobabooga/text-generation-webui">Github</a>. Navigate into the folder.</li>
-                        <li>Install by running <mark>python3 -m pip install -r requirements.txt</mark>, preferrably inside a virtual env.
-                        But first, do following:</li>
-                        <ul>
-                            <li>Make sure nvidia CUDA toolkit is installed on the machine.</li>
-                            <p class="code-text">
-sudo apt-get-install nvidia-cuda-toolkit
-                            </p>
-                            <li>Make sure cuda is installed on the machine. Follow the instructions at <a href="https://developer.nvidia.com/cuda-downloads?">this link</a>.</li>
-                            <li>Install <mark>pytorch</mark> using following</li>
-                            <p class="code-text">
-python3 -m pip install torch torchvision
-                            </p>
-                        </ul>
-                    </ul>
-                    <li>Once the installation is complete, the UI can be run with following command:</li>
-                    <p class="code-text">
-python3 source.py
-                    </p>
-                    <li>Now, go to the local browser, and visit <mark>http://localhost:7860/</mark></li>
-                </ul>
-                <hr style="border-top: dotted 0.5px;" />
-            <h2>Getting Hands Dirty: Download Model</h2>
-                <p>Now that installation is complete, and we have successfully run the UI, let us explore the UI.</p>
-                <p>
-                    On the top of the UI, we can see many tabs. Let us go to the <mark>Model</mark> tab. This is where we can select
+    <a href="https://www.linkedin.com/in/prawarpoudel/">
+     LinkedIn
+    </a>
+    .
+   </p>
+   <hr/>
+   <p class="important">
+    To look at cases to see some weird outputs generated by Code Llama, please visit my
+    <a href="breaking_codellama.html">
+     breaking Code LLama
+    </a>
+    page.
+   </p>
+   <hr/>
+   <h1>
+    Getting Started
+   </h1>
+   <p>
+    The implementation that I am using here is heavily guided by the youtube video of Matthew Berman. The video can be found at
+    <a href="https://www.youtube.com/watch?v=g5uNdrxZ5wI">
+     this link
+    </a>
+    . The example that he presents in his video is neat for following two reasons:
+    <ul>
+     <li>
+      First, the introduction of
+      <mark>
+       Text Generation UI
+      </mark>
+      , which I was unaware of. Available in Github at
+      <a href="https://github.com/oobabooga/text-generation-webui">
+       this link
+      </a>
+      .
+     </li>
+     <li>
+      Second, introduction of
+      <mark>
+       quantized CodeLlama models
+      </mark>
+      . Models available from
+      <a href="https://huggingface.co/TheBloke/WizardCoder-Python-13B-V1.0-GPTQ">
+       Hugging Face
+      </a>
+      .
+                         These are optimized Code LLama models with some penalty on functionality.
+     </li>
+    </ul>
+   </p>
+   <h2>
+    Installation
+   </h2>
+   <ul>
+    <li>
+     Installation of
+     <mark>
+      Text Generation UI
+     </mark>
+    </li>
+    <ul>
+     <li>
+      Download the project from
+      <a href="https://github.com/oobabooga/text-generation-webui">
+       Github
+      </a>
+      . Navigate into the folder.
+     </li>
+     <li>
+      Install by running
+      <mark>
+       python3 -m pip install -r requirements.txt
+      </mark>
+      , preferrably inside a virtual env.
+                        But first, do following:
+     </li>
+     <ul>
+      <li>
+       Make sure nvidia CUDA toolkit is installed on the machine.
+      </li>
+      <p class="code-text">
+       sudo apt-get-install nvidia-cuda-toolkit
+      </p>
+      <li>
+       Make sure cuda is installed on the machine. Follow the instructions at
+       <a href="https://developer.nvidia.com/cuda-downloads?">
+        this link
+       </a>
+       .
+      </li>
+      <li>
+       Install
+       <mark>
+        pytorch
+       </mark>
+       using following
+      </li>
+      <p class="code-text">
+       python3 -m pip install torch torchvision
+      </p>
+     </ul>
+    </ul>
+    <li>
+     Once the installation is complete, the UI can be run with following command:
+    </li>
+    <p class="code-text">
+     python3 source.py
+    </p>
+    <li>
+     Now, go to the local browser, and visit
+     <mark>
+      http://localhost:7860/
+     </mark>
+    </li>
+   </ul>
+   <hr style="border-top: dotted 0.5px;">
+    <h2>
+     Getting Hands Dirty: Download Model
+    </h2>
+    <p>
+     Now that installation is complete, and we have successfully run the UI, let us explore the UI.
+    </p>
+    <p>
+     On the top of the UI, we can see many tabs. Let us go to the
+     <mark>
+      Model
+     </mark>
+     tab. This is where we can select
                     the LLM model that we want to use. If we do not have the model locally, we can provide the model name and it will
                     download the model from Hugging Face.
-                </p>
-                <p>
-                    As shown in the figure below, we put in the name <mark>TheBloke/WizardCoder-Python-13B-V1.0-GPTQ</mark>. This is an
-                    optimized version of <mark>Code LLama-Python</mark>. The download will take several minutes since the model is a huge file.
-                </p>
-                <p>
-                    <img class="center-image" alt="model download" src="../images/break_codellama_1.png">
-                </p>
-                <hr style="border-top: dotted 0.5px;" />
-            <h2>Getting Hands Dirty: Set Up Model</h2>
-                <p>
-                   Once the model is downloaded, or if you already have a model that is downloaded and placed in folder <mark>model</mark>,
+    </p>
+    <p>
+     As shown in the figure below, we put in the name
+     <mark>
+      TheBloke/WizardCoder-Python-13B-V1.0-GPTQ
+     </mark>
+     . This is an
+                    optimized version of
+     <mark>
+      Code LLama-Python
+     </mark>
+     . The download will take several minutes since the model is a huge file.
+    </p>
+    <p>
+     <img alt="model download" class="center-image" src="../images/break_codellama_1.png"/>
+    </p>
+    <hr style="border-top: dotted 0.5px;">
+     <h2>
+      Getting Hands Dirty: Set Up Model
+     </h2>
+     <p>
+      Once the model is downloaded, or if you already have a model that is downloaded and placed in folder
+      <mark>
+       model
+      </mark>
+      ,
                    clicking on the refresh button (labelled as 1 in figure below) will list them in the dropdown list (marked as 2 in the figure below).
-                </p>
-                <p>
-                    The recommened model loader for code llama is <mark>ExLlama_HF</mark>. This can be selected from the <mark>Model loader</mark> section 
+     </p>
+     <p>
+      The recommened model loader for code llama is
+      <mark>
+       ExLlama_HF
+      </mark>
+      . This can be selected from the
+      <mark>
+       Model loader
+      </mark>
+      section 
                     (marked as 3 in the figure below).
-                </p>
-                <p>
-                    <img src="../images/break_codellama_2.png" alt="select model and load" class="center-image">
-                </p>
-                <p>
-                    Once the model is selected, and the loader is selected, click on the <mark>Load</mark> button (labelled as 4) to load the model.
-                </p>
-                <hr>
-            <h2>Prompting</h2>
-            <p>
-                Now that we have got everything set up, let us test the LLM and see if it servers any of our purpose.
-            </p>
-            <p>
-                For this, switch over to the <mark>Default</mark> tab on the top of UI. Here, we can put in the prompt, and see the generated response.
-            </p>
-            <h3>Q1. A simple Task</h3>
-            <p>
-                Following prompt was provided.
-            </p>
-            <p class="code-text">
-
-Write a code for the question below:
+     </p>
+     <p>
+      <img alt="select model and load" class="center-image" src="../images/break_codellama_2.png"/>
+     </p>
+     <p>
+      Once the model is selected, and the loader is selected, click on the
+      <mark>
+       Load
+      </mark>
+      button (labelled as 4) to load the model.
+     </p>
+     <hr/>
+     <h2>
+      Prompting
+     </h2>
+     <p>
+      Now that we have got everything set up, let us test the LLM and see if it servers any of our purpose.
+     </p>
+     <p>
+      For this, switch over to the
+      <mark>
+       Default
+      </mark>
+      tab on the top of UI. Here, we can put in the prompt, and see the generated response.
+     </p>
+     <h3>
+      Q1. A simple Task
+     </h3>
+     <p>
+      Following prompt was provided.
+     </p>
+     <p class="code-text">
+      Write a code for the question below:
 
 Question:  Write a code in python that generates number from 1 to 100.
 
 Factual answer:
-            </p>
-            <p>
-                Following output is generated:
-            </p>
-            <p class="code-text-overflow">
-
-Write a code for the question below:
+     </p>
+     <p>
+      Following output is generated:
+     </p>
+     <p class="code-text-overflow">
+      Write a code for the question below:
 
 Question:  Write a code in python that generates number from 1 to 100.
 
@@ -167,12 +327,18 @@ numbers = [i for i in range(1, 101)]
 print(numbers)
 ```
 
-This creates a list called `numbers` containing all the integers from 1 to 100. You can then access individual elements by indexing into the list or iterate over it with a for loop. 
-            </p>
-        <hr>
-        <p>
-            To look at cases where the output of the model breaks, please visit my <a href="breaking_codellama.html">breaking Code LLama</a> page.
-        </p>
-    </div>
-</body>
+This creates a list called `numbers` containing all the integers from 1 to 100. You can then access individual elements by indexing into the list or iterate over it with a for loop.
+     </p>
+     <hr/>
+     <p>
+      To look at cases where the output of the model breaks, please visit my
+      <a href="breaking_codellama.html">
+       breaking Code LLama
+      </a>
+      page.
+     </p>
+    </hr>
+   </hr>
+  </div>
+ </body>
 </html>

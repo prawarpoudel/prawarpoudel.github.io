@@ -1,55 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Prawar Poudel">
-    <meta name="keywords" content="codellama, llama, gpt, chatgpt">
-    <meta name="description" content="Breaking Code LLama. Code LLama Performance">
-  
-    <link rel="stylesheet" href="../css/main.css" type="text/css" />
-    <title>Breaking Code LLama</title>
-</head>
-
-<body>  
-    <!-- this one is on the top for navigation -->
-    <div class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../about.html">About</a>
-        <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&hl=en">Google Scholar</a>
-    </div>
-    <!-- following is the sidebar -->
-    <div class="sidebar">
-        <a href="https://prawarpoudel.github.io/about">About</a>
-        <a class="listt" href="../pages/rag.html">RAG Concept</a>
-        <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
-        <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
-        <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
-        <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
-        <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
-        <a class="listt" href="../pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt</a>
-        <a class="listt" href="../pages/datascience_topics.html">Various Data Science Topics</a>
-        <a class="listt" href="../pages/discriminative.html">Discriminative Vs Generative Models</a>
-        <a class="listt" href="../pages/gan.html">Generative Adversarial Models</a>
-        <a class="listt" href="../pages/programming_topics.html">Various Programming Topics</a>
-        <a class="listt" href="../pages/regex_py.html">Regex in python</a>
-    </div>
-
-    <div class="content">
-        <h1>... And Code Llama broke</h1>
-            <p class="important">Disclaimer: The setup used here is described at my <a href="codellama_handson.html">CodeLLama HandsOn Page</a>.</p>
-            <hr>
-            <h2>A Rather Complex Task</h2>
-                <p>
-                    The prompt input as following. The temperature was set to 0.1, the minimum possible.
-                </p>
-                <p class="code-text">Write a snake game in python. The snake should only grow when it eats the food. If the snake eats itself, it dies and the game is over.
-                </p>
-                <p>
-                    This forced the LLM to go into a continuous loop and it kept on giving out following text:
-                </p>
-                <p class="code-text-overflow"> Write a snake game in python. The snake should only grow when it eats the food. If the snake eats itself, it dies and the game is over.
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="codellama, llama, gpt, chatgpt" name="keywords"/>
+  <meta content="Breaking Code LLama. Code LLama Performance" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Breaking Code LLama
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    ... And Code Llama broke
+   </h1>
+   <p class="important">
+    Disclaimer: The setup used here is described at my
+    <a href="codellama_handson.html">
+     CodeLLama HandsOn Page
+    </a>
+    .
+   </p>
+   <hr/>
+   <h2>
+    A Rather Complex Task
+   </h2>
+   <p>
+    The prompt input as following. The temperature was set to 0.1, the minimum possible.
+   </p>
+   <p class="code-text">
+    Write a snake game in python. The snake should only grow when it eats the food. If the snake eats itself, it dies and the game is over.
+   </p>
+   <p>
+    This forced the LLM to go into a continuous loop and it kept on giving out following text:
+   </p>
+   <p class="code-text-overflow">
+    Write a snake game in python. The snake should only grow when it eats the food. If the snake eats itself, it dies and the game is over.
     # 2. Add a score counter that increases every time the snake eats the food.
     import turtle
     import random
@@ -229,26 +274,28 @@
         border_pen.setheading(90)
         border_pen.forward(200)
         border_pen.setheading(0)
-                    
-                </p>
-                <p>
-                    It looks like the LLM is generating the entire sequence of gameplay, until the snake dies. Since we had specified the 
+   </p>
+   <p>
+    It looks like the LLM is generating the entire sequence of gameplay, until the snake dies. Since we had specified the 
                     output token length to be 2048, the output stops with following error:
-                </p>
-                <p class="code-text">RuntimeError: start (0) + length (2049) exceeds dimension size (2048).
-                </p>
-                <h3>What does ChatGPT do?</h3>
-                    <p>
-                        The same prompt in chatGPT gives following output:
-                    </p>
-                    <div class="box-text">
-                        <p>
-                        Creating a full-fledged snake game in Python with all the features you've mentioned can be quite extensive. However, I can provide you with a simplified version of the game to get you started. This version of the game uses the Pygame library, which you'll need to install if you haven't already.
+   </p>
+   <p class="code-text">
+    RuntimeError: start (0) + length (2049) exceeds dimension size (2048).
+   </p>
+   <h3>
+    What does ChatGPT do?
+   </h3>
+   <p>
+    The same prompt in chatGPT gives following output:
+   </p>
+   <div class="box-text">
+    <p>
+     Creating a full-fledged snake game in Python with all the features you've mentioned can be quite extensive. However, I can provide you with a simplified version of the game to get you started. This version of the game uses the Pygame library, which you'll need to install if you haven't already.
 
                         Here's a basic implementation of the Snake game:
-                        </p>
-                        <p class="code-text-overflow">
-import pygame
+    </p>
+    <p class="code-text-overflow">
+     import pygame
 import random
 
 # Initialize Pygame
@@ -331,31 +378,41 @@ while running:
     clock.tick(10)
 
 # Quit Pygame
-pygame.quit()                            
-                        </p>
-                        <p>
-                        This is a basic implementation of a Snake game. You can enhance it by adding more features and improvements, such as scoring, increasing difficulty, and more realistic graphics.
-                        </p>
-                    </div>
-                <p>The extracted python code can be found at <a href="../artifacts/chatgpt_snakegame.py"> this link</a>. Its not a very user-friendly game,
-                but the code runs.</p>
-            <hr style="border-top: dotted 0.5px;" />
-            <h2>A seemingly easy task - 1</h2>
-                <p>
-                    However, the breaking of Code LLama was not limited to the difficult task mentioned above.
-                </p>
-                <p>
-                    It broke for a seemingly very easy task. This might be the easiest task of all.
-                </p>
-                <p>
-                    The input prompt was following:
-                </p>
-                <p class="code-text">write a code in python that takes an userinput and asks for user name
-                </p>
-                <P>
-                        Following is the output generated
-                </P>
-                <p class="code-text-overflow">write a code in python that takes an userinput and asks for user name and password.
+pygame.quit()
+    </p>
+    <p>
+     This is a basic implementation of a Snake game. You can enhance it by adding more features and improvements, such as scoring, increasing difficulty, and more realistic graphics.
+    </p>
+   </div>
+   <p>
+    The extracted python code can be found at
+    <a href="../artifacts/chatgpt_snakegame.py">
+     this link
+    </a>
+    . Its not a very user-friendly game,
+                but the code runs.
+   </p>
+   <hr style="border-top: dotted 0.5px;">
+    <h2>
+     A seemingly easy task - 1
+    </h2>
+    <p>
+     However, the breaking of Code LLama was not limited to the difficult task mentioned above.
+    </p>
+    <p>
+     It broke for a seemingly very easy task. This might be the easiest task of all.
+    </p>
+    <p>
+     The input prompt was following:
+    </p>
+    <p class="code-text">
+     write a code in python that takes an userinput and asks for user name
+    </p>
+    <p>
+     Following is the output generated
+    </p>
+    <p class="code-text-overflow">
+     write a code in python that takes an userinput and asks for user name and password.
 if the input is correct, it should print "welcome" and if not, it should print "incorrect login".
 
 i have written this code but i am getting syntax error: invalid syntax at line 4. can anyone help me with this?
@@ -373,39 +430,45 @@ else:
 Comment: Please include the actual error message you're seeing. Also, please format your code properly (use four spaces per indent level). Finally, please describe what happens when you run your program and how that differs from what you expect to happen.
 
 Answer: You need to put `"` around the string `"abc
-                </p>
-                <p>
-                    First off, its not a user runnable code. But rather a conversation, and thats okay.
-                </p>
-                <p>
-                    Secondly, it looks like some text from Stack Overflow or other Q/A forum. In the conversation output that it gives out,
+    </p>
+    <p>
+     First off, its not a user runnable code. But rather a conversation, and thats okay.
+    </p>
+    <p>
+     Secondly, it looks like some text from Stack Overflow or other Q/A forum. In the conversation output that it gives out,
                     the question with the incorrect code is given first.
                      Then the solution to the issue is specified, which is totally irrelevant to the prompt that I presented.
-                </p>
-                <h3>What does ChatGPT do?</h3>
-                    <p>
-                        The same prompt in chatGPT gives following, which is the correct thing:
-                    </p>
-                    <p>
-                        <img src="../images/break_codellama_gpt2.png" class="center-image">
-                    </p>
-            <hr style="border-top: dotted 0.5px;" />
-            <h2>A seemingly easy task - 2</h2>
-            <p>
-                The temperature value for above task was 0.7. Updating the value to 0.1 did not seem to help.
-            </p>
-            <p>
-                With the same prompt, following is the output that is generated.
-            </p>
-            <p>
-                Prompt:
-            </p>
-            <p class="code-text">write a code in python that takes an userinput and asks for user name
-            </p>
-            <p>
-                Following answer is generated.
-            </p>
-            <p class="code-text-overflow">write a code in python that takes an userinput and asks for user name, age, gender, occupation.
+    </p>
+    <h3>
+     What does ChatGPT do?
+    </h3>
+    <p>
+     The same prompt in chatGPT gives following, which is the correct thing:
+    </p>
+    <p>
+     <img class="center-image" src="../images/break_codellama_gpt2.png"/>
+    </p>
+    <hr style="border-top: dotted 0.5px;"/>
+    <h2>
+     A seemingly easy task - 2
+    </h2>
+    <p>
+     The temperature value for above task was 0.7. Updating the value to 0.1 did not seem to help.
+    </p>
+    <p>
+     With the same prompt, following is the output that is generated.
+    </p>
+    <p>
+     Prompt:
+    </p>
+    <p class="code-text">
+     write a code in python that takes an userinput and asks for user name
+    </p>
+    <p>
+     Following answer is generated.
+    </p>
+    <p class="code-text-overflow">
+     write a code in python that takes an userinput and asks for user name, age, gender, occupation.
 
 \begin{code}
 user_name = input("Enter your name: ")
@@ -427,10 +490,11 @@ import re
 
 def get_validated_input():
     while True:
-            </p>
-            <p>
-                This again looks like some answer that is copied and pasted from some Q/A forum, similar to the case above.
-            </p>
-    </div>
-</body>
+    </p>
+    <p>
+     This again looks like some answer that is copied and pasted from some Q/A forum, similar to the case above.
+    </p>
+   </hr>
+  </div>
+ </body>
 </html>

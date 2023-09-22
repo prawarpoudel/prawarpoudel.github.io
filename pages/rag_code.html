@@ -1,92 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Prawar Poudel">
-    <meta name="keywords" content="LLM, AI, RAG">
-    <meta name="description" content="Retrieval Augmented Generation (RAG)">
-  
-    <link rel="stylesheet" href="../css/main.css" type="text/css" />
-    <title>Retrieval Augmented Generation (RAG)</title>
-</head>
-
-<body>  
-    <!-- this one is on the top for navigation -->
-    <div class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../about.html">About</a>
-        <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&hl=en">Google Scholar</a>
-    </div>
-    <!-- following is the sidebar -->
-    <div class="sidebar">
-        <a href="https://prawarpoudel.github.io/about">About</a>
-        <a class="listt" href="../pages/rag.html">RAG Concept</a>
-        <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
-        <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
-        <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
-        <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
-        <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
-        <a class="listt" href="../pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt</a>
-        <a class="listt" href="../pages/datascience_topics.html">Various Data Science Topics</a>
-        <a class="listt" href="../pages/discriminative.html">Discriminative Vs Generative Models</a>
-        <a class="listt" href="../pages/gan.html">Generative Adversarial Models</a>
-        <a class="listt" href="../pages/programming_topics.html">Various Programming Topics</a>
-        <a class="listt" href="../pages/regex_py.html">Regex in python</a>
-    </div>
-
-    <div class="content">
-
-        <h1>Retrieval Augmented Generation (RAG)</h1>
-        <h2>Introduction</h2>
-        <p>
-            RAG is the technique to harness the power of LLMs such that LLMs can be used to serve a user's custom purpose. LLMs are, in almost all the cases, trained with the data that is available online. 
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="LLM, AI, RAG" name="keywords"/>
+  <meta content="Retrieval Augmented Generation (RAG)" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Retrieval Augmented Generation (RAG)
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Retrieval Augmented Generation (RAG)
+   </h1>
+   <h2>
+    Introduction
+   </h2>
+   <p>
+    RAG is the technique to harness the power of LLMs such that LLMs can be used to serve a user's custom purpose. LLMs are, in almost all the cases, trained with the data that is available online. 
             This means the contents to train LLMs have following properties:
-            <ul>
-                <li>has <mark>too much information</mark>, which are oftentimes unnecessary,</li>
-                <li><mark>may not contain enough information</mark> about the documents that a user is interested in.</li>
-            </ul>
-        </p>
-        <p>
-        Let us take an example of some proprietary documents from your company. You want to use the power of LLM to be able to answer questions from the information 
+    <ul>
+     <li>
+      has
+      <mark>
+       too much information
+      </mark>
+      , which are oftentimes unnecessary,
+     </li>
+     <li>
+      <mark>
+       may not contain enough information
+      </mark>
+      about the documents that a user is interested in.
+     </li>
+    </ul>
+   </p>
+   <p>
+    Let us take an example of some proprietary documents from your company. You want to use the power of LLM to be able to answer questions from the information 
         contained within those documents. 
         Training of LLMs could pose unnecessary cost; plus, your company may not have enough data or resource or time to train a model for this specific case. 
         This is where the concept of RAG comes into play.
-        </p>
-        <p>
-        RAG still uses LLMs to be able to answer questions. However, the text string that is fed into the LLM as a prompt is modified such that the LLM is forced to derive answer from the content of the string or the prompt.
+   </p>
+   <p>
+    RAG still uses LLMs to be able to answer questions. However, the text string that is fed into the LLM as a prompt is modified such that the LLM is forced to derive answer from the content of the string or the prompt.
         If we can construct the prompt from the documents that we are interested in, and force the LLM to answer from the content of the prompt, we achieve our goal of acquiring answers from the document that we want the answers from.
-        </p>
-        <p>Thus, <mark>Retrieval Augmented Generation (RAG)</mark> is a type of prompt engineering that unleashes the power of <mark>pre-trained LLM</mark> to extract information from user prescribed documents.</p>
-    
-        <p class="important">Please visit the <a href="rag.html"> RAG description page </a> for a complete picture on the concept of RAG.</p>
-        
-        <h1>RAG Development</h1>
-        <h2>Getting Ready</h2>
-        <p>
-            First, let us install the required components. Following are the items that we will be needing.
-        </p>
-        <p class="code-text">pip install chromadb
+   </p>
+   <p>
+    Thus,
+    <mark>
+     Retrieval Augmented Generation (RAG)
+    </mark>
+    is a type of prompt engineering that unleashes the power of
+    <mark>
+     pre-trained LLM
+    </mark>
+    to extract information from user prescribed documents.
+   </p>
+   <p class="important">
+    Please visit the
+    <a href="rag.html">
+     RAG description page
+    </a>
+    for a complete picture on the concept of RAG.
+   </p>
+   <h1>
+    RAG Development
+   </h1>
+   <h2>
+    Getting Ready
+   </h2>
+   <p>
+    First, let us install the required components. Following are the items that we will be needing.
+   </p>
+   <p class="code-text">
+    pip install chromadb
 pip install sentence_transformers
 pip install pandas
 pip install rouge_score
 pip install nltk
 pip install accelerate transformers
-        </p>
-        <h2>Code Development</h2>
-        <p>
-            We have identified 4 major steps in the process of RAG development. We will include a prelude section, that needs to be done 
-            before the 4 steps. The 4 steps will be included sequentially below, following the prelude section. <mark>All the code presented here,
-                collected and compiled should be runnable.</mark>
-        </p>
-        <p class="important">Please visit the <a href="rag.html"> RAG description page </a> for a complete picture on the concept of RAG,
-            and to know more about the steps.</p>
-        <h3>Prelude</h3>
-        <ul>
-            <li>Import Embedding Functions, and sentence transformers</li>
-<p class="code-text">
-try:
+   </p>
+   <h2>
+    Code Development
+   </h2>
+   <p>
+    We have identified 4 major steps in the process of RAG development. We will include a prelude section, that needs to be done 
+            before the 4 steps. The 4 steps will be included sequentially below, following the prelude section.
+    <mark>
+     All the code presented here,
+                collected and compiled should be runnable.
+    </mark>
+   </p>
+   <p class="important">
+    Please visit the
+    <a href="rag.html">
+     RAG description page
+    </a>
+    for a complete picture on the concept of RAG,
+            and to know more about the steps.
+   </p>
+   <h3>
+    Prelude
+   </h3>
+   <ul>
+    <li>
+     Import Embedding Functions, and sentence transformers
+    </li>
+    <p class="code-text">
+     try:
     from sentence_transformers import SentenceTransformer
 except Exception as e:
     print(f"Error importing Sentence Transformers.")
@@ -99,10 +180,16 @@ try:
 except Exception as e:
     print(f"Error importing chromadb")
     print(f"Actual error is {str(e)}")
-</p>
-        <li>Let us create our embedding function using one of the most popular sentence embedding model available, <mark>all-MiniLM-L6-v2</mark>.</li>
-<p class="code-text">
-class embeddingFunc(EmbeddingFunction):
+    </p>
+    <li>
+     Let us create our embedding function using one of the most popular sentence embedding model available,
+     <mark>
+      all-MiniLM-L6-v2
+     </mark>
+     .
+    </li>
+    <p class="code-text">
+     class embeddingFunc(EmbeddingFunction):
     # this is from a list of sentence transformers
     # https://www.sbert.net/docs/pretrained_models.html#sentence-embedding-models/
     model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -110,21 +197,52 @@ class embeddingFunc(EmbeddingFunction):
         return embeddingFunc.model.encode(texts).tolist()
 
 our_embedding_Func = embeddingFunc()
-</p>
-        <li></li>
-        </ul>
-        <h3>Step 1: Embedding Documents</h3>
-        <ul>
-            <li>Let us read the documents.</li>
-            <ul>
-                <li>The documents are derived from Wikipedia and online articles.</li>
-                <li>The document data are saved into a (.tsv) file.</li>
-                <li>Each document have a id and title, so the column name of the data read from the .tsv file are <mark>id, text and title</mark>.</li>
-                <li>In my case, the document is saved in a file name <mark>documents.tsv</mark> inside folder <mark>knowledge_base</mark>.</li>
-                <li>My dataframe is named <mark>knowledge_base</mark>.</li>
-            </ul>
-            <p class="code-text">
-import os
+    </p>
+    <li>
+    </li>
+   </ul>
+   <h3>
+    Step 1: Embedding Documents
+   </h3>
+   <ul>
+    <li>
+     Let us read the documents.
+    </li>
+    <ul>
+     <li>
+      The documents are derived from Wikipedia and online articles.
+     </li>
+     <li>
+      The document data are saved into a (.tsv) file.
+     </li>
+     <li>
+      Each document have a id and title, so the column name of the data read from the .tsv file are
+      <mark>
+       id, text and title
+      </mark>
+      .
+     </li>
+     <li>
+      In my case, the document is saved in a file name
+      <mark>
+       documents.tsv
+      </mark>
+      inside folder
+      <mark>
+       knowledge_base
+      </mark>
+      .
+     </li>
+     <li>
+      My dataframe is named
+      <mark>
+       knowledge_base
+      </mark>
+      .
+     </li>
+    </ul>
+    <p class="code-text">
+     import os
 
 
 folder_name = "knowledge_base"
@@ -132,84 +250,142 @@ f_name = "documents.tsv"
 knowledge_base = pd.read_csv(os.path.join(folder_name,f_name),sep="\t")
 print(f"knowledge read of shape: {knowledge_base.shape}")
 print(f"{knowledge_base.columns}")
-            </p>
-            <li>Let us embed the document and save into the vector database.</li>
-            <ul>
-                <li>Let us first create a database and a collection inside the database.</li>
-                <li>I named my database as <mark>chroma_db</mark> and my collection as <mark>my_rag</mark>.</li>
-<p class="code-text">
-db_folder_name = "chroma_db"
+    </p>
+    <li>
+     Let us embed the document and save into the vector database.
+    </li>
+    <ul>
+     <li>
+      Let us first create a database and a collection inside the database.
+     </li>
+     <li>
+      I named my database as
+      <mark>
+       chroma_db
+      </mark>
+      and my collection as
+      <mark>
+       my_rag
+      </mark>
+      .
+     </li>
+     <p class="code-text">
+      db_folder_name = "chroma_db"
 ch_client = chromadb.PersistentClient(path=db_folder_name)
 
 # let us create a colection; if the collection exists, it will get the collection
 collection_name = "my_rag"
 ch_collection = ch_client.get_or_create_collection(name = collection_name,
                                         embedding_function = our_embedding_Func)
-</p>
-                <li>Let us describe a function that adds data into the collection of the vector database.</li>
-<p class="code-text">
-# upsert because upsert has benefits over just adding,
+     </p>
+     <li>
+      Let us describe a function that adds data into the collection of the vector database.
+     </li>
+     <p class="code-text">
+      # upsert because upsert has benefits over just adding,
 # .. if id already exists, upsert updates the data; else adds the data
 def add(texts,metadata,id):
     ch_collection.upsert(metadatas=metadata,documents=texts,ids=id)
-</p>
-                <li>Now, let us embed dataframe <mark>knowledge_base</mark> into the database.</li>
-                <li>We will create a metadata out of the <mark>title</mark> and <mark>id</mark>.</li>
-<p class="code-text">
-text_from_knowledgebase = knowledge_base['text'].tolist()
+     </p>
+     <li>
+      Now, let us embed dataframe
+      <mark>
+       knowledge_base
+      </mark>
+      into the database.
+     </li>
+     <li>
+      We will create a metadata out of the
+      <mark>
+       title
+      </mark>
+      and
+      <mark>
+       id
+      </mark>
+      .
+     </li>
+     <p class="code-text">
+      text_from_knowledgebase = knowledge_base['text'].tolist()
 metadata = [{'title':title, 'id': id} for (title,id) in zip(knowledge_base.title, knowledge_base.id)]
 ids = [str(i) for i in knowledge_base.id]
 add(text_from_knowledgebase,metadata,ids)
-</p>
-            </ul>
-        </ul>
-        <h3>Step 2 &amp; 3: Searching Relevant Contexts for Question</h3>
-        <ul>
-            <li>First, let us define a function to query the vector database.</li>
-<p class="code-text">
-# to search the dcuments from database
+     </p>
+    </ul>
+   </ul>
+   <h3>
+    Step 2 &amp; 3: Searching Relevant Contexts for Question
+   </h3>
+   <ul>
+    <li>
+     First, let us define a function to query the vector database.
+    </li>
+    <p class="code-text">
+     # to search the dcuments from database
 def query(query_text,num_results=5):
-    return ch_collection.query(query_texts=query_text,n_results=num_results) 
-</p>
-            <li>To query, we need a question that we want answer from. So, let us read a set of questions first.</li>
-            <ul>
-                <li>The data consists of questions and answers. The column names are <mark>qid, question, answer</mark>.</li>
-<p class="code-text">
-qa_file_first = 'qa_first.tsv'
+    return ch_collection.query(query_texts=query_text,n_results=num_results)
+    </p>
+    <li>
+     To query, we need a question that we want answer from. So, let us read a set of questions first.
+    </li>
+    <ul>
+     <li>
+      The data consists of questions and answers. The column names are
+      <mark>
+       qid, question, answer
+      </mark>
+      .
+     </li>
+     <p class="code-text">
+      qa_file_first = 'qa_first.tsv'
 
 first_data = pd.read_csv(qa_file_first,delimiter="\t")
-print(f"First data read is of shape {first_data.shape}") 
-</p>
-                <li>Let us select a question at random. We will select relevant contexts for this question.</li>
-<p class="code-text">
-# let us pick a randm question to play around with
+print(f"First data read is of shape {first_data.shape}")
+     </p>
+     <li>
+      Let us select a question at random. We will select relevant contexts for this question.
+     </li>
+     <p class="code-text">
+      # let us pick a randm question to play around with
 import random
 all_question_texts = first_data['question'].tolist()
 question_picked_now = random.choice(all_question_texts)
-</p>
-            </ul>
-            <li>Now, let us query 5 relevent contexts from the knowledge_base database.</li>
-<p class="code-text">
-question_contexts = query(question_picked_now,5)
-</p>
-        </ul>
-        <h3>Step 4: Getting Answer</h3>
-        <ul>
-            <li>Let us define the model. We will be using <mark>Google Flan-UL2 model</mark>. This will take a very long time to 
+     </p>
+    </ul>
+    <li>
+     Now, let us query 5 relevent contexts from the knowledge_base database.
+    </li>
+    <p class="code-text">
+     question_contexts = query(question_picked_now,5)
+    </p>
+   </ul>
+   <h3>
+    Step 4: Getting Answer
+   </h3>
+   <ul>
+    <li>
+     Let us define the model. We will be using
+     <mark>
+      Google Flan-UL2 model
+     </mark>
+     . This will take a very long time to 
             download for the first time. The model is saved into a cached folder, and will take significantly less time to load from 
-            second time onwards.</li>
-<p class="code-text">
-# hint from https://huggingface.co/google/flan-ul2
+            second time onwards.
+    </li>
+    <p class="code-text">
+     # hint from https://huggingface.co/google/flan-ul2
 
 from transformers import T5ForConditionalGeneration, AutoTokenizer
 import torch
 model = T5ForConditionalGeneration.from_pretrained("google/flan-ul2",
           torch_dtype=torch.bfloat16, device_map="auto")                                                                 
 tokenizer = AutoTokenizer.from_pretrained("google/flan-ul2")
-</p>
-            <li>Let us create a prompt by modifying a question statement by adding the relevant context.</li>
-<p class="code-text">
-question_st = "Answer the following question based on the relevant contexts attached:"
+    </p>
+    <li>
+     Let us create a prompt by modifying a question statement by adding the relevant context.
+    </li>
+    <p class="code-text">
+     question_st = "Answer the following question based on the relevant contexts attached:"
 
 prompt = f"{question_st}"+\
             "\n\n"+\
@@ -220,24 +396,27 @@ prompt = f"{question_st}"+\
             question_picked_now+\
             "\n\n"+\
             "answer:"
-</p>
-            <li>Let us feed the prompt into the model to get the answer. The final line of the following code prints the output.</li>
-<p class="code-text">
-inputs = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
+    </p>
+    <li>
+     Let us feed the prompt into the model to get the answer. The final line of the following code prints the output.
+    </li>
+    <p class="code-text">
+     inputs = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
 outputs = model.generate(inputs, max_length=200)
 print(tokenizer.decode(outputs[0]))
-</p>
-        </ul>
-    <h2>Validation</h2>
-    <p>
-        In my case, the question picked at random is shown below:
-        <img src="../images/rag_question.png" class="center-image">
     </p>
-    <p>
-        Following is the answer produced:
-        <img src="../images/rag_answer.png" class="center-image">
-    </p>
-
-    </div>
-</body>
+   </ul>
+   <h2>
+    Validation
+   </h2>
+   <p>
+    In my case, the question picked at random is shown below:
+    <img class="center-image" src="../images/rag_question.png"/>
+   </p>
+   <p>
+    Following is the answer produced:
+    <img class="center-image" src="../images/rag_answer.png"/>
+   </p>
+  </div>
+ </body>
 </html>

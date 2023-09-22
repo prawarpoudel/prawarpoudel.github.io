@@ -1,0 +1,53 @@
+table_contents:
+  "1":
+    class: ""
+    href: "https://prawarpoudel.github.io/about"
+    string: "About"
+  "2":
+    class: 'listt'
+    href: "../pages/rag.html"
+    string: "RAG Concept"
+  "3":
+    class: 'listt'
+    href: "../pages/rag_code.html"
+    string: "RAG Implementation"
+  "4":
+    class: 'listt'
+    href: "../pages/redis_benchmarking.html"
+    string: "REDIS Benchmarking"
+  "5":
+    class: 'listt'
+    href: "../pages/codellama.html"
+    string: "Code Llama Intro"
+  "6":
+    class: 'listt'
+    href: "../pages/codellama_handson.html"
+    string: "Code Llama Hands-On"
+  "7":
+    class: 'listt'
+    href: "../pages/breaking_codellama.html"
+    string: "Breaking Code Llama"
+  "8":
+    class: 'listt'
+    href: "../pages/whyjohnnycantprompt.html"
+    string: "Why Jhonny Cant't Prompt"
+  "9":
+    class: 'listt'
+    href: "../pages/datascience_topics.html"
+    string: "Various Data Science Topics"
+  "10":
+    class: 'listt'
+    href: "../pages/discriminative.html"
+    string: "Discriminative Vs Generative Models"
+  "11":
+    class: 'listt'
+    href: "../pages/gan.html"
+    string: "Generative Adversarial Models"
+  "12":
+    class: 'listt'
+    href: "../pages/programming_topics.html"
+    string: "Various Programming Topics"
+  "13":
+    class: 'listt'
+    href: "../pages/regex_py.html"
+    string: "Regex in python"

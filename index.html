@@ -1,113 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-    <link rel="stylesheet" href="css/main.css" type="text/css" />
-</head>
-
-<body>  
-<!-- this one is on the top for navigation -->
-<div class="navbar">
-    <a href="https://prawarpoudel.github.io">Home</a>
-    <a href="https://prawarpoudel.github.io/about">About</a>
-    <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>
-    <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&hl=en">Google Scholar</a>
-</div>
-<!-- following is the sidebar -->
-<div class="sidebar">
-    <a href="https://prawarpoudel.github.io/about">About</a>
-    <a class="listt" href="pages/rag.html">RAG Concept</a>
-    <a class="listt" href="pages/rag_code.html">RAG Implementation</a>
-    <a class="listt" href="pages/redis_benchmarking.html">REDIS Benchmarking</a>
-    <a class="listt" href="pages/codellama.html">Code Llama Intro</a>
-    <a class="listt" href="pages/codellama_handson.html">Code Llama Hands-On</a>
-    <a class="listt" href="pages/breaking_codellama.html">Breaking Code LLama</a>
-    <a class="listt" href="pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt</a>
-    <a class="listt" href="pages/datascience_topics.html">Various Data Science Topics</a>
-    <a class="listt" href="pages/discriminative.html">Discriminative Vs Generative Models</a>
-    <a class="listt" href="pages/gan.html">Generative Adversarial Models</a>
-    <a class="listt" href="pages/programming_topics.html">Various Programming Topics</a>
-    <a class="listt" href="pages/regex_py.html">Regex in python</a>
-</div>
-
-<div class="content">
-  <h1><a href="https://prawarpoudel.github.io/about">Prawar Poudel</a></h1>
-  <p>Since I have a history of bad documentation, I keep misplacing my loose pieces of notes. I am using this page as a one stop for all the notes that I make henceforth.</p>
-  <p>Many of the contents here are derived from the open internet. Source will be appropriately cited.</p>
-  <p class="important">Please find my original resume page at <a href="https://prawarpoudel.github.io/about">this about page</a>.</p>
-
-  <hr>
-    <div class="outer" style="background-color:#e3fcfc">
-        <h2>Topic Artificial Intelligence</h2>
-        <div class="topics">
-            <div class="box">
-                <a href="pages/rag.html"><h3>Retrieval Augmented Generation (RAG)</h3></a>
-                <a href="pages/rag.html"><img src="images/rag.png" alt="rag description pictorial" width="223" height="100" class="center"></a>
-                <p>Unleash the power of <mark>LLMs</mark> to extract information from user documents.</p>
-            </div>
-            <div class="box">
-                <a href="pages/rag_code.html"><h3>RAG Implementation</h3></a>
-                <a href="pages/rag_code.html"><img src="images/rag.png" alt="rag description pictorial" width="223" height="100" class="center"></a>
-                <p>Dive into a simple implementation of RAG in python.</p>
-            </div>
-            <div class="box">
-                <a href="pages/codellama.html"><h3>TODO: Code LLama Intro</h3></a>
-                <a href="pages/codellama.html"><img src="images/meta.png" alt="Meta Logo" width="223" height="100" class="center"></a>
-                <p>Let us look into what <mark>code llama</mark> is.</p>
-            </div>
-            <div class="box">
-                <a href="pages/codellama_handson.html"><h3>Code LLama Hands-On</h3></a>
-                <a href="pages/codellama_handson.html"><img src="images/meta.png" alt="Meta Logo" width="223" height="100" class="center"></a>
-                <p>Let us dive into using code llama.</p>
-            </div>
-            <div class="box">
-                <a href="pages/breaking_codellama.html"><h3>Breaking Code LLama</h3></a>
-                <a href="pages/breaking_codellama.html"><img src="images/meta.png" alt="Meta Logo" width="223" height="100" class="center"></a>
-                <p>An example where CodeLLama went crazy.</p>
-            </div>
-            <div class="box">
-                <a href="pages/whyjohnnycantprompt.html"><h3>Why Johnny Cant Prompt?</h3></a>
-                <a href="pages/whyjohnnycantprompt.html"><img src="images/johnny_1.png" alt="Meta Logo" width="223" height="100" class="center"></a>
-                <p>Why prompting is hard for nonAI experts?.</p>
-            </div>
-        </div>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="css/main.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="https://prawarpoudel.github.io">
+    Home
+   </a>
+   <a href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="pages/regex_py.html">
+    Regex in python
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    <a href="https://prawarpoudel.github.io/about">
+     Prawar Poudel
+    </a>
+   </h1>
+   <p>
+    Since I have a history of bad documentation, I keep misplacing my loose pieces of notes. I am using this page as a one stop for all the notes that I make henceforth.
+   </p>
+   <p>
+    Many of the contents here are derived from the open internet. Source will be appropriately cited.
+   </p>
+   <p class="important">
+    Please find my original resume page at
+    <a href="https://prawarpoudel.github.io/about">
+     this about page
+    </a>
+    .
+   </p>
+   <hr/>
+   <div class="outer" style="background-color:#e3fcfc">
+    <h2>
+     Topic Artificial Intelligence
+    </h2>
+    <div class="topics">
+     <div class="box">
+      <a href="pages/rag.html">
+       <h3>
+        Retrieval Augmented Generation (RAG)
+       </h3>
+      </a>
+      <a href="pages/rag.html">
+       <img alt="rag description pictorial" class="center" height="100" src="images/rag.png" width="223"/>
+      </a>
+      <p>
+       Unleash the power of
+       <mark>
+        LLMs
+       </mark>
+       to extract information from user documents.
+      </p>
+     </div>
+     <div class="box">
+      <a href="pages/rag_code.html">
+       <h3>
+        RAG Implementation
+       </h3>
+      </a>
+      <a href="pages/rag_code.html">
+       <img alt="rag description pictorial" class="center" height="100" src="images/rag.png" width="223"/>
+      </a>
+      <p>
+       Dive into a simple implementation of RAG in python.
+      </p>
+     </div>
+     <div class="box">
+      <a href="pages/codellama.html">
+       <h3>
+        TODO: Code LLama Intro
+       </h3>
+      </a>
+      <a href="pages/codellama.html">
+       <img alt="Meta Logo" class="center" height="100" src="images/meta.png" width="223"/>
+      </a>
+      <p>
+       Let us look into what
+       <mark>
+        code llama
+       </mark>
+       is.
+      </p>
+     </div>
+     <div class="box">
+      <a href="pages/codellama_handson.html">
+       <h3>
+        Code LLama Hands-On
+       </h3>
+      </a>
+      <a href="pages/codellama_handson.html">
+       <img alt="Meta Logo" class="center" height="100" src="images/meta.png" width="223"/>
+      </a>
+      <p>
+       Let us dive into using code llama.
+      </p>
+     </div>
+     <div class="box">
+      <a href="pages/breaking_codellama.html">
+       <h3>
+        Breaking Code LLama
+       </h3>
+      </a>
+      <a href="pages/breaking_codellama.html">
+       <img alt="Meta Logo" class="center" height="100" src="images/meta.png" width="223"/>
+      </a>
+      <p>
+       An example where CodeLLama went crazy.
+      </p>
+     </div>
+     <div class="box">
+      <a href="pages/whyjohnnycantprompt.html">
+       <h3>
+        Why Johnny Cant Prompt?
+       </h3>
+      </a>
+      <a href="pages/whyjohnnycantprompt.html">
+       <img alt="Meta Logo" class="center" height="100" src="images/johnny_1.png" width="223"/>
+      </a>
+      <p>
+       Why prompting is hard for nonAI experts?.
+      </p>
+     </div>
     </div>
-
-    <hr>
-    <div class="outer" style="background-color:#daebe9">
-        <h2>Topic Performance Engineering</h2>
-        <div class="topics">
-            <div class="box">
-                <a href="pages/redis_benchmarking.html"><h3>TODO: REDIS benchmarking</h3></a>
-                <a href="pages/redis_benchmarking.html"><img src="images/redis_logo.png" alt="redis logo online" width="223" height="223" class="center"></a>
-            </div>
-        </div>
+   </div>
+   <hr/>
+   <div class="outer" style="background-color:#daebe9">
+    <h2>
+     Topic Performance Engineering
+    </h2>
+    <div class="topics">
+     <div class="box">
+      <a href="pages/redis_benchmarking.html">
+       <h3>
+        TODO: REDIS benchmarking
+       </h3>
+      </a>
+      <a href="pages/redis_benchmarking.html">
+       <img alt="redis logo online" class="center" height="223" src="images/redis_logo.png" width="223"/>
+      </a>
+     </div>
     </div>
-
-    <hr>
-    <div class="outer" style="background-color:#daebe9">
-        <h2>Topic Data Science</h2>
-        <div class="topics">
-            <div class="box">
-                <a href="pages/datascience_topics.html"><h3>Various Data Science Topics</h3></a>
-                <a href="pages/datascience_topics.html"><img src="images/datascience.png" alt="data science topics" width="223" height="223" class="center"></a>
-            </div>
-        </div>
+   </div>
+   <hr/>
+   <div class="outer" style="background-color:#daebe9">
+    <h2>
+     Topic Data Science
+    </h2>
+    <div class="topics">
+     <div class="box">
+      <a href="pages/datascience_topics.html">
+       <h3>
+        Various Data Science Topics
+       </h3>
+      </a>
+      <a href="pages/datascience_topics.html">
+       <img alt="data science topics" class="center" height="223" src="images/datascience.png" width="223"/>
+      </a>
+     </div>
     </div>
-
-    <hr>
-    <div class="outer" style="background-color:#daebe9">
-        <h2>Topic Programming</h2>
-        <div class="topics">
-            <div class="box">
-                <a href="pages/programming_topics.html"><h3>Various Programming Topics</h3></a>
-                <a href="pages/programming_topics.html"><img src="images/programming.png" alt="programming topics" width="223" height="223" class="center"></a>
-            </div>
-        </div>
+   </div>
+   <hr/>
+   <div class="outer" style="background-color:#daebe9">
+    <h2>
+     Topic Programming
+    </h2>
+    <div class="topics">
+     <div class="box">
+      <a href="pages/programming_topics.html">
+       <h3>
+        Various Programming Topics
+       </h3>
+      </a>
+      <a href="pages/programming_topics.html">
+       <img alt="programming topics" class="center" height="223" src="images/programming.png" width="223"/>
+      </a>
+     </div>
     </div>
-</div>
-
-</body>
+   </div>
+  </div>
+ </body>
 </html>

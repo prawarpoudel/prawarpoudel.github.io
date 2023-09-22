@@ -1,124 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Prawar Poudel">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-  
-    <link rel="stylesheet" href="../css/main.css" type="text/css" />
-    <title>Regex in Python</title>
-</head>
-
-<body>  
-    <!-- this one is on the top for navigation -->
-    <div class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../about.html">About</a>
-        <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&hl=en">Google Scholar</a>
-    </div>
-    <!-- following is the sidebar -->
-    <div class="sidebar">
-        <a href="https://prawarpoudel.github.io/about">About</a>
-        <a class="listt" href="../pages/rag.html">RAG Concept</a>
-        <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
-        <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
-        <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
-        <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
-        <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
-        <a class="listt" href="../pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt</a>
-        <a class="listt" href="../pages/datascience_topics.html">Various Data Science Topics</a>
-        <a class="listt" href="../pages/discriminative.html">Discriminative Vs Generative Models</a>
-        <a class="listt" href="../pages/gan.html">Generative Adversarial Models</a>
-        <a class="listt" href="../pages/programming_topics.html">Various Programming Topics</a>
-        <a class="listt" href="../pages/regex_py.html">Regex in python</a>
-    </div>
-
-    <div class="content">
-    <h1>Regex in Python</h1>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Regex in Python
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Regex in Python
+   </h1>
+   <p>
+    Regex module
+    <mark>
+     re
+    </mark>
+    has following functions that allows us to search a string for a match.
+        The contet is derived from
+    <a href="https://www.w3schools.com/python/python_regex.asp">
+     w3schools.com
+    </a>
+    .
+    <table class="box-text">
+     <tr>
+      <th>
+       Function
+      </th>
+      <th>
+       Desc
+      </th>
+     </tr>
+     <tr>
+      <td>
+       findall
+      </td>
+      <td>
+       returns a list containing all matches
+      </td>
+     </tr>
+     <tr>
+      <td>
+       search
+      </td>
+      <td>
+       returns match object if any, else
+       <mark>
+        None
+       </mark>
+       . Return only the first match.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       split
+      </td>
+      <td>
+       returns a list where the string has been split at each match
+      </td>
+     </tr>
+     <tr>
+      <td>
+       sub
+      </td>
+      <td>
+       replace one or more matches with a string
+      </td>
+     </tr>
+    </table>
+   </p>
+   <hr/>
+   <p>
+    Example I: Search the provided string, and see if the string starts with
+    <mark>
+     The
+    </mark>
+    and ends with
+    <mark>
+     dead
+    </mark>
+    .
+    <div class="box-text">
      <p>
-        Regex module <mark>re</mark> has following functions that allows us to search a string for a match.
-        The contet is derived from <a href="https://www.w3schools.com/python/python_regex.asp">w3schools.com</a>.
-        <table class="box-text">
-            <tr>
-                <th>Function</th><th>Desc</th>
-            </tr>
-            <tr>
-                <td>findall</td><td>returns a list containing all matches</td>
-            </tr>
-            <tr>
-                <td>search</td><td>returns match object if any, else <mark>None</mark>. Return only the first match.</td>
-            </tr>
-            <tr>
-                <td>split</td><td>returns a list where the string has been split at each match</td>
-            </tr>
-            <tr>
-                <td>sub</td><td>replace one or more matches with a string</td>
-            </tr>
-        </table>
+      Following shows an example:
      </p>
-     <hr>
-    <p>
-        Example I: Search the provided string, and see if the string starts with <mark>The</mark> and ends with <mark>dead</mark>.
-        <div class="box-text">
-            <p>Following shows an example:</p>
-            <p class="code-text">import re
+     <p class="code-text">
+      import re
 
 strings = ['The shaun of the dead','the man is dead','the cat is not dead.']
 for each_str in strings:
     x = re.search("^The.*dead$", each_str)
     print(x)
-            </p>
-            <p>The output of which is as follows:</p>
-            <p class="code-text">&lt;re.Match object; span=(0, 21), match='The shaun of the dead'&gt;
+     </p>
+     <p>
+      The output of which is as follows:
+     </p>
+     <p class="code-text">
+      &lt;re.Match object; span=(0, 21), match='The shaun of the dead'&gt;
 None
-None  
-            </p>
-            <p>
-                The output above shows the pattern matches for the first string, whereas <mark>None</mark> for the
+None
+     </p>
+     <p>
+      The output above shows the pattern matches for the first string, whereas
+      <mark>
+       None
+      </mark>
+      for the
                 two next strings indicate that the pattern did not match.
-            </p>
-        </div>
-    </p>
-    <hr>
-    <p> In regex, the symbols have certain meanings. With respect to the above example,
-        <ul>
-            <li>
-                <mark>&#94;</mark>: Indicates starts with
-            </li>
-            <li>
-                <mark>.</mark>: Indicates any character (except newline)
-            </li>
-            <li>
-                <mark>&#42;</mark>: Indicates any number of times (zero or more occurrences)
-            </li>
-            <li>
-                <mark>&#36;</mark>: Indicates the end.
-            </li>
-        </ul>
-        Similarly, following are other symbols
-        <ul>
-            <li>
-                <mark>+</mark>: Indicates one or more occurrences (as opposed to *, which is 0 or more occurrences)
-            </li>
-            <li>
-                <mark>?</mark>: Indicates zero or one occurrence
-            </li>
-            <li>
-                <mark>[]</mark>: Indicates a set of characters
-            </li>
-        </ul>
-    </p>
-    <p class="important">
-        Please refer to the <a href="https://www.w3schools.com/python/python_regex.asp">w3shools.com</a> page for other symbols and their meanings.
-    </p>
-    <hr>
-    <p>
-        Example II: Here we will do two tasks, <mark>findall()</mark> and <mark>search</mark>
-        <div class="box-text">
-            <p class="code-text">import re
+     </p>
+    </div>
+   </p>
+   <hr/>
+   <p>
+    In regex, the symbols have certain meanings. With respect to the above example,
+    <ul>
+     <li>
+      <mark>
+       ^
+      </mark>
+      : Indicates starts with
+     </li>
+     <li>
+      <mark>
+       .
+      </mark>
+      : Indicates any character (except newline)
+     </li>
+     <li>
+      <mark>
+       *
+      </mark>
+      : Indicates any number of times (zero or more occurrences)
+     </li>
+     <li>
+      <mark>
+       $
+      </mark>
+      : Indicates the end.
+     </li>
+    </ul>
+    Similarly, following are other symbols
+    <ul>
+     <li>
+      <mark>
+       +
+      </mark>
+      : Indicates one or more occurrences (as opposed to *, which is 0 or more occurrences)
+     </li>
+     <li>
+      <mark>
+       ?
+      </mark>
+      : Indicates zero or one occurrence
+     </li>
+     <li>
+      <mark>
+       []
+      </mark>
+      : Indicates a set of characters
+     </li>
+    </ul>
+   </p>
+   <p class="important">
+    Please refer to the
+    <a href="https://www.w3schools.com/python/python_regex.asp">
+     w3shools.com
+    </a>
+    page for other symbols and their meanings.
+   </p>
+   <hr/>
+   <p>
+    Example II: Here we will do two tasks,
+    <mark>
+     findall()
+    </mark>
+    and
+    <mark>
+     search
+    </mark>
+    <div class="box-text">
+     <p class="code-text">
+      import re
 
 strings = ['hello','hello ladies hello','oye hello']
 for each_str in strings:
@@ -127,13 +251,14 @@ for each_str in strings:
     y = re.findall("he.+o", each_str)
     print(y)
     print("------")
-            </p>
-        </div>
-    </p>
-    <p>
-        Following is the output:
-    </p>
-    <p class="code-text">&lt;re.Match object; span=(0, 5), match='hello'&gt;
+     </p>
+    </div>
+   </p>
+   <p>
+    Following is the output:
+   </p>
+   <p class="code-text">
+    &lt;re.Match object; span=(0, 5), match='hello'&gt;
 ['hello']
 ------
 &lt;re.Match object; span=(0, 18), match='hello ladies hello'&gt;
@@ -142,16 +267,33 @@ for each_str in strings:
 &lt;re.Match object; span=(4, 9), match='hello'&gt;
 ['hello']
 ------
-    </p>
-    <hr>
-    <p>
-        Example III: Let us find a set of characters. <mark>group()</mark> function can be used to print the first matching sequence of the <mark>re.Match</mark> object.
-        <br>
-        Similarly, <mark>.start()</mark> function can be used to print the starting position of the first matching sequence.
-        <br>
-        Similarly, <mark>.span()</mark> function can be used to access the tuple with start and end index of the matching sequence.
-        <div class="box-text">
-            <p class="code-text">import re
+   </p>
+   <hr/>
+   <p>
+    Example III: Let us find a set of characters.
+    <mark>
+     group()
+    </mark>
+    function can be used to print the first matching sequence of the
+    <mark>
+     re.Match
+    </mark>
+    object.
+    <br/>
+    Similarly,
+    <mark>
+     .start()
+    </mark>
+    function can be used to print the starting position of the first matching sequence.
+    <br/>
+    Similarly,
+    <mark>
+     .span()
+    </mark>
+    function can be used to access the tuple with start and end index of the matching sequence.
+    <div class="box-text">
+     <p class="code-text">
+      import re
 
 strings = ['123andd f567','adad 564 .;sfs']
 for each_str in strings:
@@ -174,12 +316,12 @@ for each_str in strings:
     print(z)
     print('------')
     print('------')
-            </p>
-            <p>
-                Following is the output.
-            </p>
-            <p class="code-text">
-&lt;re.Match object; span=(0, 1), match='1'&gt;
+     </p>
+     <p>
+      Following is the output.
+     </p>
+     <p class="code-text">
+      &lt;re.Match object; span=(0, 1), match='1'&gt;
 1
 ['1', '2', '3', '5', '6', '7']
 ------
@@ -205,18 +347,19 @@ for each_str in strings:
 ['564']
 ------
 ------
-             </p>
-             <p>
-                If we look closely, we can see how the use of * differs from the use of + for repetition of the numbers [0-9].
-             </p>
-        </div>
-    </p>
-    <hr>
-    <p>
-        Example IV:
-        <div class="box-text">
-            Let us look at hte special sequences
-            <p class="code-text">import re
+     </p>
+     <p>
+      If we look closely, we can see how the use of * differs from the use of + for repetition of the numbers [0-9].
+     </p>
+    </div>
+   </p>
+   <hr/>
+   <p>
+    Example IV:
+    <div class="box-text">
+     Let us look at hte special sequences
+     <p class="code-text">
+      import re
 
 strings = ['this is sentence','his book']
 for each_str in strings:
@@ -236,11 +379,12 @@ for each_str in strings:
         print(x.group())
     print('--')
     print('--')
-            </p>
-            <p>
-                \b looks for either at the start or end of the word, \A looks at the beginning of the string.
-            </p>
-            <p class="code-text">None
+     </p>
+     <p>
+      \b looks for either at the start or end of the word, \A looks at the beginning of the string.
+     </p>
+     <p class="code-text">
+      None
 --
 &lt;re.Match object; span=(1, 4), match='his'&gt;
 his
@@ -257,17 +401,23 @@ his
 --
 None
 --
---                
-            </p>
-        </div>
-    </p>
-    <hr>
-    <p> Example V:
-        <div class="box-text">
-            Let us see how to exclude characters. Characters can be excluded by using caret sign as follows. The following 
-            example looks for sequence that is not a digit (as indicated by <mark>[^0-9]</mark>). The curly braces indicates
+--
+     </p>
+    </div>
+   </p>
+   <hr/>
+   <p>
+    Example V:
+    <div class="box-text">
+     Let us see how to exclude characters. Characters can be excluded by using caret sign as follows. The following 
+            example looks for sequence that is not a digit (as indicated by
+     <mark>
+      [^0-9]
+     </mark>
+     ). The curly braces indicates
             the no of repitiion to search for, i.e. in this case, it will group 4 characters that are not 0-9.
-            <p class="code-text">import re
+     <p class="code-text">
+      import re
 
 strings = ['this is sentence','his book']
 for each_str in strings:
@@ -278,50 +428,60 @@ for each_str in strings:
     x = re.findall('[^0-9]{4}',each_str)
     print(x)
     print('--')
-            </p>
-            Following shows the output
-            <p class="code-text">&lt;re.Match object; span=(0, 4), match='this'&gt;
+     </p>
+     Following shows the output
+     <p class="code-text">
+      &lt;re.Match object; span=(0, 4), match='this'&gt;
 this
 ['this', ' is ', 'sent', 'ence']
 --
 &lt;re.Match object; span=(0, 4), match='his '&gt;
 his 
 ['his ', 'book']
---     
-            </p>
-        </div>
-    </p>
-    <p>
-        Example VI: Sub
-        <div class="box-text">
-            Let us modify the above code slightly and replace the first 4 non-digit characters of the strings with <mark>kera</mark>
-            <p class="code-text">import re
+--
+     </p>
+    </div>
+   </p>
+   <p>
+    Example VI: Sub
+    <div class="box-text">
+     Let us modify the above code slightly and replace the first 4 non-digit characters of the strings with
+     <mark>
+      kera
+     </mark>
+     <p class="code-text">
+      import re
 
 strings = ['this is sentence','his book']
 for each_str in strings:
     x = re.sub('^[^0-9]{4}','kera',each_str)
     print(x)
     print('--')
-            </p>
-            Following is the output
-            <p class="code-text">kera is sentence
+     </p>
+     Following is the output
+     <p class="code-text">
+      kera is sentence
 --
 kerabook
 --
-
-            </p>
-            <hr>
-            The same thing as above can be achieved by using the optional argument, <mark>maxsplit</mark>. 
-            <p class="code-text">import re
+     </p>
+     <hr/>
+     The same thing as above can be achieved by using the optional argument,
+     <mark>
+      maxsplit
+     </mark>
+     .
+     <p class="code-text">
+      import re
 
 strings = ['this is sentence','his book']
 for each_str in strings:
     x = re.sub('[^0-9]{4}','kera',each_str,1)
     print(x)
     print('--')
-            </p>
-        </div>
-    </p>
+     </p>
     </div>
-</body>
+   </p>
+  </div>
+ </body>
 </html>

@@ -1,103 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Prawar Poudel">
-    <meta name="keywords" content="LLM, AI, RAG">
-    <meta name="description" content="Retrieval Augmented Generation (RAG)">
-  
-    <link rel="stylesheet" href="../css/main.css" type="text/css" />
-    <title>Retrieval Augmented Generation (RAG)</title>
-</head>
-
-<body>  
-    <!-- this one is on the top for navigation -->
-    <div class="navbar">
-        <a href="../index.html">Home</a>
-        <a href="../about.html">About</a>
-        <a href="https://www.linkedin.com/in/prawarpoudel/">LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&hl=en">Google Scholar</a>
-    </div>
-    <!-- following is the sidebar -->
-    <div class="sidebar">
-        <a href="https://prawarpoudel.github.io/about">About</a>
-        <a class="listt" href="../pages/rag.html">RAG Concept</a>
-        <a class="listt" href="../pages/rag_code.html">RAG Implementation</a>
-        <a class="listt" href="../pages/redis_benchmarking.html">REDIS Benchmarking</a>
-        <a class="listt" href="../pages/codellama.html">Code Llama Intro</a>
-        <a class="listt" href="../pages/codellama_handson.html">Code Llama Hands-On</a>
-        <a class="listt" href="../pages/breaking_codellama.html">Breaking Code LLama</a>
-        <a class="listt" href="../pages/whyjohnnycantprompt.html">Why Jhonny Cant't Prompt</a>
-        <a class="listt" href="../pages/datascience_topics.html">Various Data Science Topics</a>
-        <a class="listt" href="../pages/discriminative.html">Discriminative Vs Generative Models</a>
-        <a class="listt" href="../pages/gan.html">Generative Adversarial Models</a>
-        <a class="listt" href="../pages/programming_topics.html">Various Programming Topics</a>
-        <a class="listt" href="../pages/regex_py.html">Regex in python</a>
-    </div>
-
-    <div class="content">
-    <h1>Retrieval Augmented Generation (RAG)</h1>
-    <h2>Introduction</h2>
-    <p>
-        RAG is the technique to harness the power of LLMs such that LLMs can be used to serve a user's custom purpose. LLMs are, in almost all the cases, trained with the data that is available online. 
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="LLM, AI, RAG" name="keywords"/>
+  <meta content="Retrieval Augmented Generation (RAG)" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Retrieval Augmented Generation (RAG)
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Retrieval Augmented Generation (RAG)
+   </h1>
+   <h2>
+    Introduction
+   </h2>
+   <p>
+    RAG is the technique to harness the power of LLMs such that LLMs can be used to serve a user's custom purpose. LLMs are, in almost all the cases, trained with the data that is available online. 
         This means the contents to train LLMs have following properties:
-        <ul>
-            <li>has <mark>too much information</mark>, which are oftentimes unnecessary,</li>
-            <li><mark>may not contain enough information</mark> about the documents that a user is interested in.</li>
-        </ul>
-    </p>
-    <p>
+    <ul>
+     <li>
+      has
+      <mark>
+       too much information
+      </mark>
+      , which are oftentimes unnecessary,
+     </li>
+     <li>
+      <mark>
+       may not contain enough information
+      </mark>
+      about the documents that a user is interested in.
+     </li>
+    </ul>
+   </p>
+   <p>
     Let us take an example of some proprietary documents from your company. You want to use the power of LLM to be able to answer questions from the information 
     contained within those documents. 
     Training of LLMs could pose unnecessary cost; plus, your company may not have enough data or resource or time to train a model for this specific case. 
     This is where the concept of RAG comes into play.
-    </p>
-    <p>
+   </p>
+   <p>
     RAG still uses LLMs to be able to answer questions. However, the text string that is fed into the LLM as a prompt is modified such that the LLM is forced to derive answer from the content of the string or the prompt.
     If we can construct the prompt from the documents that we are interested in, and force the LLM to answer from the content of the prompt, we achieve our goal of acquiring answers from the document that we want the answers from.
-    </p>
-    <p>Thus, <mark>Retrieval Augmented Generation (RAG)</mark> is a type of prompt engineering that unleashes the power of <mark>pre-trained LLM</mark> to extract information from user prescribed documents.</p>
-
-    <p class="important">Please find the implementation attempt of RAG in python at <a href="rag_code.html">this page.</a></p>
-    <h2>Procedure</h2>
-    <p>
-        The behemoth that is the LLMs that are available online and that have come out as a product of rigorous trainings have no match. But to be able to fulfill
+   </p>
+   <p>
+    Thus,
+    <mark>
+     Retrieval Augmented Generation (RAG)
+    </mark>
+    is a type of prompt engineering that unleashes the power of
+    <mark>
+     pre-trained LLM
+    </mark>
+    to extract information from user prescribed documents.
+   </p>
+   <p class="important">
+    Please find the implementation attempt of RAG in python at
+    <a href="rag_code.html">
+     this page.
+    </a>
+   </p>
+   <h2>
+    Procedure
+   </h2>
+   <p>
+    The behemoth that is the LLMs that are available online and that have come out as a product of rigorous trainings have no match. But to be able to fulfill
         our objective of retrieving contents from the documents that the LLMs have not seen before, as stated earlier, we need to modify the prompt that we feed into the LLM.
-    </p>
-    <p>To make our life easier, let us name the set of these documents as D. Lets say D has all the policy documents of any company C.</p>
-    <h3>Step 1</h3>
-    <p>
-        We should be able to extract the appropriate text from among the D and append that to the prompt to be fed to the LLMs. So, the first thing we need
-        to do is embed these documents in D. These embeddings are stored in some database, preferable in some <mark>vector database</mark>. This database is more 
-        commonly referred to as <mark>Knowledge Source (K)</mark>. This is the first step of the RAG technique.
-    </p>
-    <p>
-        Following image shows the idea in a pictorial representation.
-        <img src="../images/rag_embedding_1.png" alt="RAG embedding documents" class="center-image">
-    </p>
-    <h3>Step 2 and Step 3</h3>
-    <p>
-        When the user inputs a string query q1, we need to search the appropriate items from the database K. This is done by embedding the user query string
-        and performing the search into the database. The output of this search is called a <mark>context</mark>. To be on the safe side, and to provide with more 
+   </p>
+   <p>
+    To make our life easier, let us name the set of these documents as D. Lets say D has all the policy documents of any company C.
+   </p>
+   <h3>
+    Step 1
+   </h3>
+   <p>
+    We should be able to extract the appropriate text from among the D and append that to the prompt to be fed to the LLMs. So, the first thing we need
+        to do is embed these documents in D. These embeddings are stored in some database, preferable in some
+    <mark>
+     vector database
+    </mark>
+    . This database is more 
+        commonly referred to as
+    <mark>
+     Knowledge Source (K)
+    </mark>
+    . This is the first step of the RAG technique.
+   </p>
+   <p>
+    Following image shows the idea in a pictorial representation.
+    <img alt="RAG embedding documents" class="center-image" src="../images/rag_embedding_1.png"/>
+   </p>
+   <h3>
+    Step 2 and Step 3
+   </h3>
+   <p>
+    When the user inputs a string query q1, we need to search the appropriate items from the database K. This is done by embedding the user query string
+        and performing the search into the database. The output of this search is called a
+    <mark>
+     context
+    </mark>
+    . To be on the safe side, and to provide with more 
         contexts, more than one context is searched and retured from the database in most of the cases.
-    </p>
-    <p>
-        In the following pictorial representation, the embedding of the user query q1 is referred to as <mark>Step 2</mark>. Searching the database for the appropriate context is <mark>Step 3</mark>.
-        <img src="../images/rag_step_2.png" alt="RAG query vector database" class="center-image">
-    </p>
-    <h3>Step 4</h3>
-    <p>Finally, after the appropriate contexts have been determined, the query string q1 and the contexts are combined to form a large string.
-        In some of the cases, addition of some extra strings could help with search. A <mark>combination</mark> of the q1 and the context with the additional string 
+   </p>
+   <p>
+    In the following pictorial representation, the embedding of the user query q1 is referred to as
+    <mark>
+     Step 2
+    </mark>
+    . Searching the database for the appropriate context is
+    <mark>
+     Step 3
+    </mark>
+    .
+    <img alt="RAG query vector database" class="center-image" src="../images/rag_step_2.png"/>
+   </p>
+   <h3>
+    Step 4
+   </h3>
+   <p>
+    Finally, after the appropriate contexts have been determined, the query string q1 and the contexts are combined to form a large string.
+        In some of the cases, addition of some extra strings could help with search. A
+    <mark>
+     combination
+    </mark>
+    of the q1 and the context with the additional string 
         is the final prompt that is fed into the LLM.
-    </p>
-    <p>
-        Following image shows the complete idea is a single picture.
-        <img src="../images/rag-step4.png" alt="RAG block diagram" class="center-image">
-    </p>
-    <p>
-        The LLM then gives out the answer, a1, as it always does.
-    </p>
-    </div>
-</body>
+   </p>
+   <p>
+    Following image shows the complete idea is a single picture.
+    <img alt="RAG block diagram" class="center-image" src="../images/rag-step4.png"/>
+   </p>
+   <p>
+    The LLM then gives out the answer, a1, as it always does.
+   </p>
+  </div>
+ </body>
 </html>
