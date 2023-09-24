@@ -76,6 +76,10 @@ margin-left: 20%;
     border: 1px solid #ddd;
     margin: 10px;
 }
+
+.box:hover{
+    background-color: #f0f0f9;
+}
 .box-text {
     width: 90%; /*Adjust the width as needed*/
     padding: 10px;
