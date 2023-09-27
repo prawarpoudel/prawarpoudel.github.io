@@ -41,6 +41,9 @@
    <a class="listt" href="../pages/programming_topics.html">
     Various Programming Topics
    </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Various Kubernetes Topics
+   </a>
    <a class="listt" href="../pages/rag.html">
     RAG Concept
    </a>
@@ -70,6 +73,9 @@
    </a>
    <a class="listt" href="../pages/regex_py.html">
     Regex in python
+   </a>
+   <a class="listt" href="../pages/kube_health_checks.html">
+    Kube Health Checks
    </a>
   </div>
   <div class="content">
@@ -279,38 +285,38 @@
     </mark>
     button (labelled as 4) to load the model.
    </p>
-   <hr>
-    <h2>
-     Prompting
-    </h2>
-    <p>
-     Now that we have got everything set up, let us test the LLM and see if it servers any of our purpose.
-    </p>
-    <p>
-     For this, switch over to the
-     <mark>
-      Default
-     </mark>
-     tab on the top of UI. Here, we can put in the prompt, and see the generated response.
-    </p>
-    <h3>
-     Q1. A simple Task
-    </h3>
-    <p>
-     Following prompt was provided.
-    </p>
-    <p class="code-text">
-     Write a code for the question below:
+   <hr/>
+   <h2>
+    Prompting
+   </h2>
+   <p>
+    Now that we have got everything set up, let us test the LLM and see if it servers any of our purpose.
+   </p>
+   <p>
+    For this, switch over to the
+    <mark>
+     Default
+    </mark>
+    tab on the top of UI. Here, we can put in the prompt, and see the generated response.
+   </p>
+   <h3>
+    Q1. A simple Task
+   </h3>
+   <p>
+    Following prompt was provided.
+   </p>
+   <p class="code-text">
+    Write a code for the question below:
 
 Question:  Write a code in python that generates number from 1 to 100.
 
 Factual answer:
-    </p>
-    <p>
-     Following output is generated:
-    </p>
-    <p class="code-text-overflow">
-     Write a code for the question below:
+   </p>
+   <p>
+    Following output is generated:
+   </p>
+   <p class="code-text-overflow">
+    Write a code for the question below:
 
 Question:  Write a code in python that generates number from 1 to 100.
 
@@ -331,17 +337,15 @@ print(numbers)
 ```
 
 This creates a list called `numbers` containing all the integers from 1 to 100. You can then access individual elements by indexing into the list or iterate over it with a for loop.
-    </p>
-    <hr>
-     <p>
-      To look at cases where the output of the model breaks, please visit my
-      <a href="breaking_codellama.html">
-       breaking Code LLama
-      </a>
-      page.
-     </p>
-    </hr>
-   </hr>
+   </p>
+   <hr/>
+   <p>
+    To look at cases where the output of the model breaks, please visit my
+    <a href="breaking_codellama.html">
+     breaking Code LLama
+    </a>
+    page.
+   </p>
   </div>
  </body>
 </html>

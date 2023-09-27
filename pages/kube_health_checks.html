@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Generative Adversarial Network (GAN)
+   Kube Health Checks
   </title>
  </head>
  <body>
@@ -80,14 +80,38 @@
   </div>
   <div class="content">
    <h1>
-    Generative Adversarial Network (GAN)s
+    Health Checks in Kubernetes
    </h1>
+   <p class="important">
+    Health check in kubernetes is performed in three major forms: (a). Liveness Check; (b). Readiness Check; (c). StartUp Probes.
+   </p>
+   <hr/>
    <p>
-    TODO: Learning from the google developer page at
-    <a href="https://developers.google.com/machine-learning/gan/programming-exercise">
+    Following contents are derived from the official Kubernetes documentation at
+    <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">
      this link
     </a>
     .
+   </p>
+   <ul>
+    <li>
+     Liveness Probes:
+     <ul>
+      <li>
+       Kubelet uses liveness probes to decide when to restart a container.
+      </li>
+      <li>
+       Liveness probes can be used to catch a deadlock in a container.
+      </li>
+     </ul>
+    </li>
+    <li>
+     Readiness Probes:
+     <ul>
+     </ul>
+    </li>
+   </ul>
+   <p>
    </p>
   </div>
  </body>

@@ -15,6 +15,10 @@ table_contents:
     class: 'listt'
     href: "../pages/programming_topics.html"
     string: "Various Programming Topics"
+  "15":
+    class: 'listt'
+    href: "../pages/kube_topics.html"
+    string: "Various Kubernetes Topics"
   "2":
     class: 'listt'
     href: "../pages/rag.html"
@@ -55,3 +59,7 @@ table_contents:
     class: 'listt'
     href: "../pages/regex_py.html"
     string: "Regex in python"
+  "16":
+    class: 'listt'
+    href: "../pages/kube_health_checks.html"
+    string: "Kube Health Checks"
