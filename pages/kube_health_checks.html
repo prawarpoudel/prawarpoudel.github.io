@@ -95,7 +95,7 @@
    </p>
    <ul>
     <li>
-     Liveness Probes:
+     <mark>Liveness Probes:</mark>
      <ul>
       <li>
        Kubelet uses liveness probes to decide when to restart a container.
@@ -106,13 +106,185 @@
      </ul>
     </li>
     <li>
-     Readiness Probes:
+     <mark>Readiness Probes:</mark>
      <ul>
+        <li>
+            Kubelet uses readiness probes to decide when the container is ready to accept traffic.
+        </li>
+        <li>
+            A pod is considered ready when all the containers in the pod is ready.
+        </li>
      </ul>
     </li>
+    <li>
+        <mark>Startup Probes:</mark>
+        <ul>
+            <li>
+                Kubelet uses startup probes to know when a container application has started.
+            </li>
+            <li>
+                If a startup probe is configured, the liveness and readiness probe is started only after the startup probe succeeds
+            </li>
+            <li>
+                Not starting liveness and startup probes until startup probe succeeds help especially in the case of slow starting containers. This prevents
+                kubelet from killing hte containers before they are up and running.
+            </li>
+        </ul>
+    </li>
    </ul>
+   <hr>
+   <h2>Example Liveness Probe</h2>
    <p>
+    Let us look at a simple example of liveness probe set up in a dummy pod that we will set up. But before that, we need to get familiar with a few terms:
+    <ul>
+        <li>
+            <mark>initialDelaySeconds:</mark> This is the duration in seconds kubelet waits before executing the command that is specified for liveness check.
+        </li>
+        <li>
+            <mark>periodSeconds:</mark> This is the duration in seconds kubelet executes the command for liveness checks. For example, if the <mark>periodSeconds</mark> values is 5,
+            kubelet exceutes liveness check every 5 seconds. If the command is unsuccessful, then it kills the container and restarts it.
+        </li>
+    </ul>
    </p>
+   <p>
+    Following definition of the pod that we are going to run is described from the <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-liveness-command">kube documentation page</a>.
+    <p class="code-text">
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          labels:
+            test: liveness_test
+          name: liveness-test-exec
+        spec:
+          containers:
+          - name: my-test
+            image: registry.k8s.io/busybox
+            args:
+            - /bin/sh
+            - -c
+            - touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600
+            livenessProbe:
+              exec:
+                command:
+                - cat
+                - /tmp/healthy
+              initialDelaySeconds: 5
+              periodSeconds: 5        
+    </p>
+    <p class="important">What this does is following:</p>
+    <ul>
+        <li>
+            Pulls the busybox image
+        </li>
+        <li>
+            At the startup of the container,
+            <ul>
+                <li>
+                    creates a file named <mark>/tmp/healthy</mark>.
+                </li>
+                <li>
+                    sleeps for 30s
+                </li>
+                <li>
+                    removes the file created 30s ago, i.e. <mark>/tmp/healthy</mark>
+                </li>
+                <li>
+                    sleeps for 600s
+                </li>
+            </ul>
+        </li>
+        <li>
+            For the liveness check:
+            <ul>
+                <li>
+                    Reads the file <mark>/tmp/healthy</mark> using <mark>cat</mark> command.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <p class="important">What ends up happening?</p>
+   <p>
+    So the combination of the creation and deletion of the file after 30s causes the liveness probe to fail after 30s. This is because liveness probe succeeds (returns 0) when
+    the file <mark>/tmp/healthy</mark> is available. After 30s of when the container starts to run, the file gets deleted. This causes the <mark>cat</mark> command to return non-zero 
+    value. This causes the liveness to fail, and thus the container gets restarted.
+   </p>
+   <p class="important">In action</p>
+   <p>
+    <ul>
+        <li>
+            I save the description of the pod above to file named <mark>liveness_test.yaml</mark>.
+        </li>
+        <li>
+            In my kube cluster, I applied following command to create the pod based on the description in the file.
+            <p class="code-text">
+% kubectl apply -f liveness_test.yaml
+pod/liveness-test-exec created
+            </p>
+        </li>
+        <li>
+            I started a watch command to see the state of the pod created. Following is the watch command that I used.
+            <p class="code-text">
+% watch -n 0.5 "kubectl get po -o wide | grep liveness"
+            </p>
+        </li>
+    </ul>
+    <p>
+        Following is the output see when the container is running properly. Watch for the 0 value in the restart column.
+    </p>
+    <img class="center-image" src="../images/liveness_1.png">
+    <p>
+        Following is the output see when the container is restarted after some time (i.e. when the liveness fails). Watch for the 1 value in the restart column.
+    </p>
+    <img class="center-image" src="../images/liveness_2.png">
+   </p>
+   <hr>
+   <p class="important">
+    Other ways of setting Liveness Probe
+    <p>
+      <mark>Using http request</mark>  
+    </p>
+    <p>
+        A http server running inside the container can be configured to return http status codes to reflect the condition of the container. The kubelet can then probe the 
+        endpoint periodically to perform the liveness test. Any http value greater than or equal to 200 but less than 400 is a success. If the value is outside this range, the 
+        kubelet will kill the container and initiate the restart of container.
+    </p>
+    <p>
+        Following is an example of http based liveness check. It is derived from the <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-liveness-http-request">kube documentation</a>.
+        <p class="code-text">
+            apiVersion: v1
+            kind: Pod
+            metadata:
+              labels:
+                test: liveness
+              name: liveness-http
+            spec:
+              containers:
+              - name: liveness
+                image: registry.k8s.io/liveness
+                args:
+                - /server
+                livenessProbe:
+                  httpGet:
+                    path: /healthz
+                    port: 8080
+                    httpHeaders:
+                    - name: Custom-Header
+                      value: Awesome
+                  initialDelaySeconds: 3
+                  periodSeconds: 3            
+        </p>
+        <p>
+            This forces the kubelet to perform a <mark>HTTP GET</mark> call every 3 seconds to the endpoint <mark>localhost:8080/healthz</mark> inside the container. If the value
+            returned is greater than or equal to 200 and less than 400, the liveness check is considered successful.
+        </p>
+    </p>
+    <p>
+        There are other ways to do this as well. Please explore them in the kube documentation. For example; using <mark>TCP Port</mark>, kubelet can check if a port in a container is open or not.
+        Similarly, using <mark>gRPC</mark> based liveness test, the health status can be queried using gRPC call to elsewhere.
+    </p>
+   </p>
+
   </div>
  </body>
 </html>
