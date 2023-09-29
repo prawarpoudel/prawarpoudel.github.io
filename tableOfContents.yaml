@@ -19,6 +19,10 @@ table_contents:
     class: 'listt'
     href: "../pages/kube_topics.html"
     string: "Various Kubernetes Topics"
+  "17":
+    class: 'listt'
+    href: "../pages/coding_topics.html"
+    string: "Various Coding Examples"
   "2":
     class: 'listt'
     href: "../pages/rag.html"
@@ -63,3 +67,7 @@ table_contents:
     class: 'listt'
     href: "../pages/kube_health_checks.html"
     string: "Kube Health Checks"
+  "18":
+    class: 'listt'
+    href: "../pages/coding_topics.html"
+    string: "Various Coding Examples"

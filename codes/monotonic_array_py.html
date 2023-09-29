@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Find Monotonic Array In Python
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    Various AI Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Various Kubernetes Topics
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Examples
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/kube_health_checks.html">
+    Kube Health Checks
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Examples
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Check if an array is monotonic.
+   </h1>
+   <p>
+    An array is monotonic is all the elements are either in non-decreasing or in non-increasing order. In other words, for any array
+    <mark>
+     arr
+    </mark>
+    , its 
+        monotonic is
+    <mark>
+     arr[i]&gt;=arr[i+1]
+    </mark>
+    or
+    <mark>
+     arr[i]&lt;=arr[i+1]
+    </mark>
+    , for all the elements
+    <mark>
+     arr[i]
+    </mark>
+    in the array.
+   </p>
+   <hr/>
+   <h2>
+    Solution 1
+   </h2>
+   <p>
+    Let us devise a strategy where we will find the if the array is in increasing or decreasing order. Following is the code, a very naiive solution:
+   </p>
+   <p class="code-text">
+    def isMonotonic(self, nums: List[int]) -&gt; bool:
+# naiive solution
+    l = len(nums)
+    old_trend = 0
+    for i in range(1,l):
+        if nums[i]&gt;nums[i-1]:
+            trend = 1
+        elif nums[i]&lt;nums[i-1]:
+            trend = -1
+        else:
+            trend = 0
+        
+        if old_trend==0:
+            old_trend=trend
+        elif trend!=0 and old_trend!=trend:
+            return False
+        elif trend!=0:
+            old_trend = trend
+            continue
+    return True
+   </p>
+   <p>
+    <b>
+     Idea:
+    </b>
+    <ul>
+     <li>
+      The goal is to find the trend in the array. We do this in a variable
+      <mark>
+       trend
+      </mark>
+      . The value of +1 indicates increasing trend, -1 indicates decreasing trend
+                and 0 indicates current value is equal to the last value.
+     </li>
+     <li>
+      As an initial condition, we set the
+      <mark>
+       old_trend
+      </mark>
+      value to 0, indicating its neither increasing or decreasing.
+     </li>
+     <li>
+      For every next number encountered in the array, we update the
+      <mark>
+       trend
+      </mark>
+      value.
+     </li>
+     <li>
+      If
+      <mark>
+       trend
+      </mark>
+      is non-zero, and the value is different from
+      <mark>
+       old_trend
+      </mark>
+      , the monotonicity is broken, so we return
+      <mark>
+       False
+      </mark>
+     </li>
+     <li>
+      Keep on iterating through all the elements of the array.
+     </li>
+     <li>
+      If the trend is not broken, the array is monotonic, so we return
+      <mark>
+       True
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <h2>
+    Solution 2
+   </h2>
+   <p>
+    Let us devise a slightly better solution. Here, we will use two boolean variables to track the increasing trend and decreasing trend. Since the output desired is also boolean,
+        any breakage in trend in any of these two variables  can be passed as
+    <mark>
+     OR
+    </mark>
+    operation as output. (We only need one to be True until the end.)
+   </p>
+   <p class="code-text">
+    def isMonotonic(self, nums: List[int]) -&gt; bool:
+
+    trend_p = True
+    trend_n = True
+    l = len(nums)
+
+    for i in range(l-1):
+        if nums[i]&gt;nums[i+1]:
+            trend_n = False
+        elif nums[i]&lt;nums[i+1]:
+            trend_p = False
+
+    return trend_n or trend_p
+   </p>
+  </div>
+ </body>
+</html>
