@@ -70,11 +70,12 @@ margin-left: 20%;
 
 /* Styling for the child divs */
 .box {
-    width: calc(20% - 10px); /*Adjust the width as needed*/
+    /* width: calc(20% - 10px); Adjust the width as needed */
+    width: 150px;
     padding: 10px;
     background-color: #f0f0f0;
     border: 1px solid #ddd;
-    margin: 10px;
+    margin: 5px;
 }
 
 .box:hover{
@@ -85,7 +86,7 @@ margin-left: 20%;
     padding: 10px;
     background-color: #f0f0f0;
     border: 1px solid #ddd;
-    margin: 10px;
+    margin: 1px;
 }
 .center {
     display: block;
