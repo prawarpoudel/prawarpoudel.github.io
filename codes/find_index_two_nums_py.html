@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Various Coding Examples
+   Find two index of nums to add.
   </title>
  </head>
  <body>
@@ -88,37 +88,29 @@
    </a>
   </div>
   <div class="content">
-   <h1>
-    Topics
-   </h1>
+   <h1>Find two numbers that add up to a target.</h1>
    <p>
-    <ol>
-     <li>
-      <p class="important">
-       Find Monotonic Array.
-      </p>
-      <a href="../codes/monotonic_array_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Reverse every word in a string.
-      </p>
-      <a href="../codes/reverse_string_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Find values that add up to a target.
-      </p>
-      <a href="../codes/find_index_two_nums_py.html">
-       (Link)
-      </a>
-     </li>
-    </ol>
+    Given an array, find indices of two numbers in the array that add up to a target integer. For example, given an array <mark>array = [2,7,11,15]</mark>, and a target value of <mark>9</mark>,
+    the expected output is <mark>[0,1]</mark>. This is because <mark>array[0]+array[1] = 9</mark>.
    </p>
+   <hr>
+   <h2>Solution 1</h2>
+   <p>
+    Following is the naiive solution with a very straightforward solution.
+   </p>
+   <p class="code-text">
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    f_idx = 0
+    s_idx = 0
+    for f_idx,val in enumerate(nums):
+        for s_idx in range(f_idx+1,len(nums)):
+            if val+nums[s_idx] == target:
+                return [f_idx,s_idx]
+    # should not return here
+    return [-1,-1]
+   </p>
+   <hr>
+   <hr>
   </div>
  </body>
 </html>
