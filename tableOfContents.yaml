@@ -73,5 +73,5 @@ table_contents:
     string: "Kube Health Checks"
   "19":
     class: 'listt'
-    href: "../pages/coding_topics.html"
-    string: "Various Coding Examples"
+    href: "../pages/raft_consensus.html"
+    string: "Raft Algorithm (Consensus)"

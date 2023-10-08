@@ -83,23 +83,43 @@
    <a class="listt" href="../pages/kube_health_checks.html">
     Kube Health Checks
    </a>
-   <a class="listt" href="../pages/coding_topics.html">
-    Various Coding Examples
+   <a class="listt" href="../pages/raft_consensus.html">
+    Raft Algorithm (Consensus)
    </a>
   </div>
   <div class="content">
-   <h1>Find two numbers that add up to a target.</h1>
+   <h1>
+    Find two numbers that add up to a target.
+   </h1>
    <p>
-    Given an array, find indices of two numbers in the array that add up to a target integer. For example, given an array <mark>array = [2,7,11,15]</mark>, and a target value of <mark>9</mark>,
-    the expected output is <mark>[0,1]</mark>. This is because <mark>array[0]+array[1] = 9</mark>.
+    Given an array, find indices of two numbers in the array that add up to a target integer. For example, given an array
+    <mark>
+     array = [2,7,11,15]
+    </mark>
+    , and a target value of
+    <mark>
+     9
+    </mark>
+    ,
+    the expected output is
+    <mark>
+     [0,1]
+    </mark>
+    . This is because
+    <mark>
+     array[0]+array[1] = 9
+    </mark>
+    .
    </p>
-   <hr>
-   <h2>Solution 1</h2>
+   <hr/>
+   <h2>
+    Solution 1
+   </h2>
    <p>
     Following is the naiive solution with a very straightforward solution.
    </p>
    <p class="code-text">
-def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:
     f_idx = 0
     s_idx = 0
     for f_idx,val in enumerate(nums):
@@ -109,8 +129,8 @@ def twoSum(self, nums: List[int], target: int) -> List[int]:
     # should not return here
     return [-1,-1]
    </p>
-   <hr>
-   <hr>
+   <hr/>
+   <hr/>
   </div>
  </body>
 </html>

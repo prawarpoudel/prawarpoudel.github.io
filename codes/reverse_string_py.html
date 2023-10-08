@@ -83,24 +83,39 @@
    <a class="listt" href="../pages/kube_health_checks.html">
     Kube Health Checks
    </a>
-   <a class="listt" href="../pages/coding_topics.html">
-    Various Coding Examples
+   <a class="listt" href="../pages/raft_consensus.html">
+    Raft Algorithm (Consensus)
    </a>
   </div>
   <div class="content">
-   <h1>Reverse every words in a string.</h1>
+   <h1>
+    Reverse every words in a string.
+   </h1>
    <p>
-We are giving a string. We are required to reverse the words in such a way that each words are reversed while still maintaining the position of the words and spaces in the string. 
-For example, for the input string <mark>Let's take LeetCode contest</mark>, the output string is <mark>s'teL ekat edoCteeL tsetnoc</mark>
+    We are giving a string. We are required to reverse the words in such a way that each words are reversed while still maintaining the position of the words and spaces in the string. 
+For example, for the input string
+    <mark>
+     Let's take LeetCode contest
+    </mark>
+    , the output string is
+    <mark>
+     s'teL ekat edoCteeL tsetnoc
+    </mark>
    </p>
-   <hr>
-   <h2>Solution</h2>
+   <hr/>
+   <h2>
+    Solution
+   </h2>
    <p>
     This should be a strightforward solution. In the following example, we iterate through the string to see for an space character. If there is a space character, we append the 
-    word  <mark>tmp_str</mark> accumulated until now into the string by reversing the order.
+    word
+    <mark>
+     tmp_str
+    </mark>
+    accumulated until now into the string by reversing the order.
    </p>
    <p class="code-text">
-def reverseWords(self, s: str) -> str:
+    def reverseWords(self, s: str) -&gt; str:
     ret_str = ''
     tmp_str = ''
     for i in s:
@@ -112,8 +127,8 @@ def reverseWords(self, s: str) -> str:
     
     return ret_str + tmp_str[::-1]
    </p>
-   <hr>
-   <hr>
+   <hr/>
+   <hr/>
   </div>
  </body>
 </html>
