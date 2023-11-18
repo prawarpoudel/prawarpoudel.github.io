@@ -75,3 +75,11 @@ table_contents:
     class: 'listt'
     href: "../pages/raft_consensus.html"
     string: "Raft Algorithm (Consensus)"
+  "20":
+    class: 'listt'
+    href: "../pages/alerting.html"
+    string: "Ex-Google SRE on Alerting"
+  "21":
+    class: 'listt'
+    href: "../pages/reading_systemdesign.html"
+    string: "System Design Interview (Book)"

@@ -4,11 +4,11 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <meta content="Prawar Poudel" name="author"/>
-  <meta content="" name="keywords"/>
+  <meta content="Vector Databases, AI, Machine Learning, NLP, GPT" name="keywords"/>
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Find Monotonic Array In Python
+   Persistent SSH Connections
   </title>
  </head>
  <body>
@@ -95,138 +95,88 @@
   </div>
   <div class="content">
    <h1>
-    Check if an array is monotonic.
+    Persistent SSH Connections
    </h1>
    <p>
-    An array is monotonic is all the elements are either in non-decreasing or in non-increasing order. In other words, for any array
-    <mark>
-     arr
-    </mark>
-    , its 
-        monotonic is
-    <mark>
-     arr[i]&gt;=arr[i+1]
-    </mark>
-    or
-    <mark>
-     arr[i]&lt;=arr[i+1]
-    </mark>
-    , for all the elements
-    <mark>
-     arr[i]
-    </mark>
-    in the array.
+    In this article we will see the performance of SSH connections when making connections from a LINUX machine to another LINUX machine, and potential methods to enhance the 
+    performance by making cached connections in case there is a need for a large number of repeated SSH connections to be made.
    </p>
-   <hr/>
    <h2>
-    Solution 1
+    Experimental Scenario and Baseline Measurement
    </h2>
    <p>
-    Let us devise a strategy where we will find the if the array is in increasing or decreasing order. Following is the code, a very naiive solution:
-   </p>
-   <p class="code-text">
-    def isMonotonic(self, nums: List[int]) -&gt; bool:
-# naiive solution
-    l = len(nums)
-    old_trend = 0
-    for i in range(1,l):
-        if nums[i]&gt;nums[i-1]:
-            trend = 1
-        elif nums[i]&lt;nums[i-1]:
-            trend = -1
-        else:
-            trend = 0
-        
-        if old_trend==0:
-            old_trend=trend
-        elif trend!=0 and old_trend!=trend:
-            return False
-        elif trend!=0:
-            old_trend = trend
-            continue
-    return True
-   </p>
-   <p>
-    <b>
-     Idea:
-    </b>
     <ul>
      <li>
-      The goal is to find the trend in the array. We do this in a variable
-      <mark>
-       trend
-      </mark>
-      . The value of +1 indicates increasing trend, -1 indicates decreasing trend
-                and 0 indicates current value is equal to the last value.
+      All the connections are made from my personal computer;
      </li>
      <li>
-      As an initial condition, we set the
-      <mark>
-       old_trend
-      </mark>
-      value to 0, indicating its neither increasing or decreasing.
+      All the connections are made to a remove VM that is hosted in IBM Cloud server in Dallas
      </li>
      <li>
-      For every next number encountered in the array, we update the
-      <mark>
-       trend
-      </mark>
-      value.
+      There is one additional hop between the VM and my personal computer. This is because the VM is part of a VPC. 
+                The additional hop is the central VM in the VPC, while our VM is one of the subsidiary VMs.
      </li>
      <li>
-      If
+      For benchmarking purpose, all the timed
       <mark>
-       trend
+       ssh
       </mark>
-      is non-zero, and the value is different from
+      connections will be embellished with
       <mark>
-       old_trend
+       exit
       </mark>
-      , the monotonicity is broken, so we return
-      <mark>
-       False
-      </mark>
-     </li>
-     <li>
-      Keep on iterating through all the elements of the array.
-     </li>
-     <li>
-      If the trend is not broken, the array is monotonic, so we return
-      <mark>
-       True
-      </mark>
+      command
      </li>
     </ul>
-   </p>
-   <hr/>
-   <h2>
-    Solution 2
-   </h2>
-   <p>
-    Let us devise a slightly better solution. Here, we will use two boolean variables to track the increasing trend and decreasing trend. Since the output desired is also boolean,
-        any breakage in trend in any of these two variables  can be passed as
-    <mark>
-     OR
-    </mark>
-    operation as output. (We only need one to be True until the end.)
+    Following is the sample ssh command used for benchmarking:
    </p>
    <p class="code-text">
-    def isMonotonic(self, nums: List[int]) -&gt; bool:
-
-    trend_p = True
-    trend_n = True
-    l = len(nums)
-
-    for i in range(l-1):
-        if nums[i]&gt;nums[i+1]:
-            trend_n = False
-        elif nums[i]&lt;nums[i+1]:
-            trend_p = False
-
-    return trend_n or trend_p
+    % time ssh  -F ~/.ssh/config my_vm 'exit'
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.182 total
    </p>
-   <hr/>
-   <hr/>
+   <p>
+    Above example shows the total duration as 1.182s for the ssh command to establish connection to the VM
+    <mark>
+     my_vm
+    </mark>
+    and run the command
+    <mark>
+     exit
+    </mark>
+    .
+   </p>
+   <h2>
+    Baseline Establishment
+   </h2>
+   <p>
+    The above command was repeated 10 times to establish the baseline time for ssh connection.
+   </p>
+   <p class="code-text">
+    % for i in {{1..10}}; do time ssh  -F ~/.ssh/cloudconfig analysis 'exit'; done
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.080 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 3% cpu 1.249 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.143 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.130 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.085 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.165 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.046 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.069 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.160 total
+ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.065 total
+   </p>
+   <p>
+    The average of the total CPU time from above 10 operations is computed as follows:
+   </p>
+   <p class="code-text">
+    % cat ssh_times.txt | awk '{total +=  $12} END {print total/10}'
+1.1192
+   </p>
+   <h2>
+    ControlMaster
+   </h2>
+   <p>
+    This is a feature in Openssh library that allows reuse of ssh connections
+   </p>
   </div>
  </body>
 </html>

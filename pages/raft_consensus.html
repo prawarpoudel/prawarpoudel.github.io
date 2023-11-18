@@ -86,101 +86,159 @@
    <a class="listt" href="../pages/raft_consensus.html">
     Raft Algorithm (Consensus)
    </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/reading_systemdesign.html">
+    System Design Interview (Book)
+   </a>
   </div>
   <div class="content">
    <h1>
     Raft Algorithm
    </h1>
    <p>
-    Raft algorithm introduced by Diego Ongaro and John Ousterhout at USENIX 2014 <a href="https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro">link to paper</a>,
-    in a paper titled <mark>In Search of an Understandable Consensus Algorithm</mark>. The best description of Raft algo is at <a href="https://raft.github.io/">this github.io link</a>.
+    Raft algorithm introduced by Diego Ongaro and John Ousterhout at USENIX 2014
+    <a href="https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro">
+     link to paper
+    </a>
+    ,
+    in a paper titled
+    <mark>
+     In Search of an Understandable Consensus Algorithm
+    </mark>
+    . The best description of Raft algo is at
+    <a href="https://raft.github.io/">
+     this github.io link
+    </a>
+    .
    </p>
    <p>
     Raft algorithm achieves consensus. Consensus here means multiple servers agreeing on the same information. This is an important requirement in distributed algorithm;
-    and before the proposal of Raft Algorithm, <mark>Paxos</mark> was the algorithm of choice. Paxos was proposed by <mark>Lesli Lamport</mark>.
+    and before the proposal of Raft Algorithm,
+    <mark>
+     Paxos
+    </mark>
+    was the algorithm of choice. Paxos was proposed by
+    <mark>
+     Lesli Lamport
+    </mark>
+    .
    </p>
-   <hr>
+   <hr/>
    <p>
     In any scenario where a client sends a request to a server, and the server responds back with a response. And for a client server situation, there can be two 
-    broad classes of systems: <mark>Single Server System</mark> and <mark>Multiple Server System</mark>. 
+    broad classes of systems:
+    <mark>
+     Single Server System
+    </mark>
+    and
+    <mark>
+     Multiple Server System
+    </mark>
+    .
    </p>
    <p>
     In a Single Server System, there is only one server. Since there is a single source, there is no concern of concensus.
    </p>
    <p>
     In a Multiple Server System, there is more than one server. For example, a kube cluster with multple api-servers, or a redis cluster with multiple masters.
-    In cases like this, the concern of concensus is more important. Any server in symmetric multiple server system can be either a <mark>Leader</mark>,<mark>Follower</mark> or <mark>Candiadate</mark>.
+    In cases like this, the concern of concensus is more important. Any server in symmetric multiple server system can be either a
+    <mark>
+     Leader
+    </mark>
+    ,
+    <mark>
+     Follower
+    </mark>
+    or
+    <mark>
+     Candiadate
+    </mark>
+    .
     Only the leader can interact with the client, and all other nodes/servers sync with the leader. In an asymmetric system, any server can respond to the client, and
     all other server nodes are required to sync with the server that responded to the client request.
    </p>
-   <hr>
+   <hr/>
    <p>
     Following outlines the Raft algorithm:
     <ul>
-        <li>
-            Every server node starts as a follower;
-        </li>
-        <li>
-            After certain timeout (e.g. when any follower timesout to get a heartbeat from a master), an election is started to elect a new leader. Follower node becomes Candidate node.
-            <ul>
-                <li>
-                    The follower node votes itself, and requests votes from other nodes by issuing <mark>RequestVotes RPC</mark>.
-                </li>
-                <li>
-                    If the term number of the candidate requesting the votes is less than other candidate nodes in the cluster, AppendEntries RPC is rejected and other
+     <li>
+      Every server node starts as a follower;
+     </li>
+     <li>
+      After certain timeout (e.g. when any follower timesout to get a heartbeat from a master), an election is started to elect a new leader. Follower node becomes Candidate node.
+      <ul>
+       <li>
+        The follower node votes itself, and requests votes from other nodes by issuing
+        <mark>
+         RequestVotes RPC
+        </mark>
+        .
+       </li>
+       <li>
+        If the term number of the candidate requesting the votes is less than other candidate nodes in the cluster, AppendEntries RPC is rejected and other
                     nodes retain the candidate status. If the term number is greater, the candidate node is elected as the new leader.
-                </li>
-            </ul>
-        </li>
-        <li>
-            If a candidate receives majority votes, it becomes a leader.
-            <ul>
-                <li>
-                    Once leader, it sends out HeartBeat to all the follower with a new term-number.
-                </li>
-            </ul>
-            If not elected a leader, a candidate node goes to follower state.
-        </li>
-        <li>
-            If no leader elected, contest the election. Election conducted again.
-            <ul>
-                <li>
-                    Raft algorithm uses randomized timeout to ensure that split voltes are rare; and that they are resolved quickly. I.e., in most cases, only a
+       </li>
+      </ul>
+     </li>
+     <li>
+      If a candidate receives majority votes, it becomes a leader.
+      <ul>
+       <li>
+        Once leader, it sends out HeartBeat to all the follower with a new term-number.
+       </li>
+      </ul>
+      If not elected a leader, a candidate node goes to follower state.
+     </li>
+     <li>
+      If no leader elected, contest the election. Election conducted again.
+      <ul>
+       <li>
+        Raft algorithm uses randomized timeout to ensure that split voltes are rare; and that they are resolved quickly. I.e., in most cases, only a
                     single server will time out.
-                </li>
-                <li>
-                    In case of split voltes, each candidate again uses a random timeout before initiating next election. This again reduces the liklihood of another
+       </li>
+       <li>
+        In case of split voltes, each candidate again uses a random timeout before initiating next election. This again reduces the liklihood of another
                     split vote in the new election.
-                </li>
-            </ul>
-        </li>
-        <li>
-            Only the leader is allowed to interact with the client. At any term, a system can have at most 1 leader.
-        </li>
+       </li>
+      </ul>
+     </li>
+     <li>
+      Only the leader is allowed to interact with the client. At any term, a system can have at most 1 leader.
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <p>
-    There is a good answer at this <a href="https://stackoverflow.com/questions/64620714/why-raft-leader-sends-empty-appendentries-rpcs-upon-election">stack overflow link</a> that describes
+    There is a good answer at this
+    <a href="https://stackoverflow.com/questions/64620714/why-raft-leader-sends-empty-appendentries-rpcs-upon-election">
+     stack overflow link
+    </a>
+    that describes
     the Raft algorithm.
    </p>
-   <hr>
+   <hr/>
    <p>
     The leader node uses AppendEntries RPC to all the followers to sync their logs with the current leader. This is done until all the followers safely replicate the 
     entries in their logs. In case of inconsistencies, for example, when a master crashes, the conflicting logs are overwritten with the entries from the leader's log.
-    <br>
+    <br/>
     Leader also uses AppendEntries RPC with no entries as an heartbeat signal.
    </p>
-   <hr>
+   <hr/>
    <p>
     Some good references at:
     <ul>
-        <li>
-            <a href="https://www.freecodecamp.org/news/in-search-of-an-understandable-consensus-algorithm-a-summary-4bc294c97e0d">freecodecamp.org</a>
-        </li>
-        <li>
-            <a href="https://www.geeksforgeeks.org/raft-consensus-algorithm/">geeksforgeeks.com</a>
-        </li>
+     <li>
+      <a href="https://www.freecodecamp.org/news/in-search-of-an-understandable-consensus-algorithm-a-summary-4bc294c97e0d">
+       freecodecamp.org
+      </a>
+     </li>
+     <li>
+      <a href="https://www.geeksforgeeks.org/raft-consensus-algorithm/">
+       geeksforgeeks.com
+      </a>
+     </li>
     </ul>
    </p>
   </div>
