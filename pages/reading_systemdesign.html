@@ -113,7 +113,7 @@
     for more detail.
    </p>
    <h2>
-    Chatper - 01: Single Server Setup
+    Chatper - 01: From Zero to Million Users
    </h2>
    <h3>
     Single User Request
@@ -292,6 +292,103 @@
         </li>
         <li>
             This design also allows for more flexibility in horizontal scaling.
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Message Queue
+   </h3>
+   <p>
+    <ul>
+        <li>
+            For asynchronous communication, for example, photo customization task including blurring, sharpening etc
+        </li>
+        <li>
+            web servers publish jobs to the message queue. The job takes time to complete. workers pick up the job and asynchronously perform the job
+        </li>
+        <li>
+            Message queue consits of producers or publishers that puglish or create message to the queue. Servers or services called consumers or subscribers pick up the job.
+        </li>
+        <li>
+            producers can produce message even when the consumers are not available. consumers can pick up and work on message even when no producers are there.
+        </li>
+        <li>
+            since asynchronous, producers and consumers can be scaled independently (and as needed).
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Database Scaling
+   </h3>
+   <p>
+    <ul>
+        <u>Vertical Scaling:</u>
+        <li>
+            Means add more computing power. Add more on CPU, RAM, DISK etc
+        </li>
+        <li>
+            Going beyond certain point creates a single point of failure. Greater risk if things fail.
+        </li>
+    </ul>
+    <ul>
+        <u>Horizonal Scaling:</u>
+        <li>
+            Adding more servers.
+        </li>
+        <li>
+            Also called <mark>Sharding</mark>. Sharding separates large database into smaller and more easily managed parts called shards. Each shards share the same schema, but 
+            the data in each shard is unique to the shard.
+        </li>
+        <li>
+            Sharding a database design consideration: choose the <mark>sharding key</mark> appropriately. Make sure the data can be evenly distributed, and is unique.
+        </li>
+        <li>
+            Some of the problems/challenges/complexities that sharding faces are:
+            <ul>
+                <li>
+                    <u>Resharding Data:</u> When a single shard cannot hold data because of increase in data volume OR when some or single shard face exhaustion faster than others due to 
+                    uneven data distribution. This rquires updating the sharding function and moving data around. <mark>Consistent Hashing</mark> is another solution.
+                </li>
+                <li>
+                    <u>Celebrity Problem:</u> Excessive access of data in a single shard could overload the shard. For example, data related to many celebrities end up in a single shard.
+                    Solution is to allocate a shard for eacch celebrity, Or futher partition in each shard.
+                </li>
+                <li>
+                    <u>Join and DeNormalization:</u> Sharded data is hard to perform join operations on. A workaround is to de-normalize the database so that queires can be performed in a single table.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Conclusion
+   </h3>
+   <p>
+    Its an iterative process to handle million or more users. Following items must be taken into account:
+    <ul>
+        <li>
+            serverless webservers.
+        </li>
+        <li>
+            redundancy in each tier.
+        </li>
+        <li>
+            cache as much as you can.
+        </li>
+        <li>
+            support multiple data centers.
+        </li>
+        <li>
+            host static assets in CDNs.
+        </li>
+        <li>
+            scale data tier by sharding.
+        </li>
+        <li>
+            split each tiers into individual services.
+        </li>
+        <li>
+            monitor system for logs and metrics; automate
         </li>
     </ul>
    </p>
