@@ -246,6 +246,55 @@
    <h3>
     Content Delivery Network (CDNs)
    </h3>
+   <p>
+    <ul>
+        <li>
+            Geographically dispersed servers used to deliver static content, like images, videos, CSS, JS files by caching.
+        </li>
+        <li>
+            When a user visits a website, the CDN server closest to the user will deliver the static content.
+        </li>
+        <li>
+            If the contents are not in CDN, the contents are obtained from the server and cached in CDN. The same content is also provided to the user (similar to read through cache.)
+            The content remains in CDN until the TTL in the HTTP header of the content expires.
+        </li>
+        <li>
+            Any forthcoming requests are served from the CDN, if available.
+        </li>
+        <li>
+            CDN providers charge for data in and out of CDN. Thus, caching infrequently used content has no significant benefit.
+        </li>
+        <li>
+            Appropriate cache expiry, use of CDN provided APIs to version or remove data, and plan for CDN failures are some items that system designer should be aware of.
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Stateless Architecture
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Stateful server keeps the state data whereas stateless server does not keep the state data in the web tier; rather it is stored in a persistent storage.
+        </li>
+        <li>
+            When scaling the web tier horizontally with many web servers, the stateful design is ineffifient because the state info is restricted to a particular server. Any request
+            that want access to the state date need to be routed to the particular server.
+        </li>
+        <li>
+            Stateless desgin saves the state data in a shared data store. Any request to access the state data to any webserver can fetch the data from the shared data store.
+        </li>
+        <li>
+            The shared data store can be any form of database; relational database, Memcached/Redis, NoSQL etc.
+        </li>
+        <li>
+            Stateless design also allows for <mark>auto scaling</mark> in design, which means automatically adding or removing web servers based on traffic load.
+        </li>
+        <li>
+            This design also allows for more flexibility in horizontal scaling.
+        </li>
+    </ul>
+   </p>
   </div>
  </body>
 </html>
