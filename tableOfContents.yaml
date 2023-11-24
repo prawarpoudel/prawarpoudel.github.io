@@ -83,3 +83,7 @@ table_contents:
     class: 'listt'
     href: "../pages/reading_systemdesign.html"
     string: "System Design Topics (Book)"
+  "22":
+    class: 'listt'
+    href: "../pages/primer_systemdesign.html"
+    string: "System Design Primer (Github)"
