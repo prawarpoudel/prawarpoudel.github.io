@@ -98,7 +98,7 @@
   </div>
   <div class="content">
    <h1>
-    System Design Interview Topics
+    System Design Interview: Chapter 04
    </h1>
    <h2>
     Disclaimer
@@ -116,29 +116,40 @@
     for more detail.
    </p>
    <h2>
-    Chapter - 01: From Zero to Million Users
-    <a href="../pages/reading_systemdesign_01.html">
-     (link)
-    </a>
-   </h2>
-   <h2>
-    Chapter - 02: Back Of The Envelope Estimation
-    <a href="../pages/reading_systemdesign_02.html">
-     (link)
-    </a>
-   </h2>
-   <h2>
-    Chapter - 03: Framework for System Design Interviews
-    <a href="../pages/reading_systemdesign_03.html">
-     (link)
-    </a>
-   </h2>
-   <h2>
     Chapter - 04: Designing a Rate Limiter
-    <a href="../pages/reading_systemdesign_04.html">
-     (link)
-    </a>
    </h2>
+   <p>
+    Limit the number of requests from client.
+   </p>
+   <p>
+    All requests in excess than the defined threshold are blocked.
+   </p>
+   <p>
+    Main Benefit is to prevent Denial of Service Attack. Another benefit is to reduce cost. Also, to not impact performance of server by overloading
+    them with excess requests from some unruly accounts/users.
+   </p>
+   <h3>
+    Implementation
+   </h3>
+   <p>
+    Server side rate limiting because we dont have control over client side implementation.
+   </p>
+   <p>
+    In real world, most servers already have API gateway. API gateway provides rate limiting capacity. Or, in designing an API gateway, you can add 
+    rate limiting in its design.
+   </p>
+   <h3>
+    Algorithms for Rate Limiting
+   </h3>
+   <p>
+    <ul>
+        <li>Token Bucket</li>
+        <li>Leaking Bucket</li>
+        <li>Fixed Window Counter</li>
+        <li>Sliding Window Log</li>
+        <li>Sliding Window Counter</li>
+    </ul>
+   </p>
   </div>
  </body>
 </html>
