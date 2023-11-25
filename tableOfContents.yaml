@@ -15,6 +15,10 @@ table_contents:
     class: 'listt'
     href: "../pages/programming_topics.html"
     string: "Various Programming Topics"
+  "21":
+    class: 'listt'
+    href: "../pages/reading_systemdesign.html"
+    string: "System Design Topics (Book)"
   "15":
     class: 'listt'
     href: "../pages/kube_topics.html"
@@ -79,10 +83,6 @@ table_contents:
     class: 'listt'
     href: "../pages/alerting.html"
     string: "Ex-Google SRE on Alerting"
-  "21":
-    class: 'listt'
-    href: "../pages/reading_systemdesign.html"
-    string: "System Design Topics (Book)"
   "22":
     class: 'listt'
     href: "../pages/primer_systemdesign.html"

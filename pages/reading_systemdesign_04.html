@@ -41,6 +41,9 @@
    <a class="listt" href="../pages/programming_topics.html">
     Various Programming Topics
    </a>
+   <a class="listt" href="../pages/reading_systemdesign.html">
+    System Design Topics (Book)
+   </a>
    <a class="listt" href="../pages/kube_topics.html">
     Various Kubernetes Topics
    </a>
@@ -88,9 +91,6 @@
    </a>
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
-   </a>
-   <a class="listt" href="../pages/reading_systemdesign.html">
-    System Design Topics (Book)
    </a>
    <a class="listt" href="../pages/primer_systemdesign.html">
     System Design Primer (Github)
@@ -143,115 +143,139 @@
    </h3>
    <p>
     <ul>
-        <li>Token Bucket</li>
-        <p>
-            Amazon and Stripe use this algorithm.
-            <ul>
-                <u>How this works:</u>
-                <li>
-                    A token bucket is a container with a pre-defined capacity.
-                </li>
-                <li>
-                    Tokens are put into the bucket at a preset rate periodically. Once the bucket is full, no more tokens are added. For example, the rate might be 2 tokens per second.
+     <li>
+      Token Bucket
+     </li>
+     <p>
+      Amazon and Stripe use this algorithm.
+      <ul>
+       <u>
+        How this works:
+       </u>
+       <li>
+        A token bucket is a container with a pre-defined capacity.
+       </li>
+       <li>
+        Tokens are put into the bucket at a preset rate periodically. Once the bucket is full, no more tokens are added. For example, the rate might be 2 tokens per second.
                     After two seconds, when the bucket has 4 tokens, additional tokens will overflow.
-                </li>
-                <li>
-                    When a request arrives, we check if there is enough tokens in bucket. Each request takes one token. When a request comes, we take one token,
+       </li>
+       <li>
+        When a request arrives, we check if there is enough tokens in bucket. Each request takes one token. When a request comes, we take one token,
                     and the request goes through.
-                </li>
-                <li>
-                    If there are not enough tokens, the request is dropped.
-                </li>
-            </ul>
-            <ul>
-                <u>About the algorithm</u>
-                <li>
-                    Algorithm takes in two parameters: Bucket Size and Refill Rate.
-                    <ul>
-                        <li>
-                            Bucket Size is the max number of tokens allowed in the bucket.
-                        </li>
-                        <li>
-                            Refill Rate is the number of token put into the bucket every second.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    Usually necessary to have different bucket for different API endpoint. If throttling per IP address is required, buckets per IP is needed.
+       </li>
+       <li>
+        If there are not enough tokens, the request is dropped.
+       </li>
+      </ul>
+      <ul>
+       <u>
+        About the algorithm
+       </u>
+       <li>
+        Algorithm takes in two parameters: Bucket Size and Refill Rate.
+        <ul>
+         <li>
+          Bucket Size is the max number of tokens allowed in the bucket.
+         </li>
+         <li>
+          Refill Rate is the number of token put into the bucket every second.
+         </li>
+        </ul>
+       </li>
+       <li>
+        Usually necessary to have different bucket for different API endpoint. If throttling per IP address is required, buckets per IP is needed.
                     So there is no specified no of buckets that is optimal for any design. It is case specific. Could be a global bucket if a global rate limit is to be enforced.
-                </li>
-                <li>
-                    Algo is easy to implement, and is memory efficient.
-                </li>
-                <li>
-                    Con: Finding the right parameters might be a challenge.
-                </li>
-            </ul>
-        </p>
-        <li>Leaking Bucket</li>
-        <p>
-            Algorithm is similar to <b>Token Bucket</b>; but the requests are processed at a fixed rate. It usually implements
+       </li>
+       <li>
+        Algo is easy to implement, and is memory efficient.
+       </li>
+       <li>
+        Con: Finding the right parameters might be a challenge.
+       </li>
+      </ul>
+     </p>
+     <li>
+      Leaking Bucket
+     </li>
+     <p>
+      Algorithm is similar to
+      <b>
+       Token Bucket
+      </b>
+      ; but the requests are processed at a fixed rate. It usually implements
             FIFO queue.
-            <ul>
-                <u>How this works:</u>
-                <li>
-                    When a request arrives, system checks if the queue is full.
-                </li>
-                <li>
-                    If not full, the request is added to the queue.
-                </li>
-                <li>
-                    If full, the request is dropped.
-                </li>
-                <li>
-                    Requests are pulled from the queue and processed at a regular intervals.
-                </li>
-            </ul>
-            <ul>
-                <u>About the algorithm:</u>
-                <li>
-                    Algorithm takes in two paramters: Bucket size and Outflow Rate
-                    <ul>
-                        <li>
-                            Bucket Size: it is the queue size. The queue holds the requests to be processed.
-                        </li>
-                        <li>
-                            Outflow Rate: how many requests can be processed at a fixed rate, usually in requests per seconds.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    Pros: Memory efficient. Requests are processed at a fixed rate, thus suitable when a stable outflow rate is needed.
-                </li>
-                <li>
-                    Cons: old requests may fill the queue and might rate limit recent requests. Als, amy be hard to tune the parameters.
-                </li>
-            </ul>
-        </p>
-        <li>Fixed Window Counter</li>
-        <p>
-            <ul>
-                <u>How this works:</u>
-                <li>
-                    The algorithm divides the time into fix-sized time windows.
-                </li>
-                <li>
-                    Each time window is assigned a counter.
-                </li>
-                <li>
-                    Each requests increments the counter by one.
-                </li>
-                <li>
-                    Once the counter reaches the pre-defined threshold, any new requests are dropped until a new window starts.
-                </li>
-            </ul>
-        </p>
-        <p>
-            A major demerit of this algorithm is that at the edge of time windows, in case of a burst of traffic, more requests will go through 
+      <ul>
+       <u>
+        How this works:
+       </u>
+       <li>
+        When a request arrives, system checks if the queue is full.
+       </li>
+       <li>
+        If not full, the request is added to the queue.
+       </li>
+       <li>
+        If full, the request is dropped.
+       </li>
+       <li>
+        Requests are pulled from the queue and processed at a regular intervals.
+       </li>
+      </ul>
+      <ul>
+       <u>
+        About the algorithm:
+       </u>
+       <li>
+        Algorithm takes in two paramters: Bucket size and Outflow Rate
+        <ul>
+         <li>
+          Bucket Size: it is the queue size. The queue holds the requests to be processed.
+         </li>
+         <li>
+          Outflow Rate: how many requests can be processed at a fixed rate, usually in requests per seconds.
+         </li>
+        </ul>
+       </li>
+       <li>
+        Pros: Memory efficient. Requests are processed at a fixed rate, thus suitable when a stable outflow rate is needed.
+       </li>
+       <li>
+        Cons: old requests may fill the queue and might rate limit recent requests. Als, amy be hard to tune the parameters.
+       </li>
+      </ul>
+     </p>
+     <li>
+      Fixed Window Counter
+     </li>
+     <p>
+      <ul>
+       <u>
+        How this works:
+       </u>
+       <li>
+        The algorithm divides the time into fix-sized time windows.
+       </li>
+       <li>
+        Each time window is assigned a counter.
+       </li>
+       <li>
+        Each requests increments the counter by one.
+       </li>
+       <li>
+        Once the counter reaches the pre-defined threshold, any new requests are dropped until a new window starts.
+       </li>
+      </ul>
+     </p>
+     <p>
+      A major demerit of this algorithm is that at the edge of time windows, in case of a burst of traffic, more requests will go through 
             than allowed quota.
-        </p>
-        <li>Sliding Window Log</li>
-        <li>Sliding Window Counter</li>
+     </p>
+     <li>
+      Sliding Window Log
+     </li>
+     <li>
+      Sliding Window Counter
+     </li>
     </ul>
    </p>
   </div>
