@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="Vector Databases, AI, Machine Learning, NLP, GPT" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Exploratory Data Analysis
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    Various AI Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/reading_systemdesign.html">
+    System Design Topics (Book)
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Various Kubernetes Topics
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Examples
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    Machine Learning Basics
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/kube_health_checks.html">
+    Kube Health Checks
+   </a>
+   <a class="listt" href="../pages/raft_consensus.html">
+    Raft Algorithm (Consensus)
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/primer_systemdesign.html">
+    System Design Primer (Github)
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Exploratory Data Analysis
+   </h1>
+   <h2>
+    Introduction To Everything
+   </h2>
+   <h3>
+    AI/ML/DL
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Deep Learning (DL) is a subset of Machine Learning (ML). And, ML is a subset of Artificail Intelligence (AI).
+            <ul>
+                <li>
+                    <b>Artificial Intelligence</b>: Program that can sense, reason, act and adapt. Its also defined as simulation of inteligent behaviours in computers.
+                </li>
+                <li>
+                    <b>Machine Learning</b>: Algorithms that performance improve as they are exposed to more data over time.
+                    <ul>
+                        <li>
+                            <b>Supervised Learning</b>: Dataset has as a target column. The goal is to make predictions. eg. fraud detection etc.
+                        </li>
+                        <li>
+                            <b>Unsupervised Learning</b>: Dataset has no target column. The gola is to find the struture of data. eg. customer segmentation etc.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Deep Learning</b>: A subset of Machine Learning where multilayered neural networks learn from vast amounts of data.
+                </li>
+            </ul>
+        </li>
+        <li>
+            <mark>Features:</mark> attributes of data. And <mark>target</mark>: is the labels of the data.
+        </li>
+        <hr>
+        <li>
+            <mark>Limitation of ML</mark>: In cases like image classification, where the attributes can be too many, DL allows to find spatial relationship between the  features, i.e. spatial relation between the pixels in case of image classification tasks.
+            <ul>
+                <li>
+                    <mark>In classical ML</mark>, Step 1 is to determine features. Step 2 is feed through the model. Step3 is learning and inference.
+                </li>
+                <li>
+                    In classical ML, Step 1 is very difficult and the many times the Data Scientist has to be lucky. For ex, for facial recognition problem,
+                    the location of features like nose, eyes etc have to be determined before feeding through the model.
+                </li>
+                <li>
+                    <mark>DL combines Step 1 and Step 2</mark>. The neural network receives all the pixels as inputs and determines the spatial relationshtip. Intermediate feature engineering is 
+                    automatic by the model.
+                </li>
+            </ul>
+        </li>
+        <hr>
+        <li>
+            Workflow of a typical ML problem
+            <ul>
+                <li>
+                    Problem Statement:
+                </li>
+                <li>
+                    Data Collection:
+                </li>
+                <li>
+                    Data Exploration and Preprocessing
+                </li>
+                <li>
+                    Modeling
+                </li>
+                <li>
+                    Validate
+                </li>
+                <li>
+                    Communicate/ Decision Making
+                </li>
+            </ul>
+        </li>
+        <hr>
+        <li>
+            Terminology:
+            <ul>
+                <li>
+                    Target: Category or value you are trying to predict
+                </li>
+                <li>
+                    Features: Attributes of data
+                </li>
+                <li>
+                    Observation/Example: Single row of data
+                </li>
+                <li>
+                    Label: Target value of an example. Value on target column
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h2>
+    Data Handling, Extraction, Exploration and Feature Engineering
+   </h2>
+   <h3>
+    Data Reading
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Reading csv files:
+            <ul>
+                <li>
+                    Using pandas and using <mark>pd.read_csv(...)</mark>
+                </li>
+                <li>
+                    Additional parameters like <mark>sep</mark> or <mark>delim_whiteshape</mark> based on different delimiters
+                </li>
+            </ul>
+        </li>
+        <li>
+            Reading json files:
+            <ul>
+                <li>
+                    <mark>pd.read_json(..)</mark> or <mark>pd.read_jsonl(..., lines=True)</mark>.
+                </li>
+                <li>
+                    Similar is writing to the file.
+                </li>
+            </ul>
+        </li>
+        <li>
+            Reading from SQL databases.
+            <ul>
+                <li>
+                    sqlite provides a python library; data can be read or manipulated using SQL queries like string.
+                </li>
+                <li>
+                    General Steps:
+                    <ul>
+                        <li>
+                            Make a connection
+                        </li>
+                        <li>
+                            Define a query
+                        </li>
+                        <li>
+                            Execute
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Reading from noSQL database
+            <ul>
+                <li>
+                    Most are stored in json.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Data Cleaning
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Main Problems:
+            <ul>
+                <li>
+                    Lack of data:
+                </li>
+                <li>
+                    Too much data:
+                </li>
+                <li>
+                    Bad Data
+                </li>
+            </ul>
+        </li>
+        <li>
+            Messy Data
+            <ul>
+                <li>
+                    Duplicate or unnecessary data.
+                </li>
+                <li>
+                    Inconsistent text and typos
+                </li>
+                <li>
+                    Missing data
+                </li>
+                <li>
+                    Outliers
+                </li>
+                <li>
+                    Data sourcing issues:
+                    <ul>
+                        <li>
+                            Multiple systems
+                        </li>
+                        <li>
+                            Different database types
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Missing Data
+            <ul>
+                <li>
+                    Remove data: Entire row or column can be removed. Easy to do, but could make us loose data.
+                </li>
+                <li>
+                    Impute data: Replace the missing data with mean, median, null etc.
+                </li>
+                <li>
+                    Mask data: Create a category for mising values. For example, users skipping a survey question etc
+                </li>
+            </ul>
+        </li>
+        <li>
+            Outliers
+            <ul>
+                <li>
+                    How to Find Outliers?
+                    <ul>
+                        <li>
+                            Use plots: Histogram, Density Plots etc
+                        </li>
+                        <li>
+                            Use statistics: IQR, Standard Deviation
+                        </li>
+                        <li>
+                            Residuals: Standardized, Studentized, Deleted residuals
+                            <ul>
+                                Difference Between actual value and predicted values is residuals.
+                                <li>
+                                    Standardized Residuals: Residuals divided by standard error.
+                                </li>
+                                <li>
+                                    Deleted Residuals: Redisual from fitting model on all data excluding current observation.
+                                </li>
+                                <li>
+                                    Studentized or also called Externally Studentized Residuals: Takes deleted residuals and divide by residual
+                                    standard error. This means it standardizes deleted residuals.
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Policies for outliers
+                    <ul>
+                        <li>
+                            Remove them.
+                        </li>
+                        <li>
+                            Assign mean or median to the outlier value.
+                        </li>
+                        <li>
+                            Transform the variable. eg. log transform etc
+                        </li>
+                        <li>
+                            Predict what the outlier value could have been; using similar observations to predict likely values. Regression can be used.
+                        </li>
+                        <li>
+                            Simply keep them.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Exploratory Data Analysis
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Analyse data to summarize inital feel of the data.
+        </li>
+        <li>
+            Identify patterns or summary statistics of the data.
+        </li>
+        <li>
+            Some of the stats are: Average, Max, Correlations
+        </li>
+        <hr>
+        <li>
+            <b>Sampling Data</b>
+            <ul>
+                <li>
+                    Random Sampling: Use <mark>.sample()</mark> in pandas
+                </li>
+                <li>
+                    Stratified Sampling: Divide data into groups, and randomly sample each group.
+                </li>
+            </ul>
+        </li>
+        <hr>
+        <li>
+            <b>Visualization</b>
+            <ul>
+                <li>
+                    Use pyplot, matplotlib, seaborn, plotly etc
+                </li>
+                <li>
+                    scatter plot, histogram, barh, 
+                </li>
+                <li>
+                    df<mark>.groupby('col').mean().plot()</mark> will plot a line plot
+                </li>
+                <li>
+                    <mark>pairplot()</mark> is another very useful function.
+                </li>
+                <li>
+                    <mark>jointplot()</mark> is another very useful function
+                </li>
+                <li>
+                    <mark>facetgrid()</mark> is another that creates object and can be mapped with the <mark>histogram</mark> using <mark>.map()</mark> function.
+                </li>
+            </ul>
+        </li>
+        <hr>
+        <li>
+            <b>Feature Engineering</b>
+            <ul>
+                <li>
+                    Skewed Data can be fized by transformation.
+                </li>
+                <li>
+                    Log transform is an example that exposes linear relation between variable when linear relation did not existed before.
+                </li>
+                <li>
+                    Adding polynomial features: allows for estimating higher-order relationships. We end up with linear model again.
+                </li>
+                <li>
+                    Using <mark>PolynomialFeatures</mark> in sklearn, you can specify degree of the polynomial, fit and transform.
+                </li>
+            </ul>
+        </li>
+        <hr>
+        <li>
+            <b>Variable Selection</b>
+            <ul>
+                <li>
+                    Encding: Takes non numerical (categorical) data and transform to numerical data.
+                </li>
+                <li>
+                    Data Types:
+                    <ul>
+                        <li>
+                            Nominal Data: Categorical data with no order, eg. True, False; Red, Blue, Green
+                        </li>
+                        <li>
+                            Ordinal Data: Categorical data with order, eg, High, Medium, Low
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Encoding Technique:
+                    <ul>
+                        <li>
+                            Binary Encoding: convert values to 1 or 0
+                        </li>
+                        <li>
+                            One hot encding: creates several new variables, but converts the values into binary  variables.
+                        </li>
+                        <li>
+                            To convert a categorical columns to one-hot encoding, you can use <mark>pd.get_dummies(df['column'])</mark>.
+                        </li>
+                        <li>
+                            Ordinal encoding: involves converting ordered categories to numerical values by creating one variable that takes integer 
+                            equal to the number of categories.
+                        </li>
+                        <li>
+                            They have Implementation in sklearn as well as pandas
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <hr>
+        <li>
+            <b>Feature Scaling</b>: Adjusting variable scale, allowing comparison of variables with different scales.
+            <ul>
+                <li>
+                    Standard Scaling: subtract mean and divide  by standard deviation.
+                </li>
+                <li>
+                    Min-Max Normalization: Convert variables to the range (0,1) by mapping min variable to 0 and max value to 1. Sensitive to
+                    outliers.
+                </li>
+                <li>
+                    Robust Scaling: Similar to min-max scaling, but instead of complete dataset, maps the IQR data to 0 and 1.
+                </li>
+                <li>
+                    All of these have Implementation in sklearn.
+                </li>
+            </ul>
+        </li>
+        <hr>
+        <li>
+            find the skew of each col in a df using <mark>df.skew()</mark> function. You can use this to filter the columns that have skew
+            greater than some limit.
+        </li>
+        <hr>
+        <li> 
+            To apply log transformation to a column in a dataframe, you can use <mark>df['columns'].apply(np.logp)</mark>.
+        </li>
+        <li>
+            Feature interaction means combine two columns to create a new column. This can be by multiplying, dividing or add/subtract etc of two existing columns.
+        </li>
+        <hr>
+        <li>
+            In you want to use linear regression, but the pairplot shows a quadratic relationship of a column with the target variable, create a new variable with powered 2 of the old variable.
+            The newly created variable will have linear relation with the target variable, making it easy for modeling.
+        </li>
+        <li>
+            You can also use <mark>sklear.preprocessing.PolynomialFeatures()</mark>, and use <mark>fit()</mark> and <mark>transform()</mark> for a better implementation.
+        </li>
+        <hr>
+        <li>
+            To get a mean of a column grouped by a category, but maintain the original size, use <mark>df.groupby(['category'])['column'].transform(lambda x:x.mean())</mark>. 
+            What this does is, if the original df has 1300 rows, the new series will have 1300 rows. Row corresponding to same category will be same value, which is the mean value.
+        </li>
+        <hr>
+    </ul>
+   </p>
+   <h2>
+    Inference Stats and Hypothesis Testing
+   </h2>
+   <h3>
+    Estimation and Inference
+   </h3>
+   <p>
+    <ul>
+        <li>
+        <b>Estimation:</b> is application of an algorithm. For example, finding an average is <mark>sum of all items/no of items</mark>
+        </li>
+        <li>
+            <b>Inference:</b> is associating accuracy on the estimate. For example, standard error of the average. Gives a better understanding of the distribution.
+        </li>
+        <li>
+            Machine Learning and Inference are similar.  Both of them focus on <mark>data generating process</mark>.
+        </li>
+        <li>
+            For the customer churn example, estimation means measuring the impact of each factor in predicting the customer churn; whereas 
+            inference means whether those factors are statistically significant.
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Parametric vs Non-parametric
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Inference is trying to find <mark>Data Generating Process</mark>. Statistical model is a set of possible distribtions or regressions.
+        </li>
+        <li>
+            Parametric model is a type of statistical model that has a finite no of  parameters.
+            <ul>
+                <li>
+                    Example would be a normal distribution, which has a formula with parameters.
+                </li>
+                <li>
+                    Most common method of estimating paramters in parametric modeling is Maximum liklihood Estimatin (MLE) 
+                </li>
+            </ul>
+        </li>
+        <li>
+            Non-parametric model however makes some assumptions. Data does not have to follow any distribtions; i.e. <mark>distribtion free inference</mark>.
+            <ul>
+                <li>
+                    For example, an example of non-parametric inference is create a CDF using histogram.     
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Bayesian and  Frequentist Statistics
+   </h3>
+   <p>
+    <ul>
+        <b>
+            Frequentist
+        </b>
+        <li>
+            concerned with repitition of data; repeated observation of data.
+        </li>
+        <li>
+            Model probabilities with many repitition of the experiment.
+        </li>
+        <li>
+            As much data as possible, and no prior knowledge about the data or distribution.
+        </li>
+    </ul>
+    <ul>
+        <b>
+            Bayesian
+        </b>
+        <li>
+            Describes parameters by probability distribution.
+        </li>
+        <li>
+            before seeing any data, a apriori distribtion can be formulated. 
+        </li>
+            After the data is observed the apriori knowledge is updated to give posterior distribtion
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Both the Bayesian and Frequentist uses same math; but they differ in interpretation.
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Hypothesis Testing
+   </h3>
+   <p>
+    <ul>
+        <li>
+            It is statement about a population parameter.
+        </li>
+        <li>
+            Problem statement starts with two hypotheses: Null Hypothesis (H0) and Alternative Hypothesis (H1).
+        </li>
+        <li>
+            Hypothesis testing procedure will give us rules to decide when to <mark>accept the Null Hypothesis (H0)</mark> and when to <mark>reject the Null Hypothesis and accept alternative Hypothesis</mark>
+        </li>
+        <li>
+            In Bayesian testing, we do not get a decision boundary, but a posterior probability. And decide which one is more likely.
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Type-1 and Type-2 error
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Type-1 Error: When <mark>Truth</mark> is H0, and the decision is to <mark>Reject H0</mark>.
+        </li>
+        <li>
+            Type-2 Error: When <mark>Truth</mark> is H1, and the decision is to <mark>Accept H0</mark>.
+        </li>
+        <li>
+            <mark>Power of a Test</mark>: 1 - Probability of (Type-2 error).
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Significance Levels and p-values
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Classical frequentist methods.
+        </li>
+        <li>
+            <mark>Significance level (alpha)</mark> is chosen before starting computation. 
+            Its a probability threshold below which the null hypothesis will be rejected.
+        </li>
+        <li>
+            We must choose the alpha value beforehand. Otherwise its called <mark>p-hacking</mark>.
+        </li>
+        <li>
+            Common values of alpha is 0.01, 0.05 etc
+        </li>
+        <li>
+            <mark>p-value:</mark> is the smallest significance level at which the null hypotheses will be rejected.
+        </li>
+        <li>
+            <mark>confidence internal</mark>: is the values of the statistic for which we accpet the null hypothesis.
+        </li>
+        <li>
+            <img class="center-image" src="../images/significacelevels.png" >
+        </li>
+        <li>
+            <b>Bonferroni Correction:</b>
+            <ul>
+                <li>
+                    Upon a large number of tests, there is a chance that we will encounter Type-I error.
+                </li>
+                <li>
+                    Bonferroni correction means choose p-threshold so that probability of making a Type-1 error is 5%.
+                </li>
+                <li>
+                    Typically choose <mark>p-threshold=0.05/(no. of tests)</mark>.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Example Hypothesis Testing - I
+   </h3>
+   <p>
+    <ul>
+        <li>
+            <b>Problem Statement:</b> Suppose I predicted 57 coin flips correctly out of 100 total flips. Am I special in being able to predict the flips outcoome?
+        </li>
+        <li>
+            <b>Null Hypothesis</b>: I am not special.
+        </li>
+        <li>
+            <b>Alternative Hypothesis:</b> I am in fact special.
+        </li>
+        <li>
+            Solution:
+            <ul>
+                <li>
+                    Let us pick alpha value of 5% or 0.05.
+                </li>
+                <li>
+                    Predicting coin flip is binomial distribution function with parameters <mark>n=100</mark> and <mark>p=0.5</mark>, p- being
+                    the probabiliity of each flip prediction at 50% for a fair coin.
+                </li>
+                <li>
+                    Find the probability that someone can predict 57 or lower coin toss using <mark>1-binom.cdf(56,100,0.5)</mark>.
+                </li>
+                <li>
+                    The value is 9.7%. <mark>This means probability of predicting 56 or less coin toss accurately is 9.7%</mark>. This is more than 
+                    our threshold alpha value of 5%.
+                </li>
+                <li>
+                    <mark>So, we should accept the NULL hypothesis. I am not special.</mark>
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Example Hypothesis Testing - II
+   </h3>
+   <p>
+    <ul>
+        <li>
+            What should be my guessing percentage accuracy to be special?
+        </li>
+        <li>
+            With 5% threshold, I should guess 95% of the flips accurately. This means out of 100 coin toss, I need following accurately:
+        </li>
+        <li>
+            <mark>
+                binom.ppf(0.95,100,0.5) = 58%
+            </mark>
+        </li>
+        <li>
+            I need to guess more than 58, i.e. at least 59 coin toss accurately.
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Correlation and Causation
+   </h3>
+   <p>
+    <ul>
+        <u>Two variables can be correlate for various reasons:</u>
+        <li>
+            X causes Y (causation caused correlation)
+        </li>
+        <li>
+            Y causes X (we are mixing things up)
+        </li>
+        <li>
+            X and Y are both caused by some other variable. (There is confounding variable)
+        </li>
+        <li>
+            X and Y are not related; but sample is just unlucky. (Spurious)
+        </li>
+    </ul>
+   </p>
+  </div>
+ </body>
+</html>

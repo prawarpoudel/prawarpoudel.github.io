@@ -4,11 +4,11 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <meta content="Prawar Poudel" name="author"/>
-  <meta content="" name="keywords"/>
+  <meta content="Vector Databases, AI, Machine Learning, NLP, GPT" name="keywords"/>
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   ML Basics
+   Supervised Learning
   </title>
  </head>
  <body>
@@ -97,61 +97,70 @@
    </a>
   </div>
   <div class="content">
-   <h1>
-    Topics
-   </h1>
-   <p>
-    <ol>
-     <li>
-      <p class="important">
-       Paper: Why Johnny Cant Prompt?
-      </p>
-      <a href="../pages/whyjohnnycantprompt.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Discriminative Vs Generative Models.
-      </p>
-      <a href="../pages/discriminative.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Generative Adversarial Models.
-      </p>
-      <a href="../pages/gan.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Generative Adversarial Models Hands On.
-      </p>
-      <a href="../pages/ganhandson.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Exploratory Data Analysis.
-      </p>
-      <a href="../pages/exploratory_data_analysis.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Machine Learning: Supervised Learning.
-      </p>
-      <a href="../pages/supervised_learning.html">
-       (Link)
-      </a>
-     </li>
-    </ol>
-   </p>
+    <h1>
+        Supervised Learning
+    </h1>
+    <p>
+        Data points have known outcome.
+    </p>
+    <p>
+        Goal is to predct the nature of relationship between input parameters and target variables.
+    </p>
+    <p>
+        <b>Parameters:</b> of a machine learning model are 1 or more variables that changes their values as the model learns. No of parameters can 
+        range from very few to trillions of parameters.
+    </p>
+    <p>
+        <b>Hyperparameters:</b> are parameters that not learned directly from the data but relates to implementation.
+    </p>
+    <p>
+        Two types of problems:
+        <ul>
+            <li>
+                <b>Regression:</b> y or the outcome variable is numeric.
+            </li>
+            <li>
+                <b>Classification:</b> y or outcome variable is categorical.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        Some terms of interests are:
+        <ul>
+            <li>
+                x: input features
+            </li>
+            <li>
+                yp: Output or the predicted values
+            </li>
+            <li>
+                f(.): prediction function that generates predictions from x and parameters.
+            </li>
+            <li>
+                J(y,yp): Loss function
+            </li>
+            <li>
+                update rule: using features x and outcome y, choose parameters to minimize loss function J
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        Interpretation vs Prediction Objective
+        <ul>
+            <li>
+                <b>Interpretation:</b> Train model to find insights into data. Focus will be on parameters of the model to gain insights; and a 
+                less complex models are chosen.
+            </li>
+            <li>
+                <b>Prediction:</b> focus will be on performance metrics of the model. The model cares only about coming with best prediction so can be a black box; 
+                complex models can be used. performance metrics involve closeness between yp and y i.e. predicted result vs actual result.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    
   </div>
  </body>
 </html>
