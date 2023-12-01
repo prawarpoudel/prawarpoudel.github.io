@@ -328,6 +328,354 @@
     <h2>
         Data Splits and Cross Validation
     </h2>
+    <p>
+        To split to have a hold out data, so that its used for cross validation.
+    </p>
+    <p>
+        Training data: 
+        <ul>
+            <li>
+                Used for training.
+            </li>
+            <li>
+                <mark>model(x_train,y_train).fit()</mark> = model
+            </li>
+        </ul>
+    </p>
+    <p>
+        Test data:
+        <ul>
+            <li>
+                Used for testing and prediction.
+            </li>
+            <li>
+                <mark>model.predict(x_test)</mark> = y_pred
+            </li>
+            <l>
+                Use actual y_test to compare and calculate <mark>test_error</mark>.
+            </li>
+        </ul>
+    </p>
+    <p>
+        Syntax for test train split
+        <ul>
+            <li>
+                <mark>from sklearn.model_selection import test_train_split</mark>
+            </li>
+            <li>
+                <mark>train,test = test_train_split(data,test_size=0.3)</mark>
+            </li>
+            <li>
+                <mark>x_train,x_test, y_train, y_test = test_train_split(x,y,test_size=0.3)</mark>
+            </li>
+            <li>
+                There are other many ways for splitting, like shuffle split or stratified shuffle split. <br>
+                <mark>from sklearn.model_selection import ShuffleSplit</mark>
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        Categorical Data is one-hot encoded. The number of columns that is made as a result of one-hot encoding is equal to no of category values 
+        - 1. The process is outline below:
+        <ul>
+            <li>
+                Find the columns whose dtypes is np.object, i.e. <mark>mask = df.dtypes==np.object</mark>.
+            </li>
+            <li>
+                And, filter out the columns <mark>cols = df.columns[mask]</mark>. These are the columns that we want to apply one-hot encoding to.
+            </li>
+            <li>
+                We would also like to see if the no of unique values in the columns are more than one. If there is only 1 unique value, it does not
+                make sense to one-hot encode.
+            </li>
+        </ul>
+    </p>
+    <p>
+        Using <mark>sklearn.preprocessing.OneHotEncoder</mark>, instead of <mark>pd.get_dummies</mark>
+        <ul>
+            <li>
+                <mark>df_copy = df.copy()</mark>
+            </li>
+            <li>
+                instantiate one hot encoder object, <mark>ohc = OneHotEncoder()</mark>
+            </li>
+            <li>
+                inside a for loop for each column, <b>col</b> in the <mark>cols</mark> list:
+                <ul>
+                    <li>
+                        <mark>dat = ohc.fit_transform(df_copy[col])</mark>
+                    </li>
+                    <li>
+                        drop the original column, <mark>df_copy.drop(col,axis=1)</mark>
+                    </li>
+                    <li>
+                        get the name of all the new columns, <mark>new_cols = ohc.categories_</mark>
+                    </li>
+                    <li>
+                        create name of columns so that its easy to join in the df later <br>
+                        <mark>new_cols = ['_'.join([col,catt]) for cat in new_cols[0]]</mark>
+                    </li>
+                    <li>
+                        create a df from the one hot encoded data <br>
+                        <mark>new_df =  pd.DataFrame(dat.toarray(),columns=new_cols)</mark>
+                    </li>
+                    <li>
+                        now append to our copy df <br>
+                        <mark>df_copy = pd.concat([df_copy,new_df],axis=1 )</mark>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                One potential issue with too many one-hot encoded df is that Too many parameters, overfitting of model. Error will be high in test data is overfit.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        Applying scalar like <mark>StandardScalar</mark> or <mark>MinMaxScalar</mark>, make sure to call <mark>fit_transform()</mark> on the training data;
+        but only <mark>transform()</mark> on the test data. This should be done before applying linearregression. An example is given below.
+        <ul>
+            <li>
+                create an object, for example <br>
+                <mark>s = StandardScalar()</mark>
+            </li>
+            <li>
+                fit transform x_train data <br>
+                x_train_s = s.fit_transform(x_train)
+            </li>
+            <li>
+                transform x_test data <br>
+                x_test_s = s.transform(x_test)
+            </li>
+            <li>
+                fit the linearRegression model <br>
+                LR.fit(x_train_s,y_train)
+            </li>
+            <li>
+                predict <br>
+                predictions = LR.predict(x_test_s)
+            </li>
+            <li>
+                find error <br>
+                error = mean_squared_error(y_test,predictions)
+            </li>
+        </ul>
+    </p>
+    <h3>
+        Cross Validation
+    </h3>
+    <p>
+        Here we use multitple validation sets. These are test sets that are disjoint of each other. For each case of validation sets, the train dataset 
+        can be a subset of the remaining dataset. There should be no overlap between the validation or test splits in each iteration of experiment. Training data 
+        can have overlap.
+    </p>
+    <p>
+        The average error across all these validation sets is the <mark>cross validation result</mark>.
+    </p>
+    <p>
+        As the model gets more complex, the train error will minimize. But with the cross validation, there is an inflection point, and as the complexity
+        increases, the error will increase. This is because too complex model will not generalize properly, and overfit. This we should stop increasing the complexity
+        as soon as the crossvalidation error starts to increase.
+        <img src="../images/crossvalidation.png" class="center-image">
+    </p>
+    <p>
+        Coding example:
+        <ul>
+            <li>
+                import library <br>
+                <mark>from sklearn.model_selection import cross_val_score</mark>
+            </li>
+            <li>
+                perform cross val score <br>
+                <mark>cross_val = cross_val_score(model, x_data, y_data, cv=4, scoring='neg_mean_squared_error')</mark>
+            </li>
+            <li>
+                <b>Other methods as follows are also available</b>
+                <mark>from sklearn.model_selection import KFold, StratifiedKFold </mark>
+            </li>
+        </ul>
+    </p>
+    <h3>
+        Using Pipeline and Crossvalidation
+    </h3>
+    <p>
+        <ul>
+            <li>
+                Import all needed library
+                <mark>from sklearn.linear_model import LinearRegression, Lasso, Ridge</mark>
+            </li>
+            <li>
+                From the dataset, acquire the target variable as Y, and drop the value from original df to save it as X.
+            </li>
+            <li>
+                Use kfold that is imported as <mark><br>from sklearn.model_selection import KFold, cross_val_predict</mark>
+                <mark>
+                    <br>kf = KFold(shuffle=True, random_state=6644, n_splits=3)
+                </mark>
+                <br>This means we will have 3 training and 3 test sets. Training sets may overlap, but test sets will not overlap.
+            </li>
+            <li>
+                kf.slit(X) will give a generator object that has indices. For example, iterating through the generator gives a tuple with x-indices and y-indices as follows:
+                <mark>
+                    <br>for train_index, test_index in kf.split(X):
+                </mark>
+                <br>The index values, <mark>train_index, test_index</mark> can be anything from 0 to length of X-1, with length being determined by the split value.
+            </li>
+            <li>
+                Once the indices are obtained, extract the value from the X and Y using the indices.
+                <mark>
+                    <br>for train_index, test_index in kf.split(X): <br>
+                        ..X_train,X_test, y_train, y_test = (X.iloc[train_index], X.iloc[test_index],y[train_index],y[test_index]) <br>
+                        ..lr.fit(X_train, y_train) <br>
+                        ..y_pred = lr.predict(X_test) <br>
+                        ..score = r2_score(y_test.values, y_pred) <br>
+                </mark>
+                <br> This will show the scores for all the splits.
+            </li>
+            <li>
+                Let us add standard scalar into this. <b>Without any regularization, scaling does not help Linear Regression.</b> But just to see an example, following can be done.
+                <mark>
+                    <br>s = StandardScalar()
+                    <br>for train_index, test_index in kf.split(X): <br>
+                        ..X_train,X_test, y_train, y_test = (X.iloc[train_index], X.iloc[test_index],y[train_index],y[test_index]) <br>
+                        ..X_train_s = s.fit_transform(X_train) <br>
+                        ..lr.fit(X_train_s, y_train) <br>
+                        ..X_test_s = s.transform(X_test)
+                        ..y_pred = lr.predict(X_test_s) <br>
+                        ..score = r2_score(y_test.values, y_pred) <br>
+                </mark>
+                <br> This will show the scores for all the splits.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        Using pipeline
+        <ul>
+            <li>
+                Sklearn allows to chain multiple operator items, as long as as they have fit() method.
+            </li>
+            <li>
+                Here, output of one is input of another. So they also need to have fit_transform() method.
+            </li>
+            <li>
+                The above code will now be following using pipeline:
+                <ul>
+                    <li>
+                        <mark>s = StandardScalar()</mark> <br>
+                        <mark>lr = LinearRegression()</mark>
+                    </li>
+                    <li>
+                        <mark>my_pipe = Pipeline([('scalar',s),('regression',lr)])</mark>
+                    </li>
+                    <li>
+                        <mark>kf = KFold(shuffle=True, random_state=6644, n_splits=3)</mark>
+                    </li>
+                    <li>
+                        <mark>predictions = cross_val_predict(my_pipe,X,y,cv=kf)</mark>
+                    </li>
+                    <li>
+                        <mark>r2_score(y,predictions</mark>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <u>HyperParameter Tuning, Lasso Regression, PolynomialFeature</u>
+        <ul>
+            <li>
+                function used is <mark>np.geomspace</mark>
+            </li>
+            <li>
+                For <mark>Lasso Regression</mark>, higher value of alpha means the model is less complex whereas lower value of alpha means model is more complex.
+            </li>
+            <li>
+                Less value of alpha for lasso makes the model similar to LinearRegression.
+            </li>
+            <li>
+                Lasso is iniitalized as <br>
+                <mark>lasso=Lasso(alpha=alpha, max_iter=10000)</mark>
+            </li>
+            <li>
+                Complete usage with different values of alpha for hyperparameters selection is as follows: <br>
+                <mark>
+                    alphas = np.geomspace(1e-9,1e10,num=10) #creates equally spaced 10 numbers, geometrically spaced <br>
+                    for alpha in alphas: <br>
+                    .. lasso = Lasso(alpha=alpha,max_iter=100000) <br>
+                    .. my_pipe = Pipeline([('scalar':s),("lasso":lasso)]) <br>
+                    .. pred = cross_val_predict(my_pipe,X,y,cv=kf) <br>
+                    .. score = r2_score(y,pred)
+                </mark>
+            </li>
+            <li>
+                With Lasso, its is always better to scale the data before using lasso regression.
+            </li>
+        </ul>
+    </p>
+    <p>
+        You can add <mark>PolynomialFeature</mark> to the pipeline. What a PolynomialFeature does is very well explained 
+        at <a href="https://machinelearningmastery.com/polynomial-features-transforms-for-machine-learning/">this link</a>. In a nutshell, it raises the input 
+        variables to a polynomial degree. So, after applying the PolynomialFeature, the input dimension now increases.
+    </p>
+    <p>The above example thus becomes:
+        <ul>
+            <li>
+                <mark>
+                    pf = PolynomialFeature(degree=3)<br>
+                    alphas = np.geomspace(1e-9,1e10,num=10) #creates equally spaced 10 numbers, geometrically spaced <br>
+                    for alpha in alphas: <br>
+                    .. lasso = Lasso(alpha=alpha,max_iter=100000) <br>
+                    .. my_pipe = Pipeline([('polyfeat':pf),('scalar':s),("lasso":lasso)]) <br>
+                    .. pred = cross_val_predict(my_pipe,X,y,cv=kf) <br>
+                    .. score = r2_score(y,pred)
+                </mark>
+            </li>
+        </ul>
+    </p>
+    <p>
+        After going through the different scores based on various <mark>alpha</mark> values, we can find the best among all. And finally train the model as follows:
+        <ul>
+            <li>
+                <mark>
+                    best_pipe = Pipeline([ <br>
+                        ("poly_feat":PolynomialFeature(degree=2)), <br>
+                        ("scalar":s), <br>
+                        ("lasso":Lasso(alpha=0.01,max_iter=100000)) <br>
+                    ]) <br>
+                    best_pipe.fit(X,y) <br>
+                    best_pipe.score(X,y) <br>
+                </mark>
+            </li>
+            <li>
+                To see the coeffecients, we can <br>
+                <mark>
+                    best_pipe.named_steps['Lasso'].coef_
+                </mark>
+            </li>
+            <li>
+                Ridge Regression also works the same way as far as the coding aspect is concerned.
+            </li>
+            <li>
+                <p class="important">
+                    From the pipeline estimator that we created, we can actually see the interaction of the different input variables and the their contribution to the output variable.
+                </p>
+                <p>
+                    From the pipeline, polynomial feature gives the higher power of the input variable as well as the interaction components. The corresponding coefficient of the Lasso/Ridge
+                    regression model will indicate their relative contribution. Higher positive value indicates positive impact whereas higher negative value indicates negative impact.
+                </p>
+                <p>
+                    <mark>from the best_pipe.named_steps['poly_feat'].get_feature_names(input_features=X.columns)</mark> gives the feature names whereas as seen before <mark>.coef_</mark> gives the lasso/ridge coefficient.
+                </p>
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <u>Grid Search CV</u>
+    </p>
   </div>
  </body>
 </html>
