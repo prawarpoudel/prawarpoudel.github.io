@@ -1059,11 +1059,84 @@
             </li>
         </ul>
     </p>
-    <h3>
+    <hr>
+    <h2>
         Logistic Regression
-    </h3>
+    </h2>
     <p>
-        
+        Used for classification. An extension of Linear Regression but handles what Linear Regression gets wrong.
+    
+    </p>
+    <p>
+        <b>Sigmoid Function</b> <br>
+        <img src="../images/sigmoid.png" class="center-image">
+    </p>
+    <p>
+        The use of sigmoid can be useful for classification in some of the obvious separable classes (for example), as below image prsents. <br>
+        <img src="../images/sigmoid_classification.png"> <br>
+        We can see how it can classify between two classes with a clear decision boundary.
+    </p>
+    <p>
+        <mark>
+            import sklearn.linear_model import LogisticRegression <br>
+            lr = LogisticRegression(penalty='l2', c=10.0) <br>
+            lr = lr.fit(x_train, y_train) <br>
+            y_predict = lr.predict(x_test) <br>
+            lr.coef_
+        </mark>
+        <br>
+        Above, <b>c</b> is the regularization constant (here higher c means less lambda, so is inverse).
+    </p>
+    <p class="important">
+        LogisticRegression also comes with LogisticRegressionCV.
+    </p>
+    <hr>
+    <p>
+        <b>Confusion Matrix</b>: <br>
+        <img src="../images/confusion.png" class="center-image">
+        <ul>
+            <li>
+                False Positive: Type-I error
+            </li>
+            <li>
+                False Negative: Type-II error
+            </li>
+            <li>
+                Accuracy = (True Positive + True Negative)/All Observations
+            </li>
+            <li>
+                Recall/Sensitivity = (True Positive)/(True Positive + False Negative) <br>
+                <mark>But a major flaw here is a model can predict all as True Positive, and have a 100% Recall.</mark>
+            </li>
+            <li>
+                Precision = (True Positive)/(True Positive + False Positive) <br>
+                <mark>Precision helps to balance the flaw of Recall. It shows how often, from among the positive predicted values, it gets the prediction correct.</mark>
+            </li>
+            <li>
+                Specificity = (True Negative)/(False Positive + True Negative) <br>
+                <mark>Specificity is the recall for negative class.</mark>
+            </li>
+            <li>
+                F1 Score = Harmonic Mean of Precision and Recall = 2* (Precision * Recall)/(Precision + Recall)
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <b>ROC Curve: Receiver Operating Characteristic</b> <br>
+        <img src="../images/roc.png" class="center-image">
+        <ul>
+            <li>
+                Curve of <mark>True Positive Rate</mark> vs <mark>False Positive Rate</mark>. False Positive Rate is computed as 
+                <b>1-Specificity</b>.
+            </li>
+            <li>
+                The diagonal line is random guess.
+            </li>
+            <li>
+                Lower than diagonal is <b>worse</b>.
+            </li>
+        </ul>
     </p>
   </div>
  </body>
