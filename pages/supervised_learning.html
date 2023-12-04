@@ -672,9 +672,398 @@
             </li>
         </ul>
     </p>
+    <p class="important">
+        Stratified cross validation is not equivalent to k-fold cross validation with k=N-1 where N is no of features.
+    </p>
+    <p class="important">
+        For a linear regression model, stratified cross-validation with same k will not increase the variance of estimated parameters, as compared to k-fold cross validation.
+    </p>
+    <p class="important">
+        For k-fold cross validation, variance of the estimated model parameters will increase across subsamples with increase in k.
+    </p>
     <hr>
     <p>
         <u>Grid Search CV</u>
+        <ul>
+            <li>
+                define pipeline as follows <br>
+                <mark>
+                    estimator = Pipeline ([ <br>
+                    .. ('polynomial_features', PolynomialFeatures()), <br>
+                    .. ('scalar',StandardScalar()), <br>
+                    .. ('ridge_regression',Ridge()) <br>
+                    .. ])
+                </mark>
+            </li>
+            <li>
+                create <mark>parameters</mark> as following: <br>
+                <mark>
+                    params = { <br>
+                        'polynomial_features__degree' : [1,2,3], <br>
+                        'ridge_regression__alpha' : np.geomspace(4,20,30) <br>
+                    } <br>
+                </mark>
+                The name of the items keys in parameters dict comes from <mark>PipeLine component name</mark> + two underscores + <mark>its property</mark>
+            </li>
+            <li>
+                create a <mark>GridSearchCV()</mark> object as: <br>
+                <mark>
+                    grid = GridSearchCV(estimator, params,cv=kf)
+                </mark>
+            </li>
+            <li>
+                Fit the data: <br>
+                <mark>
+                    grid.fit()
+                </mark>
+            </li>
+            <li>
+                Predict as <br>
+                <mark>
+                    y_predict = grid.predict(X)
+                </mark>
+            </li>
+            <li>
+                Print the best metrics as <br>
+                <mark>grid.best_score_, grid.best_params_</mark>
+            </li>
+            <li>
+                If we want to look at the coeff of the estimators, we can do following <br>
+                <mark>grid.best_estimator_.named_steps['ridge_regression'].coeff_</mark>
+            </li>
+            <li>
+                To see the scores for all the variables that it searched through, and the scores obtained for each of those variables <br>
+                <mark>
+                    pd.DataFrame(grid.cv_results_)
+                </mark>
+            </li>
+        </ul>
+    </p>
+    <h3>
+        polynomial Regression
+    </h3>
+    <p> Following are some of the approaches for dealing with fundamental problems of <b>prediction</b> and <b>interpretation</b>: 
+        <ul>
+            <li>
+                Extending linear regression
+            </li>
+            <li>
+                using polynomial features to capture non-linear effects.
+            </li>
+        </ul>
+    </p>
+    <p>
+        We want to capture higher order features of data by adding polynomial features. The relation may still be linear, but with a higher degree terms.
+    </p>
+    <p>
+        This can also include variable interactions,like x1x2 in addition to x1^2 and x2^2 from x1 and x2.
+    </p>
+    <p>
+        Using polynomial features example as somewhere above, we do following:
+        <ul>
+            <li>create polyFit with degree of <b>m</b></li>
+            <li>fit the X data</li>
+            <li>transform the X data</li>
+        </ul>
+        This will create the interaction terms also.
+    </p>
+    <hr>
+    <h3>
+        Bias and Variance
+    </h3>
+    <p>
+        <b>Bias</b>: is a tendency to miss. They are guided by similar error, and are generally with low variance  and the data points are consistently errored.
+    </p>
+    <p>
+        <b>Variance</b>: is a tendency to be inconsistent. It can be thought of as a metric to refer to model's sensitivity.
+    </p>
+    <p>
+        <img class="center-image" src="../images/biasvariance.png">
+    </p>
+    <p>
+        Above image shows an example for definition of Bias and Variance in terms of shooting to an target. Ideally, we would want our
+        model to have an outcome that is <mark>top-left outcome</mark>, with small bias and the preditions (or shootings) very close to the target.
+    </p>
+    <p>
+        <b>Three Source of Errors in a Model</b>:
+        <ul>
+            <li>
+                Model being wrong: Bias
+                <ul>
+                    <li>
+                        Can be because of missing information
+                    </li>
+                    <li>
+                        Can be because of simple model
+                    </li>
+                    <li>
+                        Miss real pattern, because model is underfit.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Model being unstable: Variance
+                <ul>
+                    <li>
+                        Characterized by high changes in the output because of small changes in the input.
+                    </li>
+                    <li>
+                        Overly complex or poorly fit models
+                    </li>
+                    <li>
+                        Overfitting of model
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Unavoidable Randomness: Random error that cannot be reduced
+            </li>
+        </ul>
+    </p>
+    <p>
+        <img src="../images/tradeoffs.png" class="center-image">
+    </p>
+    <p>
+        For polynomial regression, higher degree means model is complex. Thus high variance and lowered bias.
+    </p>
+    <hr>
+    <h3>Regularization and Model Selection</h3>
+    <p>
+        Regularization is an approach to handle over-fitting.
+    </p>
+    <p>
+        Add a new cost function to the old cost function, with a <mark>Regularization Strength Parameter</mark>. Thus a new cost adjusted cost 
+        function is created as <mark>M(w) + lambda * R(w)</mark>, where M(w) is the model error, R(w) is the function of estimated paramters and 
+        <mark>lambda</mark> is the strength parameter.
+    </p>
+    <p>
+        The adjustable regularization strength paramter can be used to penalize the model if it is too complex. This can be 
+        used to dumb down the model. <mark>lambda</mark> adds a penalty propoortional to the size of the estimated model parameter.
+    </p>
+    <p>
+        Regularization strength parameter allows us to manage complexity tradeoffs:
+        <ul>
+            <li>
+                more regularization, less complex model or more bias
+            </li>
+            <li>
+                less regularization, more complex model or increased variance
+            </li>
+        </ul>
+    </p>
+    <p>
+        <ul>
+            <li>
+                <b>
+                    L1 Regularization:
+                </b> Drives some coeffecients dowm to zero,  because the added model parameters values are single degree multiplied by the lambda.
+                <p class="important">
+                    L1 regularization imposes Laplacian prior.
+                </p>
+            </li>
+            <li>
+                <b>
+                    L2 Regularization:
+                </b> On the other hand, adds squared model parameters to the cost function.
+                <p class="important">
+                    L2 regularization imposes Gaussian prior.
+                </p>
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <b>
+            Ridge Regression
+        </b>
+        <ul>
+            <li>
+                Ridge Regression is a L2 regularized linear regression.
+            </li>
+            <li>
+                There is influence of standardization on Ridge regression.
+            </li>
+            <li>
+                Regularization has shrinking effect, some coeffecients towards 0 due to the penalty. The added term is the 
+                difference between the Linear Regressio and Ridge Regression. It uses L2 regularization on linear regression.
+            </li>
+            <li>
+                There is squaring, so larger weights are more penalized.
+            </li>
+            <li>
+                As regularization strenght increases for ridge regression, the shinkage effect is seen, i.e., we will decrease each coeffecients.
+            </li>
+            <li>
+                The reduction of variance may outpace the increase in bias, which leads to better model.
+            </li>
+            <li>
+                With ridge regression, we have <mark>RidgeCV</mark>, that also perform cross validation at the same time.
+                <p>
+                    <mark>
+                        from sklearn.linear_model import RidgeCV <br>
+                        alphas = [0.005, 0.01, 0.05, 0.1] <br>
+                        ridcv = RidgeCV(alpha=alphas,cv=4).fit(x_train, y_train) <br>
+                        v_pred = ridcv.predict(x_test)
+                    </mark>
+                </p>
+                The best alpha value can be extracted as <mark>ridcv.aplha_</mark>, and the coeffecients of the model can be
+                listed as a list <mark>ridcv.coef_</mark>
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <b>
+            Lasso Regression
+        </b>
+        <ul>
+            <li>
+                Lasso is L1 regularized Linear Regression. LASSO stands for <mark>Least Absolute Shrinkage and Selection Operator</mark>
+            </li>
+            <li>
+                The complexity penalty lambda is proportional to the absolute value of the coeffecients.
+            </li>
+            <li>
+                More likely to perform <mark>feature selection</mark>, because it will zero out some of the terms as it uses L1 regularization.
+            </li>
+            <li>
+                Lasso have higher interpretability than Ridge. But is slower to converge than Ridge so the timing may be high for Lasso.
+            </li>
+            <li>
+                May also underperform if the target truly depends on many of the features.
+            </li>
+            <li>
+                We also have a lassocv similar to Ridge cv discussed above. An additional term to provide is <mark>nax_iter</mark> because lasso does not 
+                converge as fast.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <b>
+            Elastic Net
+        </b>
+        <ul>
+            <li>
+                A hybrid approach that introduces a new parameter alpha that determines a weighted average of L1 and L2 penalties.
+            </li>
+            <li>
+                ElasticNetCV is also a class similar to LassoCV and RidgeCN, but with an additional parameter called <mark>l1_ratio</mark>
+                in addition to l1_ratio and alphas.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <b>
+            Recursive Feature Elimination (RFE): RFE is an approach that combines
+        </b>
+        <ul>
+            <li>
+                a model or estimation approach;
+            </li>
+            <li>
+                a desired number of features
+            </li>
+        </ul>
+    </p>
+    <p>
+        RFE repeatedly applies the model, measures feature importance and recursively removes the less important features.
+    </p>
+    <p>
+        RFE example is as follows: <br>
+        <mark>
+            from sklearn.feature_selection import RFE <br>
+            rfe = RFE(est, n_features_to_select=5) <br>
+            rfe = rfe.fit(X_train, y_train) <br>
+            y_pred = rfe.predict(X_test)
+        </mark>
+    </p>
+    <p>
+        A class <mark>RFECV</mark>, uses RFE with cross validation.
+    </p>
+    <p>
+        <ul>
+            <li>
+                regularization forces the range of coefficients to be smaller, restricted. Smaller range of 
+                coeffecients will have lower variance.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        So overall steps as of now for <mark>LinearRegression</mark> are:
+        <ul>
+            <li>
+                Isolate target variable as y. <br>
+                <mark>y = df[y_col]</mark>
+            </li>
+            <li>
+                Create other cols as X <br>
+                <mark>
+                    X = df.drop[y_col,axis=1]
+                </mark>
+            </li>
+            <li>
+                test train split
+            </li>
+            <li>
+                Apply standardization to the data. Most common is to use <mark>StandardScalar</mark>. <br>
+                <mark>
+                    s = StandardScalar() <br>
+                    X_s = S.fit(X)
+                </mark>
+            </li>
+            <li>
+                Apply LinearRegression <br>
+                <mark>
+                    lr = LinearRegression() <br>
+                    lr = lr.fit(X_s, y) <br>
+                </mark>
+            </li>
+            <li>
+                See the coeffecients <br>
+                <mark>
+                    print(lr.coef_)
+                </mark>
+            </li>
+            <li>
+                To see what input vairable has what coeff, we can do following: <br>
+                <mark>
+                    pd.DataFrame(zip(X.columns,lr2.coef_)).sort_values(by=1)
+                </mark>
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        For Lasso Regression, we introduce the <mark>PolynomialFeatures</mark> with certain degree also.
+        <ul>
+            <li>
+                First, fit_transform() with PolynomialFeature
+            </li>
+            <li>
+                test train split
+            </li>
+            <li>
+                Then, fit_transform(x_train) with StandardScalar
+            </li>
+            <li>
+                Then, lasso().fit(x_train,y)
+            </li>
+            <li>
+                Then lasso().predict(StandardScalar.transform(x_test))
+            </li>
+            <li>
+                Then, compute r2_score or something
+            </li>
+        </ul>
+    </p>
+    <h3>
+        Logistic Regression
+    </h3>
+    <p>
+        
     </p>
   </div>
  </body>
