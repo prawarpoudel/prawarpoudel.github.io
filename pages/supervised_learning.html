@@ -1136,7 +1136,41 @@
             <li>
                 Lower than diagonal is <b>worse</b>.
             </li>
+            <li>
+                Higher than diagonal is <b>good</b>.
+            </li>
+            <li>
+                This is because True Positive needs to be relatively higher than False Positive Rate.
+            </li>
+            <li>
+                Area use the curve of the ROC curve gives how well the mode is working. Higher is better.
+            </li>
         </ul>
+    </p>
+    <p>
+        <b>What is the right approach for choosing the classifier:</b>
+        <ul>
+            <li>
+                ROC curve: works better with balanced classes.
+            </li>
+            <li>
+                Precision-Recall works better with imbalanced classes.
+            </li>
+        </ul>
+    </p>
+    <p>
+        <b>In sklearn</b> <br>
+        <mark>
+            from sklearn.metrics import accuracy_score <br>
+            accuracy_value = accuracy_score(y_test,y_pred) <br>
+        </mark>
+    </p>
+    <p>
+        <b>Other accuracy metrics,</b> <br>
+        <mark>
+            from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix,
+            roc_curve, precision_recall_curve
+        </mark>
     </p>
   </div>
  </body>
