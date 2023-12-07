@@ -431,6 +431,18 @@
             </li>
         </ul>
     </p>
+    <p>
+        Another way of dealing with categorical data is using <mark>LabelEncoder</mark> class in sklearn. This encoder should be used for encoding the target value, y, not
+        the input variables X. It transforms the columns into numerical values from 0 to (num. of unique values -1).
+        <p>
+            <mark>
+                from sklearn.preprocessing import LabelEncoder <br>
+                <br>
+                le = LabelEncoder <br>
+                df['col1'] = le.fit_transform(df['col1']) <br>
+            </mark>
+        </p>
+    </p>
     <hr>
     <p>
         Applying scalar like <mark>StandardScalar</mark> or <mark>MinMaxScalar</mark>, make sure to call <mark>fit_transform()</mark> on the training data;
@@ -1171,6 +1183,66 @@
             from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix,
             roc_curve, precision_recall_curve
         </mark>
+    </p>
+    <hr>
+    <p>
+        <b>logistic regression example</b>
+        <ul>
+            <li>
+                if the output variable is categorical, which it usually is for logistic regression problem, let us convert to numerical using <mark>LabelEncoder</mark>
+            </li>
+            <li>
+                let us also look into the correlation between the input or independent variables. This can be done by <br>
+                <mark>corr = df[array of columns].corr() </mark> that returns a dataframe
+            </li>
+            <li>
+                since the lower traingle of the corr() does not give any new information, we can set them as null by following technique. <br>
+                <p class="code-text">
+#gets the indices as 2D numpy array, x in first dim and y in second dim
+corr_low_index = np.tril_indices_from(corr) 
+
+#convert the df above to numpy array
+corr_np = np.array(corr) 
+
+#set the low diagonal elements to nan
+corr_np[corr_low_index] = np.nan 
+
+#convert back to the df
+corr_df = pd.DataFrame(corr_np,columns=corr.columns,index=corr.index)
+corr_df_stack = (corr_df.stack()
+                .to_frame().reset_index()
+                .rename(columns={'level_0':'feature1',
+                                'level_1':'feature2',
+                               0:'correlation'}
+                        )
+                ) #let us stack the df for a more compact df
+corr_df_stack['abscorrelation'] = corr_df_stack.correlation.abs()
+                </p>
+            </li>
+            <li>
+                The above final db  can help us see what values are highly correlated, if we sort them by the absolute value column
+            </li>
+            <li>
+                To maintain the ration of the predictor class in the train and test splits, we can use <mark>StratifiedShuffleSplit</mark> class. <br>
+                <p class="code-text">
+from sklearn.model_selection import StratifiedShuffleSplit
+
+# We want 1 split, this can change if we want more 
+# .. 30% data to be in the test dataset, 70% in train dataset
+my_split = StratifiedShuffleSplit(n_splits=1,
+                                            test_size=0.3,
+                                            random_state=23345)
+
+train_idx, test_idx = next(my_split.split(data[x_colms], data.target))
+
+X_train = data.loc[train_idx, x_colms]
+y_train = data.loc[train_idx, 'target']
+
+X_test  = data.loc[test_idx, x_colms]
+y_test  = data.loc[test_idx, 'target']
+                </p>
+            </li>
+        </ul>
     </p>
   </div>
  </body>
