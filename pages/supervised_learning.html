@@ -1186,7 +1186,7 @@
     </p>
     <hr>
     <p>
-        <b>logistic regression example</b>
+        <b>Logistic regression example</b>
         <ul>
             <li>
                 if the output variable is categorical, which it usually is for logistic regression problem, let us convert to numerical using <mark>LabelEncoder</mark>
@@ -1241,6 +1241,109 @@ y_train = data.loc[train_idx, 'target']
 X_test  = data.loc[test_idx, x_colms]
 y_test  = data.loc[test_idx, 'target']
                 </p>
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <b>k-Nearest Neighbour Classification</b>
+    </p>
+    <p>
+        We can also do regression using kNN; the value predicted is the mean value of its neighbors.
+    </p>
+    <p>
+        <ul>
+            <li>
+                creates decision boundary based on similarity with neighbors whose class is already known.
+            </li>
+            <li>
+                using small number of neighbors to look at may be prone to high error.
+            </li>
+            <li>
+                increasing the number of neighbors to look at will decrease the error.
+            </li>
+            <li>
+                using a very high number of neighbors also causes error to go up. So, there is an elbow
+                point for the minimum error rate.
+            </li>
+            <li>
+                using one- neighbor for classification will cause highly biased system
+            </li>
+            <li>
+                using more neighbor than the elbow point causes high variance
+            </li>
+        </ul>
+    </p>
+    <p>
+        Distance measurement in kNN:
+        <ul>
+            <li>
+                Euclidian Distance: Visible distance., the easiest distance.
+            </li>
+            <li>
+                Manhattan Distance: Absolute value in each direction. Unlike Euclidian, there is no squaring and taking a square root here.
+            </li>
+            <li>
+                Oftentimes scaling the features is a good strategy, so that all the variables have same
+                influence.
+            </li>
+        </ul>
+    </p>
+    <p>
+        <ul>
+            <li>
+                Easy to use;
+            </li>
+            <li>
+                Adapts well to new training data;
+            </li>
+            <li>
+                Easy to interpret
+            </li>
+            <li>
+                cons: no model for insights;
+            </li>
+            <li>
+                cons: slow to predict, many distance calculations;
+            </li>
+            <li>
+                cons: require a lot of memory;
+            </li>
+            <li>
+                cons: may break down because of <i>curse of dimensionality</i> as the number of predictors grow
+            </li>
+        </ul>
+    </p>
+    <p>
+        <ul>
+            <li>
+                kNN is faster for fitting, as only trainig data storing is sufficient. LinearRegression fitting can be slow.
+            </li>
+            <li>
+                kNN is many parameters; Linear Regression has new parameters, so memory efficient than kNN.
+            </li>
+            <li>
+                kNN prediction can slow; Linear Regression prediction involves calculation but are often fast.
+            </li>
+        </ul>
+    </p>
+    <p class="code-text">
+from sklearn.neighbors import KNeighborsClassifier
+
+kNN = KNeighborsClassifier(n_neighbors=3)
+kNN = kNN.fit(X_train, y_train)
+y_predict = kNN.predict(X_test)
+    </p>
+    <p>
+        For regression, <mark>KNeighborsRegressor</mark> can be used instead, and make sure that the
+        <mark>y_train</mark> and <mark>y_test</mark> sets are continuous values.
+    </p>
+    <hr>
+    <p>
+        <b>Support Vector Machines (SVM)</b>
+        <ul>
+            <li>
+                
             </li>
         </ul>
     </p>
