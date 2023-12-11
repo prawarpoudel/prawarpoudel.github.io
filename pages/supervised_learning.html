@@ -1343,6 +1343,134 @@ y_predict = kNN.predict(X_test)
         <b>Support Vector Machines (SVM)</b>
         <ul>
             <li>
+                create a hyperplane that maximizes the distance between the nearest member of all the classes;
+            </li>
+            <li>
+                the cost function does not penalize for output that are outside the margin if the prediction is correct; 
+                whereas in case of logistic regression there is almost always some penalization.
+            </li>
+            <li>
+                If the values are classified correctly, and are inside the margin lines, it adds to the penalty, i.e. model is penalized.
+            </li>
+            <li>
+                The more we move to the opposite direction for misclassification, model is penalized more. The penalty value is linearly increased.
+            </li>
+            <li>
+                The SVM model could be sensitive to outliers, and the decision boundary may shift significnatly because of a single outlier. Thus, <mark>regularization</mark>. However, SVM is 
+                not impacted by large values that are classified correctly. Or any outlier that are correctly classified.
+            </li>
+            <li>
+                SVM models are linear (decision boundary is linear hyperplane).
+            </li>
+            <li>
+                Code example:
+                <p class="code-text">
+from sklearn.svm import LinearSVC
+
+LinSVC = LinearSVC(penalty='l2',C=10.0) #C is regularization
+LinSVC = LinSVC.fit(X_train,y_train)
+y_pred = LinSVC.predict(X_test)
+                </p>
+                The regilarization parameters can be explored/tuned with cross-validation.
+            </li>
+            <li>
+                Using linearSVM for regression; and y- values must be continuous values.
+                <p class="code-text">
+from sklearn.svm import LinearSVM
+                </p>
+            </li>
+        </ul>
+    </p>
+    <p>
+        <b>Non Linear Decision boundaries using kernels.</b>
+        <ul>
+            <li>
+                Just change the objective function; non-linear decision boundary is created by tranforming the variables and finding the 
+                linear decision boundary in the new variables; which essentially means that the decision boundary is now non-linear in original vector space.
+            </li>
+            <li>
+                Map data to higher dimension. As we move above in dimensionality, there could be some linear decision boundary that could be found.
+                <ul>
+                    <li>
+                        Approach 1: Similar to polynomial transform.
+                    </li>
+                    <li>
+                        Approach 2: FInd similarity metric/function, and use that function to transform to higher dimension.
+                        <ul>
+                            <li>
+                                Create a Gaussian distance function.
+                            </li>
+                            <li>
+                                Find similarity of the variables to the n- variables that the Gaussian distance is defined for. The new vector space will be n-dimensional, with each dimension representing
+                                similarity to the n- variables.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Code example:
+                <p class="code-text">
+from sklearn.svm import SVC
+
+rbfsvc = SVC(kernel='rbf', gamma=1.0, C=10.0) 
+# see other kernels, higher gamma and C means less regularization/complex models.
+
+
+rbfsvc = rbfsvc.fit((X_train, y_train))
+y_predict = rbfsvc.predict(X_test)
+                </p>
+            </li>
+            <li>
+                Kernels with <mark>rbf</mark> are very slow to train with a lots of features of data.
+            </li>
+            <li>
+                To optimize, use a kernel map to create a dataset in higher dimension using methods like Nystroem and RBF sampler. Then, use a linear classifier, like LinearSVC, or even LogisticRegression.
+            </li>
+            <li>
+                <mark>Nystroem</mark> example:
+                <p class="code-text">
+from sklearn.kernel_approximation import Nystroem
+
+NystroemSVC = Nystroem(kernel='rbf', gamma=1.0,n_components=100) # n_components means the no of samples to take
+X_train = NystroemSVC.fit_transform(X_train)
+
+X_test = NystroemSVC.transform(X_test)
+                </p>
+                The kernel and associated parameters can be tuned with cross-validation
+            </li>
+            <li>
+                Similar can be done for <mark>RBFSampler</mark>
+            </li>
+        </ul>
+    </p>
+    <p>
+        <b>When to choose what??</b>
+        <table width="80%" align="center" border="1px">
+            <tr>
+                <th>Features</th><th>Data</th><th>Model</th>
+            </tr>
+            <tr>
+                <td>Many (~10K)</td><td>Small (1K rows)</td><td>Simple, Logistic or Linear SVC</td>
+            </tr>
+            <tr>
+                <td>Few, near about 100</td><td>Medium (~10K rows)</td><td>SBC with RBF</td>
+            </tr>
+            <tr>
+                <td>Few, near about 100</td><td>Many (>100K rows)</td><td>Add features, Logistic, LinearSVC or Kernel Approx</td>
+            </tr>
+        </table>
+    </p>
+    <hr>
+    <p>
+        <b>Decision Trees</b>
+    </p>
+    <p>
+        <ul>
+            <li>
+                Keep splitting until a leaf node is pure OR a max depth is reached OR a performance metric is achieved.
+            </li>
+            <li>
                 
             </li>
         </ul>
