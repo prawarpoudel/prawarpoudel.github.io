@@ -1471,6 +1471,138 @@ X_test = NystroemSVC.transform(X_test)
                 Keep splitting until a leaf node is pure OR a max depth is reached OR a performance metric is achieved.
             </li>
             <li>
+                Decision trees tend to overfit. Small change in data greatly affect prediction - high variance.
+            </li>
+            <li>
+                Solution: Prune Trees by imposing max depth
+            </li>
+            <li>
+                Pruning can be done  by applying error threshold. (for example, if the error at a node is X, dont further breakdown)
+            </li>
+            <li>
+                Very easy to interpret, no data processing required
+            </li>
+        </ul>
+    </p>
+    <p>
+        <ul>
+            <li>
+                Regression can be performed using <mark>DecisionTreeRegressor</mark>,where the target variable is a continuous field.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <b>Ensemble Methods and Bagging (MetaClassifiers)</b>
+    </p>
+    <p>
+        <ul>
+            <li>
+                Bootstrap Aggregation is Bagging.
+            </li>
+            <li>
+                Combining models (ensemble based methods)
+            </li>
+            <li>
+                For example; for decision trees that tend to overfit, we can create many trees and combine results.
+                <ul>
+                    <li>
+                        So we use bagging for trees using <mark>BaggingClassifier</mark>.
+                    </li>
+                    <li>
+                        trees vote or average of the predicted result or take majority as a result
+                    </li>
+                    <li>
+                        i.e. vote to combine to form a single classifier.
+                    </li>
+                    <li>
+                        No of trees to use for Bagging is another hyperparameters. There is a diminishing return usually 
+                        after 50 trees.
+                    </li>
+                    <li>
+                        Bagging Trees is again easy to interpret and implement. No preprocessing required.
+                    </li>
+                    <li>
+                        Bagging, we can grow trees parallely and is more efficient.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p class="code-text">
+from sklearn.ensemble import BaggingClassifier
+
+BC = BaggingClassifier(n_estimators=50) #n_estimators is the no of trees
+
+BC = BC.fit(X_train, y_train)
+y_pedict = BC.predict(X_test)
+                </p>
+            </li>
+            <li>
+                For regression, <mark>BaggingRegressor</mark> can be used.
+            </li>
+        </ul>
+    </p>
+    <p>
+        <b>Random Forest</b>
+    </p>
+    <p>
+        <ul>
+            <li>
+                Bootstrapped samples can be correlated, so bagging may not always work after some number.
+            </li>
+            <li>
+                To de-correlate the trees, we use a random subset of features of each tree.
+            </li>
+            <li>
+                so we limit the total no of features used randomly; in addition to randomly limiting the rows which is already done by Bagging.
+            </li>
+            <li>
+                For classification, we restrict the features to <mark>sqrt(no of features)</mark>, whereas regression task will take <mark>(no of features)/3</mark> features.
+            </li>
+            <li>
+                This will force different decision for each individual trees based on what features are used.
+            </li>
+            <li>
+                There is still a diminishing return after certain no of trees, but the error is better than just Bagging.
+            </li>
+        </ul>
+    </p>
+    <p class="code-text">
+from sklearn.ensemble import RandomForestClassifier
+
+RC = RandomForestClassifier(n_estimators=50)
+
+RC = RC.fit(X_train,y_train)
+y_predict = RC.predict(X_test)
+    </p>
+    <p>
+        For regression use, <mark>RandomForestRegressor</mark>.
+    </p>
+    <p>
+        In case when random forest does not reduce the variance, we will introduce more randomness. 
+        <ul>
+            <li>
+                This is done by selecting features randomly and create random splits - don't choose greedely.
+            </li>
+            <li>
+                <p class="code-text">
+from sklearn.ensemble import ExtraTreesClassifier
+                </p>
+            </li>
+            <li>
+                for regression,use<mark>ExtraTreesRegressor</mark>
+            </li>
+        </ul>
+    </p>
+    <p>
+        <b>Boosting</b>
+    </p>
+    <p>
+        <ul>
+            <li>
+                there is a possibility of overfitting with Boosting.
+            </li>
+            <li>
                 
             </li>
         </ul>
