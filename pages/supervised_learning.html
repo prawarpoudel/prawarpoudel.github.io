@@ -1783,12 +1783,85 @@ y_predict = VC.predict(X_test)
         <ul>
             <li>
                 <b>Upsampling:</b> Copy and replicate the data of the smaller class until we have the same number as that of larger class.
+                <ul>
+                    <li>
+                        Recall will still be high, but the gap between precision and recall will be less than Downsampling.
+                    </li>
+                    <li>
+                        random oversampling is good for categorical data; simplest of all
+                    </li>
+                    <li>
+                        synthetic oversampling:
+                        <ul>
+                            <li>
+                                start with a point in minority class.
+                            </li>
+                            <li>
+                                choose one of k-nearest neighbor
+                            </li>
+                            <li>
+                                create a point between these two points
+                            </li>
+                            <li>
+                                repeat above step k-times so that for a point we do for k-neighbours
+                            </li>
+                            <li>
+                                Two kinds of synthetic oversampling:
+                                <ul>
+                                    <li>
+                                        <b>SMOTE:</b> (synthetic minority oversampling technique) connects minority class
+                                        points to any neighbor (could also be from another class. This is <mark>regular smote</mark>. For <mark>border line smote</mark>, we classify 
+                                        points as outlier, safe or in-danger. All these can be from different classes. <mark>SVM smote</mark> uses underlying support vectors and generates points using those
+                                        support vectors.
+                                    </li>
+                                    <li>
+                                        <b>ADASYN:</b> (Adaptive synthetic sampling) looks at the classes in neighborhood; and generates new samples proportional to competing classes.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
             <li>
                 <b>Downsampling:</b> Taking only as many of the larger class as there are available of smaller class.
+                <ul>
+                    <li>
+                        Cons: will shoot up the recall and bring down precision.
+                    </li>
+                    <li>
+                        <b>Nearmiss - 1</b>: keep points that are nearest to decision boundary.
+                    </li>
+                    <li>
+                        <b>Nearmiss - 2</b>: not as much affected by outliers; keep points that are closest to distant minority points.
+                    </li>
+                    <li>
+                        <b>Nearmiss  -3</b>: 2 step process; for each negative sample, we find k-nearest neighbor of positive class. then the positive samples selected are the ones for which the distance of k-nearest neighbor is largest.
+                    </li>
+                    <li>
+                        <b>TOmek Link:</b> Tomek Link exists when two samples from different classes are nearest neighbor of one another. We can either remove observation from both the classes or remove from the majority class. 
+                    </li>
+                    <li>
+                        <b>Edited NN</b>: Run KNN with K=1, then if you misclassify a point from a majority class, that point will be removed.
+                    </li>
+                </ul>
             </li>
             <li>
                 <b>Resampling:</b> A mix of the above two, so that we have the number somewhere in between to that the balanced class.
+                <ul>
+                    <li>
+                        Use SMOTE + TOmek Link or SMOTE + Edited NN
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Blagging: Balanced Bagging: take bootstrap samples from original population (similar to bagging), and balance each sample by downsample.
+            </li>
+            <li>
+                All sampling or balancing of data should be done after the test set has been split.
+            </li>
+            <li>
+                Crossvalidation can be used on a Unbalanced dataset to see if we need Upsampling or Downsampling or Resampling. By using the ROC curve.
             </li>
         </ul>
     </p>
