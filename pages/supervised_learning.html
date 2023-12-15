@@ -95,1110 +95,1647 @@
    <a class="listt" href="../pages/primer_systemdesign.html">
     System Design Primer (Github)
    </a>
+   <a class="listt" href="../pages/supervised_learning.html">
+    Supervised Machine Learning
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning.html">
+    Unsupervised Machine Learning
+   </a>
   </div>
   <div class="content">
-    <h1>
-        Supervised Learning
-    </h1>
-    <p>
-        Data points have known outcome.
-    </p>
-    <p>
-        Goal is to predct the nature of relationship between input parameters and target variables.
-    </p>
-    <p>
-        <b>Parameters:</b> of a machine learning model are 1 or more variables that changes their values as the model learns. No of parameters can 
+   <h1>
+    Supervised Learning
+   </h1>
+   <p>
+    Data points have known outcome.
+   </p>
+   <p>
+    Goal is to predct the nature of relationship between input parameters and target variables.
+   </p>
+   <p>
+    <b>
+     Parameters:
+    </b>
+    of a machine learning model are 1 or more variables that changes their values as the model learns. No of parameters can 
         range from very few to trillions of parameters.
-    </p>
-    <p>
-        <b>Hyperparameters:</b> are parameters that not learned directly from the data but relates to implementation.
-    </p>
-    <p>
-        Two types of problems:
-        <ul>
-            <li>
-                <b>Regression:</b> y or the outcome variable is numeric.
-                <ul>
-                    <li>
-                        Outcome is continuous.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Classification:</b> y or outcome variable is categorical.
-                <ul>
-                    <li>
-                        Outcome is categorical.
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        Some terms of interests are:
-        <ul>
-            <li>
-                x: input features
-            </li>
-            <li>
-                yp: Output or the predicted values
-            </li>
-            <li>
-                f(.): prediction function that generates predictions from x and parameters.
-            </li>
-            <li>
-                J(y,yp): Loss function
-            </li>
-            <li>
-                update rule: using features x and outcome y, choose parameters to minimize loss function J
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        Interpretation vs Prediction Objective:
-        <ul>
-            <li>
-                <b>Interpretation:</b> Train model to find insights into data. Focus will be on parameters of the model to gain insights; and a 
+   </p>
+   <p>
+    <b>
+     Hyperparameters:
+    </b>
+    are parameters that not learned directly from the data but relates to implementation.
+   </p>
+   <p>
+    Two types of problems:
+    <ul>
+     <li>
+      <b>
+       Regression:
+      </b>
+      y or the outcome variable is numeric.
+      <ul>
+       <li>
+        Outcome is continuous.
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       Classification:
+      </b>
+      y or outcome variable is categorical.
+      <ul>
+       <li>
+        Outcome is categorical.
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    Some terms of interests are:
+    <ul>
+     <li>
+      x: input features
+     </li>
+     <li>
+      yp: Output or the predicted values
+     </li>
+     <li>
+      f(.): prediction function that generates predictions from x and parameters.
+     </li>
+     <li>
+      J(y,yp): Loss function
+     </li>
+     <li>
+      update rule: using features x and outcome y, choose parameters to minimize loss function J
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    Interpretation vs Prediction Objective:
+    <ul>
+     <li>
+      <b>
+       Interpretation:
+      </b>
+      Train model to find insights into data. Focus will be on parameters of the model to gain insights; and a 
                 less complex models are chosen.
-            </li>
-            <li>
-                <b>Prediction:</b> focus will be on performance metrics of the model. The model cares only about coming with best prediction so can be a black box; 
+     </li>
+     <li>
+      <b>
+       Prediction:
+      </b>
+      focus will be on performance metrics of the model. The model cares only about coming with best prediction so can be a black box; 
                 complex models can be used. performance metrics involve closeness between yp and y i.e. predicted result vs actual result.
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <h2>
-        Linear Regression
-    </h2>
-    <p>
-        Measures of errors are: They can be used for any regression model
-        <ul>
-            <li>
-                Mean Squared Error (MSE)
-            </li>
-            <li>
-                Sum of Squared Error (SSE)  = sum (error^2)
-            </li>
-            <li>
-                Total Sum of Squares (TSS) = Variance of error
-            </li>
-            <li>
-                Coeffecient of Determination (R^2): 1-(SSE/TSE). Closer to 1 is better.
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        It is not a requirement that the target variable is normally distributed; but normally distributed target variable gives better result. <mark>What is required is 
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <h2>
+    Linear Regression
+   </h2>
+   <p>
+    Measures of errors are: They can be used for any regression model
+    <ul>
+     <li>
+      Mean Squared Error (MSE)
+     </li>
+     <li>
+      Sum of Squared Error (SSE)  = sum (error^2)
+     </li>
+     <li>
+      Total Sum of Squares (TSS) = Variance of error
+     </li>
+     <li>
+      Coeffecient of Determination (R^2): 1-(SSE/TSE). Closer to 1 is better.
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    It is not a requirement that the target variable is normally distributed; but normally distributed target variable gives better result.
+    <mark>
+     What is required is 
             that the error needs to be normally distributed.
-        </mark>
-    </p>
-    <p>
-        If the target variable is not normally distributed, you can make it by transforming it. Then, fit our regression to the transformed values.
-    </p>
-    <p>
-        To see if the target variable is normally distributed, we can see manually or do a statistical test.
-        <ul>
-            <li>
-                For manual approach, we can plot the distribution using <mark>df['target_variable'].hist()</mark>. It should visually show the data 
+    </mark>
+   </p>
+   <p>
+    If the target variable is not normally distributed, you can make it by transforming it. Then, fit our regression to the transformed values.
+   </p>
+   <p>
+    To see if the target variable is normally distributed, we can see manually or do a statistical test.
+    <ul>
+     <li>
+      For manual approach, we can plot the distribution using
+      <mark>
+       df['target_variable'].hist()
+      </mark>
+      . It should visually show the data 
                 thus helping us see if the data is normally distributed.
-            </li>
-            <li>
-                Using <mark>D'Agostino K^2 Test</mark>, you can use library function <mark>normaltest()</mark> from library <mark>scipy.stats.mstats</mark>. This gives out a p-value. 
+     </li>
+     <li>
+      Using
+      <mark>
+       D'Agostino K^2 Test
+      </mark>
+      , you can use library function
+      <mark>
+       normaltest()
+      </mark>
+      from library
+      <mark>
+       scipy.stats.mstats
+      </mark>
+      . This gives out a p-value. 
                 The higher p-value indicates the distribution is more closer to being normal. A lower p-value indicates distribution is far low probability of being a normal distribution.
-                A threshold of 0.05 or 0.01 can be used for cutoff. 
-            </li>
-        </ul>
-    </p>
-    <p>
-        To transform a variable (target variable) to make it normally distributed, commonly used techniques are:
-        <ul>
-            <li>
-                <u>Log transform:</u> Just take log of the data. The data will look a lot more normal distributed. This works best for data that exhibits exponential property.
-            </li>
-            <li>
-                <u>Square Root:</u> Just take square root of the data.
-            </li>
-            <li>
-                <u>Box Cox:</u> It is a parameterized transformation.
-                <ul>
-                    <li>
-                        Box-Cox transformed value of a variable y is (y^lambda -1)/lambda.
-                    </li>
-                    <li>
-                        This is a generalization of the square root transformation, but it allows for the root value to vary and find the best one.
-                    </li>
-                    <li>
-                        Use <mark>boxcox from scipy.stats</mark> in code; as <mark>y_transformed = boxcox(df['y'])[0]</mark>. Function <mark>boxcox</mark> returns an array,
+                A threshold of 0.05 or 0.01 can be used for cutoff.
+     </li>
+    </ul>
+   </p>
+   <p>
+    To transform a variable (target variable) to make it normally distributed, commonly used techniques are:
+    <ul>
+     <li>
+      <u>
+       Log transform:
+      </u>
+      Just take log of the data. The data will look a lot more normal distributed. This works best for data that exhibits exponential property.
+     </li>
+     <li>
+      <u>
+       Square Root:
+      </u>
+      Just take square root of the data.
+     </li>
+     <li>
+      <u>
+       Box Cox:
+      </u>
+      It is a parameterized transformation.
+      <ul>
+       <li>
+        Box-Cox transformed value of a variable y is (y^lambda -1)/lambda.
+       </li>
+       <li>
+        This is a generalization of the square root transformation, but it allows for the root value to vary and find the best one.
+       </li>
+       <li>
+        Use
+        <mark>
+         boxcox from scipy.stats
+        </mark>
+        in code; as
+        <mark>
+         y_transformed = boxcox(df['y'])[0]
+        </mark>
+        . Function
+        <mark>
+         boxcox
+        </mark>
+        returns an array,
                         the first item is the transfored array whereas the second item the lambda that was used.
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        How to use:
-        <ol>
-            <li>
-                Import sklearn library as <mark>sklearn.linear_model.LinearRegression</mark>
-            </li>
-            <li>
-                create an object as <mark>LR=LinearRegression()</mark>. You can also pass many other hyperparameters into the object creation.
-            </li>
-            <li>
-                Create X df from the actual dataset by dropping the target variable column so that it is easy for further computation. Similarly,
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    How to use:
+    <ol>
+     <li>
+      Import sklearn library as
+      <mark>
+       sklearn.linear_model.LinearRegression
+      </mark>
+     </li>
+     <li>
+      create an object as
+      <mark>
+       LR=LinearRegression()
+      </mark>
+      . You can also pass many other hyperparameters into the object creation.
+     </li>
+     <li>
+      Create X df from the actual dataset by dropping the target variable column so that it is easy for further computation. Similarly,
                 create Y by just grabbing the target variable as it column.
-            </li>
-            <li>
-                Fit and transform the X data with the polynomial feature object. 
-                <ul>
-                    <li>
-                        First create an object as <mark>pf = PolynomialFeature(degree=2,include_bias=False)</mark>, that is from <mark>sklearn.preprocessing</mark>. The <mark>include_bias</mark> is False 
+     </li>
+     <li>
+      Fit and transform the X data with the polynomial feature object.
+      <ul>
+       <li>
+        First create an object as
+        <mark>
+         pf = PolynomialFeature(degree=2,include_bias=False)
+        </mark>
+        , that is from
+        <mark>
+         sklearn.preprocessing
+        </mark>
+        . The
+        <mark>
+         include_bias
+        </mark>
+        is False 
                         because later on LinearRegression will take care of that part.
-                    </li>
-                    <li>
-                        Fit and transform as <mark>X_pf = pf.fit_transform(X)</mark>. X_pf now has a lot more columns that what X had.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Test-Train split:
-                <ul>
-                    <li>
-                        <mark>x_train, x_test, y_train, y_test = test_train_split(X_pf,y,test_size=0.3,random_state="some int value")</mark> where test_train_split is from 
-                        <mark>sklearn.model_selection</mark>.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Now apply standard scaler to the train data.
-                <ul>
-                    <li>
-                        s = StandardScalar()
-                    </li>
-                    <li>
-                        x_train_s = s.fit_transform(x_train)
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Now to bring the target variable to the normal distribution, we will use boxcox as discussed above.
-                <ul>
-                    <li>
-                        <mark>y_train_bc = boxcox(y_train)[0]</mark>
-                    </li>
-                    <li>
-                        We also need the lambda value for later when we need to compute inverse. so, <mark>lam=boxcox(y_train)[1]</mark>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Fit the train data as <mark>LR = LR.fit(x_train_s, y_train_bc)</mark>. Here we used:
-                <ul>
-                    <li>
-                        standard scalar fit and transfored x- data.
-                    </li>
-                    <li>
-                        boxcoxed y- data
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Since the x- data used for modeling was transformed data, let us fit and transform the x_test data to StandardScalar, i.e. <mark>x_test_s = s.transform(x_test)</mark>
-            </li>
-            <li>
-                The predicted value will be boxcoxed transformed; i.e. <mark>y_pred_bc = lr.predict(x_test_s)</mark>.
-            </li>
-            <li>
-                To find the y_pred_bc back to the same scale as y, we can inverse boxcox. <mark>y_pred = inv_boxcox(y_pred_bc,lam)</mark>.
-            </li>
-            <li>
-                Finally, compute the R2 score using <mark>R2 = r2_score(y_pred,y_test)</mark>.
-            </li>
-            <li>
-                Using boxcox on the target variable improves the R2 score (higher is better). In the above example, if done without boxcox, 
+       </li>
+       <li>
+        Fit and transform as
+        <mark>
+         X_pf = pf.fit_transform(X)
+        </mark>
+        . X_pf now has a lot more columns that what X had.
+       </li>
+      </ul>
+     </li>
+     <li>
+      Test-Train split:
+      <ul>
+       <li>
+        <mark>
+         x_train, x_test, y_train, y_test = test_train_split(X_pf,y,test_size=0.3,random_state="some int value")
+        </mark>
+        where test_train_split is from
+        <mark>
+         sklearn.model_selection
+        </mark>
+        .
+       </li>
+      </ul>
+     </li>
+     <li>
+      Now apply standard scaler to the train data.
+      <ul>
+       <li>
+        s = StandardScalar()
+       </li>
+       <li>
+        x_train_s = s.fit_transform(x_train)
+       </li>
+      </ul>
+     </li>
+     <li>
+      Now to bring the target variable to the normal distribution, we will use boxcox as discussed above.
+      <ul>
+       <li>
+        <mark>
+         y_train_bc = boxcox(y_train)[0]
+        </mark>
+       </li>
+       <li>
+        We also need the lambda value for later when we need to compute inverse. so,
+        <mark>
+         lam=boxcox(y_train)[1]
+        </mark>
+       </li>
+      </ul>
+     </li>
+     <li>
+      Fit the train data as
+      <mark>
+       LR = LR.fit(x_train_s, y_train_bc)
+      </mark>
+      . Here we used:
+      <ul>
+       <li>
+        standard scalar fit and transfored x- data.
+       </li>
+       <li>
+        boxcoxed y- data
+       </li>
+      </ul>
+     </li>
+     <li>
+      Since the x- data used for modeling was transformed data, let us fit and transform the x_test data to StandardScalar, i.e.
+      <mark>
+       x_test_s = s.transform(x_test)
+      </mark>
+     </li>
+     <li>
+      The predicted value will be boxcoxed transformed; i.e.
+      <mark>
+       y_pred_bc = lr.predict(x_test_s)
+      </mark>
+      .
+     </li>
+     <li>
+      To find the y_pred_bc back to the same scale as y, we can inverse boxcox.
+      <mark>
+       y_pred = inv_boxcox(y_pred_bc,lam)
+      </mark>
+      .
+     </li>
+     <li>
+      Finally, compute the R2 score using
+      <mark>
+       R2 = r2_score(y_pred,y_test)
+      </mark>
+      .
+     </li>
+     <li>
+      Using boxcox on the target variable improves the R2 score (higher is better). In the above example, if done without boxcox, 
                 the R2 score will be lower.
-            </li>
-        </ol>
-    </p>
-    <h2>
-        Data Splits and Cross Validation
-    </h2>
-    <p>
-        To split to have a hold out data, so that its used for cross validation.
-    </p>
-    <p>
-        Training data: 
-        <ul>
-            <li>
-                Used for training.
-            </li>
-            <li>
-                <mark>model(x_train,y_train).fit()</mark> = model
-            </li>
-        </ul>
-    </p>
-    <p>
-        Test data:
-        <ul>
-            <li>
-                Used for testing and prediction.
-            </li>
-            <li>
-                <mark>model.predict(x_test)</mark> = y_pred
-            </li>
-            <l>
-                Use actual y_test to compare and calculate <mark>test_error</mark>.
-            </li>
-        </ul>
-    </p>
-    <p>
-        Syntax for test train split
-        <ul>
-            <li>
-                <mark>from sklearn.model_selection import test_train_split</mark>
-            </li>
-            <li>
-                <mark>train,test = test_train_split(data,test_size=0.3)</mark>
-            </li>
-            <li>
-                <mark>x_train,x_test, y_train, y_test = test_train_split(x,y,test_size=0.3)</mark>
-            </li>
-            <li>
-                There are other many ways for splitting, like shuffle split or stratified shuffle split. <br>
-                <mark>from sklearn.model_selection import ShuffleSplit</mark>
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        Categorical Data is one-hot encoded. The number of columns that is made as a result of one-hot encoding is equal to no of category values 
+     </li>
+    </ol>
+   </p>
+   <h2>
+    Data Splits and Cross Validation
+   </h2>
+   <p>
+    To split to have a hold out data, so that its used for cross validation.
+   </p>
+   <p>
+    Training data:
+    <ul>
+     <li>
+      Used for training.
+     </li>
+     <li>
+      <mark>
+       model(x_train,y_train).fit()
+      </mark>
+      = model
+     </li>
+    </ul>
+   </p>
+   <p>
+    Test data:
+    <ul>
+     <li>
+      Used for testing and prediction.
+     </li>
+     <li>
+      <mark>
+       model.predict(x_test)
+      </mark>
+      = y_pred
+     </li>
+     <l>
+      Use actual y_test to compare and calculate
+      <mark>
+       test_error
+      </mark>
+      .
+     </l>
+    </ul>
+   </p>
+   <p>
+    Syntax for test train split
+    <ul>
+     <li>
+      <mark>
+       from sklearn.model_selection import test_train_split
+      </mark>
+     </li>
+     <li>
+      <mark>
+       train,test = test_train_split(data,test_size=0.3)
+      </mark>
+     </li>
+     <li>
+      <mark>
+       x_train,x_test, y_train, y_test = test_train_split(x,y,test_size=0.3)
+      </mark>
+     </li>
+     <li>
+      There are other many ways for splitting, like shuffle split or stratified shuffle split.
+      <br/>
+      <mark>
+       from sklearn.model_selection import ShuffleSplit
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    Categorical Data is one-hot encoded. The number of columns that is made as a result of one-hot encoding is equal to no of category values 
         - 1. The process is outline below:
-        <ul>
-            <li>
-                Find the columns whose dtypes is np.object, i.e. <mark>mask = df.dtypes==np.object</mark>.
-            </li>
-            <li>
-                And, filter out the columns <mark>cols = df.columns[mask]</mark>. These are the columns that we want to apply one-hot encoding to.
-            </li>
-            <li>
-                We would also like to see if the no of unique values in the columns are more than one. If there is only 1 unique value, it does not
+    <ul>
+     <li>
+      Find the columns whose dtypes is np.object, i.e.
+      <mark>
+       mask = df.dtypes==np.object
+      </mark>
+      .
+     </li>
+     <li>
+      And, filter out the columns
+      <mark>
+       cols = df.columns[mask]
+      </mark>
+      . These are the columns that we want to apply one-hot encoding to.
+     </li>
+     <li>
+      We would also like to see if the no of unique values in the columns are more than one. If there is only 1 unique value, it does not
                 make sense to one-hot encode.
-            </li>
-        </ul>
-    </p>
-    <p>
-        Using <mark>sklearn.preprocessing.OneHotEncoder</mark>, instead of <mark>pd.get_dummies</mark>
-        <ul>
-            <li>
-                <mark>df_copy = df.copy()</mark>
-            </li>
-            <li>
-                instantiate one hot encoder object, <mark>ohc = OneHotEncoder()</mark>
-            </li>
-            <li>
-                inside a for loop for each column, <b>col</b> in the <mark>cols</mark> list:
-                <ul>
-                    <li>
-                        <mark>dat = ohc.fit_transform(df_copy[col])</mark>
-                    </li>
-                    <li>
-                        drop the original column, <mark>df_copy.drop(col,axis=1)</mark>
-                    </li>
-                    <li>
-                        get the name of all the new columns, <mark>new_cols = ohc.categories_</mark>
-                    </li>
-                    <li>
-                        create name of columns so that its easy to join in the df later <br>
-                        <mark>new_cols = ['_'.join([col,catt]) for cat in new_cols[0]]</mark>
-                    </li>
-                    <li>
-                        create a df from the one hot encoded data <br>
-                        <mark>new_df =  pd.DataFrame(dat.toarray(),columns=new_cols)</mark>
-                    </li>
-                    <li>
-                        now append to our copy df <br>
-                        <mark>df_copy = pd.concat([df_copy,new_df],axis=1 )</mark>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                One potential issue with too many one-hot encoded df is that Too many parameters, overfitting of model. Error will be high in test data is overfit.
-            </li>
-        </ul>
-    </p>
-    <p>
-        Another way of dealing with categorical data is using <mark>LabelEncoder</mark> class in sklearn. This encoder should be used for encoding the target value, y, not
+     </li>
+    </ul>
+   </p>
+   <p>
+    Using
+    <mark>
+     sklearn.preprocessing.OneHotEncoder
+    </mark>
+    , instead of
+    <mark>
+     pd.get_dummies
+    </mark>
+    <ul>
+     <li>
+      <mark>
+       df_copy = df.copy()
+      </mark>
+     </li>
+     <li>
+      instantiate one hot encoder object,
+      <mark>
+       ohc = OneHotEncoder()
+      </mark>
+     </li>
+     <li>
+      inside a for loop for each column,
+      <b>
+       col
+      </b>
+      in the
+      <mark>
+       cols
+      </mark>
+      list:
+      <ul>
+       <li>
+        <mark>
+         dat = ohc.fit_transform(df_copy[col])
+        </mark>
+       </li>
+       <li>
+        drop the original column,
+        <mark>
+         df_copy.drop(col,axis=1)
+        </mark>
+       </li>
+       <li>
+        get the name of all the new columns,
+        <mark>
+         new_cols = ohc.categories_
+        </mark>
+       </li>
+       <li>
+        create name of columns so that its easy to join in the df later
+        <br/>
+        <mark>
+         new_cols = ['_'.join([col,catt]) for cat in new_cols[0]]
+        </mark>
+       </li>
+       <li>
+        create a df from the one hot encoded data
+        <br/>
+        <mark>
+         new_df =  pd.DataFrame(dat.toarray(),columns=new_cols)
+        </mark>
+       </li>
+       <li>
+        now append to our copy df
+        <br/>
+        <mark>
+         df_copy = pd.concat([df_copy,new_df],axis=1 )
+        </mark>
+       </li>
+      </ul>
+     </li>
+     <li>
+      One potential issue with too many one-hot encoded df is that Too many parameters, overfitting of model. Error will be high in test data is overfit.
+     </li>
+    </ul>
+   </p>
+   <p>
+    Another way of dealing with categorical data is using
+    <mark>
+     LabelEncoder
+    </mark>
+    class in sklearn. This encoder should be used for encoding the target value, y, not
         the input variables X. It transforms the columns into numerical values from 0 to (num. of unique values -1).
-        <p>
-            <mark>
-                from sklearn.preprocessing import LabelEncoder <br>
-                <br>
-                le = LabelEncoder <br>
-                df['col1'] = le.fit_transform(df['col1']) <br>
-            </mark>
-        </p>
-    </p>
-    <hr>
     <p>
-        Applying scalar like <mark>StandardScalar</mark> or <mark>MinMaxScalar</mark>, make sure to call <mark>fit_transform()</mark> on the training data;
-        but only <mark>transform()</mark> on the test data. This should be done before applying linearregression. An example is given below.
-        <ul>
-            <li>
-                create an object, for example <br>
-                <mark>s = StandardScalar()</mark>
-            </li>
-            <li>
-                fit transform x_train data <br>
-                x_train_s = s.fit_transform(x_train)
-            </li>
-            <li>
-                transform x_test data <br>
-                x_test_s = s.transform(x_test)
-            </li>
-            <li>
-                fit the linearRegression model <br>
-                LR.fit(x_train_s,y_train)
-            </li>
-            <li>
-                predict <br>
-                predictions = LR.predict(x_test_s)
-            </li>
-            <li>
-                find error <br>
-                error = mean_squared_error(y_test,predictions)
-            </li>
-        </ul>
+     <mark>
+      from sklearn.preprocessing import LabelEncoder
+      <br/>
+      <br/>
+      le = LabelEncoder
+      <br/>
+      df['col1'] = le.fit_transform(df['col1'])
+      <br/>
+     </mark>
     </p>
-    <h3>
-        Cross Validation
-    </h3>
-    <p>
-        Here we use multitple validation sets. These are test sets that are disjoint of each other. For each case of validation sets, the train dataset 
+   </p>
+   <hr/>
+   <p>
+    Applying scalar like
+    <mark>
+     StandardScalar
+    </mark>
+    or
+    <mark>
+     MinMaxScalar
+    </mark>
+    , make sure to call
+    <mark>
+     fit_transform()
+    </mark>
+    on the training data;
+        but only
+    <mark>
+     transform()
+    </mark>
+    on the test data. This should be done before applying linearregression. An example is given below.
+    <ul>
+     <li>
+      create an object, for example
+      <br/>
+      <mark>
+       s = StandardScalar()
+      </mark>
+     </li>
+     <li>
+      fit transform x_train data
+      <br/>
+      x_train_s = s.fit_transform(x_train)
+     </li>
+     <li>
+      transform x_test data
+      <br/>
+      x_test_s = s.transform(x_test)
+     </li>
+     <li>
+      fit the linearRegression model
+      <br/>
+      LR.fit(x_train_s,y_train)
+     </li>
+     <li>
+      predict
+      <br/>
+      predictions = LR.predict(x_test_s)
+     </li>
+     <li>
+      find error
+      <br/>
+      error = mean_squared_error(y_test,predictions)
+     </li>
+    </ul>
+   </p>
+   <h3>
+    Cross Validation
+   </h3>
+   <p>
+    Here we use multitple validation sets. These are test sets that are disjoint of each other. For each case of validation sets, the train dataset 
         can be a subset of the remaining dataset. There should be no overlap between the validation or test splits in each iteration of experiment. Training data 
         can have overlap.
-    </p>
-    <p>
-        The average error across all these validation sets is the <mark>cross validation result</mark>.
-    </p>
-    <p>
-        As the model gets more complex, the train error will minimize. But with the cross validation, there is an inflection point, and as the complexity
+   </p>
+   <p>
+    The average error across all these validation sets is the
+    <mark>
+     cross validation result
+    </mark>
+    .
+   </p>
+   <p>
+    As the model gets more complex, the train error will minimize. But with the cross validation, there is an inflection point, and as the complexity
         increases, the error will increase. This is because too complex model will not generalize properly, and overfit. This we should stop increasing the complexity
         as soon as the crossvalidation error starts to increase.
-        <img src="../images/crossvalidation.png" class="center-image">
-    </p>
-    <p>
-        Coding example:
-        <ul>
-            <li>
-                import library <br>
-                <mark>from sklearn.model_selection import cross_val_score</mark>
-            </li>
-            <li>
-                perform cross val score <br>
-                <mark>cross_val = cross_val_score(model, x_data, y_data, cv=4, scoring='neg_mean_squared_error')</mark>
-            </li>
-            <li>
-                <b>Other methods as follows are also available</b>
-                <mark>from sklearn.model_selection import KFold, StratifiedKFold </mark>
-            </li>
-        </ul>
-    </p>
-    <h3>
-        Using Pipeline and Crossvalidation
-    </h3>
-    <p>
-        <ul>
-            <li>
-                Import all needed library
-                <mark>from sklearn.linear_model import LinearRegression, Lasso, Ridge</mark>
-            </li>
-            <li>
-                From the dataset, acquire the target variable as Y, and drop the value from original df to save it as X.
-            </li>
-            <li>
-                Use kfold that is imported as <mark><br>from sklearn.model_selection import KFold, cross_val_predict</mark>
-                <mark>
-                    <br>kf = KFold(shuffle=True, random_state=6644, n_splits=3)
-                </mark>
-                <br>This means we will have 3 training and 3 test sets. Training sets may overlap, but test sets will not overlap.
-            </li>
-            <li>
-                kf.slit(X) will give a generator object that has indices. For example, iterating through the generator gives a tuple with x-indices and y-indices as follows:
-                <mark>
-                    <br>for train_index, test_index in kf.split(X):
-                </mark>
-                <br>The index values, <mark>train_index, test_index</mark> can be anything from 0 to length of X-1, with length being determined by the split value.
-            </li>
-            <li>
-                Once the indices are obtained, extract the value from the X and Y using the indices.
-                <mark>
-                    <br>for train_index, test_index in kf.split(X): <br>
-                        ..X_train,X_test, y_train, y_test = (X.iloc[train_index], X.iloc[test_index],y[train_index],y[test_index]) <br>
-                        ..lr.fit(X_train, y_train) <br>
-                        ..y_pred = lr.predict(X_test) <br>
-                        ..score = r2_score(y_test.values, y_pred) <br>
-                </mark>
-                <br> This will show the scores for all the splits.
-            </li>
-            <li>
-                Let us add standard scalar into this. <b>Without any regularization, scaling does not help Linear Regression.</b> But just to see an example, following can be done.
-                <mark>
-                    <br>s = StandardScalar()
-                    <br>for train_index, test_index in kf.split(X): <br>
-                        ..X_train,X_test, y_train, y_test = (X.iloc[train_index], X.iloc[test_index],y[train_index],y[test_index]) <br>
-                        ..X_train_s = s.fit_transform(X_train) <br>
-                        ..lr.fit(X_train_s, y_train) <br>
-                        ..X_test_s = s.transform(X_test)
-                        ..y_pred = lr.predict(X_test_s) <br>
-                        ..score = r2_score(y_test.values, y_pred) <br>
-                </mark>
-                <br> This will show the scores for all the splits.
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        Using pipeline
-        <ul>
-            <li>
-                Sklearn allows to chain multiple operator items, as long as as they have fit() method.
-            </li>
-            <li>
-                Here, output of one is input of another. So they also need to have fit_transform() method.
-            </li>
-            <li>
-                The above code will now be following using pipeline:
-                <ul>
-                    <li>
-                        <mark>s = StandardScalar()</mark> <br>
-                        <mark>lr = LinearRegression()</mark>
-                    </li>
-                    <li>
-                        <mark>my_pipe = Pipeline([('scalar',s),('regression',lr)])</mark>
-                    </li>
-                    <li>
-                        <mark>kf = KFold(shuffle=True, random_state=6644, n_splits=3)</mark>
-                    </li>
-                    <li>
-                        <mark>predictions = cross_val_predict(my_pipe,X,y,cv=kf)</mark>
-                    </li>
-                    <li>
-                        <mark>r2_score(y,predictions</mark>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <u>HyperParameter Tuning, Lasso Regression, PolynomialFeature</u>
-        <ul>
-            <li>
-                function used is <mark>np.geomspace</mark>
-            </li>
-            <li>
-                For <mark>Lasso Regression</mark>, higher value of alpha means the model is less complex whereas lower value of alpha means model is more complex.
-            </li>
-            <li>
-                Less value of alpha for lasso makes the model similar to LinearRegression.
-            </li>
-            <li>
-                Lasso is iniitalized as <br>
-                <mark>lasso=Lasso(alpha=alpha, max_iter=10000)</mark>
-            </li>
-            <li>
-                Complete usage with different values of alpha for hyperparameters selection is as follows: <br>
-                <mark>
-                    alphas = np.geomspace(1e-9,1e10,num=10) #creates equally spaced 10 numbers, geometrically spaced <br>
-                    for alpha in alphas: <br>
-                    .. lasso = Lasso(alpha=alpha,max_iter=100000) <br>
-                    .. my_pipe = Pipeline([('scalar':s),("lasso":lasso)]) <br>
-                    .. pred = cross_val_predict(my_pipe,X,y,cv=kf) <br>
-                    .. score = r2_score(y,pred)
-                </mark>
-            </li>
-            <li>
-                With Lasso, its is always better to scale the data before using lasso regression.
-            </li>
-        </ul>
-    </p>
-    <p>
-        You can add <mark>PolynomialFeature</mark> to the pipeline. What a PolynomialFeature does is very well explained 
-        at <a href="https://machinelearningmastery.com/polynomial-features-transforms-for-machine-learning/">this link</a>. In a nutshell, it raises the input 
+    <img class="center-image" src="../images/crossvalidation.png"/>
+   </p>
+   <p>
+    Coding example:
+    <ul>
+     <li>
+      import library
+      <br/>
+      <mark>
+       from sklearn.model_selection import cross_val_score
+      </mark>
+     </li>
+     <li>
+      perform cross val score
+      <br/>
+      <mark>
+       cross_val = cross_val_score(model, x_data, y_data, cv=4, scoring='neg_mean_squared_error')
+      </mark>
+     </li>
+     <li>
+      <b>
+       Other methods as follows are also available
+      </b>
+      <mark>
+       from sklearn.model_selection import KFold, StratifiedKFold
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <h3>
+    Using Pipeline and Crossvalidation
+   </h3>
+   <p>
+    <ul>
+     <li>
+      Import all needed library
+      <mark>
+       from sklearn.linear_model import LinearRegression, Lasso, Ridge
+      </mark>
+     </li>
+     <li>
+      From the dataset, acquire the target variable as Y, and drop the value from original df to save it as X.
+     </li>
+     <li>
+      Use kfold that is imported as
+      <mark>
+       <br/>
+       from sklearn.model_selection import KFold, cross_val_predict
+      </mark>
+      <mark>
+       <br/>
+       kf = KFold(shuffle=True, random_state=6644, n_splits=3)
+      </mark>
+      <br/>
+      This means we will have 3 training and 3 test sets. Training sets may overlap, but test sets will not overlap.
+     </li>
+     <li>
+      kf.slit(X) will give a generator object that has indices. For example, iterating through the generator gives a tuple with x-indices and y-indices as follows:
+      <mark>
+       <br/>
+       for train_index, test_index in kf.split(X):
+      </mark>
+      <br/>
+      The index values,
+      <mark>
+       train_index, test_index
+      </mark>
+      can be anything from 0 to length of X-1, with length being determined by the split value.
+     </li>
+     <li>
+      Once the indices are obtained, extract the value from the X and Y using the indices.
+      <mark>
+       <br/>
+       for train_index, test_index in kf.split(X):
+       <br/>
+       ..X_train,X_test, y_train, y_test = (X.iloc[train_index], X.iloc[test_index],y[train_index],y[test_index])
+       <br/>
+       ..lr.fit(X_train, y_train)
+       <br/>
+       ..y_pred = lr.predict(X_test)
+       <br/>
+       ..score = r2_score(y_test.values, y_pred)
+       <br/>
+      </mark>
+      <br/>
+      This will show the scores for all the splits.
+     </li>
+     <li>
+      Let us add standard scalar into this.
+      <b>
+       Without any regularization, scaling does not help Linear Regression.
+      </b>
+      But just to see an example, following can be done.
+      <mark>
+       <br/>
+       s = StandardScalar()
+       <br/>
+       for train_index, test_index in kf.split(X):
+       <br/>
+       ..X_train,X_test, y_train, y_test = (X.iloc[train_index], X.iloc[test_index],y[train_index],y[test_index])
+       <br/>
+       ..X_train_s = s.fit_transform(X_train)
+       <br/>
+       ..lr.fit(X_train_s, y_train)
+       <br/>
+       ..X_test_s = s.transform(X_test)
+                        ..y_pred = lr.predict(X_test_s)
+       <br/>
+       ..score = r2_score(y_test.values, y_pred)
+       <br/>
+      </mark>
+      <br/>
+      This will show the scores for all the splits.
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    Using pipeline
+    <ul>
+     <li>
+      Sklearn allows to chain multiple operator items, as long as as they have fit() method.
+     </li>
+     <li>
+      Here, output of one is input of another. So they also need to have fit_transform() method.
+     </li>
+     <li>
+      The above code will now be following using pipeline:
+      <ul>
+       <li>
+        <mark>
+         s = StandardScalar()
+        </mark>
+        <br/>
+        <mark>
+         lr = LinearRegression()
+        </mark>
+       </li>
+       <li>
+        <mark>
+         my_pipe = Pipeline([('scalar',s),('regression',lr)])
+        </mark>
+       </li>
+       <li>
+        <mark>
+         kf = KFold(shuffle=True, random_state=6644, n_splits=3)
+        </mark>
+       </li>
+       <li>
+        <mark>
+         predictions = cross_val_predict(my_pipe,X,y,cv=kf)
+        </mark>
+       </li>
+       <li>
+        <mark>
+         r2_score(y,predictions
+        </mark>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <u>
+     HyperParameter Tuning, Lasso Regression, PolynomialFeature
+    </u>
+    <ul>
+     <li>
+      function used is
+      <mark>
+       np.geomspace
+      </mark>
+     </li>
+     <li>
+      For
+      <mark>
+       Lasso Regression
+      </mark>
+      , higher value of alpha means the model is less complex whereas lower value of alpha means model is more complex.
+     </li>
+     <li>
+      Less value of alpha for lasso makes the model similar to LinearRegression.
+     </li>
+     <li>
+      Lasso is iniitalized as
+      <br/>
+      <mark>
+       lasso=Lasso(alpha=alpha, max_iter=10000)
+      </mark>
+     </li>
+     <li>
+      Complete usage with different values of alpha for hyperparameters selection is as follows:
+      <br/>
+      <mark>
+       alphas = np.geomspace(1e-9,1e10,num=10) #creates equally spaced 10 numbers, geometrically spaced
+       <br/>
+       for alpha in alphas:
+       <br/>
+       .. lasso = Lasso(alpha=alpha,max_iter=100000)
+       <br/>
+       .. my_pipe = Pipeline([('scalar':s),("lasso":lasso)])
+       <br/>
+       .. pred = cross_val_predict(my_pipe,X,y,cv=kf)
+       <br/>
+       .. score = r2_score(y,pred)
+      </mark>
+     </li>
+     <li>
+      With Lasso, its is always better to scale the data before using lasso regression.
+     </li>
+    </ul>
+   </p>
+   <p>
+    You can add
+    <mark>
+     PolynomialFeature
+    </mark>
+    to the pipeline. What a PolynomialFeature does is very well explained 
+        at
+    <a href="https://machinelearningmastery.com/polynomial-features-transforms-for-machine-learning/">
+     this link
+    </a>
+    . In a nutshell, it raises the input 
         variables to a polynomial degree. So, after applying the PolynomialFeature, the input dimension now increases.
-    </p>
-    <p>The above example thus becomes:
-        <ul>
-            <li>
-                <mark>
-                    pf = PolynomialFeature(degree=3)<br>
-                    alphas = np.geomspace(1e-9,1e10,num=10) #creates equally spaced 10 numbers, geometrically spaced <br>
-                    for alpha in alphas: <br>
-                    .. lasso = Lasso(alpha=alpha,max_iter=100000) <br>
-                    .. my_pipe = Pipeline([('polyfeat':pf),('scalar':s),("lasso":lasso)]) <br>
-                    .. pred = cross_val_predict(my_pipe,X,y,cv=kf) <br>
-                    .. score = r2_score(y,pred)
-                </mark>
-            </li>
-        </ul>
-    </p>
-    <p>
-        After going through the different scores based on various <mark>alpha</mark> values, we can find the best among all. And finally train the model as follows:
-        <ul>
-            <li>
-                <mark>
-                    best_pipe = Pipeline([ <br>
-                        ("poly_feat":PolynomialFeature(degree=2)), <br>
-                        ("scalar":s), <br>
-                        ("lasso":Lasso(alpha=0.01,max_iter=100000)) <br>
-                    ]) <br>
-                    best_pipe.fit(X,y) <br>
-                    best_pipe.score(X,y) <br>
-                </mark>
-            </li>
-            <li>
-                To see the coeffecients, we can <br>
-                <mark>
-                    best_pipe.named_steps['Lasso'].coef_
-                </mark>
-            </li>
-            <li>
-                Ridge Regression also works the same way as far as the coding aspect is concerned.
-            </li>
-            <li>
-                <p class="important">
-                    From the pipeline estimator that we created, we can actually see the interaction of the different input variables and the their contribution to the output variable.
-                </p>
-                <p>
-                    From the pipeline, polynomial feature gives the higher power of the input variable as well as the interaction components. The corresponding coefficient of the Lasso/Ridge
+   </p>
+   <p>
+    The above example thus becomes:
+    <ul>
+     <li>
+      <mark>
+       pf = PolynomialFeature(degree=3)
+       <br/>
+       alphas = np.geomspace(1e-9,1e10,num=10) #creates equally spaced 10 numbers, geometrically spaced
+       <br/>
+       for alpha in alphas:
+       <br/>
+       .. lasso = Lasso(alpha=alpha,max_iter=100000)
+       <br/>
+       .. my_pipe = Pipeline([('polyfeat':pf),('scalar':s),("lasso":lasso)])
+       <br/>
+       .. pred = cross_val_predict(my_pipe,X,y,cv=kf)
+       <br/>
+       .. score = r2_score(y,pred)
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <p>
+    After going through the different scores based on various
+    <mark>
+     alpha
+    </mark>
+    values, we can find the best among all. And finally train the model as follows:
+    <ul>
+     <li>
+      <mark>
+       best_pipe = Pipeline([
+       <br/>
+       ("poly_feat":PolynomialFeature(degree=2)),
+       <br/>
+       ("scalar":s),
+       <br/>
+       ("lasso":Lasso(alpha=0.01,max_iter=100000))
+       <br/>
+       ])
+       <br/>
+       best_pipe.fit(X,y)
+       <br/>
+       best_pipe.score(X,y)
+       <br/>
+      </mark>
+     </li>
+     <li>
+      To see the coeffecients, we can
+      <br/>
+      <mark>
+       best_pipe.named_steps['Lasso'].coef_
+      </mark>
+     </li>
+     <li>
+      Ridge Regression also works the same way as far as the coding aspect is concerned.
+     </li>
+     <li>
+      <p class="important">
+       From the pipeline estimator that we created, we can actually see the interaction of the different input variables and the their contribution to the output variable.
+      </p>
+      <p>
+       From the pipeline, polynomial feature gives the higher power of the input variable as well as the interaction components. The corresponding coefficient of the Lasso/Ridge
                     regression model will indicate their relative contribution. Higher positive value indicates positive impact whereas higher negative value indicates negative impact.
-                </p>
-                <p>
-                    <mark>from the best_pipe.named_steps['poly_feat'].get_feature_names(input_features=X.columns)</mark> gives the feature names whereas as seen before <mark>.coef_</mark> gives the lasso/ridge coefficient.
-                </p>
-            </li>
-        </ul>
-    </p>
-    <p class="important">
-        Stratified cross validation is not equivalent to k-fold cross validation with k=N-1 where N is no of features.
-    </p>
-    <p class="important">
-        For a linear regression model, stratified cross-validation with same k will not increase the variance of estimated parameters, as compared to k-fold cross validation.
-    </p>
-    <p class="important">
-        For k-fold cross validation, variance of the estimated model parameters will increase across subsamples with increase in k.
-    </p>
-    <hr>
-    <p>
-        <u>Grid Search CV</u>
-        <ul>
-            <li>
-                define pipeline as follows <br>
-                <mark>
-                    estimator = Pipeline ([ <br>
-                    .. ('polynomial_features', PolynomialFeatures()), <br>
-                    .. ('scalar',StandardScalar()), <br>
-                    .. ('ridge_regression',Ridge()) <br>
-                    .. ])
-                </mark>
-            </li>
-            <li>
-                create <mark>parameters</mark> as following: <br>
-                <mark>
-                    params = { <br>
-                        'polynomial_features__degree' : [1,2,3], <br>
-                        'ridge_regression__alpha' : np.geomspace(4,20,30) <br>
-                    } <br>
-                </mark>
-                The name of the items keys in parameters dict comes from <mark>PipeLine component name</mark> + two underscores + <mark>its property</mark>
-            </li>
-            <li>
-                create a <mark>GridSearchCV()</mark> object as: <br>
-                <mark>
-                    grid = GridSearchCV(estimator, params,cv=kf)
-                </mark>
-            </li>
-            <li>
-                Fit the data: <br>
-                <mark>
-                    grid.fit()
-                </mark>
-            </li>
-            <li>
-                Predict as <br>
-                <mark>
-                    y_predict = grid.predict(X)
-                </mark>
-            </li>
-            <li>
-                Print the best metrics as <br>
-                <mark>grid.best_score_, grid.best_params_</mark>
-            </li>
-            <li>
-                If we want to look at the coeff of the estimators, we can do following <br>
-                <mark>grid.best_estimator_.named_steps['ridge_regression'].coeff_</mark>
-            </li>
-            <li>
-                To see the scores for all the variables that it searched through, and the scores obtained for each of those variables <br>
-                <mark>
-                    pd.DataFrame(grid.cv_results_)
-                </mark>
-            </li>
-        </ul>
-    </p>
-    <h3>
-        polynomial Regression
-    </h3>
-    <p> Following are some of the approaches for dealing with fundamental problems of <b>prediction</b> and <b>interpretation</b>: 
-        <ul>
-            <li>
-                Extending linear regression
-            </li>
-            <li>
-                using polynomial features to capture non-linear effects.
-            </li>
-        </ul>
-    </p>
-    <p>
-        We want to capture higher order features of data by adding polynomial features. The relation may still be linear, but with a higher degree terms.
-    </p>
-    <p>
-        This can also include variable interactions,like x1x2 in addition to x1^2 and x2^2 from x1 and x2.
-    </p>
-    <p>
-        Using polynomial features example as somewhere above, we do following:
-        <ul>
-            <li>create polyFit with degree of <b>m</b></li>
-            <li>fit the X data</li>
-            <li>transform the X data</li>
-        </ul>
-        This will create the interaction terms also.
-    </p>
-    <hr>
-    <h3>
-        Bias and Variance
-    </h3>
-    <p>
-        <b>Bias</b>: is a tendency to miss. They are guided by similar error, and are generally with low variance  and the data points are consistently errored.
-    </p>
-    <p>
-        <b>Variance</b>: is a tendency to be inconsistent. It can be thought of as a metric to refer to model's sensitivity.
-    </p>
-    <p>
-        <img class="center-image" src="../images/biasvariance.png">
-    </p>
-    <p>
-        Above image shows an example for definition of Bias and Variance in terms of shooting to an target. Ideally, we would want our
-        model to have an outcome that is <mark>top-left outcome</mark>, with small bias and the preditions (or shootings) very close to the target.
-    </p>
-    <p>
-        <b>Three Source of Errors in a Model</b>:
-        <ul>
-            <li>
-                Model being wrong: Bias
-                <ul>
-                    <li>
-                        Can be because of missing information
-                    </li>
-                    <li>
-                        Can be because of simple model
-                    </li>
-                    <li>
-                        Miss real pattern, because model is underfit.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Model being unstable: Variance
-                <ul>
-                    <li>
-                        Characterized by high changes in the output because of small changes in the input.
-                    </li>
-                    <li>
-                        Overly complex or poorly fit models
-                    </li>
-                    <li>
-                        Overfitting of model
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Unavoidable Randomness: Random error that cannot be reduced
-            </li>
-        </ul>
-    </p>
-    <p>
-        <img src="../images/tradeoffs.png" class="center-image">
-    </p>
-    <p>
-        For polynomial regression, higher degree means model is complex. Thus high variance and lowered bias.
-    </p>
-    <hr>
-    <h3>Regularization and Model Selection</h3>
-    <p>
-        Regularization is an approach to handle over-fitting.
-    </p>
-    <p>
-        Add a new cost function to the old cost function, with a <mark>Regularization Strength Parameter</mark>. Thus a new cost adjusted cost 
-        function is created as <mark>M(w) + lambda * R(w)</mark>, where M(w) is the model error, R(w) is the function of estimated paramters and 
-        <mark>lambda</mark> is the strength parameter.
-    </p>
-    <p>
-        The adjustable regularization strength paramter can be used to penalize the model if it is too complex. This can be 
-        used to dumb down the model. <mark>lambda</mark> adds a penalty propoortional to the size of the estimated model parameter.
-    </p>
-    <p>
-        Regularization strength parameter allows us to manage complexity tradeoffs:
-        <ul>
-            <li>
-                more regularization, less complex model or more bias
-            </li>
-            <li>
-                less regularization, more complex model or increased variance
-            </li>
-        </ul>
-    </p>
-    <p>
-        <ul>
-            <li>
-                <b>
-                    L1 Regularization:
-                </b> Drives some coeffecients dowm to zero,  because the added model parameters values are single degree multiplied by the lambda.
-                <p class="important">
-                    L1 regularization imposes Laplacian prior.
-                </p>
-            </li>
-            <li>
-                <b>
-                    L2 Regularization:
-                </b> On the other hand, adds squared model parameters to the cost function.
-                <p class="important">
-                    L2 regularization imposes Gaussian prior.
-                </p>
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <b>
-            Ridge Regression
-        </b>
-        <ul>
-            <li>
-                Ridge Regression is a L2 regularized linear regression.
-            </li>
-            <li>
-                There is influence of standardization on Ridge regression.
-            </li>
-            <li>
-                Regularization has shrinking effect, some coeffecients towards 0 due to the penalty. The added term is the 
+      </p>
+      <p>
+       <mark>
+        from the best_pipe.named_steps['poly_feat'].get_feature_names(input_features=X.columns)
+       </mark>
+       gives the feature names whereas as seen before
+       <mark>
+        .coef_
+       </mark>
+       gives the lasso/ridge coefficient.
+      </p>
+     </li>
+    </ul>
+   </p>
+   <p class="important">
+    Stratified cross validation is not equivalent to k-fold cross validation with k=N-1 where N is no of features.
+   </p>
+   <p class="important">
+    For a linear regression model, stratified cross-validation with same k will not increase the variance of estimated parameters, as compared to k-fold cross validation.
+   </p>
+   <p class="important">
+    For k-fold cross validation, variance of the estimated model parameters will increase across subsamples with increase in k.
+   </p>
+   <hr/>
+   <p>
+    <u>
+     Grid Search CV
+    </u>
+    <ul>
+     <li>
+      define pipeline as follows
+      <br/>
+      <mark>
+       estimator = Pipeline ([
+       <br/>
+       .. ('polynomial_features', PolynomialFeatures()),
+       <br/>
+       .. ('scalar',StandardScalar()),
+       <br/>
+       .. ('ridge_regression',Ridge())
+       <br/>
+       .. ])
+      </mark>
+     </li>
+     <li>
+      create
+      <mark>
+       parameters
+      </mark>
+      as following:
+      <br/>
+      <mark>
+       params = {
+       <br/>
+       'polynomial_features__degree' : [1,2,3],
+       <br/>
+       'ridge_regression__alpha' : np.geomspace(4,20,30)
+       <br/>
+       }
+       <br/>
+      </mark>
+      The name of the items keys in parameters dict comes from
+      <mark>
+       PipeLine component name
+      </mark>
+      + two underscores +
+      <mark>
+       its property
+      </mark>
+     </li>
+     <li>
+      create a
+      <mark>
+       GridSearchCV()
+      </mark>
+      object as:
+      <br/>
+      <mark>
+       grid = GridSearchCV(estimator, params,cv=kf)
+      </mark>
+     </li>
+     <li>
+      Fit the data:
+      <br/>
+      <mark>
+       grid.fit()
+      </mark>
+     </li>
+     <li>
+      Predict as
+      <br/>
+      <mark>
+       y_predict = grid.predict(X)
+      </mark>
+     </li>
+     <li>
+      Print the best metrics as
+      <br/>
+      <mark>
+       grid.best_score_, grid.best_params_
+      </mark>
+     </li>
+     <li>
+      If we want to look at the coeff of the estimators, we can do following
+      <br/>
+      <mark>
+       grid.best_estimator_.named_steps['ridge_regression'].coeff_
+      </mark>
+     </li>
+     <li>
+      To see the scores for all the variables that it searched through, and the scores obtained for each of those variables
+      <br/>
+      <mark>
+       pd.DataFrame(grid.cv_results_)
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <h3>
+    polynomial Regression
+   </h3>
+   <p>
+    Following are some of the approaches for dealing with fundamental problems of
+    <b>
+     prediction
+    </b>
+    and
+    <b>
+     interpretation
+    </b>
+    :
+    <ul>
+     <li>
+      Extending linear regression
+     </li>
+     <li>
+      using polynomial features to capture non-linear effects.
+     </li>
+    </ul>
+   </p>
+   <p>
+    We want to capture higher order features of data by adding polynomial features. The relation may still be linear, but with a higher degree terms.
+   </p>
+   <p>
+    This can also include variable interactions,like x1x2 in addition to x1^2 and x2^2 from x1 and x2.
+   </p>
+   <p>
+    Using polynomial features example as somewhere above, we do following:
+    <ul>
+     <li>
+      create polyFit with degree of
+      <b>
+       m
+      </b>
+     </li>
+     <li>
+      fit the X data
+     </li>
+     <li>
+      transform the X data
+     </li>
+    </ul>
+    This will create the interaction terms also.
+   </p>
+   <hr/>
+   <h3>
+    Bias and Variance
+   </h3>
+   <p>
+    <b>
+     Bias
+    </b>
+    : is a tendency to miss. They are guided by similar error, and are generally with low variance  and the data points are consistently errored.
+   </p>
+   <p>
+    <b>
+     Variance
+    </b>
+    : is a tendency to be inconsistent. It can be thought of as a metric to refer to model's sensitivity.
+   </p>
+   <p>
+    <img class="center-image" src="../images/biasvariance.png"/>
+   </p>
+   <p>
+    Above image shows an example for definition of Bias and Variance in terms of shooting to an target. Ideally, we would want our
+        model to have an outcome that is
+    <mark>
+     top-left outcome
+    </mark>
+    , with small bias and the preditions (or shootings) very close to the target.
+   </p>
+   <p>
+    <b>
+     Three Source of Errors in a Model
+    </b>
+    :
+    <ul>
+     <li>
+      Model being wrong: Bias
+      <ul>
+       <li>
+        Can be because of missing information
+       </li>
+       <li>
+        Can be because of simple model
+       </li>
+       <li>
+        Miss real pattern, because model is underfit.
+       </li>
+      </ul>
+     </li>
+     <li>
+      Model being unstable: Variance
+      <ul>
+       <li>
+        Characterized by high changes in the output because of small changes in the input.
+       </li>
+       <li>
+        Overly complex or poorly fit models
+       </li>
+       <li>
+        Overfitting of model
+       </li>
+      </ul>
+     </li>
+     <li>
+      Unavoidable Randomness: Random error that cannot be reduced
+     </li>
+    </ul>
+   </p>
+   <p>
+    <img class="center-image" src="../images/tradeoffs.png"/>
+   </p>
+   <p>
+    For polynomial regression, higher degree means model is complex. Thus high variance and lowered bias.
+   </p>
+   <hr/>
+   <h3>
+    Regularization and Model Selection
+   </h3>
+   <p>
+    Regularization is an approach to handle over-fitting.
+   </p>
+   <p>
+    Add a new cost function to the old cost function, with a
+    <mark>
+     Regularization Strength Parameter
+    </mark>
+    . Thus a new cost adjusted cost 
+        function is created as
+    <mark>
+     M(w) + lambda * R(w)
+    </mark>
+    , where M(w) is the model error, R(w) is the function of estimated paramters and
+    <mark>
+     lambda
+    </mark>
+    is the strength parameter.
+   </p>
+   <p>
+    The adjustable regularization strength paramter can be used to penalize the model if it is too complex. This can be 
+        used to dumb down the model.
+    <mark>
+     lambda
+    </mark>
+    adds a penalty propoortional to the size of the estimated model parameter.
+   </p>
+   <p>
+    Regularization strength parameter allows us to manage complexity tradeoffs:
+    <ul>
+     <li>
+      more regularization, less complex model or more bias
+     </li>
+     <li>
+      less regularization, more complex model or increased variance
+     </li>
+    </ul>
+   </p>
+   <p>
+    <ul>
+     <li>
+      <b>
+       L1 Regularization:
+      </b>
+      Drives some coeffecients dowm to zero,  because the added model parameters values are single degree multiplied by the lambda.
+      <p class="important">
+       L1 regularization imposes Laplacian prior.
+      </p>
+     </li>
+     <li>
+      <b>
+       L2 Regularization:
+      </b>
+      On the other hand, adds squared model parameters to the cost function.
+      <p class="important">
+       L2 regularization imposes Gaussian prior.
+      </p>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Ridge Regression
+    </b>
+    <ul>
+     <li>
+      Ridge Regression is a L2 regularized linear regression.
+     </li>
+     <li>
+      There is influence of standardization on Ridge regression.
+     </li>
+     <li>
+      Regularization has shrinking effect, some coeffecients towards 0 due to the penalty. The added term is the 
                 difference between the Linear Regressio and Ridge Regression. It uses L2 regularization on linear regression.
-            </li>
-            <li>
-                There is squaring, so larger weights are more penalized.
-            </li>
-            <li>
-                As regularization strenght increases for ridge regression, the shinkage effect is seen, i.e., we will decrease each coeffecients.
-            </li>
-            <li>
-                The reduction of variance may outpace the increase in bias, which leads to better model.
-            </li>
-            <li>
-                With ridge regression, we have <mark>RidgeCV</mark>, that also perform cross validation at the same time.
-                <p>
-                    <mark>
-                        from sklearn.linear_model import RidgeCV <br>
-                        alphas = [0.005, 0.01, 0.05, 0.1] <br>
-                        ridcv = RidgeCV(alpha=alphas,cv=4).fit(x_train, y_train) <br>
-                        v_pred = ridcv.predict(x_test)
-                    </mark>
-                </p>
-                The best alpha value can be extracted as <mark>ridcv.aplha_</mark>, and the coeffecients of the model can be
-                listed as a list <mark>ridcv.coef_</mark>
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <b>
-            Lasso Regression
-        </b>
-        <ul>
-            <li>
-                Lasso is L1 regularized Linear Regression. LASSO stands for <mark>Least Absolute Shrinkage and Selection Operator</mark>
-            </li>
-            <li>
-                The complexity penalty lambda is proportional to the absolute value of the coeffecients.
-            </li>
-            <li>
-                More likely to perform <mark>feature selection</mark>, because it will zero out some of the terms as it uses L1 regularization.
-            </li>
-            <li>
-                Lasso have higher interpretability than Ridge. But is slower to converge than Ridge so the timing may be high for Lasso.
-            </li>
-            <li>
-                May also underperform if the target truly depends on many of the features.
-            </li>
-            <li>
-                We also have a lassocv similar to Ridge cv discussed above. An additional term to provide is <mark>nax_iter</mark> because lasso does not 
+     </li>
+     <li>
+      There is squaring, so larger weights are more penalized.
+     </li>
+     <li>
+      As regularization strenght increases for ridge regression, the shinkage effect is seen, i.e., we will decrease each coeffecients.
+     </li>
+     <li>
+      The reduction of variance may outpace the increase in bias, which leads to better model.
+     </li>
+     <li>
+      With ridge regression, we have
+      <mark>
+       RidgeCV
+      </mark>
+      , that also perform cross validation at the same time.
+      <p>
+       <mark>
+        from sklearn.linear_model import RidgeCV
+        <br/>
+        alphas = [0.005, 0.01, 0.05, 0.1]
+        <br/>
+        ridcv = RidgeCV(alpha=alphas,cv=4).fit(x_train, y_train)
+        <br/>
+        v_pred = ridcv.predict(x_test)
+       </mark>
+      </p>
+      The best alpha value can be extracted as
+      <mark>
+       ridcv.aplha_
+      </mark>
+      , and the coeffecients of the model can be
+                listed as a list
+      <mark>
+       ridcv.coef_
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Lasso Regression
+    </b>
+    <ul>
+     <li>
+      Lasso is L1 regularized Linear Regression. LASSO stands for
+      <mark>
+       Least Absolute Shrinkage and Selection Operator
+      </mark>
+     </li>
+     <li>
+      The complexity penalty lambda is proportional to the absolute value of the coeffecients.
+     </li>
+     <li>
+      More likely to perform
+      <mark>
+       feature selection
+      </mark>
+      , because it will zero out some of the terms as it uses L1 regularization.
+     </li>
+     <li>
+      Lasso have higher interpretability than Ridge. But is slower to converge than Ridge so the timing may be high for Lasso.
+     </li>
+     <li>
+      May also underperform if the target truly depends on many of the features.
+     </li>
+     <li>
+      We also have a lassocv similar to Ridge cv discussed above. An additional term to provide is
+      <mark>
+       nax_iter
+      </mark>
+      because lasso does not 
                 converge as fast.
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <b>
-            Elastic Net
-        </b>
-        <ul>
-            <li>
-                A hybrid approach that introduces a new parameter alpha that determines a weighted average of L1 and L2 penalties.
-            </li>
-            <li>
-                ElasticNetCV is also a class similar to LassoCV and RidgeCN, but with an additional parameter called <mark>l1_ratio</mark>
-                in addition to l1_ratio and alphas.
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <b>
-            Recursive Feature Elimination (RFE): RFE is an approach that combines
-        </b>
-        <ul>
-            <li>
-                a model or estimation approach;
-            </li>
-            <li>
-                a desired number of features
-            </li>
-        </ul>
-    </p>
-    <p>
-        RFE repeatedly applies the model, measures feature importance and recursively removes the less important features.
-    </p>
-    <p>
-        RFE example is as follows: <br>
-        <mark>
-            from sklearn.feature_selection import RFE <br>
-            rfe = RFE(est, n_features_to_select=5) <br>
-            rfe = rfe.fit(X_train, y_train) <br>
-            y_pred = rfe.predict(X_test)
-        </mark>
-    </p>
-    <p>
-        A class <mark>RFECV</mark>, uses RFE with cross validation.
-    </p>
-    <p>
-        <ul>
-            <li>
-                regularization forces the range of coefficients to be smaller, restricted. Smaller range of 
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Elastic Net
+    </b>
+    <ul>
+     <li>
+      A hybrid approach that introduces a new parameter alpha that determines a weighted average of L1 and L2 penalties.
+     </li>
+     <li>
+      ElasticNetCV is also a class similar to LassoCV and RidgeCN, but with an additional parameter called
+      <mark>
+       l1_ratio
+      </mark>
+      in addition to l1_ratio and alphas.
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Recursive Feature Elimination (RFE): RFE is an approach that combines
+    </b>
+    <ul>
+     <li>
+      a model or estimation approach;
+     </li>
+     <li>
+      a desired number of features
+     </li>
+    </ul>
+   </p>
+   <p>
+    RFE repeatedly applies the model, measures feature importance and recursively removes the less important features.
+   </p>
+   <p>
+    RFE example is as follows:
+    <br/>
+    <mark>
+     from sklearn.feature_selection import RFE
+     <br/>
+     rfe = RFE(est, n_features_to_select=5)
+     <br/>
+     rfe = rfe.fit(X_train, y_train)
+     <br/>
+     y_pred = rfe.predict(X_test)
+    </mark>
+   </p>
+   <p>
+    A class
+    <mark>
+     RFECV
+    </mark>
+    , uses RFE with cross validation.
+   </p>
+   <p>
+    <ul>
+     <li>
+      regularization forces the range of coefficients to be smaller, restricted. Smaller range of 
                 coeffecients will have lower variance.
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        So overall steps as of now for <mark>LinearRegression</mark> are:
-        <ul>
-            <li>
-                Isolate target variable as y. <br>
-                <mark>y = df[y_col]</mark>
-            </li>
-            <li>
-                Create other cols as X <br>
-                <mark>
-                    X = df.drop[y_col,axis=1]
-                </mark>
-            </li>
-            <li>
-                test train split
-            </li>
-            <li>
-                Apply standardization to the data. Most common is to use <mark>StandardScalar</mark>. <br>
-                <mark>
-                    s = StandardScalar() <br>
-                    X_s = S.fit(X)
-                </mark>
-            </li>
-            <li>
-                Apply LinearRegression <br>
-                <mark>
-                    lr = LinearRegression() <br>
-                    lr = lr.fit(X_s, y) <br>
-                </mark>
-            </li>
-            <li>
-                See the coeffecients <br>
-                <mark>
-                    print(lr.coef_)
-                </mark>
-            </li>
-            <li>
-                To see what input vairable has what coeff, we can do following: <br>
-                <mark>
-                    pd.DataFrame(zip(X.columns,lr2.coef_)).sort_values(by=1)
-                </mark>
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        For Lasso Regression, we introduce the <mark>PolynomialFeatures</mark> with certain degree also.
-        <ul>
-            <li>
-                First, fit_transform() with PolynomialFeature
-            </li>
-            <li>
-                test train split
-            </li>
-            <li>
-                Then, fit_transform(x_train) with StandardScalar
-            </li>
-            <li>
-                Then, lasso().fit(x_train,y)
-            </li>
-            <li>
-                Then lasso().predict(StandardScalar.transform(x_test))
-            </li>
-            <li>
-                Then, compute r2_score or something
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <h2>
-        Logistic Regression
-    </h2>
-    <p>
-        Used for classification. An extension of Linear Regression but handles what Linear Regression gets wrong.
-    
-    </p>
-    <p>
-        <b>Sigmoid Function</b> <br>
-        <img src="../images/sigmoid.png" class="center-image">
-    </p>
-    <p>
-        The use of sigmoid can be useful for classification in some of the obvious separable classes (for example), as below image prsents. <br>
-        <img src="../images/sigmoid_classification.png"> <br>
-        We can see how it can classify between two classes with a clear decision boundary.
-    </p>
-    <p>
-        <mark>
-            import sklearn.linear_model import LogisticRegression <br>
-            lr = LogisticRegression(penalty='l2', c=10.0) <br>
-            lr = lr.fit(x_train, y_train) <br>
-            y_predict = lr.predict(x_test) <br>
-            lr.coef_
-        </mark>
-        <br>
-        Above, <b>c</b> is the regularization constant (here higher c means less lambda, so is inverse).
-    </p>
-    <p class="important">
-        LogisticRegression also comes with LogisticRegressionCV.
-    </p>
-    <hr>
-    <p>
-        <b>Confusion Matrix</b>: <br>
-        <img src="../images/confusion.png" class="center-image">
-        <ul>
-            <li>
-                False Positive: Type-I error
-            </li>
-            <li>
-                False Negative: Type-II error
-            </li>
-            <li>
-                Accuracy = (True Positive + True Negative)/All Observations
-            </li>
-            <li>
-                Recall/Sensitivity = (True Positive)/(True Positive + False Negative) <br>
-                <mark>But a major flaw here is a model can predict all as True Positive, and have a 100% Recall.</mark>
-            </li>
-            <li>
-                Precision = (True Positive)/(True Positive + False Positive) <br>
-                <mark>Precision helps to balance the flaw of Recall. It shows how often, from among the positive predicted values, it gets the prediction correct.</mark>
-            </li>
-            <li>
-                Specificity = (True Negative)/(False Positive + True Negative) <br>
-                <mark>Specificity is the recall for negative class.</mark>
-            </li>
-            <li>
-                F1 Score = Harmonic Mean of Precision and Recall = 2* (Precision * Recall)/(Precision + Recall)
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <b>ROC Curve: Receiver Operating Characteristic</b> <br>
-        <img src="../images/roc.png" class="center-image">
-        <ul>
-            <li>
-                Curve of <mark>True Positive Rate</mark> vs <mark>False Positive Rate</mark>. False Positive Rate is computed as 
-                <b>1-Specificity</b>.
-            </li>
-            <li>
-                The diagonal line is random guess.
-            </li>
-            <li>
-                Lower than diagonal is <b>worse</b>.
-            </li>
-            <li>
-                Higher than diagonal is <b>good</b>.
-            </li>
-            <li>
-                This is because True Positive needs to be relatively higher than False Positive Rate.
-            </li>
-            <li>
-                Area use the curve of the ROC curve gives how well the mode is working. Higher is better.
-            </li>
-        </ul>
-    </p>
-    <p>
-        <b>What is the right approach for choosing the classifier:</b>
-        <ul>
-            <li>
-                ROC curve: works better with balanced classes.
-            </li>
-            <li>
-                Precision-Recall works better with imbalanced classes.
-            </li>
-        </ul>
-    </p>
-    <p>
-        <b>In sklearn</b> <br>
-        <mark>
-            from sklearn.metrics import accuracy_score <br>
-            accuracy_value = accuracy_score(y_test,y_pred) <br>
-        </mark>
-    </p>
-    <p>
-        <b>Other accuracy metrics,</b> <br>
-        <mark>
-            from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix,
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    So overall steps as of now for
+    <mark>
+     LinearRegression
+    </mark>
+    are:
+    <ul>
+     <li>
+      Isolate target variable as y.
+      <br/>
+      <mark>
+       y = df[y_col]
+      </mark>
+     </li>
+     <li>
+      Create other cols as X
+      <br/>
+      <mark>
+       X = df.drop[y_col,axis=1]
+      </mark>
+     </li>
+     <li>
+      test train split
+     </li>
+     <li>
+      Apply standardization to the data. Most common is to use
+      <mark>
+       StandardScalar
+      </mark>
+      .
+      <br/>
+      <mark>
+       s = StandardScalar()
+       <br/>
+       X_s = S.fit(X)
+      </mark>
+     </li>
+     <li>
+      Apply LinearRegression
+      <br/>
+      <mark>
+       lr = LinearRegression()
+       <br/>
+       lr = lr.fit(X_s, y)
+       <br/>
+      </mark>
+     </li>
+     <li>
+      See the coeffecients
+      <br/>
+      <mark>
+       print(lr.coef_)
+      </mark>
+     </li>
+     <li>
+      To see what input vairable has what coeff, we can do following:
+      <br/>
+      <mark>
+       pd.DataFrame(zip(X.columns,lr2.coef_)).sort_values(by=1)
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    For Lasso Regression, we introduce the
+    <mark>
+     PolynomialFeatures
+    </mark>
+    with certain degree also.
+    <ul>
+     <li>
+      First, fit_transform() with PolynomialFeature
+     </li>
+     <li>
+      test train split
+     </li>
+     <li>
+      Then, fit_transform(x_train) with StandardScalar
+     </li>
+     <li>
+      Then, lasso().fit(x_train,y)
+     </li>
+     <li>
+      Then lasso().predict(StandardScalar.transform(x_test))
+     </li>
+     <li>
+      Then, compute r2_score or something
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <h2>
+    Logistic Regression
+   </h2>
+   <p>
+    Used for classification. An extension of Linear Regression but handles what Linear Regression gets wrong.
+   </p>
+   <p>
+    <b>
+     Sigmoid Function
+    </b>
+    <br/>
+    <img class="center-image" src="../images/sigmoid.png"/>
+   </p>
+   <p>
+    The use of sigmoid can be useful for classification in some of the obvious separable classes (for example), as below image prsents.
+    <br/>
+    <img src="../images/sigmoid_classification.png"/>
+    <br/>
+    We can see how it can classify between two classes with a clear decision boundary.
+   </p>
+   <p>
+    <mark>
+     import sklearn.linear_model import LogisticRegression
+     <br/>
+     lr = LogisticRegression(penalty='l2', c=10.0)
+     <br/>
+     lr = lr.fit(x_train, y_train)
+     <br/>
+     y_predict = lr.predict(x_test)
+     <br/>
+     lr.coef_
+    </mark>
+    <br/>
+    Above,
+    <b>
+     c
+    </b>
+    is the regularization constant (here higher c means less lambda, so is inverse).
+   </p>
+   <p class="important">
+    LogisticRegression also comes with LogisticRegressionCV.
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Confusion Matrix
+    </b>
+    :
+    <br/>
+    <img class="center-image" src="../images/confusion.png"/>
+    <ul>
+     <li>
+      False Positive: Type-I error
+     </li>
+     <li>
+      False Negative: Type-II error
+     </li>
+     <li>
+      Accuracy = (True Positive + True Negative)/All Observations
+     </li>
+     <li>
+      Recall/Sensitivity = (True Positive)/(True Positive + False Negative)
+      <br/>
+      <mark>
+       But a major flaw here is a model can predict all as True Positive, and have a 100% Recall.
+      </mark>
+     </li>
+     <li>
+      Precision = (True Positive)/(True Positive + False Positive)
+      <br/>
+      <mark>
+       Precision helps to balance the flaw of Recall. It shows how often, from among the positive predicted values, it gets the prediction correct.
+      </mark>
+     </li>
+     <li>
+      Specificity = (True Negative)/(False Positive + True Negative)
+      <br/>
+      <mark>
+       Specificity is the recall for negative class.
+      </mark>
+     </li>
+     <li>
+      F1 Score = Harmonic Mean of Precision and Recall = 2* (Precision * Recall)/(Precision + Recall)
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     ROC Curve: Receiver Operating Characteristic
+    </b>
+    <br/>
+    <img class="center-image" src="../images/roc.png"/>
+    <ul>
+     <li>
+      Curve of
+      <mark>
+       True Positive Rate
+      </mark>
+      vs
+      <mark>
+       False Positive Rate
+      </mark>
+      . False Positive Rate is computed as
+      <b>
+       1-Specificity
+      </b>
+      .
+     </li>
+     <li>
+      The diagonal line is random guess.
+     </li>
+     <li>
+      Lower than diagonal is
+      <b>
+       worse
+      </b>
+      .
+     </li>
+     <li>
+      Higher than diagonal is
+      <b>
+       good
+      </b>
+      .
+     </li>
+     <li>
+      This is because True Positive needs to be relatively higher than False Positive Rate.
+     </li>
+     <li>
+      Area use the curve of the ROC curve gives how well the mode is working. Higher is better.
+     </li>
+    </ul>
+   </p>
+   <p>
+    <b>
+     What is the right approach for choosing the classifier:
+    </b>
+    <ul>
+     <li>
+      ROC curve: works better with balanced classes.
+     </li>
+     <li>
+      Precision-Recall works better with imbalanced classes.
+     </li>
+    </ul>
+   </p>
+   <p>
+    <b>
+     In sklearn
+    </b>
+    <br/>
+    <mark>
+     from sklearn.metrics import accuracy_score
+     <br/>
+     accuracy_value = accuracy_score(y_test,y_pred)
+     <br/>
+    </mark>
+   </p>
+   <p>
+    <b>
+     Other accuracy metrics,
+    </b>
+    <br/>
+    <mark>
+     from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix,
             roc_curve, precision_recall_curve
-        </mark>
-    </p>
-    <hr>
-    <p>
-        <b>Logistic regression example</b>
-        <ul>
-            <li>
-                if the output variable is categorical, which it usually is for logistic regression problem, let us convert to numerical using <mark>LabelEncoder</mark>
-            </li>
-            <li>
-                let us also look into the correlation between the input or independent variables. This can be done by <br>
-                <mark>corr = df[array of columns].corr() </mark> that returns a dataframe
-            </li>
-            <li>
-                since the lower traingle of the corr() does not give any new information, we can set them as null by following technique. <br>
-                <p class="code-text">
-#gets the indices as 2D numpy array, x in first dim and y in second dim
+    </mark>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Logistic regression example
+    </b>
+    <ul>
+     <li>
+      if the output variable is categorical, which it usually is for logistic regression problem, let us convert to numerical using
+      <mark>
+       LabelEncoder
+      </mark>
+     </li>
+     <li>
+      let us also look into the correlation between the input or independent variables. This can be done by
+      <br/>
+      <mark>
+       corr = df[array of columns].corr()
+      </mark>
+      that returns a dataframe
+     </li>
+     <li>
+      since the lower traingle of the corr() does not give any new information, we can set them as null by following technique.
+      <br/>
+      <p class="code-text">
+       #gets the indices as 2D numpy array, x in first dim and y in second dim
 corr_low_index = np.tril_indices_from(corr) 
 
 #convert the df above to numpy array
@@ -1217,15 +1754,20 @@ corr_df_stack = (corr_df.stack()
                         )
                 ) #let us stack the df for a more compact df
 corr_df_stack['abscorrelation'] = corr_df_stack.correlation.abs()
-                </p>
-            </li>
-            <li>
-                The above final db  can help us see what values are highly correlated, if we sort them by the absolute value column
-            </li>
-            <li>
-                To maintain the ration of the predictor class in the train and test splits, we can use <mark>StratifiedShuffleSplit</mark> class. <br>
-                <p class="code-text">
-from sklearn.model_selection import StratifiedShuffleSplit
+      </p>
+     </li>
+     <li>
+      The above final db  can help us see what values are highly correlated, if we sort them by the absolute value column
+     </li>
+     <li>
+      To maintain the ration of the predictor class in the train and test splits, we can use
+      <mark>
+       StratifiedShuffleSplit
+      </mark>
+      class.
+      <br/>
+      <p class="code-text">
+       from sklearn.model_selection import StratifiedShuffleSplit
 
 # We want 1 split, this can change if we want more 
 # .. 30% data to be in the test dataset, 70% in train dataset
@@ -1240,178 +1782,203 @@ y_train = data.loc[train_idx, 'target']
 
 X_test  = data.loc[test_idx, x_colms]
 y_test  = data.loc[test_idx, 'target']
-                </p>
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <b>k-Nearest Neighbour Classification</b>
-    </p>
-    <p>
-        We can also do regression using kNN; the value predicted is the mean value of its neighbors.
-    </p>
-    <p>
-        <ul>
-            <li>
-                creates decision boundary based on similarity with neighbors whose class is already known.
-            </li>
-            <li>
-                using small number of neighbors to look at may be prone to high error.
-            </li>
-            <li>
-                increasing the number of neighbors to look at will decrease the error.
-            </li>
-            <li>
-                using a very high number of neighbors also causes error to go up. So, there is an elbow
+      </p>
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     k-Nearest Neighbour Classification
+    </b>
+   </p>
+   <p>
+    We can also do regression using kNN; the value predicted is the mean value of its neighbors.
+   </p>
+   <p>
+    <ul>
+     <li>
+      creates decision boundary based on similarity with neighbors whose class is already known.
+     </li>
+     <li>
+      using small number of neighbors to look at may be prone to high error.
+     </li>
+     <li>
+      increasing the number of neighbors to look at will decrease the error.
+     </li>
+     <li>
+      using a very high number of neighbors also causes error to go up. So, there is an elbow
                 point for the minimum error rate.
-            </li>
-            <li>
-                using one- neighbor for classification will cause highly biased system
-            </li>
-            <li>
-                using more neighbor than the elbow point causes high variance
-            </li>
-        </ul>
-    </p>
-    <p>
-        Distance measurement in kNN:
-        <ul>
-            <li>
-                Euclidian Distance: Visible distance., the easiest distance.
-            </li>
-            <li>
-                Manhattan Distance: Absolute value in each direction. Unlike Euclidian, there is no squaring and taking a square root here.
-            </li>
-            <li>
-                Oftentimes scaling the features is a good strategy, so that all the variables have same
+     </li>
+     <li>
+      using one- neighbor for classification will cause highly biased system
+     </li>
+     <li>
+      using more neighbor than the elbow point causes high variance
+     </li>
+    </ul>
+   </p>
+   <p>
+    Distance measurement in kNN:
+    <ul>
+     <li>
+      Euclidian Distance: Visible distance., the easiest distance.
+     </li>
+     <li>
+      Manhattan Distance: Absolute value in each direction. Unlike Euclidian, there is no squaring and taking a square root here.
+     </li>
+     <li>
+      Oftentimes scaling the features is a good strategy, so that all the variables have same
                 influence.
-            </li>
-        </ul>
-    </p>
-    <p>
-        <ul>
-            <li>
-                Easy to use;
-            </li>
-            <li>
-                Adapts well to new training data;
-            </li>
-            <li>
-                Easy to interpret
-            </li>
-            <li>
-                cons: no model for insights;
-            </li>
-            <li>
-                cons: slow to predict, many distance calculations;
-            </li>
-            <li>
-                cons: require a lot of memory;
-            </li>
-            <li>
-                cons: may break down because of <i>curse of dimensionality</i> as the number of predictors grow
-            </li>
-        </ul>
-    </p>
-    <p>
-        <ul>
-            <li>
-                kNN is faster for fitting, as only trainig data storing is sufficient. LinearRegression fitting can be slow.
-            </li>
-            <li>
-                kNN is many parameters; Linear Regression has new parameters, so memory efficient than kNN.
-            </li>
-            <li>
-                kNN prediction can slow; Linear Regression prediction involves calculation but are often fast.
-            </li>
-        </ul>
-    </p>
-    <p class="code-text">
-from sklearn.neighbors import KNeighborsClassifier
+     </li>
+    </ul>
+   </p>
+   <p>
+    <ul>
+     <li>
+      Easy to use;
+     </li>
+     <li>
+      Adapts well to new training data;
+     </li>
+     <li>
+      Easy to interpret
+     </li>
+     <li>
+      cons: no model for insights;
+     </li>
+     <li>
+      cons: slow to predict, many distance calculations;
+     </li>
+     <li>
+      cons: require a lot of memory;
+     </li>
+     <li>
+      cons: may break down because of
+      <i>
+       curse of dimensionality
+      </i>
+      as the number of predictors grow
+     </li>
+    </ul>
+   </p>
+   <p>
+    <ul>
+     <li>
+      kNN is faster for fitting, as only trainig data storing is sufficient. LinearRegression fitting can be slow.
+     </li>
+     <li>
+      kNN is many parameters; Linear Regression has new parameters, so memory efficient than kNN.
+     </li>
+     <li>
+      kNN prediction can slow; Linear Regression prediction involves calculation but are often fast.
+     </li>
+    </ul>
+   </p>
+   <p class="code-text">
+    from sklearn.neighbors import KNeighborsClassifier
 
 kNN = KNeighborsClassifier(n_neighbors=3)
 kNN = kNN.fit(X_train, y_train)
 y_predict = kNN.predict(X_test)
-    </p>
-    <p>
-        For regression, <mark>KNeighborsRegressor</mark> can be used instead, and make sure that the
-        <mark>y_train</mark> and <mark>y_test</mark> sets are continuous values.
-    </p>
-    <hr>
-    <p>
-        <b>Support Vector Machines (SVM)</b>
-        <ul>
-            <li>
-                create a hyperplane that maximizes the distance between the nearest member of all the classes;
-            </li>
-            <li>
-                the cost function does not penalize for output that are outside the margin if the prediction is correct; 
+   </p>
+   <p>
+    For regression,
+    <mark>
+     KNeighborsRegressor
+    </mark>
+    can be used instead, and make sure that the
+    <mark>
+     y_train
+    </mark>
+    and
+    <mark>
+     y_test
+    </mark>
+    sets are continuous values.
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Support Vector Machines (SVM)
+    </b>
+    <ul>
+     <li>
+      create a hyperplane that maximizes the distance between the nearest member of all the classes;
+     </li>
+     <li>
+      the cost function does not penalize for output that are outside the margin if the prediction is correct; 
                 whereas in case of logistic regression there is almost always some penalization.
-            </li>
-            <li>
-                If the values are classified correctly, and are inside the margin lines, it adds to the penalty, i.e. model is penalized.
-            </li>
-            <li>
-                The more we move to the opposite direction for misclassification, model is penalized more. The penalty value is linearly increased.
-            </li>
-            <li>
-                The SVM model could be sensitive to outliers, and the decision boundary may shift significnatly because of a single outlier. Thus, <mark>regularization</mark>. However, SVM is 
+     </li>
+     <li>
+      If the values are classified correctly, and are inside the margin lines, it adds to the penalty, i.e. model is penalized.
+     </li>
+     <li>
+      The more we move to the opposite direction for misclassification, model is penalized more. The penalty value is linearly increased.
+     </li>
+     <li>
+      The SVM model could be sensitive to outliers, and the decision boundary may shift significnatly because of a single outlier. Thus,
+      <mark>
+       regularization
+      </mark>
+      . However, SVM is 
                 not impacted by large values that are classified correctly. Or any outlier that are correctly classified.
-            </li>
-            <li>
-                SVM models are linear (decision boundary is linear hyperplane).
-            </li>
-            <li>
-                Code example:
-                <p class="code-text">
-from sklearn.svm import LinearSVC
+     </li>
+     <li>
+      SVM models are linear (decision boundary is linear hyperplane).
+     </li>
+     <li>
+      Code example:
+      <p class="code-text">
+       from sklearn.svm import LinearSVC
 
 LinSVC = LinearSVC(penalty='l2',C=10.0) #C is regularization
 LinSVC = LinSVC.fit(X_train,y_train)
 y_pred = LinSVC.predict(X_test)
-                </p>
-                The regilarization parameters can be explored/tuned with cross-validation.
-            </li>
-            <li>
-                Using linearSVM for regression; and y- values must be continuous values.
-                <p class="code-text">
-from sklearn.svm import LinearSVM
-                </p>
-            </li>
-        </ul>
-    </p>
-    <p>
-        <b>Non Linear Decision boundaries using kernels.</b>
-        <ul>
-            <li>
-                Just change the objective function; non-linear decision boundary is created by tranforming the variables and finding the 
+      </p>
+      The regilarization parameters can be explored/tuned with cross-validation.
+     </li>
+     <li>
+      Using linearSVM for regression; and y- values must be continuous values.
+      <p class="code-text">
+       from sklearn.svm import LinearSVM
+      </p>
+     </li>
+    </ul>
+   </p>
+   <p>
+    <b>
+     Non Linear Decision boundaries using kernels.
+    </b>
+    <ul>
+     <li>
+      Just change the objective function; non-linear decision boundary is created by tranforming the variables and finding the 
                 linear decision boundary in the new variables; which essentially means that the decision boundary is now non-linear in original vector space.
-            </li>
-            <li>
-                Map data to higher dimension. As we move above in dimensionality, there could be some linear decision boundary that could be found.
-                <ul>
-                    <li>
-                        Approach 1: Similar to polynomial transform.
-                    </li>
-                    <li>
-                        Approach 2: FInd similarity metric/function, and use that function to transform to higher dimension.
-                        <ul>
-                            <li>
-                                Create a Gaussian distance function.
-                            </li>
-                            <li>
-                                Find similarity of the variables to the n- variables that the Gaussian distance is defined for. The new vector space will be n-dimensional, with each dimension representing
+     </li>
+     <li>
+      Map data to higher dimension. As we move above in dimensionality, there could be some linear decision boundary that could be found.
+      <ul>
+       <li>
+        Approach 1: Similar to polynomial transform.
+       </li>
+       <li>
+        Approach 2: FInd similarity metric/function, and use that function to transform to higher dimension.
+        <ul>
+         <li>
+          Create a Gaussian distance function.
+         </li>
+         <li>
+          Find similarity of the variables to the n- variables that the Gaussian distance is defined for. The new vector space will be n-dimensional, with each dimension representing
                                 similarity to the n- variables.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Code example:
-                <p class="code-text">
-from sklearn.svm import SVC
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      Code example:
+      <p class="code-text">
+       from sklearn.svm import SVC
 
 rbfsvc = SVC(kernel='rbf', gamma=1.0, C=10.0) 
 # see other kernels, higher gamma and C means less regularization/complex models.
@@ -1419,313 +1986,467 @@ rbfsvc = SVC(kernel='rbf', gamma=1.0, C=10.0)
 
 rbfsvc = rbfsvc.fit((X_train, y_train))
 y_predict = rbfsvc.predict(X_test)
-                </p>
-            </li>
-            <li>
-                Kernels with <mark>rbf</mark> are very slow to train with a lots of features of data.
-            </li>
-            <li>
-                To optimize, use a kernel map to create a dataset in higher dimension using methods like Nystroem and RBF sampler. Then, use a linear classifier, like LinearSVC, or even LogisticRegression.
-            </li>
-            <li>
-                <mark>Nystroem</mark> example:
-                <p class="code-text">
-from sklearn.kernel_approximation import Nystroem
+      </p>
+     </li>
+     <li>
+      Kernels with
+      <mark>
+       rbf
+      </mark>
+      are very slow to train with a lots of features of data.
+     </li>
+     <li>
+      To optimize, use a kernel map to create a dataset in higher dimension using methods like Nystroem and RBF sampler. Then, use a linear classifier, like LinearSVC, or even LogisticRegression.
+     </li>
+     <li>
+      <mark>
+       Nystroem
+      </mark>
+      example:
+      <p class="code-text">
+       from sklearn.kernel_approximation import Nystroem
 
 NystroemSVC = Nystroem(kernel='rbf', gamma=1.0,n_components=100) # n_components means the no of samples to take
 X_train = NystroemSVC.fit_transform(X_train)
 
 X_test = NystroemSVC.transform(X_test)
-                </p>
-                The kernel and associated parameters can be tuned with cross-validation
-            </li>
-            <li>
-                Similar can be done for <mark>RBFSampler</mark>
-            </li>
-        </ul>
-    </p>
-    <p>
-        <b>When to choose what??</b>
-        <table width="80%" align="center" border="1px">
-            <tr>
-                <th>Features</th><th>Data</th><th>Model</th>
-            </tr>
-            <tr>
-                <td>Many (~10K)</td><td>Small (1K rows)</td><td>Simple, Logistic or Linear SVC</td>
-            </tr>
-            <tr>
-                <td>Few, near about 100</td><td>Medium (~10K rows)</td><td>SBC with RBF</td>
-            </tr>
-            <tr>
-                <td>Few, near about 100</td><td>Many (>100K rows)</td><td>Add features, Logistic, LinearSVC or Kernel Approx</td>
-            </tr>
-        </table>
-    </p>
-    <hr>
-    <p>
-        <b>Decision Trees</b>
-    </p>
-    <p>
-        <ul>
-            <li>
-                Keep splitting until a leaf node is pure OR a max depth is reached OR a performance metric is achieved.
-            </li>
-            <li>
-                Decision trees tend to overfit. Small change in data greatly affect prediction - high variance.
-            </li>
-            <li>
-                Solution: Prune Trees by imposing max depth
-            </li>
-            <li>
-                Pruning can be done  by applying error threshold. (for example, if the error at a node is X, dont further breakdown)
-            </li>
-            <li>
-                Very easy to interpret, no data processing required
-            </li>
-        </ul>
-    </p>
-    <p>
-        <ul>
-            <li>
-                Regression can be performed using <mark>DecisionTreeRegressor</mark>,where the target variable is a continuous field.
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <b>Ensemble Methods and Bagging (MetaClassifiers)</b>
-    </p>
-    <p>
-        <ul>
-            <li>
-                Bootstrap Aggregation is Bagging.
-            </li>
-            <li>
-                Combining models (ensemble based methods)
-            </li>
-            <li>
-                For example; for decision trees that tend to overfit, we can create many trees and combine results.
-                <ul>
-                    <li>
-                        So we use bagging for trees using <mark>BaggingClassifier</mark>.
-                    </li>
-                    <li>
-                        trees vote or average of the predicted result or take majority as a result
-                    </li>
-                    <li>
-                        i.e. vote to combine to form a single classifier.
-                    </li>
-                    <li>
-                        No of trees to use for Bagging is another hyperparameters. There is a diminishing return usually 
+      </p>
+      The kernel and associated parameters can be tuned with cross-validation
+     </li>
+     <li>
+      Similar can be done for
+      <mark>
+       RBFSampler
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <p>
+    <b>
+     When to choose what??
+    </b>
+    <table align="center" border="1px" width="80%">
+     <tr>
+      <th>
+       Features
+      </th>
+      <th>
+       Data
+      </th>
+      <th>
+       Model
+      </th>
+     </tr>
+     <tr>
+      <td>
+       Many (~10K)
+      </td>
+      <td>
+       Small (1K rows)
+      </td>
+      <td>
+       Simple, Logistic or Linear SVC
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Few, near about 100
+      </td>
+      <td>
+       Medium (~10K rows)
+      </td>
+      <td>
+       SBC with RBF
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Few, near about 100
+      </td>
+      <td>
+       Many (&gt;100K rows)
+      </td>
+      <td>
+       Add features, Logistic, LinearSVC or Kernel Approx
+      </td>
+     </tr>
+    </table>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Decision Trees
+    </b>
+   </p>
+   <p>
+    <ul>
+     <li>
+      Keep splitting until a leaf node is pure OR a max depth is reached OR a performance metric is achieved.
+     </li>
+     <li>
+      Decision trees tend to overfit. Small change in data greatly affect prediction - high variance.
+     </li>
+     <li>
+      Solution: Prune Trees by imposing max depth
+     </li>
+     <li>
+      Pruning can be done  by applying error threshold. (for example, if the error at a node is X, dont further breakdown)
+     </li>
+     <li>
+      Very easy to interpret, no data processing required
+     </li>
+    </ul>
+   </p>
+   <p>
+    <ul>
+     <li>
+      Regression can be performed using
+      <mark>
+       DecisionTreeRegressor
+      </mark>
+      ,where the target variable is a continuous field.
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Ensemble Methods and Bagging (MetaClassifiers)
+    </b>
+   </p>
+   <p>
+    <ul>
+     <li>
+      Bootstrap Aggregation is Bagging.
+     </li>
+     <li>
+      Combining models (ensemble based methods)
+     </li>
+     <li>
+      For example; for decision trees that tend to overfit, we can create many trees and combine results.
+      <ul>
+       <li>
+        So we use bagging for trees using
+        <mark>
+         BaggingClassifier
+        </mark>
+        .
+       </li>
+       <li>
+        trees vote or average of the predicted result or take majority as a result
+       </li>
+       <li>
+        i.e. vote to combine to form a single classifier.
+       </li>
+       <li>
+        No of trees to use for Bagging is another hyperparameters. There is a diminishing return usually 
                         after 50 trees.
-                    </li>
-                    <li>
-                        Bagging Trees is again easy to interpret and implement. No preprocessing required.
-                    </li>
-                    <li>
-                        Bagging, we can grow trees parallely and is more efficient.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <p class="code-text">
-from sklearn.ensemble import BaggingClassifier
+       </li>
+       <li>
+        Bagging Trees is again easy to interpret and implement. No preprocessing required.
+       </li>
+       <li>
+        Bagging, we can grow trees parallely and is more efficient.
+       </li>
+      </ul>
+     </li>
+     <li>
+      <p class="code-text">
+       from sklearn.ensemble import BaggingClassifier
 
 BC = BaggingClassifier(n_estimators=50) #n_estimators is the no of trees
 
 BC = BC.fit(X_train, y_train)
 y_pedict = BC.predict(X_test)
-                </p>
-            </li>
-            <li>
-                For regression, <mark>BaggingRegressor</mark> can be used.
-            </li>
-        </ul>
-    </p>
-    <p>
-        <b>Random Forest</b>
-    </p>
-    <p>
-        <ul>
-            <li>
-                Bootstrapped samples can be correlated, so bagging may not always work after some number.
-            </li>
-            <li>
-                To de-correlate the trees, we use a random subset of features of each tree.
-            </li>
-            <li>
-                so we limit the total no of features used randomly; in addition to randomly limiting the rows which is already done by Bagging.
-            </li>
-            <li>
-                For classification, we restrict the features to <mark>sqrt(no of features)</mark>, whereas regression task will take <mark>(no of features)/3</mark> features.
-            </li>
-            <li>
-                This will force different decision for each individual trees based on what features are used.
-            </li>
-            <li>
-                There is still a diminishing return after certain no of trees, but the error is better than just Bagging.
-            </li>
-        </ul>
-    </p>
-    <p class="code-text">
-from sklearn.ensemble import RandomForestClassifier
+      </p>
+     </li>
+     <li>
+      For regression,
+      <mark>
+       BaggingRegressor
+      </mark>
+      can be used.
+     </li>
+    </ul>
+   </p>
+   <p>
+    <b>
+     Random Forest
+    </b>
+   </p>
+   <p>
+    <ul>
+     <li>
+      Bootstrapped samples can be correlated, so bagging may not always work after some number.
+     </li>
+     <li>
+      To de-correlate the trees, we use a random subset of features of each tree.
+     </li>
+     <li>
+      so we limit the total no of features used randomly; in addition to randomly limiting the rows which is already done by Bagging.
+     </li>
+     <li>
+      For classification, we restrict the features to
+      <mark>
+       sqrt(no of features)
+      </mark>
+      , whereas regression task will take
+      <mark>
+       (no of features)/3
+      </mark>
+      features.
+     </li>
+     <li>
+      This will force different decision for each individual trees based on what features are used.
+     </li>
+     <li>
+      There is still a diminishing return after certain no of trees, but the error is better than just Bagging.
+     </li>
+    </ul>
+   </p>
+   <p class="code-text">
+    from sklearn.ensemble import RandomForestClassifier
 
 RC = RandomForestClassifier(n_estimators=50)
 
 RC = RC.fit(X_train,y_train)
 y_predict = RC.predict(X_test)
-    </p>
-    <p>
-        For regression use, <mark>RandomForestRegressor</mark>.
-    </p>
-    <p>
-        In case when random forest does not reduce the variance, we will introduce more randomness. 
-        <ul>
-            <li>
-                This is done by selecting features randomly and create random splits - don't choose greedely.
-            </li>
-            <li>
-                <p class="code-text">
-from sklearn.ensemble import ExtraTreesClassifier
-                </p>
-            </li>
-            <li>
-                for regression,use<mark>ExtraTreesRegressor</mark>
-            </li>
-        </ul>
-    </p>
-    <p>
-        <b>Boosting</b>
-    </p>
-    <p>
-        <ul>
-            <li>
-                change the decision boundaries by rewarding more the correct outcomes and punishing more the incorrect
+   </p>
+   <p>
+    For regression use,
+    <mark>
+     RandomForestRegressor
+    </mark>
+    .
+   </p>
+   <p>
+    In case when random forest does not reduce the variance, we will introduce more randomness.
+    <ul>
+     <li>
+      This is done by selecting features randomly and create random splits - don't choose greedely.
+     </li>
+     <li>
+      <p class="code-text">
+       from sklearn.ensemble import ExtraTreesClassifier
+      </p>
+     </li>
+     <li>
+      for regression,use
+      <mark>
+       ExtraTreesRegressor
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <p>
+    <b>
+     Boosting
+    </b>
+   </p>
+   <p>
+    <ul>
+     <li>
+      change the decision boundaries by rewarding more the correct outcomes and punishing more the incorrect
                 outcomes.
-            </li>
-            <li>
-                create many weak learners, and combine them to create a final decision.
-                <ul>
-                    <li>
-                        Final result is the weighted sum of all the classifier.
-                    </li>
-                    <li>
-                        better classifier gets more weight.
-                    </li>
-                    <li>
-                        There is also a learning rate, since this is a multi step process.
-                    </li>
-                    <li>
-                        learning rate is also called <mark>shrinkage.</mark>, and should be usually < 1 to not overfit.
-                    </li>
-                    <li>
-                        small learning rate means high bias, less chance of overfitting.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                there is a possibility of overfitting with Boosting.
-            </li>
-            <li>
-                Boosting uses different loss function.
-            </li>
-            <li>
-                There is a concept of margin; margin is positive for correctly classified points and negative for misclassification.
-            </li>
-            <li>
-                value of loss function is computed as the distance from the margin.
-            </li>
-            <li>
-                The most common loss function is <mark>0-1 Loss Function</mark>.
-                <ul>
-                    <li>
-                        This is more of a theoritical function; and not used in practise since its not smooth or convex, which makes it difficult to optimize.
-                    </li>
-                    <li>Incorrectly classified points are multiplied by 1.</li>
-                    <li>
-                        Ignores correctly classified points.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                In practise, the <mark>Adaptive  Booting Algorithm (AdaBoost)</mark>is used.
-                <ul>
-                    <li>
-                        Here, the loss function is exponential; <mark>e^(-margin)</mark>.
-                    </li>
-                    <li>
-                        But this makes <mark>AdaBoot</mark> very sensitive to outliers.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                The next loss function is <mark>Gradient Boosting Loss Function</mark>
-                <ul>
-                    <li>
-                        The value is <mark>log(1+e(-margin))</mark>, i.e. it uses a log liklihood loss function.
-                    </li>
-                    <li>
-                        This makes the function more robust to outliers than<mark>AdaBoost</mark>.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Boosting is additive, so there is a chance of overfitting.
-            </li>
-        </ul>
-    </p>
-    <p>
-        <table border="1px">
-            <tr>
-                <th width="50%">Bagging</th><th>Boosting</th>
-            </tr>
-            <tr>
-                <td>Uses a subsample of data, i.e. only on a bootstraped sample.</td><td>Can fit an entire set of data.</td>
-            </tr>
-            <tr>
-                <td>Each base learners, or the small tress are independent of each other.</td><td>Base trees created successively; each learner builds on top of previous steps.</td>
-            </tr>
-            <tr>
-                <td>uses only bootstraped data</td><td>uses all data, including residual from previous model</td>
-            </tr>
-            <tr>
-                <td>No weighting used.</td><td>Incorrect or misclassified points are waighted heavily.</td>
-            </tr>
-            <tr>
-                <td>No overfitting possible.</td><td>There is a chance of overfitting.  </td>
-            </tr>
-        </table>
-    </p>
-    <p>
-        <ul>
-            <li>
-                As a way to circumvent overfit, we can use a concept of using a <mark>subsample</mark> so that a fraction of data is only used for base learners.
-            </li>
-            <li>
-                also <mark>max_features</mark> can be used in boosting.
-            </li>
-        </ul>
-    </p>
-    <p class="code-text">
-from sklearn.ensemble import GradientBoostingClassifier
+     </li>
+     <li>
+      create many weak learners, and combine them to create a final decision.
+      <ul>
+       <li>
+        Final result is the weighted sum of all the classifier.
+       </li>
+       <li>
+        better classifier gets more weight.
+       </li>
+       <li>
+        There is also a learning rate, since this is a multi step process.
+       </li>
+       <li>
+        learning rate is also called
+        <mark>
+         shrinkage.
+        </mark>
+        , and should be usually &lt; 1 to not overfit.
+       </li>
+       <li>
+        small learning rate means high bias, less chance of overfitting.
+       </li>
+      </ul>
+     </li>
+     <li>
+      there is a possibility of overfitting with Boosting.
+     </li>
+     <li>
+      Boosting uses different loss function.
+     </li>
+     <li>
+      There is a concept of margin; margin is positive for correctly classified points and negative for misclassification.
+     </li>
+     <li>
+      value of loss function is computed as the distance from the margin.
+     </li>
+     <li>
+      The most common loss function is
+      <mark>
+       0-1 Loss Function
+      </mark>
+      .
+      <ul>
+       <li>
+        This is more of a theoritical function; and not used in practise since its not smooth or convex, which makes it difficult to optimize.
+       </li>
+       <li>
+        Incorrectly classified points are multiplied by 1.
+       </li>
+       <li>
+        Ignores correctly classified points.
+       </li>
+      </ul>
+     </li>
+     <li>
+      In practise, the
+      <mark>
+       Adaptive  Booting Algorithm (AdaBoost)
+      </mark>
+      is used.
+      <ul>
+       <li>
+        Here, the loss function is exponential;
+        <mark>
+         e^(-margin)
+        </mark>
+        .
+       </li>
+       <li>
+        But this makes
+        <mark>
+         AdaBoot
+        </mark>
+        very sensitive to outliers.
+       </li>
+      </ul>
+     </li>
+     <li>
+      The next loss function is
+      <mark>
+       Gradient Boosting Loss Function
+      </mark>
+      <ul>
+       <li>
+        The value is
+        <mark>
+         log(1+e(-margin))
+        </mark>
+        , i.e. it uses a log liklihood loss function.
+       </li>
+       <li>
+        This makes the function more robust to outliers than
+        <mark>
+         AdaBoost
+        </mark>
+        .
+       </li>
+      </ul>
+     </li>
+     <li>
+      Boosting is additive, so there is a chance of overfitting.
+     </li>
+    </ul>
+   </p>
+   <p>
+    <table border="1px">
+     <tr>
+      <th width="50%">
+       Bagging
+      </th>
+      <th>
+       Boosting
+      </th>
+     </tr>
+     <tr>
+      <td>
+       Uses a subsample of data, i.e. only on a bootstraped sample.
+      </td>
+      <td>
+       Can fit an entire set of data.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Each base learners, or the small tress are independent of each other.
+      </td>
+      <td>
+       Base trees created successively; each learner builds on top of previous steps.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       uses only bootstraped data
+      </td>
+      <td>
+       uses all data, including residual from previous model
+      </td>
+     </tr>
+     <tr>
+      <td>
+       No weighting used.
+      </td>
+      <td>
+       Incorrect or misclassified points are waighted heavily.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       No overfitting possible.
+      </td>
+      <td>
+       There is a chance of overfitting.
+      </td>
+     </tr>
+    </table>
+   </p>
+   <p>
+    <ul>
+     <li>
+      As a way to circumvent overfit, we can use a concept of using a
+      <mark>
+       subsample
+      </mark>
+      so that a fraction of data is only used for base learners.
+     </li>
+     <li>
+      also
+      <mark>
+       max_features
+      </mark>
+      can be used in boosting.
+     </li>
+    </ul>
+   </p>
+   <p class="code-text">
+    from sklearn.ensemble import GradientBoostingClassifier
 
 GBC = GradientBoostingClassifier(learning_rate= 0.1,max_features=2,subsample=0.5,n_estimators=200)
 
 GBC = GBC.fit(X_train,y_train)
 y_predict = GBC.predict(X_test)
-    </p>
-    <p>
-        <ul>
-            <li>
-                Use <mark>GradientBoostingRegressor</mark> for regression problems.
-            </li>
-            <li>
-                n_estimators may increase the fit time significnatly because boosting cannot be parallelized as efficiently since the next step depends on previous trees.
-            </li>
-        </ul>
-    </p>
-    <p class="code-text">
-from sklearn.ensemble import AdaBoostClassifier
+   </p>
+   <p>
+    <ul>
+     <li>
+      Use
+      <mark>
+       GradientBoostingRegressor
+      </mark>
+      for regression problems.
+     </li>
+     <li>
+      n_estimators may increase the fit time significnatly because boosting cannot be parallelized as efficiently since the next step depends on previous trees.
+     </li>
+    </ul>
+   </p>
+   <p class="code-text">
+    from sklearn.ensemble import AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
 
 ABC = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(),
@@ -1733,138 +2454,199 @@ ABC = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(),
 ABC = ABC.fit(X_train,y_train)
 
 y_predict=ABC.predict(X_test)
-    </p>
-    <p>
-        <ul>
-            <li>
-                Use <mark>AdaBoostRegressor</mark> for regression problem
-            </li>
-        </ul>
-    </p>
-    <p>
-        <b>Stacking</b>
-    </p>
-    <p>
-        <ul>
-            <li>
-                Models of any kinds can be combined to create a stacked model.
-            </li>
-            <li>
-                Similar to bagging, but not limited to decision trees.
-            </li>
-            <li>
-                Output of base learners can be combined via a majority vote OR with another single model
-            </li>
-        </ul>
-    </p>
-    <p class="code-text">
-from sklearn.ensemble import VotingClassifier
+   </p>
+   <p>
+    <ul>
+     <li>
+      Use
+      <mark>
+       AdaBoostRegressor
+      </mark>
+      for regression problem
+     </li>
+    </ul>
+   </p>
+   <p>
+    <b>
+     Stacking
+    </b>
+   </p>
+   <p>
+    <ul>
+     <li>
+      Models of any kinds can be combined to create a stacked model.
+     </li>
+     <li>
+      Similar to bagging, but not limited to decision trees.
+     </li>
+     <li>
+      Output of base learners can be combined via a majority vote OR with another single model
+     </li>
+    </ul>
+   </p>
+   <p class="code-text">
+    from sklearn.ensemble import VotingClassifier
 
 VC = VotingClassifier(estimator_list)
 
 VC = VC.fit(X_train,y_train)
 y_predict = VC.predict(X_test)
-    </p>
-    <p>
+   </p>
+   <p>
+    <ul>
+     <li>
+      Use
+      <mark>
+       VotingRegressor
+      </mark>
+      for regression.
+     </li>
+     <li>
+      <mark>
+       StackingClassifier
+      </mark>
+      works similarly, also
+      <mark>
+       StackingRegressor
+      </mark>
+      .
+     </li>
+    </ul>
+   </p>
+   <hr/>
+   <p>
+    <b>
+     Unbalanced Classes
+    </b>
+   </p>
+   <p>
+    <ul>
+     <li>
+      <b>
+       Upsampling:
+      </b>
+      Copy and replicate the data of the smaller class until we have the same number as that of larger class.
+      <ul>
+       <li>
+        Recall will still be high, but the gap between precision and recall will be less than Downsampling.
+       </li>
+       <li>
+        random oversampling is good for categorical data; simplest of all
+       </li>
+       <li>
+        synthetic oversampling:
         <ul>
-            <li>
-                Use <mark>VotingRegressor</mark> for regression.
-            </li>
-            <li>
-                <mark>StackingClassifier</mark> works similarly, also <mark>StackingRegressor</mark>.
-            </li>
-        </ul>
-    </p>
-    <hr>
-    <p>
-        <b>Unbalanced Classes</b>
-    </p>
-    <p>
-        <ul>
-            <li>
-                <b>Upsampling:</b> Copy and replicate the data of the smaller class until we have the same number as that of larger class.
-                <ul>
-                    <li>
-                        Recall will still be high, but the gap between precision and recall will be less than Downsampling.
-                    </li>
-                    <li>
-                        random oversampling is good for categorical data; simplest of all
-                    </li>
-                    <li>
-                        synthetic oversampling:
-                        <ul>
-                            <li>
-                                start with a point in minority class.
-                            </li>
-                            <li>
-                                choose one of k-nearest neighbor
-                            </li>
-                            <li>
-                                create a point between these two points
-                            </li>
-                            <li>
-                                repeat above step k-times so that for a point we do for k-neighbours
-                            </li>
-                            <li>
-                                Two kinds of synthetic oversampling:
-                                <ul>
-                                    <li>
-                                        <b>SMOTE:</b> (synthetic minority oversampling technique) connects minority class
-                                        points to any neighbor (could also be from another class. This is <mark>regular smote</mark>. For <mark>border line smote</mark>, we classify 
-                                        points as outlier, safe or in-danger. All these can be from different classes. <mark>SVM smote</mark> uses underlying support vectors and generates points using those
+         <li>
+          start with a point in minority class.
+         </li>
+         <li>
+          choose one of k-nearest neighbor
+         </li>
+         <li>
+          create a point between these two points
+         </li>
+         <li>
+          repeat above step k-times so that for a point we do for k-neighbours
+         </li>
+         <li>
+          Two kinds of synthetic oversampling:
+          <ul>
+           <li>
+            <b>
+             SMOTE:
+            </b>
+            (synthetic minority oversampling technique) connects minority class
+                                        points to any neighbor (could also be from another class. This is
+            <mark>
+             regular smote
+            </mark>
+            . For
+            <mark>
+             border line smote
+            </mark>
+            , we classify 
+                                        points as outlier, safe or in-danger. All these can be from different classes.
+            <mark>
+             SVM smote
+            </mark>
+            uses underlying support vectors and generates points using those
                                         support vectors.
-                                    </li>
-                                    <li>
-                                        <b>ADASYN:</b> (Adaptive synthetic sampling) looks at the classes in neighborhood; and generates new samples proportional to competing classes.
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Downsampling:</b> Taking only as many of the larger class as there are available of smaller class.
-                <ul>
-                    <li>
-                        Cons: will shoot up the recall and bring down precision.
-                    </li>
-                    <li>
-                        <b>Nearmiss - 1</b>: keep points that are nearest to decision boundary.
-                    </li>
-                    <li>
-                        <b>Nearmiss - 2</b>: not as much affected by outliers; keep points that are closest to distant minority points.
-                    </li>
-                    <li>
-                        <b>Nearmiss  -3</b>: 2 step process; for each negative sample, we find k-nearest neighbor of positive class. then the positive samples selected are the ones for which the distance of k-nearest neighbor is largest.
-                    </li>
-                    <li>
-                        <b>TOmek Link:</b> Tomek Link exists when two samples from different classes are nearest neighbor of one another. We can either remove observation from both the classes or remove from the majority class. 
-                    </li>
-                    <li>
-                        <b>Edited NN</b>: Run KNN with K=1, then if you misclassify a point from a majority class, that point will be removed.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Resampling:</b> A mix of the above two, so that we have the number somewhere in between to that the balanced class.
-                <ul>
-                    <li>
-                        Use SMOTE + TOmek Link or SMOTE + Edited NN
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Blagging: Balanced Bagging: take bootstrap samples from original population (similar to bagging), and balance each sample by downsample.
-            </li>
-            <li>
-                All sampling or balancing of data should be done after the test set has been split.
-            </li>
-            <li>
-                Crossvalidation can be used on a Unbalanced dataset to see if we need Upsampling or Downsampling or Resampling. By using the ROC curve.
-            </li>
+           </li>
+           <li>
+            <b>
+             ADASYN:
+            </b>
+            (Adaptive synthetic sampling) looks at the classes in neighborhood; and generates new samples proportional to competing classes.
+           </li>
+          </ul>
+         </li>
         </ul>
-    </p>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       Downsampling:
+      </b>
+      Taking only as many of the larger class as there are available of smaller class.
+      <ul>
+       <li>
+        Cons: will shoot up the recall and bring down precision.
+       </li>
+       <li>
+        <b>
+         Nearmiss - 1
+        </b>
+        : keep points that are nearest to decision boundary.
+       </li>
+       <li>
+        <b>
+         Nearmiss - 2
+        </b>
+        : not as much affected by outliers; keep points that are closest to distant minority points.
+       </li>
+       <li>
+        <b>
+         Nearmiss  -3
+        </b>
+        : 2 step process; for each negative sample, we find k-nearest neighbor of positive class. then the positive samples selected are the ones for which the distance of k-nearest neighbor is largest.
+       </li>
+       <li>
+        <b>
+         TOmek Link:
+        </b>
+        Tomek Link exists when two samples from different classes are nearest neighbor of one another. We can either remove observation from both the classes or remove from the majority class.
+       </li>
+       <li>
+        <b>
+         Edited NN
+        </b>
+        : Run KNN with K=1, then if you misclassify a point from a majority class, that point will be removed.
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       Resampling:
+      </b>
+      A mix of the above two, so that we have the number somewhere in between to that the balanced class.
+      <ul>
+       <li>
+        Use SMOTE + TOmek Link or SMOTE + Edited NN
+       </li>
+      </ul>
+     </li>
+     <li>
+      Blagging: Balanced Bagging: take bootstrap samples from original population (similar to bagging), and balance each sample by downsample.
+     </li>
+     <li>
+      All sampling or balancing of data should be done after the test set has been split.
+     </li>
+     <li>
+      Crossvalidation can be used on a Unbalanced dataset to see if we need Upsampling or Downsampling or Resampling. By using the ROC curve.
+     </li>
+    </ul>
+   </p>
   </div>
  </body>
 </html>

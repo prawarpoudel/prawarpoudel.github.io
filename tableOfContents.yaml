@@ -87,3 +87,11 @@ table_contents:
     class: 'listt'
     href: "../pages/primer_systemdesign.html"
     string: "System Design Primer (Github)"
+  "23":
+    class: 'listt'
+    href: "../pages/supervised_learning.html"
+    string: "Supervised Machine Learning"
+  "24":
+    class: 'listt'
+    href: "../pages/unsupervised_learning.html"
+    string: "Unsupervised Machine Learning"
