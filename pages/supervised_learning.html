@@ -1600,10 +1600,195 @@ from sklearn.ensemble import ExtraTreesClassifier
     <p>
         <ul>
             <li>
+                change the decision boundaries by rewarding more the correct outcomes and punishing more the incorrect
+                outcomes.
+            </li>
+            <li>
+                create many weak learners, and combine them to create a final decision.
+                <ul>
+                    <li>
+                        Final result is the weighted sum of all the classifier.
+                    </li>
+                    <li>
+                        better classifier gets more weight.
+                    </li>
+                    <li>
+                        There is also a learning rate, since this is a multi step process.
+                    </li>
+                    <li>
+                        learning rate is also called <mark>shrinkage.</mark>, and should be usually < 1 to not overfit.
+                    </li>
+                    <li>
+                        small learning rate means high bias, less chance of overfitting.
+                    </li>
+                </ul>
+            </li>
+            <li>
                 there is a possibility of overfitting with Boosting.
             </li>
             <li>
-                
+                Boosting uses different loss function.
+            </li>
+            <li>
+                There is a concept of margin; margin is positive for correctly classified points and negative for misclassification.
+            </li>
+            <li>
+                value of loss function is computed as the distance from the margin.
+            </li>
+            <li>
+                The most common loss function is <mark>0-1 Loss Function</mark>.
+                <ul>
+                    <li>
+                        This is more of a theoritical function; and not used in practise since its not smooth or convex, which makes it difficult to optimize.
+                    </li>
+                    <li>Incorrectly classified points are multiplied by 1.</li>
+                    <li>
+                        Ignores correctly classified points.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                In practise, the <mark>Adaptive  Booting Algorithm (AdaBoost)</mark>is used.
+                <ul>
+                    <li>
+                        Here, the loss function is exponential; <mark>e^(-margin)</mark>.
+                    </li>
+                    <li>
+                        But this makes <mark>AdaBoot</mark> very sensitive to outliers.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                The next loss function is <mark>Gradient Boosting Loss Function</mark>
+                <ul>
+                    <li>
+                        The value is <mark>log(1+e(-margin))</mark>, i.e. it uses a log liklihood loss function.
+                    </li>
+                    <li>
+                        This makes the function more robust to outliers than<mark>AdaBoost</mark>.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Boosting is additive, so there is a chance of overfitting.
+            </li>
+        </ul>
+    </p>
+    <p>
+        <table border="1px">
+            <tr>
+                <th width="50%">Bagging</th><th>Boosting</th>
+            </tr>
+            <tr>
+                <td>Uses a subsample of data, i.e. only on a bootstraped sample.</td><td>Can fit an entire set of data.</td>
+            </tr>
+            <tr>
+                <td>Each base learners, or the small tress are independent of each other.</td><td>Base trees created successively; each learner builds on top of previous steps.</td>
+            </tr>
+            <tr>
+                <td>uses only bootstraped data</td><td>uses all data, including residual from previous model</td>
+            </tr>
+            <tr>
+                <td>No weighting used.</td><td>Incorrect or misclassified points are waighted heavily.</td>
+            </tr>
+            <tr>
+                <td>No overfitting possible.</td><td>There is a chance of overfitting.  </td>
+            </tr>
+        </table>
+    </p>
+    <p>
+        <ul>
+            <li>
+                As a way to circumvent overfit, we can use a concept of using a <mark>subsample</mark> so that a fraction of data is only used for base learners.
+            </li>
+            <li>
+                also <mark>max_features</mark> can be used in boosting.
+            </li>
+        </ul>
+    </p>
+    <p class="code-text">
+from sklearn.ensemble import GradientBoostingClassifier
+
+GBC = GradientBoostingClassifier(learning_rate= 0.1,max_features=2,subsample=0.5,n_estimators=200)
+
+GBC = GBC.fit(X_train,y_train)
+y_predict = GBC.predict(X_test)
+    </p>
+    <p>
+        <ul>
+            <li>
+                Use <mark>GradientBoostingRegressor</mark> for regression problems.
+            </li>
+            <li>
+                n_estimators may increase the fit time significnatly because boosting cannot be parallelized as efficiently since the next step depends on previous trees.
+            </li>
+        </ul>
+    </p>
+    <p class="code-text">
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+
+ABC = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(),
+                 learning_rate=0.1,n_estimators=200)
+ABC = ABC.fit(X_train,y_train)
+
+y_predict=ABC.predict(X_test)
+    </p>
+    <p>
+        <ul>
+            <li>
+                Use <mark>AdaBoostRegressor</mark> for regression problem
+            </li>
+        </ul>
+    </p>
+    <p>
+        <b>Stacking</b>
+    </p>
+    <p>
+        <ul>
+            <li>
+                Models of any kinds can be combined to create a stacked model.
+            </li>
+            <li>
+                Similar to bagging, but not limited to decision trees.
+            </li>
+            <li>
+                Output of base learners can be combined via a majority vote OR with another single model
+            </li>
+        </ul>
+    </p>
+    <p class="code-text">
+from sklearn.ensemble import VotingClassifier
+
+VC = VotingClassifier(estimator_list)
+
+VC = VC.fit(X_train,y_train)
+y_predict = VC.predict(X_test)
+    </p>
+    <p>
+        <ul>
+            <li>
+                Use <mark>VotingRegressor</mark> for regression.
+            </li>
+            <li>
+                <mark>StackingClassifier</mark> works similarly, also <mark>StackingRegressor</mark>.
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <p>
+        <b>Unbalanced Classes</b>
+    </p>
+    <p>
+        <ul>
+            <li>
+                <b>Upsampling:</b> Copy and replicate the data of the smaller class until we have the same number as that of larger class.
+            </li>
+            <li>
+                <b>Downsampling:</b> Taking only as many of the larger class as there are available of smaller class.
+            </li>
+            <li>
+                <b>Resampling:</b> A mix of the above two, so that we have the number somewhere in between to that the balanced class.
             </li>
         </ul>
     </p>
