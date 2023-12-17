@@ -93,5 +93,9 @@ table_contents:
     string: "Supervised Machine Learning"
   "24":
     class: 'listt'
-    href: "../pages/unsupervised_learning.html"
-    string: "Unsupervised Machine Learning"
+    href: "../pages/unsupervised_learning_clustering.html"
+    string: "Unsupervised Machine Learning (Clustering)"
+  "25":
+    class: 'listt'
+    href: "../pages/unsupervised_learning_dimsreduction.html"
+    string: "Unsupervised Machine Learning (Dimensn Redcsn)"

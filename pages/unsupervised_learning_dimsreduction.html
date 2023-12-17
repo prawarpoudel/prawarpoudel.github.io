@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Persistent SSH Connections
+   Unsupervised Learning
   </title>
  </head>
  <body>
@@ -107,87 +107,105 @@
   </div>
   <div class="content">
    <h1>
-    Persistent SSH Connections
+    Unsupervised Learning
    </h1>
-   <p>
-    In this article we will see the performance of SSH connections when making connections from a LINUX machine to another LINUX machine, and potential methods to enhance the 
-    performance by making cached connections in case there is a need for a large number of repeated SSH connections to be made.
-   </p>
-   <h2>
-    Experimental Scenario and Baseline Measurement
-   </h2>
    <p>
     <ul>
      <li>
-      All the connections are made from my personal computer;
+      Datapoints do not have any outcomes, or target is unknown.
      </li>
      <li>
-      All the connections are made to a remove VM that is hosted in IBM Cloud server in Dallas
+      We are interested in the structure of the data or the patterns within the data.
      </li>
      <li>
-      There is one additional hop between the VM and my personal computer. This is because the VM is part of a VPC. 
-                The additional hop is the central VM in the VPC, while our VM is one of the subsidiary VMs.
+      Types:
+      <ul>
+       <li>
+        <a href="unsupervised_learning_clustering.html">
+         <b>
+          Clustering:
+         </b>
+        </a>
+        Algorithm like:
+        <ul>
+         <li>
+          K-Means
+         </li>
+         <li>
+          Hierarchical Agglomerative Clustering
+         </li>
+         <li>
+          DBSCAN
+         </li>
+         <li>
+          Mean shift
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="unsupervised_learning_dimsreduction.html">
+         <b>
+          Dimensionality Reduction:
+         </b>
+        </a>
+        Algorithm like:
+        <ul>
+         <li>
+          PCA
+         </li>
+         <li>
+          Non-negative matrix factorization
+         </li>
+         <li>
+          They are important because of the
+          <mark>
+           curse of dimensionality
+          </mark>
+          .
+         </li>
+         <li>
+          .. which means that as no of features increases performance gets worse, and cost or the number of training examples required increases.
+         </li>
+        </ul>
+       </li>
+      </ul>
      </li>
      <li>
-      For benchmarking purpose, all the timed
-      <mark>
-       ssh
-      </mark>
-      connections will be embellished with
-      <mark>
-       exit
-      </mark>
-      command
+      Many use cases like:
+      <ul>
+       <li>
+        Classification
+       </li>
+       <li>
+        Anomaly Detection
+       </li>
+       <li>
+        Customer Segmentation
+       </li>
+       <li>
+        Improve Supervised Learning
+       </li>
+      </ul>
      </li>
     </ul>
-    Following is the sample ssh command used for benchmarking:
    </p>
-   <p class="code-text">
-    % time ssh  -F ~/.ssh/config my_vm 'exit'
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.182 total
-   </p>
+   <hr/>
+   <h2>
+    Dimensionality Reduction
+   </h2>
    <p>
-    Above example shows the total duration as 1.182s for the ssh command to establish connection to the VM
-    <mark>
-     my_vm
-    </mark>
-    and run the command
-    <mark>
-     exit
-    </mark>
+        <ul>
+            <li>
+                
+            </li>
+        </ul>
+   </p>
+   <hr/>
+   <p>
+    <a href="unsupervised_learning_clustering.html">
+     Clustering at separate page
+    </a>
     .
-   </p>
-   <h2>
-    Baseline Establishment
-   </h2>
-   <p>
-    The above command was repeated 10 times to establish the baseline time for ssh connection.
-   </p>
-   <p class="code-text">
-    % for i in {{1..10}}; do time ssh  -F ~/.ssh/cloudconfig analysis 'exit'; done
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.080 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 3% cpu 1.249 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.143 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.130 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.085 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.165 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.046 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.069 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.160 total
-ssh -F ~/.ssh/cloudconfig analysis 'exit'  0.04s user 0.01s system 4% cpu 1.065 total
-   </p>
-   <p>
-    The average of the total CPU time from above 10 operations is computed as follows:
-   </p>
-   <p class="code-text">
-    % cat ssh_times.txt | awk '{total +=  $12} END {print total/10}'
-1.1192
-   </p>
-   <h2>
-    ControlMaster
-   </h2>
-   <p>
-    This is a feature in Openssh library that allows reuse of ssh connections
    </p>
   </div>
  </body>
