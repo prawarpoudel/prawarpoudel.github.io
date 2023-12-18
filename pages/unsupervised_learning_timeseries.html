@@ -191,137 +191,162 @@
    </p>
    <hr/>
    <h2>
-    Dimensionality Reduction
+    Timeseries Analysis
    </h2>
    <p>
-        <ul>One way is <b>Principal Component Analysis (PCA)</b>
-            <li>
-                Using <b>Singular Value Decomposition (SVD)</b>
-            </li>
-            <li>
-                A feature vector, A, of dimension <i>mxn</i> can be decomposed into three metrics using <i>SVD</i>.
-            </li>
-            <li>
-                which leads to A<i>mxn</i> = U <i>mxm</i> * S <i>mxn</i> * V transpose <i>nxn</i>
-            </li>
-            <li>
-                S is a diagonal matrix, U and V are square metrices. Principal components are computed from V, i.e. multiple original matrix A with V.Transpose.
-            </li>
-            <li>
-                If we want to reduce data from <i>mxn</i> to <i>mxk</i>, ie from n features to k features, we single choose U<i>mxk</i>, S<i>kxk</i> and V.T<i>kxk</i>. In this case we multiply, A<i>mxn</i> with V.Transpose<i>nxk</i>
-            </li>
-            <li>
-                It is important to scale before PCA, because outliers or distant datasets can skew data.
-            </li>
-        </ul>
-        <p class="code-text">
-from sklearn.decomposition import PCA
-
-PCAins = PCA(n_components=3)
-X_trans = PCAins.fit_transform(X_train) #X_trans is our new data
-        </p>
+    <ul>
+        <li>
+            used for forecasting
+        </li>
+        <li>
+            data correlated over time; and are often non-stationary. Thus, very hard to model.
+        </li>
+        <li>
+            needs a lot of data
+        </li>
+        <li>
+            propagation of forecast error from one period to another
+        </li>
+        <li>
+            Time Series: sequence of data points that are organized in time. Data is equally spaced points in time. Irregular data is not considered Time Series.
+        </li>
+        <li>
+            standard measures like <i>forecast miss</i> and <i>error rates by horizon</i> can be misleading
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <b>Univariate</b>: Single data series (could be continuous, binary or categorical); can be multiple unrelated or related series; could be conditional series
+                </li>
+                <li>
+                    <b>Panel/Multivariate</b>: Multiple related series with identifying groups like customer types, department etc; may be used for joint estimation across series
+                </li>
+            </ul>
+        </li>
+        <li>
+            some important functions for plotting are: plot_acf(), plot_pacf(), month_plot(), quarter_plot()
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h4>Autocorrelation Plot</h4>
+   <p>
+    TODO
    </p>
    <p>
     <ul>
-        <b>Kernel PCA</b>
         <li>
-            For non-linear PCA.
+            autocorrelation means todays data is highly dependent on some past value
         </li>
         <li>
-            internally,kernel first maps the data into linear space and applies PCA
+            time interval between correlated values is called <mark>lag</mark>
         </li>
         <li>
-            kernel PCA tend  to preseve the geometric distance between the points
+            a simple way to remove autocorrelation in some degree is to perform subtraction with the lagged data, ie., <mark>data (t) = data_old(t) - data_old(t-delta)</mark>
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h4>
+    Decomposing Time series
+   </h4>
+   <p>
+    <ul>
+        <li>
+            Decomposition allows to remove the deterministic components of data, and make modeling easier.
         </li>
         <li>
-            <p class="code-text">
-from sklearn.decomposition import KernelPCA
-
-kpca = KernelPCA(n_components=3,Kernel='rbf',gamma=1.0 )
-
-X_trans = kpca.fit_transform(X)
-            </p>
+            Trend: Long Term direction, Seasonality: Periodic Behavior, Residual: Irregular/random Fluctuations that is left after trend or seasonality is removed.
+        </li>
+        <li>
+            Models perform better if we remove known sources of variation. For example, trend and seasonality.
+        </li>
+        <li>
+            Types of decomposition:
+            <ul>
+                <li>
+                    Additive decomposition:
+                </li>
+                <li>
+                    Multiplicative decomposition:
+                </li>
+                <li>
+                    Pseudo-additive: combination of both above, for example, we expect a multplicative model, but there could be zero in the value.
+                </li>
+            </ul>
+        </li>
+        <li>
+            How to decompose?
+            <ul>
+                <li>
+                    Single, double or triple exponential smoothing
+                </li>
+                <li>
+                    Locally Estimated Scatterplot Smoothing (LOESS)
+                </li>
+                <li>
+                    Frequency based methods: uses spectral analysis
+                </li>
+            </ul>
         </li>
     </ul>
    </p>
    <p>
+    in python use, <mark>from statsmodels.tsa.seasonal import seasonal_decompose</mark>. The output gives out all the three components, trend, seasonal and residuals. We can specify
+    additive or multiplicative as the model to be used. The <mark>freq</mark> or the <mark>period</mark> argument is an important hyperparameter.
+   </p>
+   <p>
+    <b>Stationarity</b>
     <ul>
-        <b>Multi-Dimensional Scaling (MDS)</b>
         <li>
-            for non-linear transformation
+            Stationary data means having same mean and variance over time. 4 key properties of a stationary series are:
+            <ul>
+                <li>
+                    constant mean
+                </li>
+                <li>
+                    constant variance
+                </li>
+                <li>
+                    constant autocorrelation structure
+                </li>
+                <li>
+                    no periodic component
+                </li>
+            </ul>
         </li>
         <li>
-            does not preserve the variance
+            non-stationary models are very hard to model. Approach to handle non-stationary model is as follows:
+            <ul>
+                <li>
+                    identify the source of non-stationary
+                </li>
+                <li>
+                    transform series to make it stationary
+                </li>
+                <li>
+                    build models with stationary series
+                </li>
+            </ul>
         </li>
         <li>
-            but maintains the geometric distances between points
+            <mark>Augmented-Dickey Fuller Test</mark> can be used to identify if a series is stationary or not. Other method is the visual method,to identify the 4 properties mentioned above.
         </li>
         <li>
             <p class="code-text">
-from sklearn.decomposition import MDS
+from statsmodels.tsa.stattools import adfuller
 
-mds = MDS(n_components=2)
-X_trans = mds.fit_transform(X)
+adf,pvalue,usedlag,nobs,critical_value,icbest = adfuller(data)
             </p>
+            <p>
+                p-value too small means its not stationary. ADF value can sometimes be misleading in concluding the stationarity of the series. This is true in variance fluctuating series (heteroscadicity series)
+            </p>
+        </li>
+        <li>
+
         </li>
     </ul>
    </p>
-   <p>
-    Other popular manifold dimensionality reduction methods are Isomap, TSNE.
-   </p>
-   <p>
-    <b>
-        Non-Negative Matrix Factorization
-    </b>
-        <ul>
-            <li>
-                Same as PCA, but all the matrics must only have positive values
-            </li>
-            <li>
-                for example, for document analysis or pixel values in images   
-            </li>
-            <li>
-                powerful for many problems related to documents, texts, images and videos
-            </li>
-            <li>
-                this is powerful also because it can never undo the application of a latent feature since its only addtion
-            </li>
-            <li>
-                more human interpretable
-            </li>
-            <li>
-                since only positive values are considered, it can loose more information when truncating
-            </li>
-            <li>
-                Unlike PCA, it does not give orthogonal latent vectors.
-            </li>
-            <li>
-                Example of document processing:
-                <ul>
-                    <li>
-                        Input <b>count vectorizer</b> or <b>TF-IDF</b> processed word document
-                    </li>
-                    <li>
-                        parameters to tune: no of topics, text proprocessing
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <p class="code-text">
-from sklearn.decomposition import NMF
-
-nmf = NMF(n_components=3,init='random')
-Xx = nmf.fit(X)
-                </p>
-            </li>
-        </ul>
-   </p>
-   <hr/>
-   <p>
-    <a href="unsupervised_learning_clustering.html">
-     Clustering at separate page
-    </a>
-    .
    </p>
   </div>
  </body>
