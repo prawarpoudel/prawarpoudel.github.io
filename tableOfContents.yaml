@@ -99,3 +99,7 @@ table_contents:
     class: 'listt'
     href: "../pages/unsupervised_learning_dimsreduction.html"
     string: "Unsupervised Machine Learning (Dimensn Redcsn)"
+  "26":
+    class: 'listt'
+    href: "../pages/unsupervised_learning_timeseries.html"
+    string: "Unsupervised Machine Learning (Timeseries)"

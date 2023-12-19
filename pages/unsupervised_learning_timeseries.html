@@ -104,6 +104,9 @@
    <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
     Unsupervised Machine Learning (Dimensn Redcsn)
    </a>
+   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
+    Unsupervised Machine Learning (Timeseries)
+   </a>
   </div>
   <div class="content">
    <h1>
@@ -195,158 +198,405 @@
    </h2>
    <p>
     <ul>
-        <li>
-            used for forecasting
-        </li>
-        <li>
-            data correlated over time; and are often non-stationary. Thus, very hard to model.
-        </li>
-        <li>
-            needs a lot of data
-        </li>
-        <li>
-            propagation of forecast error from one period to another
-        </li>
-        <li>
-            Time Series: sequence of data points that are organized in time. Data is equally spaced points in time. Irregular data is not considered Time Series.
-        </li>
-        <li>
-            standard measures like <i>forecast miss</i> and <i>error rates by horizon</i> can be misleading
-        </li>
-        <li>
-            <ul>
-                <li>
-                    <b>Univariate</b>: Single data series (could be continuous, binary or categorical); can be multiple unrelated or related series; could be conditional series
-                </li>
-                <li>
-                    <b>Panel/Multivariate</b>: Multiple related series with identifying groups like customer types, department etc; may be used for joint estimation across series
-                </li>
-            </ul>
-        </li>
-        <li>
-            some important functions for plotting are: plot_acf(), plot_pacf(), month_plot(), quarter_plot()
-        </li>
+     <li>
+      used for forecasting
+     </li>
+     <li>
+      data correlated over time; and are often non-stationary. Thus, very hard to model.
+     </li>
+     <li>
+      needs a lot of data
+     </li>
+     <li>
+      propagation of forecast error from one period to another
+     </li>
+     <li>
+      Time Series: sequence of data points that are organized in time. Data is equally spaced points in time. Irregular data is not considered Time Series.
+     </li>
+     <li>
+      standard measures like
+      <i>
+       forecast miss
+      </i>
+      and
+      <i>
+       error rates by horizon
+      </i>
+      can be misleading
+     </li>
+     <li>
+      <ul>
+       <li>
+        <b>
+         Univariate
+        </b>
+        : Single data series (could be continuous, binary or categorical); can be multiple unrelated or related series; could be conditional series
+       </li>
+       <li>
+        <b>
+         Panel/Multivariate
+        </b>
+        : Multiple related series with identifying groups like customer types, department etc; may be used for joint estimation across series
+       </li>
+      </ul>
+     </li>
+     <li>
+      some important functions for plotting are: plot_acf(), plot_pacf(), month_plot(), quarter_plot()
+     </li>
     </ul>
    </p>
-   <hr>
-   <h4>Autocorrelation Plot</h4>
+   <hr/>
+   <h4>
+    Autocorrelation Plot
+   </h4>
    <p>
     TODO
    </p>
    <p>
     <ul>
-        <li>
-            autocorrelation means todays data is highly dependent on some past value
-        </li>
-        <li>
-            time interval between correlated values is called <mark>lag</mark>
-        </li>
-        <li>
-            a simple way to remove autocorrelation in some degree is to perform subtraction with the lagged data, ie., <mark>data (t) = data_old(t) - data_old(t-delta)</mark>
-        </li>
+     <li>
+      autocorrelation means todays data is highly dependent on some past value
+     </li>
+     <li>
+      time interval between correlated values is called
+      <mark>
+       lag
+      </mark>
+     </li>
+     <li>
+      a simple way to remove autocorrelation in some degree is to perform subtraction with the lagged data, ie.,
+      <mark>
+       data (t) = data_old(t) - data_old(t-delta)
+      </mark>
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <h4>
     Decomposing Time series
    </h4>
    <p>
     <ul>
-        <li>
-            Decomposition allows to remove the deterministic components of data, and make modeling easier.
-        </li>
-        <li>
-            Trend: Long Term direction, Seasonality: Periodic Behavior, Residual: Irregular/random Fluctuations that is left after trend or seasonality is removed.
-        </li>
-        <li>
-            Models perform better if we remove known sources of variation. For example, trend and seasonality.
-        </li>
-        <li>
-            Types of decomposition:
-            <ul>
-                <li>
-                    Additive decomposition:
-                </li>
-                <li>
-                    Multiplicative decomposition:
-                </li>
-                <li>
-                    Pseudo-additive: combination of both above, for example, we expect a multplicative model, but there could be zero in the value.
-                </li>
-            </ul>
-        </li>
-        <li>
-            How to decompose?
-            <ul>
-                <li>
-                    Single, double or triple exponential smoothing
-                </li>
-                <li>
-                    Locally Estimated Scatterplot Smoothing (LOESS)
-                </li>
-                <li>
-                    Frequency based methods: uses spectral analysis
-                </li>
-            </ul>
-        </li>
+     <li>
+      Decomposition allows to remove the deterministic components of data, and make modeling easier.
+     </li>
+     <li>
+      Trend: Long Term direction, Seasonality: Periodic Behavior, Residual: Irregular/random Fluctuations that is left after trend or seasonality is removed.
+     </li>
+     <li>
+      Models perform better if we remove known sources of variation. For example, trend and seasonality.
+     </li>
+     <li>
+      Types of decomposition:
+      <ul>
+       <li>
+        Additive decomposition:
+       </li>
+       <li>
+        Multiplicative decomposition:
+       </li>
+       <li>
+        Pseudo-additive: combination of both above, for example, we expect a multplicative model, but there could be zero in the value.
+       </li>
+      </ul>
+     </li>
+     <li>
+      How to decompose?
+      <ul>
+       <li>
+        Single, double or triple exponential smoothing
+       </li>
+       <li>
+        Locally Estimated Scatterplot Smoothing (LOESS)
+       </li>
+       <li>
+        Frequency based methods: uses spectral analysis
+       </li>
+      </ul>
+     </li>
     </ul>
    </p>
    <p>
-    in python use, <mark>from statsmodels.tsa.seasonal import seasonal_decompose</mark>. The output gives out all the three components, trend, seasonal and residuals. We can specify
-    additive or multiplicative as the model to be used. The <mark>freq</mark> or the <mark>period</mark> argument is an important hyperparameter.
+    in python use,
+    <mark>
+     from statsmodels.tsa.seasonal import seasonal_decompose
+    </mark>
+    . The output gives out all the three components, trend, seasonal and residuals. We can specify
+    additive or multiplicative as the model to be used. The
+    <mark>
+     freq
+    </mark>
+    or the
+    <mark>
+     period
+    </mark>
+    argument is an important hyperparameter.
    </p>
    <p>
-    <b>Stationarity</b>
+    <b>
+     Stationarity
+    </b>
     <ul>
-        <li>
-            Stationary data means having same mean and variance over time. 4 key properties of a stationary series are:
-            <ul>
-                <li>
-                    constant mean
-                </li>
-                <li>
-                    constant variance
-                </li>
-                <li>
-                    constant autocorrelation structure
-                </li>
-                <li>
-                    no periodic component
-                </li>
-            </ul>
-        </li>
-        <li>
-            non-stationary models are very hard to model. Approach to handle non-stationary model is as follows:
-            <ul>
-                <li>
-                    identify the source of non-stationary
-                </li>
-                <li>
-                    transform series to make it stationary
-                </li>
-                <li>
-                    build models with stationary series
-                </li>
-            </ul>
-        </li>
-        <li>
-            <mark>Augmented-Dickey Fuller Test</mark> can be used to identify if a series is stationary or not. Other method is the visual method,to identify the 4 properties mentioned above.
-        </li>
-        <li>
-            <p class="code-text">
+     <li>
+      Stationary data means having same mean and variance over time. 4 key properties of a stationary series are:
+      <ul>
+       <li>
+        constant mean
+       </li>
+       <li>
+        constant variance
+       </li>
+       <li>
+        constant autocorrelation structure
+       </li>
+       <li>
+        no periodic component
+       </li>
+      </ul>
+     </li>
+     <li>
+      non-stationary models are very hard to model. Approach to handle non-stationary model is as follows:
+      <ul>
+       <li>
+        identify the source of non-stationary
+       </li>
+       <li>
+        transform series to make it stationary
+       </li>
+       <li>
+        build models with stationary series
+       </li>
+      </ul>
+     </li>
+     <li>
+      <mark>
+       Augmented-Dickey Fuller Test
+      </mark>
+      can be used to identify if a series is stationary or not. Other method is the visual method,to identify the 4 properties mentioned above.
+     </li>
+     <li>
+      <p class="code-text">
 from statsmodels.tsa.stattools import adfuller
 
 adf,pvalue,usedlag,nobs,critical_value,icbest = adfuller(data)
-            </p>
-            <p>
-                p-value too small means its not stationary. ADF value can sometimes be misleading in concluding the stationarity of the series. This is true in variance fluctuating series (heteroscadicity series)
-            </p>
-        </li>
-        <li>
+      </p>
+      <p>
+       p-value too small means its not stationary. ADF value can sometimes be misleading in concluding the stationarity of the series. This is true in variance fluctuating series (heteroscadicity series)
+      </p>
+     </li>
+     <li>
+        Sources of non-stationarity in time series data:
+        <ul>
+            <li>
+                changes in trend and changes in variance (heteroscedasticity)
+            </li>
+            <li>
+                dependence on recent observations (autocorrelation)
+            </li>
+            <li>
+                seasonal patterns
+            </li>
+        </ul>
+     </li>
+     <li>
+        To forecast time series data, we need to find if:
+        <ul>
+            <li>
+                our data is non-stationary
+            </li>
+            <li>
+                what causes non-stationarity in our data.
+            </li>
+            <li>
+                can we transform our data into a stationary series that can be modeled
+            </li>
+        </ul>
+     </li>
+     <li>
+        identifying non stationarity:
+        <ul>
+            <li>
+                run sequence plots
+            </li>
+            <li>
+                looking at summary stats: divide data into chunks and look at mean, variance
+            </li>
+            <li>
+                histogram plots: stationary data is close to normal distribution
+            </li>
+            <li>
+                statistical tests: like Augmented Dickey Fuller test; when p-value is less than 0.5, series in stationary
+            </li>
+            <li>
+                best to use more than one technique above
+            </li>
+        </ul>
+     </li>
+     <li>
+        <b>Common transformations to create stationary data from non-stationary data:</b>
+        <ul>
+            <li>
+                remove trend and seasonality
+            </li>
+            <li>
+                remove variances: squash the large values by appliying log transformation
+            </li>
+            <li>
+                remove autocorrelation: subtract data with data (t-lag)
+            </li>
+        </ul>
+     </li>
+     <li>
+        <b>Time series smoothing</b>
+        <ul>
+            <li>
+                imporves the ability to forecast by reducing the impact of noise, improves forward looking forecast
+            </li>
+            <li>
+                <b>Simple Average Smoothing</b>
+            </li>
+            <li>
+                <b>Equally Weighted Moving Average</b>
+            </li>
+            <li>
+                <b>Exponentially Weighted Moving Average</b>
+            </li>
+            <li>
+                <b>Exponential Smooting</b>: apply exponential weights to the values that are in the window for moving average. The weight is applied such that recent values are given more weights. It is more sensitive to local changes.
+            </li>
+            <li>
+                <b>Single Exponential Smoothing:</b>
+                <p>
+                    <img src="../images/singleexponentialsmothing.png" width="40%">
+                </p>
+                It does not pick seasonality nor trend.
+            </li>
+            <li>
+                <p class="code-text">
+from statsmodels.tsa.api import SimpleExpSmoothing
 
-        </li>
+single = SimpleExpSmoothing(train).fit(optimized=True)
+single_preds = single.forecast(10) # predict 10 future points
+                </p>
+            </li>
+            <li>
+                <b>Double Exponential Smooting:</b> has the ability to have trend. For this a second component is added.
+                <p>
+                  <img src="../images/doubleexponentialsmoothing_1.png" width="40%">  <br>
+                  <img src="../images/doubleexponentialsmoothing_2.png" width="20%">  
+                </p>
+                but fails to pick seasonality
+            </li>
+            <li>
+                <p class="code-text">
+from statsmodels.tsa.api import Holt
+
+double = Holt(train).fit(optimized=True)
+double_preds = double.forecast(10) # predict 10 futurepoints
+                </p>
+            </li>
+            <li>
+                <b>Triple Exponential Smoothing:</b> has the ability to pick up seasonality by adding a third term. Here, L is the length of seasonality
+                <p>
+                    <img src="../images/tripleseasonalsmoothing_1.png" width="40%">
+                </p>
+            </li>
+            <li>
+                <p class="code-text">
+from statsmodels.tsa.api import ExponentialSmoothing
+
+triple = ExponentialSmoothing(train,
+                                trend="additive",
+                                seasonal="additive",
+                                    seasonal_periods=13).fit(optimized=True)
+triple_preds = triple.forecast(10)
+                </p>
+            </li>
+        </ul>
+     </li>
+     <hr>
+     <li>
+        <b>ARMA</b>: combines two models, Autoregressive (AR) models that anticipate series dependence on its own past values; And Moving Average (MA) models that anticipate series dependece on past forecast errorss.
+        <ul>     
+            <li>
+                The combination of AR and MA is called <mark>ARMA</mark> model, also called <mark>Box-Jenkins Approach.</mark>
+            </li>
+            <li>
+                AR(p) is assumed to depend on last p values of the time series.Thus the forecast takes the form of a linear combination of the past p- vlaues
+            </li>
+            <li>
+                MA(q) is assumed to depend on last q-values of the forecast error. Thus the current forecast is the linear combination of the past q- forecast errors.
+            </li>
+            <li>
+                The overall forecast is the sum of both the AR and MA aspect discussed in two points above.
+            </li>
+            <li>
+                ARMA assumes the model to be stationary, and the timeseries contains a seasonal component.
+            </li>
+        </ul>
+    </li>
+    <li>
+        How to determine seasonality in a plot?
+        <ul>
+            <li>
+                Autocorrelation plot:
+                <ul>
+                    <li>
+                        summarizes total correlation between a variable and its past values.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Partial Autocorrelation plot:
+                <ul>
+                    <li>
+                        also shows the dependence on past observations
+                    </li>
+                    <li>
+                        however it measures partial results, including all lags
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Seasonal Subseries Plot
+                <ul>
+                    <li>
+                        Shows seasonal average levels for each seasonal period
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        To determine p and q, following approaches can be taken:
+        <ul>
+            <li>
+                To look at the autocorrelation or partial autocorrelation plots;
+                <ul>
+                    <li>
+                        For p in AR(p): in the partial autocorrelation plot (PACF), add confidence intervals. And choose p such that the partial correclation is insignificant for p+1 and beyond.
+                    </li>
+                    <li>
+                        For q in MA(q): in the autocorrelation plot (AFC), add confidence intervals. Choose q such that autocorrelation is insignificant for q+1 and beyond
+                    </li>
+                    <li>
+                        Following shows which kinds of model to choose based on shape of ACF or PACF model:
+                        <p>
+                            <img src="../images/arma_whichtochoose.png" width="50%">
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                To treat p and q as hyperparameter, and apploy grid search, cross validation etc
+            </li>
+        </ul>
+    </li>
+    <li>
+        To tune parameters of ARMA model, since it can be non-linear problem: Non-linear least squares and MLE are common approaches.
+        But most software will do that for us.
+    </li>
     </ul>
-   </p>
    </p>
   </div>
  </body>

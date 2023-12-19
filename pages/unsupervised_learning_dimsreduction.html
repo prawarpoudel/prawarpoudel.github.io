@@ -104,6 +104,9 @@
    <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
     Unsupervised Machine Learning (Dimensn Redcsn)
    </a>
+   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
+    Unsupervised Machine Learning (Timeseries)
+   </a>
   </div>
   <div class="content">
    <h1>
@@ -194,76 +197,137 @@
     Dimensionality Reduction
    </h2>
    <p>
-        <ul>One way is <b>Principal Component Analysis (PCA)</b>
-            <li>
-                Using <b>Singular Value Decomposition (SVD)</b>
-            </li>
-            <li>
-                A feature vector, A, of dimension <i>mxn</i> can be decomposed into three metrics using <i>SVD</i>.
-            </li>
-            <li>
-                which leads to A<i>mxn</i> = U <i>mxm</i> * S <i>mxn</i> * V transpose <i>nxn</i>
-            </li>
-            <li>
-                S is a diagonal matrix, U and V are square metrices. Principal components are computed from V, i.e. multiple original matrix A with V.Transpose.
-            </li>
-            <li>
-                If we want to reduce data from <i>mxn</i> to <i>mxk</i>, ie from n features to k features, we single choose U<i>mxk</i>, S<i>kxk</i> and V.T<i>kxk</i>. In this case we multiply, A<i>mxn</i> with V.Transpose<i>nxk</i>
-            </li>
-            <li>
-                It is important to scale before PCA, because outliers or distant datasets can skew data.
-            </li>
-        </ul>
-        <p class="code-text">
-from sklearn.decomposition import PCA
+    <ul>
+     One way is
+     <b>
+      Principal Component Analysis (PCA)
+     </b>
+     <li>
+      Using
+      <b>
+       Singular Value Decomposition (SVD)
+      </b>
+     </li>
+     <li>
+      A feature vector, A, of dimension
+      <i>
+       mxn
+      </i>
+      can be decomposed into three metrics using
+      <i>
+       SVD
+      </i>
+      .
+     </li>
+     <li>
+      which leads to A
+      <i>
+       mxn
+      </i>
+      = U
+      <i>
+       mxm
+      </i>
+      * S
+      <i>
+       mxn
+      </i>
+      * V transpose
+      <i>
+       nxn
+      </i>
+     </li>
+     <li>
+      S is a diagonal matrix, U and V are square metrices. Principal components are computed from V, i.e. multiple original matrix A with V.Transpose.
+     </li>
+     <li>
+      If we want to reduce data from
+      <i>
+       mxn
+      </i>
+      to
+      <i>
+       mxk
+      </i>
+      , ie from n features to k features, we single choose U
+      <i>
+       mxk
+      </i>
+      , S
+      <i>
+       kxk
+      </i>
+      and V.T
+      <i>
+       kxk
+      </i>
+      . In this case we multiply, A
+      <i>
+       mxn
+      </i>
+      with V.Transpose
+      <i>
+       nxk
+      </i>
+     </li>
+     <li>
+      It is important to scale before PCA, because outliers or distant datasets can skew data.
+     </li>
+    </ul>
+    <p class="code-text">
+     from sklearn.decomposition import PCA
 
 PCAins = PCA(n_components=3)
 X_trans = PCAins.fit_transform(X_train) #X_trans is our new data
-        </p>
+    </p>
    </p>
    <p>
     <ul>
-        <b>Kernel PCA</b>
-        <li>
-            For non-linear PCA.
-        </li>
-        <li>
-            internally,kernel first maps the data into linear space and applies PCA
-        </li>
-        <li>
-            kernel PCA tend  to preseve the geometric distance between the points
-        </li>
-        <li>
-            <p class="code-text">
-from sklearn.decomposition import KernelPCA
+     <b>
+      Kernel PCA
+     </b>
+     <li>
+      For non-linear PCA.
+     </li>
+     <li>
+      internally,kernel first maps the data into linear space and applies PCA
+     </li>
+     <li>
+      kernel PCA tend  to preseve the geometric distance between the points
+     </li>
+     <li>
+      <p class="code-text">
+       from sklearn.decomposition import KernelPCA
 
 kpca = KernelPCA(n_components=3,Kernel='rbf',gamma=1.0 )
 
 X_trans = kpca.fit_transform(X)
-            </p>
-        </li>
+      </p>
+     </li>
     </ul>
    </p>
    <p>
     <ul>
-        <b>Multi-Dimensional Scaling (MDS)</b>
-        <li>
-            for non-linear transformation
-        </li>
-        <li>
-            does not preserve the variance
-        </li>
-        <li>
-            but maintains the geometric distances between points
-        </li>
-        <li>
-            <p class="code-text">
-from sklearn.decomposition import MDS
+     <b>
+      Multi-Dimensional Scaling (MDS)
+     </b>
+     <li>
+      for non-linear transformation
+     </li>
+     <li>
+      does not preserve the variance
+     </li>
+     <li>
+      but maintains the geometric distances between points
+     </li>
+     <li>
+      <p class="code-text">
+       from sklearn.decomposition import MDS
 
 mds = MDS(n_components=2)
 X_trans = mds.fit_transform(X)
-            </p>
-        </li>
+      </p>
+     </li>
     </ul>
    </p>
    <p>
@@ -271,50 +335,58 @@ X_trans = mds.fit_transform(X)
    </p>
    <p>
     <b>
-        Non-Negative Matrix Factorization
+     Non-Negative Matrix Factorization
     </b>
-        <ul>
-            <li>
-                Same as PCA, but all the matrics must only have positive values
-            </li>
-            <li>
-                for example, for document analysis or pixel values in images   
-            </li>
-            <li>
-                powerful for many problems related to documents, texts, images and videos
-            </li>
-            <li>
-                this is powerful also because it can never undo the application of a latent feature since its only addtion
-            </li>
-            <li>
-                more human interpretable
-            </li>
-            <li>
-                since only positive values are considered, it can loose more information when truncating
-            </li>
-            <li>
-                Unlike PCA, it does not give orthogonal latent vectors.
-            </li>
-            <li>
-                Example of document processing:
-                <ul>
-                    <li>
-                        Input <b>count vectorizer</b> or <b>TF-IDF</b> processed word document
-                    </li>
-                    <li>
-                        parameters to tune: no of topics, text proprocessing
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <p class="code-text">
-from sklearn.decomposition import NMF
+    <ul>
+     <li>
+      Same as PCA, but all the matrics must only have positive values
+     </li>
+     <li>
+      for example, for document analysis or pixel values in images
+     </li>
+     <li>
+      powerful for many problems related to documents, texts, images and videos
+     </li>
+     <li>
+      this is powerful also because it can never undo the application of a latent feature since its only addtion
+     </li>
+     <li>
+      more human interpretable
+     </li>
+     <li>
+      since only positive values are considered, it can loose more information when truncating
+     </li>
+     <li>
+      Unlike PCA, it does not give orthogonal latent vectors.
+     </li>
+     <li>
+      Example of document processing:
+      <ul>
+       <li>
+        Input
+        <b>
+         count vectorizer
+        </b>
+        or
+        <b>
+         TF-IDF
+        </b>
+        processed word document
+       </li>
+       <li>
+        parameters to tune: no of topics, text proprocessing
+       </li>
+      </ul>
+     </li>
+     <li>
+      <p class="code-text">
+       from sklearn.decomposition import NMF
 
 nmf = NMF(n_components=3,init='random')
 Xx = nmf.fit(X)
-                </p>
-            </li>
-        </ul>
+      </p>
+     </li>
+    </ul>
    </p>
    <hr/>
    <p>
