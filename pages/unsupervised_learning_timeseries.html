@@ -531,7 +531,7 @@ triple_preds = triple.forecast(10)
                 The overall forecast is the sum of both the AR and MA aspect discussed in two points above.
             </li>
             <li>
-                ARMA assumes the model to be stationary, and the timeseries contains a seasonal component.
+                ARMA assumes the model to be stationary, and the timeseries does not contain a seasonal component.
             </li>
         </ul>
     </li>
@@ -593,10 +593,124 @@ triple_preds = triple.forecast(10)
         </ul>
     </li>
     <li>
+        If a process depends on previous values of itself, it is an AR process; If a process depends on previous errors than it is an MA process.
+    </li>
+    <li>
+        AR models with propogate dependency infinitely; whereas MA models do not propagate the shock infinitely
+    </li>
+    <li>
+        AR process will exhibit exponential decay in ACF and a cut-off in PACF.
+    </li>
+    <li>
+        MA process will exhibit exponential decay in PACF and a cut off in ACF.
+    </li>
+    <li>
+        Following table shows this in a bit detail:
+        <p>
+            <img src="../images/ar_or_ma.png" width="80%">
+        </p>
+    </li>
+    <li>
         To tune parameters of ARMA model, since it can be non-linear problem: Non-linear least squares and MLE are common approaches.
         But most software will do that for us.
     </li>
+    <li>
+        <p class="code-text">
+import statmodels.api as sm
+
+model = sm.tsa.ARMA(sample_datam, (2,0)).fit(trend='nc',disp=0) #(2,0) means we want p=2, q=0
+
+model.params # this will give out two values; will give out 1 value for p=1, q=0
+        </p>
+    </li>
+    <li>
+        For testing purpose, we can also generate data using following 
+        <p class="code-text">
+from statsmodels.tsa.arima_process import arma_generate_sample
+        </p>
+    </li>
+    <li>
+        Similarly, for MA modeling, the same code for AR as above can be used, but with q=1 or q=2.
+    </li>
     </ul>
+   </p>
+   <h4>
+    ARIMA and SARIMA
+   </h4>
+   <p>
+    <ul>
+        <li>
+            To adapt the ARMA model to deal with integrated (ARIMA) and seasonal models (Seasonal ARIMA).
+        </li>
+        <li>
+            <b>Integrated series</b> are a result of adding previous values together, like Stock Prices (integrated) and stock returns. Such integrated series can be 
+            transformed into stationary by subtracting the previous value from each observation.
+        </li>
+        <li>
+            ARIMA extends ARMA for integrated series. It has three components. <b>AR model</b>,<b>Integrated component</b> and <b>MA model</b>
+        </li>
+        <li>
+            ARIMA is denoted as (p,d,q), where p is the order of AR model, d is the number of times to the difference the data, and q is the order of MA model. All non-negative integers.
+        </li>
+        <li>
+            Differencing nonstationary time series data one or more times can make it stationary. This gives the integrated component. <b>d</b> gives the number of times to perform a (t-1) difference on the data.
+        </li>
+        <li>
+            SARIMA incorporates seasonal component. It is represented as (p,d,q)(P,D,Q), where uppercase items represent the metrics across a season. For the difference, for example if we are dealing with yearly data, we subtract with items of last year.
+        </li>
+        <li>
+            Techniques for generating p, d, q, P, D, Q:
+            <ul>
+                <li>
+                    visual inspection; generate ACF, PACF plot.
+                </li>
+                <li>
+                    treat as hyperparameters and corss validate.
+                </li>
+                <li>
+                    examine information criteria (AIC, BIC) which penalize the number of parameters the model uses.
+                </li>
+                <li>
+                    Automated selection using some software is also available
+                </li>
+            </ul>
+        </li>
+        <li>
+            Assumptions for ARIMA, SARIMA
+            <ul>
+                <li>
+                    time series in stationary;
+                </li>
+                <li>
+                    if non stationary, remove trend, seasonality, apply differencing
+                </li>
+                <li>
+                    the past is assumed to represent what will happen in future, in a probabilistic sense.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <p class="code-text">
+from statsmodels.tsa.statspace.sarimax import SARIMAX
+
+srma = sm.tsa.statesace.SARIMAX(data[temp],
+        order=(p,d,q),
+        seasonal_order=(0,1,1,12),
+        trend='c').fit()
+
+srma.summary()
+
+srm.predict(start=start_idx,end=end_idx) # predict values for given index range
+   </p>
+   <p>
+    The AIC and BIc values printed from the <mark>summary()</mark> above should be as little as possible
+   </p>
+   <p>
+    There are auto fit models that will try to find the best models and bit the data. For example, for ARIMA, there is <mark>auto_arima</mark>.
+   </p>
+   <p>
+    <b>Facebook prophet</b>
    </p>
   </div>
  </body>
