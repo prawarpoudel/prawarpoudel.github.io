@@ -526,9 +526,462 @@ roc_curve(y_test, y_pred_classes)
         </li>
     </ul>
    </p>
+   <h3>
+    Creating a CNN Using Keras
+   </h3>
    <p class="code-text">
 #import libraries
 
+from keras.preprocessing.image import ImageDataGenerator
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation, Flatten
+from keras.layers import Conv2D, MaxPooling2D
+
+#image data usually are 3 dims, x-dim, y-dim and 3-channels
+# .. so training data is going to be  4-dims including the no of samples
+
+</p>
+<p>
+    Here we also need to mend the y-values so that it fits the NN. We will convert the values to a vector using one-hot encoding.
+</p>
+<p class="code-text">
+y_train = keras.utils.to_categorical(y_train, num_classes)
+y_test = keras.utils.to_categorical(y_test, num_classes)
+</p>
+
+Let us create the mode.
+<p class="code-text">
+#create a model
+model = Sequential()
+#.. add a Convolutional layer
+model.add(Conv2D(32, (5,5), strides=(2,2), padding='same'),input_shape=x_train.shape[1:])
+model.add(Activation('relu'))
+
+# add another convolution layer
+model.add(Conv2D(32, (5,5), strides=(2,2)))
+model.add(Activation('relu'))
+
+# add a max pool layer, add dropout for some regularization
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Dropout(0.25))
+
+# flatten to 1D data
+model.add(Flatten())
+
+# add 1 more dense layer
+model.add(Dense(512))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
+
+# add another dense layer
+model.add(Dense(num_classes))
+model.add(Activation('softmax'))
+
+model.summary()
+   </p>
+   <p>
+    Now that the model definition is complete, let us define optimizer and compile and fit the model.
+    <p class="code-text">
+batch_size = 32
+
+
+my_optimizer = keras.optimizers.RMSprop(lr=0.0005, decay=1e-6)
+
+model.compile(loss='categorical_crossentropy',
+              optimizer=opt,
+              metrics=['accuracy'])
+
+model.fit(x_train, y_train,
+              batch_size=batch_size,
+              epochs=15,
+              validation_data=(x_test, y_test),
+              shuffle=True)
+    </p>
+    After the model is trained, we can call predict as follows:
+    <p class="code-text">
+model.predict_classes(x_test)
+    </p>
+    The accuracy of the model can be determined as follows:
+    <p class="code-text">
+from sklearn.metrics import accuracy_score
+accuracy_score(np.argmax(y_test, axis=1), model.predict_classes(x_test))
+    </p>
+    Since we had one-hot encoded the y_test, value we used the np.argmax to convert the data back. We can add more convulation layers with different depth to increase model accuracy.
+   </p>
+   <p>
+    We can also freeze training on a layer by setting <mark>trainable</mark> parameter to <mark>false</mark> for the layer.
+   </p>
+   <hr>
+   <h3>Transfer Learning</h3>
+   <p>
+    <ul>
+        <li>
+            earlier layers are more expensive to train, due to vanishing gradient
+        </li>
+        <li>
+            earlier features/layers are very basic characterisitic or generic anyway
+        </li>
+        <li>
+            later layers have more immediate impact on the results, and are more specific
+        </li>
+        <li>
+            early layers should generalize, and can be reused. Later layers can be added based on problem need, and trained
+        </li>
+        <li>
+            This is transfer learning.
+        </li>
+        <li>
+            its more art than science in that there is no specific rule on how may layers to remove or how many new layers to add etc. Following are some of the guiding principles:
+            <ul>
+                <li>
+                    similar data nad problem requires less fine tuning. For eg. CNN to identify "dogs" can easily be adapted to identify "Cats"
+                </li>
+                <li>
+                    more data available is better for better fine tuning
+                </li>
+                <li>
+                    different problem sets, fine tuning may contribute less
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>Fine Tuning:</b> Additional training of a pre-trained network on a specific new dataset.
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h3>Many Famous CNNs</h3>
+   <p>
+    <ul>
+        <li>
+            <b>LeNet</b>:
+            <ul>
+                <li>
+                    Built for MNIST, Yann LeCunn using grayscale image
+                </li>
+                <li>
+                    First convolution used
+                </li>
+                <li>
+                    kernel used is 5x5 and a depth of 6 at first layer. So total no of weights in this layer is 6x((5x5)+1bias) = 156 weights
+                </li>
+                <li>
+                    some kind of pooling layer
+                </li>
+                <li>
+                    another 5x5 filter with stride of 1 and depth of 16. Here the no of weights is (6* (5x5) ) + 1 bias = 151 and times 16 = 2416 weights. The value 6
+                    is because of 6 inputs from earlier layer and 16 because of the depth in this layer.
+                </li>
+                <li>
+                    This is flattened and then there are fully connected layers.
+                </li>
+                <li>
+                    Total of 61706 weights.
+                </li>
+                <li>
+                    Convolutional layers have less weights than fully connected layers.
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>AlexNet</b>:
+            <ul>
+                <li>
+                    considered the flash point of modern Deep Learning.
+                </li>
+                <li>
+                    created in 2012, for imagenet for 1000 classes and 1.2 million images.
+                </li>
+                <li>
+                    model was broken down into two parallel paths.
+                </li>
+                <li>
+                    had weeks of training time.
+                </li>
+                <li>
+                    data augmentation was performed like cropping, flipping and other manipulations to help with overfitting.
+                </li>
+                <li>
+                    convolutions were used with ReLU, the first to use ReLU
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>VGG</b>:
+            <ul>
+                <li>
+                    simple network
+                </li>
+                <li>
+                    avoid manual choice of convolution size, but use only 3x3 kernel size, but use deep ore more convolution layers.
+                </li>
+                <li>
+                    this is because two 3x3 stride convolutions in a row is equivalent to one 5x5; whereas three 3x3 convolutions is equivalent to one 7x7 convolution
+                </li>
+                <li>
+                    idea is that <i>more is better</i>, larger model has lesser no of weights.
+                </li>
+                <li>
+                    can be considered a simplified, deeper LeNet.
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>Inception</b>:
+            <ul>
+                <li>
+                    turn each layers into branches of convolutions; of different depths
+                </li>
+                <li>
+                    each branch handles smaller portion of workload
+                </li>
+                <li>
+                    concatenate different branches at the end
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>ResNet</b>:
+            <ul>
+                <li>
+                    Issue is that as the NN got deeper and deeper, the performance got worse and worse even on training set
+                </li>
+                <li>
+                    Earlier layers are slow to adjust, vanishing gradient.
+                </li>
+                <li>
+                    Then came ResNet as a solution.
+                </li>
+                <li>
+                    The basic idea is that best transformation over multiple layers is close to F(x) + x where x is the input and F(x) is the usual ouput of a layer with activation. Now instead of F(x) we add x and pass it through ReLU one again.
+                </li>
+                <li>
+                    the idea to do this is to keep passing the info from earlier layers to the output of current layer
+                </li>
+                <li>
+                    avoids vanishing gradient
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h3>
+    Recurrent NN
+   </h3>
+   <p>
+    <ul>
+        <li>
+            <b>w</b> is the state at that time or sequence in the event chain, for example a word in text or transaction, <b>U</b> is the linear transformation, <b>S</b> is the state, which is also fed as input to next step. All these three things are combined and passed through an activation to give <b>W</b>.This <b>W</b> is fed into another state. The combined value <b>W</b> is done another linear transformation <v>V</v> and passed through another activation for output <b>o</b>.
+        </li>
+        <li>
+            Following shows unrolled RNN. <br>
+            <img src="../images/unrolled_rnn.png" width="80%">
+        </li>
+        <li>
+            Mathematically, s_i = f(U*w_i + W*s_i-1), i.e. current state = func1(old state, current input)
+        </li>
+        <li>
+            o_i = softmax(V*s_i), i.e. current output = func2(current state)
+        </li>
+        <li>
+            some mathematical notation:
+            <ul>
+                <li>
+                    r = dimension of input vector at each state;
+                </li>
+                <li>
+                    s = dimension of hidden state;
+                </li>
+                <li>
+                    t = dimension of output vector;
+                </li>
+                <li>
+                    Thus, U is sxr matrix
+                </li>
+                <li>
+                    W is sxs matrix
+                </li>
+                <li>
+                    V is txs matrix
+                </li>
+                <li>
+                    The weight matrics U, V and W are same across all positions
+                </li>
+            </ul>
+        </li>
+        <li>
+            slight variation of back propagation called <mark>Backpropagation Through Time</mark>.
+        </li>
+        <li>
+            RNN is prone to vanishing gradient or exploding gradient since the sequence can be too long. To handle this, we set the maximum length of our sequences. Padding or truncating is done to match the length of sequence.
+        </li>
+        <li>
+            RNN is used for following purposes:
+            <ul>
+                <li>
+                    Forecasting sales, loss rates, traffic etc
+                </li>
+                <li>
+                    Speech Recoginition
+                </li>
+                <li>
+                    manufacturing sensor data.
+                </li>
+                <li>
+                    genome sequencing
+                </li>
+            </ul>
+        </li>
+        <li>
+            cons: because of large sequence, it makes it hard to keep information from distant past in current memory.
+        </li>
+        <li>
+            <p class="code-text">
+from keras.models import Sequential
+from keras.layers import Dense, Embedding
+from keras.layers import SimpleRNN
+
+#pad data so that the size fits
+x_train = sequence.pad_sequences(x_train, maxlen=maxlen)
+x_test = sequence.pad_sequences(x_test, maxlen=maxlen)
+
+#create a model
+model = Sequential()
+
+#use embedding since we are using word data
+max_features = 20000
+word_embedding_dim = 50
+model.add(Embedding(max_features, word_embedding_dim))
+
+#add RNN 
+# 5 is the hidden dimension
+model.add(SimpleRNN(5,
+                    kernel_initializer=initializers.RandomNormal(stddev=0.001),
+                    recurrent_initializer=initializers.Identity(gain=1.0),
+                    activation='relu',
+                    input_shape=x_train.shape[1:]))
+# add one dense layer
+model.add(Dense(1, activation='sigmoid'))
+
+
+# add optimizer
+rmsprop = keras.optimizers.RMSprop(lr = .0001)
+
+#compile the output
+model.compile(loss='binary_crossentropy',
+                optimizer=rmsprop,
+                metrics=['accuracy'])
+
+#fit data                
+mode.fit(x_train, y_train,
+            batch_size=batch_size, #=32
+            epochs=10,
+            validation_data=(x_test, y_test))
+
+#evaluate
+score,acc = model.evaluate(x_test, y_test, batch_size=batch_size)
+            </p>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    LSTM
+   </h3>
+   <p>
+    <ul>
+        <li>
+            a complex kind of RNN; to solve the long term memory issue of RNN (c. 1997)
+        </li>
+        <li>
+            standard RNNs have poor memory
+        </li>
+        <li>
+            LSTM defines a more complicated update mechanism for changing the internal state
+        </li>
+        <li>
+            LSTM remembers the information from the last step
+        </li>
+        <li>
+            LSTM adds an explicit memory unit; and augments RNNs with few additional Gate Units. These Gates control how long or if the events will stay in memory.
+        </li>
+        <li>
+            <b>Input Gate:</b> causes items to be stored in memory.
+        </li>
+        <li>
+            <b>Forget Gate:</b> causes items to be removed from memory.
+        </li>
+        <li>
+            <b>Output Gate:</b> causes hidden unit to feed forward (output) in the network
+        </li>
+        <li>
+            <p>
+                single unit of unroll LSTM is as follows:
+            </p>
+            <img src="../images/LSTM.png" width="70%">
+        </li>
+    </ul>
+   </p>
+   <h3>
+    GRU: Gated Recurrent Unit
+   </h3>
+   <p>
+    <ul>
+        <li>
+            has <b>Reset Gate</b> and <b>Update Gate</b>, what to forget and what to keep
+        </li>
+        <li>
+            <img src="../images/gru.png" width="30%">
+        </li>
+        <li>
+            GRUs perform similarly as LSTM, but with shorter training time, esp for small datasets
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Seq2Seq
+   </h3>
+   <p>
+    <ul>
+        <li>
+            convert seq from one domain to another domain, for ex from spanish to french
+        </li>
+        <li>
+            hidden state will have accumulated information from all previous state.
+        </li>
+        <li>
+            works in encoder and decoder fashion for machine translation.
+        </li>
+        <li>
+            <b>Greedy Search:</b> produce words one by one
+        </li>
+        <li>
+            <b>Beam Search:</b> produce multiple different hypotheses to produce words until EOS, and see which full sentence is most likely
+        </li>
+        <li>
+            <b>Attention:</b> the final hidden state of encoder is used as initial state of decoder. Thus each decoder time step depends on same encoder embedding.
+            Attention allows to look at words that matter. It looks into how close the veector in encoder is closest to the decoder state where we are at; and assigns weight simlarly.
+        </li>
+    </ul>
+   </p>
+   <p>
+    Uses:
+    <ul>
+        <li>
+            FOrecasting, Speech Recoginition, Machine Translation, Image Captioning, QA, Anamoly detection, Robotic control    
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h3>
+    Autoencoders
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Deep Learning model used for unsupervised learning.
+        </li>
+    </ul>
    </p>
   </div>
  </body>
