@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="Vector Databases, AI, Machine Learning, NLP, GPT" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Deep Learning
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    Various AI Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/reading_systemdesign.html">
+    System Design Topics (Book)
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Various Kubernetes Topics
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Examples
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    Machine Learning Basics
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/kube_health_checks.html">
+    Kube Health Checks
+   </a>
+   <a class="listt" href="../pages/raft_consensus.html">
+    Raft Algorithm (Consensus)
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/primer_systemdesign.html">
+    System Design Primer (Github)
+   </a>
+   <a class="listt" href="../pages/supervised_learning.html">
+    Supervised Machine Learning
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_clustering.html">
+    Unsupervised Machine Learning (Clustering)
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
+    Unsupervised Machine Learning (Dimensn Redcsn)
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
+    Unsupervised Machine Learning (Timeseries)
+   </a>
+   <a class="listt" href="../pages/deep_learning.html">
+    Deep Learning (Introduction)
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Deep Learning
+   </h1>
+   <h3>
+    Neural Networks
+   </h3>
+   <p>
+    <ul>
+        <li>
+            consists of many cells in each layers; the complete structure can have many layers;
+        </li>
+        <li>
+            each cell is a computational unit that combines the inputs from previous layer. 
+            <ul>
+                <li>
+                    The inputs are fed from each cell in the previous layer.
+                </li>
+                <li>
+                    inputs weights are combines in the cell but are weighted. The net input is denoted as <b>z</b>.
+                </li>
+                <li>
+                    The summed value is operated through some function and is passed on to next layer. The function is called <mark>activation function</mark>, and the output is <b>a</b>.
+                </li>
+                <li>
+                    The cells in the next layer uses this as their inputs and the same things keeps propagating.
+                </li>
+                <li>
+                    The model is going to learn the wights.
+                </li>
+                <li>
+                    For each cell, there is an additional bias input <b>b</b>
+                </li>
+                <li>
+                    most common activation function is the sigmoid function, <mark>f = 1/(1+e^-z)</mark>. This is also easier to use because the
+                    derivative of the function is easy to compute, which comes out to be <mark>f(1-f)</mark>.
+                </li>
+                <li>
+                    a sigle cell with all its inputs, outputs, weights, activation function is called <mark>perceptron</mark>.
+                    <br>
+                    <img src="../images/perceptron.png" class="center-image">
+                </li>
+                <li>
+                    a single neuron only allows for linear decision bounday; real world problem decision boundaries are often times complex. so we need more and many neurons and layers
+                </li>
+                <li>
+                    Using sklearn to create multi layer perceptron:
+                    <p class="code-text">
+from sklearn.neural_network import MLPClassifier
+
+# (5,2,5) indicates 3 hidden layers with 5, 2 and 5 neurons respectively.
+# default activation is 'relu'
+my_net = MLPClassifier(hidden_layer_sizes=(5,2,5), activation='logistic')
+
+my_net.fit(X_train, y_train)
+my_net.predict(X_test)
+                    </p>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Gradient descent is used for updating/learning the weight values. This updates the wight values by a learning factor multiplied by the average of all the errors of prediction.
+        </li>
+        <li>
+            Stocahstic gradient descent uses single value to compute the correction factor and update the wight; but has a chance of being impacted by noise.
+        </li>
+        <li>
+            Mini-batch gradient descent uses a certain subset of data to compute the correction factor, and thus it brings best of both worlds. (computationally efficient than gradient descent, and not so much prone to noise as Stocahstic gradient descent.)
+        </li>
+        <li>
+            These are all feed-forward networks.
+        </li>
+    </ul>
+   </p>
+   <h3>Back Propagation</h3>
+   <p>
+    <ul>
+        <li>
+            Feed-forward networks are not efficient in learning weights.
+        </li>
+        <li>
+            Back propagation uses a loss function <b>J</b> to update weights, that makes the updating the weights very efficient.
+        </li>
+        <li>
+            Here we adjust each weight differently based on the loss function, by using a partial derivative of the loss function with that particular weight value.
+        </li>
+        <li>
+            Gradient to update the weights are computed from the final layer; and the numerical computation is used to replace the partial derivate term. This means the partial derivate of J w.r.t W of final layer is numerically computed as 
+            <mark>(y_actual - y_pred)*(input into the final layer)</mark>.
+        </li>
+        <li>
+            Similarly for the earlier layer, a rather complex term is created, and other earlier layers are built on top of this.
+        </li>
+        <li>
+            Based on the gradient computed, the weight is updated finally using a learning rate.
+        </li>
+        <li>
+            <b>Vanishing Gradient:</b> The max value of the derivative of the sigmoid function is 0.25. if the network layer gets deeper and the more and more terms are being multiplied, the product 
+            gets smaller and smaller at the earlier layers. This is called <mark>Vanishing gradient</mark>. Thus other activation functions like <mark>Relu</mark> etc are more  common.
+        </li>
+    </ul>
+   </p>
+   <h3>Activation Functions</h3>
+   <p>
+    <ul>
+        <li>
+            <b>Step Function</b>: output is 0 for values < 0 and 1 for values greater than 0. Also allows non-linear decision.
+        </li>
+        <li>
+            <b>Sigmoid Function</b>: talked many times, allows non-linear decision. Keeps the values > 0.0 and < 1.0.
+        </li>
+        <li>
+            <b>Hyperbolic Tan</b>: gives a more range, values are -1 to +1. maybe faster and values are between -1 and +1. Could have a possibility of vanishing gradient.
+        </li>
+        <li>
+            <b>Relu</b>: for any values less than x, return 0. Return z for any value equal to or grater than z. More efficient than sigmoid and hyperbolic functions since it zeros out the values.
+            But since zeroing out of nodes losses information, we want to ensure some learning on those nodes. Thus, leaky relu.
+        </li>
+        <li>
+            <b>LeakyRelu</b>: In leaky relu, for input greater or equal than z, the values are still z, but for smaller values, the output is alpha*z, where alpha is some small number. So the output is max(alpha*z,z)
+        </li>
+    </ul>
+   </p>
+  </div>
+ </body>
+</html>

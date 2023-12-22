@@ -103,3 +103,7 @@ table_contents:
     class: 'listt'
     href: "../pages/unsupervised_learning_timeseries.html"
     string: "Unsupervised Machine Learning (Timeseries)"
+  "27":
+    class: 'listt'
+    href: "../pages/deep_learning.html"
+    string: "Deep Learning (Introduction)"

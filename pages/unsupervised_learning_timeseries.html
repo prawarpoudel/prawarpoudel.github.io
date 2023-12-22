@@ -107,6 +107,9 @@
    <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
     Unsupervised Machine Learning (Timeseries)
    </a>
+   <a class="listt" href="../pages/deep_learning.html">
+    Deep Learning (Introduction)
+   </a>
   </div>
   <div class="content">
    <h1>
@@ -376,7 +379,7 @@
      </li>
      <li>
       <p class="code-text">
-from statsmodels.tsa.stattools import adfuller
+       from statsmodels.tsa.stattools import adfuller
 
 adf,pvalue,usedlag,nobs,critical_value,icbest = adfuller(data)
       </p>
@@ -385,253 +388,285 @@ adf,pvalue,usedlag,nobs,critical_value,icbest = adfuller(data)
       </p>
      </li>
      <li>
-        Sources of non-stationarity in time series data:
-        <ul>
-            <li>
-                changes in trend and changes in variance (heteroscedasticity)
-            </li>
-            <li>
-                dependence on recent observations (autocorrelation)
-            </li>
-            <li>
-                seasonal patterns
-            </li>
-        </ul>
+      Sources of non-stationarity in time series data:
+      <ul>
+       <li>
+        changes in trend and changes in variance (heteroscedasticity)
+       </li>
+       <li>
+        dependence on recent observations (autocorrelation)
+       </li>
+       <li>
+        seasonal patterns
+       </li>
+      </ul>
      </li>
      <li>
-        To forecast time series data, we need to find if:
-        <ul>
-            <li>
-                our data is non-stationary
-            </li>
-            <li>
-                what causes non-stationarity in our data.
-            </li>
-            <li>
-                can we transform our data into a stationary series that can be modeled
-            </li>
-        </ul>
+      To forecast time series data, we need to find if:
+      <ul>
+       <li>
+        our data is non-stationary
+       </li>
+       <li>
+        what causes non-stationarity in our data.
+       </li>
+       <li>
+        can we transform our data into a stationary series that can be modeled
+       </li>
+      </ul>
      </li>
      <li>
-        identifying non stationarity:
-        <ul>
-            <li>
-                run sequence plots
-            </li>
-            <li>
-                looking at summary stats: divide data into chunks and look at mean, variance
-            </li>
-            <li>
-                histogram plots: stationary data is close to normal distribution
-            </li>
-            <li>
-                statistical tests: like Augmented Dickey Fuller test; when p-value is less than 0.5, series in stationary
-            </li>
-            <li>
-                best to use more than one technique above
-            </li>
-        </ul>
+      identifying non stationarity:
+      <ul>
+       <li>
+        run sequence plots
+       </li>
+       <li>
+        looking at summary stats: divide data into chunks and look at mean, variance
+       </li>
+       <li>
+        histogram plots: stationary data is close to normal distribution
+       </li>
+       <li>
+        statistical tests: like Augmented Dickey Fuller test; when p-value is less than 0.5, series in stationary
+       </li>
+       <li>
+        best to use more than one technique above
+       </li>
+      </ul>
      </li>
      <li>
-        <b>Common transformations to create stationary data from non-stationary data:</b>
-        <ul>
-            <li>
-                remove trend and seasonality
-            </li>
-            <li>
-                remove variances: squash the large values by appliying log transformation
-            </li>
-            <li>
-                remove autocorrelation: subtract data with data (t-lag)
-            </li>
-        </ul>
+      <b>
+       Common transformations to create stationary data from non-stationary data:
+      </b>
+      <ul>
+       <li>
+        remove trend and seasonality
+       </li>
+       <li>
+        remove variances: squash the large values by appliying log transformation
+       </li>
+       <li>
+        remove autocorrelation: subtract data with data (t-lag)
+       </li>
+      </ul>
      </li>
      <li>
-        <b>Time series smoothing</b>
-        <ul>
-            <li>
-                imporves the ability to forecast by reducing the impact of noise, improves forward looking forecast
-            </li>
-            <li>
-                <b>Simple Average Smoothing</b>
-            </li>
-            <li>
-                <b>Equally Weighted Moving Average</b>
-            </li>
-            <li>
-                <b>Exponentially Weighted Moving Average</b>
-            </li>
-            <li>
-                <b>Exponential Smooting</b>: apply exponential weights to the values that are in the window for moving average. The weight is applied such that recent values are given more weights. It is more sensitive to local changes.
-            </li>
-            <li>
-                <b>Single Exponential Smoothing:</b>
-                <p>
-                    <img src="../images/singleexponentialsmothing.png" width="40%">
-                </p>
-                It does not pick seasonality nor trend.
-            </li>
-            <li>
-                <p class="code-text">
-from statsmodels.tsa.api import SimpleExpSmoothing
+      <b>
+       Time series smoothing
+      </b>
+      <ul>
+       <li>
+        imporves the ability to forecast by reducing the impact of noise, improves forward looking forecast
+       </li>
+       <li>
+        <b>
+         Simple Average Smoothing
+        </b>
+       </li>
+       <li>
+        <b>
+         Equally Weighted Moving Average
+        </b>
+       </li>
+       <li>
+        <b>
+         Exponentially Weighted Moving Average
+        </b>
+       </li>
+       <li>
+        <b>
+         Exponential Smooting
+        </b>
+        : apply exponential weights to the values that are in the window for moving average. The weight is applied such that recent values are given more weights. It is more sensitive to local changes.
+       </li>
+       <li>
+        <b>
+         Single Exponential Smoothing:
+        </b>
+        <p>
+         <img src="../images/singleexponentialsmothing.png" width="40%"/>
+        </p>
+        It does not pick seasonality nor trend.
+       </li>
+       <li>
+        <p class="code-text">
+         from statsmodels.tsa.api import SimpleExpSmoothing
 
 single = SimpleExpSmoothing(train).fit(optimized=True)
 single_preds = single.forecast(10) # predict 10 future points
-                </p>
-            </li>
-            <li>
-                <b>Double Exponential Smooting:</b> has the ability to have trend. For this a second component is added.
-                <p>
-                  <img src="../images/doubleexponentialsmoothing_1.png" width="40%">  <br>
-                  <img src="../images/doubleexponentialsmoothing_2.png" width="20%">  
-                </p>
-                but fails to pick seasonality
-            </li>
-            <li>
-                <p class="code-text">
-from statsmodels.tsa.api import Holt
+        </p>
+       </li>
+       <li>
+        <b>
+         Double Exponential Smooting:
+        </b>
+        has the ability to have trend. For this a second component is added.
+        <p>
+         <img src="../images/doubleexponentialsmoothing_1.png" width="40%"/>
+         <br/>
+         <img src="../images/doubleexponentialsmoothing_2.png" width="20%"/>
+        </p>
+        but fails to pick seasonality
+       </li>
+       <li>
+        <p class="code-text">
+         from statsmodels.tsa.api import Holt
 
 double = Holt(train).fit(optimized=True)
 double_preds = double.forecast(10) # predict 10 futurepoints
-                </p>
-            </li>
-            <li>
-                <b>Triple Exponential Smoothing:</b> has the ability to pick up seasonality by adding a third term. Here, L is the length of seasonality
-                <p>
-                    <img src="../images/tripleseasonalsmoothing_1.png" width="40%">
-                </p>
-            </li>
-            <li>
-                <p class="code-text">
-from statsmodels.tsa.api import ExponentialSmoothing
+        </p>
+       </li>
+       <li>
+        <b>
+         Triple Exponential Smoothing:
+        </b>
+        has the ability to pick up seasonality by adding a third term. Here, L is the length of seasonality
+        <p>
+         <img src="../images/tripleseasonalsmoothing_1.png" width="40%"/>
+        </p>
+       </li>
+       <li>
+        <p class="code-text">
+         from statsmodels.tsa.api import ExponentialSmoothing
 
 triple = ExponentialSmoothing(train,
                                 trend="additive",
                                 seasonal="additive",
                                     seasonal_periods=13).fit(optimized=True)
 triple_preds = triple.forecast(10)
-                </p>
-            </li>
-        </ul>
-     </li>
-     <hr>
-     <li>
-        <b>ARMA</b>: combines two models, Autoregressive (AR) models that anticipate series dependence on its own past values; And Moving Average (MA) models that anticipate series dependece on past forecast errorss.
-        <ul>     
-            <li>
-                The combination of AR and MA is called <mark>ARMA</mark> model, also called <mark>Box-Jenkins Approach.</mark>
-            </li>
-            <li>
-                AR(p) is assumed to depend on last p values of the time series.Thus the forecast takes the form of a linear combination of the past p- vlaues
-            </li>
-            <li>
-                MA(q) is assumed to depend on last q-values of the forecast error. Thus the current forecast is the linear combination of the past q- forecast errors.
-            </li>
-            <li>
-                The overall forecast is the sum of both the AR and MA aspect discussed in two points above.
-            </li>
-            <li>
-                ARMA assumes the model to be stationary, and the timeseries does not contain a seasonal component.
-            </li>
-        </ul>
-    </li>
-    <li>
-        How to determine seasonality in a plot?
-        <ul>
-            <li>
-                Autocorrelation plot:
-                <ul>
-                    <li>
-                        summarizes total correlation between a variable and its past values.
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Partial Autocorrelation plot:
-                <ul>
-                    <li>
-                        also shows the dependence on past observations
-                    </li>
-                    <li>
-                        however it measures partial results, including all lags
-                    </li>
-                </ul>
-            </li>
-            <li>
-                Seasonal Subseries Plot
-                <ul>
-                    <li>
-                        Shows seasonal average levels for each seasonal period
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li>
-        To determine p and q, following approaches can be taken:
-        <ul>
-            <li>
-                To look at the autocorrelation or partial autocorrelation plots;
-                <ul>
-                    <li>
-                        For p in AR(p): in the partial autocorrelation plot (PACF), add confidence intervals. And choose p such that the partial correclation is insignificant for p+1 and beyond.
-                    </li>
-                    <li>
-                        For q in MA(q): in the autocorrelation plot (AFC), add confidence intervals. Choose q such that autocorrelation is insignificant for q+1 and beyond
-                    </li>
-                    <li>
-                        Following shows which kinds of model to choose based on shape of ACF or PACF model:
-                        <p>
-                            <img src="../images/arma_whichtochoose.png" width="50%">
-                        </p>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                To treat p and q as hyperparameter, and apploy grid search, cross validation etc
-            </li>
-        </ul>
-    </li>
-    <li>
-        If a process depends on previous values of itself, it is an AR process; If a process depends on previous errors than it is an MA process.
-    </li>
-    <li>
-        AR models with propogate dependency infinitely; whereas MA models do not propagate the shock infinitely
-    </li>
-    <li>
-        AR process will exhibit exponential decay in ACF and a cut-off in PACF.
-    </li>
-    <li>
-        MA process will exhibit exponential decay in PACF and a cut off in ACF.
-    </li>
-    <li>
-        Following table shows this in a bit detail:
-        <p>
-            <img src="../images/ar_or_ma.png" width="80%">
         </p>
-    </li>
-    <li>
-        To tune parameters of ARMA model, since it can be non-linear problem: Non-linear least squares and MLE are common approaches.
+       </li>
+      </ul>
+     </li>
+     <hr/>
+     <li>
+      <b>
+       ARMA
+      </b>
+      : combines two models, Autoregressive (AR) models that anticipate series dependence on its own past values; And Moving Average (MA) models that anticipate series dependece on past forecast errorss.
+      <ul>
+       <li>
+        The combination of AR and MA is called
+        <mark>
+         ARMA
+        </mark>
+        model, also called
+        <mark>
+         Box-Jenkins Approach.
+        </mark>
+       </li>
+       <li>
+        AR(p) is assumed to depend on last p values of the time series.Thus the forecast takes the form of a linear combination of the past p- vlaues
+       </li>
+       <li>
+        MA(q) is assumed to depend on last q-values of the forecast error. Thus the current forecast is the linear combination of the past q- forecast errors.
+       </li>
+       <li>
+        The overall forecast is the sum of both the AR and MA aspect discussed in two points above.
+       </li>
+       <li>
+        ARMA assumes the model to be stationary, and the timeseries does not contain a seasonal component.
+       </li>
+      </ul>
+     </li>
+     <li>
+      How to determine seasonality in a plot?
+      <ul>
+       <li>
+        Autocorrelation plot:
+        <ul>
+         <li>
+          summarizes total correlation between a variable and its past values.
+         </li>
+        </ul>
+       </li>
+       <li>
+        Partial Autocorrelation plot:
+        <ul>
+         <li>
+          also shows the dependence on past observations
+         </li>
+         <li>
+          however it measures partial results, including all lags
+         </li>
+        </ul>
+       </li>
+       <li>
+        Seasonal Subseries Plot
+        <ul>
+         <li>
+          Shows seasonal average levels for each seasonal period
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li>
+      To determine p and q, following approaches can be taken:
+      <ul>
+       <li>
+        To look at the autocorrelation or partial autocorrelation plots;
+        <ul>
+         <li>
+          For p in AR(p): in the partial autocorrelation plot (PACF), add confidence intervals. And choose p such that the partial correclation is insignificant for p+1 and beyond.
+         </li>
+         <li>
+          For q in MA(q): in the autocorrelation plot (AFC), add confidence intervals. Choose q such that autocorrelation is insignificant for q+1 and beyond
+         </li>
+         <li>
+          Following shows which kinds of model to choose based on shape of ACF or PACF model:
+          <p>
+           <img src="../images/arma_whichtochoose.png" width="50%"/>
+          </p>
+         </li>
+        </ul>
+       </li>
+       <li>
+        To treat p and q as hyperparameter, and apploy grid search, cross validation etc
+       </li>
+      </ul>
+     </li>
+     <li>
+      If a process depends on previous values of itself, it is an AR process; If a process depends on previous errors than it is an MA process.
+     </li>
+     <li>
+      AR models with propogate dependency infinitely; whereas MA models do not propagate the shock infinitely
+     </li>
+     <li>
+      AR process will exhibit exponential decay in ACF and a cut-off in PACF.
+     </li>
+     <li>
+      MA process will exhibit exponential decay in PACF and a cut off in ACF.
+     </li>
+     <li>
+      Following table shows this in a bit detail:
+      <p>
+       <img src="../images/ar_or_ma.png" width="80%"/>
+      </p>
+     </li>
+     <li>
+      To tune parameters of ARMA model, since it can be non-linear problem: Non-linear least squares and MLE are common approaches.
         But most software will do that for us.
-    </li>
-    <li>
-        <p class="code-text">
-import statmodels.api as sm
+     </li>
+     <li>
+      <p class="code-text">
+       import statmodels.api as sm
 
 model = sm.tsa.ARMA(sample_datam, (2,0)).fit(trend='nc',disp=0) #(2,0) means we want p=2, q=0
 
 model.params # this will give out two values; will give out 1 value for p=1, q=0
-        </p>
-    </li>
-    <li>
-        For testing purpose, we can also generate data using following 
-        <p class="code-text">
-from statsmodels.tsa.arima_process import arma_generate_sample
-        </p>
-    </li>
-    <li>
-        Similarly, for MA modeling, the same code for AR as above can be used, but with q=1 or q=2.
-    </li>
+      </p>
+     </li>
+     <li>
+      For testing purpose, we can also generate data using following
+      <p class="code-text">
+       from statsmodels.tsa.arima_process import arma_generate_sample
+      </p>
+     </li>
+     <li>
+      Similarly, for MA modeling, the same code for AR as above can be used, but with q=1 or q=2.
+     </li>
     </ul>
    </p>
    <h4>
@@ -639,60 +674,78 @@ from statsmodels.tsa.arima_process import arma_generate_sample
    </h4>
    <p>
     <ul>
-        <li>
-            To adapt the ARMA model to deal with integrated (ARIMA) and seasonal models (Seasonal ARIMA).
-        </li>
-        <li>
-            <b>Integrated series</b> are a result of adding previous values together, like Stock Prices (integrated) and stock returns. Such integrated series can be 
+     <li>
+      To adapt the ARMA model to deal with integrated (ARIMA) and seasonal models (Seasonal ARIMA).
+     </li>
+     <li>
+      <b>
+       Integrated series
+      </b>
+      are a result of adding previous values together, like Stock Prices (integrated) and stock returns. Such integrated series can be 
             transformed into stationary by subtracting the previous value from each observation.
-        </li>
-        <li>
-            ARIMA extends ARMA for integrated series. It has three components. <b>AR model</b>,<b>Integrated component</b> and <b>MA model</b>
-        </li>
-        <li>
-            ARIMA is denoted as (p,d,q), where p is the order of AR model, d is the number of times to the difference the data, and q is the order of MA model. All non-negative integers.
-        </li>
-        <li>
-            Differencing nonstationary time series data one or more times can make it stationary. This gives the integrated component. <b>d</b> gives the number of times to perform a (t-1) difference on the data.
-        </li>
-        <li>
-            SARIMA incorporates seasonal component. It is represented as (p,d,q)(P,D,Q), where uppercase items represent the metrics across a season. For the difference, for example if we are dealing with yearly data, we subtract with items of last year.
-        </li>
-        <li>
-            Techniques for generating p, d, q, P, D, Q:
-            <ul>
-                <li>
-                    visual inspection; generate ACF, PACF plot.
-                </li>
-                <li>
-                    treat as hyperparameters and corss validate.
-                </li>
-                <li>
-                    examine information criteria (AIC, BIC) which penalize the number of parameters the model uses.
-                </li>
-                <li>
-                    Automated selection using some software is also available
-                </li>
-            </ul>
-        </li>
-        <li>
-            Assumptions for ARIMA, SARIMA
-            <ul>
-                <li>
-                    time series in stationary;
-                </li>
-                <li>
-                    if non stationary, remove trend, seasonality, apply differencing
-                </li>
-                <li>
-                    the past is assumed to represent what will happen in future, in a probabilistic sense.
-                </li>
-            </ul>
-        </li>
+     </li>
+     <li>
+      ARIMA extends ARMA for integrated series. It has three components.
+      <b>
+       AR model
+      </b>
+      ,
+      <b>
+       Integrated component
+      </b>
+      and
+      <b>
+       MA model
+      </b>
+     </li>
+     <li>
+      ARIMA is denoted as (p,d,q), where p is the order of AR model, d is the number of times to the difference the data, and q is the order of MA model. All non-negative integers.
+     </li>
+     <li>
+      Differencing nonstationary time series data one or more times can make it stationary. This gives the integrated component.
+      <b>
+       d
+      </b>
+      gives the number of times to perform a (t-1) difference on the data.
+     </li>
+     <li>
+      SARIMA incorporates seasonal component. It is represented as (p,d,q)(P,D,Q), where uppercase items represent the metrics across a season. For the difference, for example if we are dealing with yearly data, we subtract with items of last year.
+     </li>
+     <li>
+      Techniques for generating p, d, q, P, D, Q:
+      <ul>
+       <li>
+        visual inspection; generate ACF, PACF plot.
+       </li>
+       <li>
+        treat as hyperparameters and corss validate.
+       </li>
+       <li>
+        examine information criteria (AIC, BIC) which penalize the number of parameters the model uses.
+       </li>
+       <li>
+        Automated selection using some software is also available
+       </li>
+      </ul>
+     </li>
+     <li>
+      Assumptions for ARIMA, SARIMA
+      <ul>
+       <li>
+        time series in stationary;
+       </li>
+       <li>
+        if non stationary, remove trend, seasonality, apply differencing
+       </li>
+       <li>
+        the past is assumed to represent what will happen in future, in a probabilistic sense.
+       </li>
+      </ul>
+     </li>
     </ul>
    </p>
    <p class="code-text">
-from statsmodels.tsa.statspace.sarimax import SARIMAX
+    from statsmodels.tsa.statspace.sarimax import SARIMAX
 
 srma = sm.tsa.statesace.SARIMAX(data[temp],
         order=(p,d,q),
@@ -704,18 +757,28 @@ srma.summary()
 srm.predict(start=start_idx,end=end_idx) # predict values for given index range
    </p>
    <p>
-    The AIC and BIc values printed from the <mark>summary()</mark> above should be as little as possible
+    The AIC and BIc values printed from the
+    <mark>
+     summary()
+    </mark>
+    above should be as little as possible
    </p>
    <p>
-    There are auto fit models that will try to find the best models and bit the data. For example, for ARIMA, there is <mark>auto_arima</mark>.
+    There are auto fit models that will try to find the best models and bit the data. For example, for ARIMA, there is
+    <mark>
+     auto_arima
+    </mark>
+    .
    </p>
-   <hr>
-   <h3>Facebook prophet</h3>
+   <hr/>
+   <h3>
+    Facebook prophet
+   </h3>
    <p>
     It adds g(t), s(t), h(t). Its an additive model. g(t) models the non-periodic functions, s(t) models the seasonality and h(t) models the holidays.
     we would prefer historical data of at least a year preferrably to make a good prediction.
     <p class="code-text">
-from fbprophet import Prophet
+     from fbprophet import Prophet
 
 model = Prophet()
 #you make want to take a log of data before fit() to make the variance smaller
@@ -727,10 +790,13 @@ forecast_dates = model.make_future_dataframe(periods=365)
 forecast = model.predict(future)
     </p>
     To work with holidays, for the train data, you must specify the holidays in a dataframe; and supply this df as argument when creating 
-    Prophet object, for example, <mark>model=Prophet(holidays=holidays)</mark>
+    Prophet object, for example,
+    <mark>
+     model=Prophet(holidays=holidays)
+    </mark>
    </p>
    <p class="code-text">
-thanksgiving = pd.DataFrame({
+    thanksgiving = pd.DataFrame({
     'holiday': 'thanksgiving',
     'ds': pd.to_datetime(['xxxx-xx-xx','xxxx-xx-xx']),
     'lower_window': 0,
@@ -743,29 +809,36 @@ model = Prophet(holidays=holidays)
 forecast = model.fit(my_data).predict(forecast_dates)
    </p>
    <p>
-    You can also add regressor using <mark>add_regressor</mark>, and do a cross validation using <mark>.cross_validation()</mark>
+    You can also add regressor using
+    <mark>
+     add_regressor
+    </mark>
+    , and do a cross validation using
+    <mark>
+     .cross_validation()
+    </mark>
    </p>
-   <hr>
+   <hr/>
    <h3>
     Deep Learning
    </h3>
    <p>
     <ul>
-        <li>
-            Automatically able to capture complex patterns and characteristics of time series like trend, seasonality and complex autocorrelations.
-        </li>
-        <li>
-            can simlulatneously model many related series, rather than just one.
-        </li>
-        <li>
-            cons: often overfit
-        </li>
-        <li>
-            cons: challenging to interpret, more like black box
-        </li>
-        <li>
-            cons: computationally expensive
-        </li>
+     <li>
+      Automatically able to capture complex patterns and characteristics of time series like trend, seasonality and complex autocorrelations.
+     </li>
+     <li>
+      can simlulatneously model many related series, rather than just one.
+     </li>
+     <li>
+      cons: often overfit
+     </li>
+     <li>
+      cons: challenging to interpret, more like black box
+     </li>
+     <li>
+      cons: computationally expensive
+     </li>
     </ul>
    </p>
    <h4>
@@ -773,71 +846,88 @@ forecast = model.fit(my_data).predict(forecast_dates)
    </h4>
    <p>
     <ul>
-        <li>
-            maps a sequence of inputs to predicted outputs. Most common format is <mark>many-to-one</mark> format, which maps
+     <li>
+      maps a sequence of inputs to predicted outputs. Most common format is
+      <mark>
+       many-to-one
+      </mark>
+      format, which maps
             many input sequence to one input value.
-        </li>
-        <li>
-            Here, input sequence is fed to update or learn the hidden state. After the hidden state is learned, the model uses the hidden state can be 
+     </li>
+     <li>
+      Here, input sequence is fed to update or learn the hidden state. After the hidden state is learned, the model uses the hidden state can be 
             used to predict the output.
-        </li>
-        <li>
-            Learns patterns, and seasonality.
-        </li>
-        <li>
-            but has dependency over many time steps, and its a problem for RNNs to capture long term dependencies. Thus, <mark>LSTM</mark> is introduced.
-        </li>
-        <li>
-            Following is basic of how RNNs work:
-        </li>
-        <li>
-            <ul>
-                <li>
-                    Three trainiable metrics: U, V and W.
-                </li>
-                <li>
-                    hidden states are represented as h(i)
-                </li>
-                <li>
-                    sigmoid is the activation function, fn(x) = e^x/(e^x + 1)
-                </li>
-                <li>
-                    Weight metrics are applied as linear transformation
-                </li>
-                <li>
-                    Hidden state is updated as <mark>h(i) = fn(U*t(i) + V*h(i-1))</mark>, and <mark>t(out) = W*h(out-1)</mark>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>LSTM</b>
-            <ul>
-                <li>
-                    LSTM take longer to train than RNNs, and are more prone to overfitting.
-                </li>
-                <li>
-                    For each state of time, there is a hidden state and a cell state that allows a long term memory.
-                </li>
-                <li>
-                    the network regulate information flow and memory storage; and they control how memory states are updated and information is passed forward.
-                </li>
-                <li>
-                    gating at each state; and some information might be forgotten if deemed not necessary.
-                </li>
-                <li>
-                    cons: slower to train because of slow backpropagation, and more prone to overfit. More parameters needed.
-                </li>
-                <li>
-                    When the sequence are too long, RNN may perform poorly so choose LSTM. But LSTMs are expensive computationally.
-                </li>
-            </ul>
-        </li>
+     </li>
+     <li>
+      Learns patterns, and seasonality.
+     </li>
+     <li>
+      but has dependency over many time steps, and its a problem for RNNs to capture long term dependencies. Thus,
+      <mark>
+       LSTM
+      </mark>
+      is introduced.
+     </li>
+     <li>
+      Following is basic of how RNNs work:
+     </li>
+     <li>
+      <ul>
+       <li>
+        Three trainiable metrics: U, V and W.
+       </li>
+       <li>
+        hidden states are represented as h(i)
+       </li>
+       <li>
+        sigmoid is the activation function, fn(x) = e^x/(e^x + 1)
+       </li>
+       <li>
+        Weight metrics are applied as linear transformation
+       </li>
+       <li>
+        Hidden state is updated as
+        <mark>
+         h(i) = fn(U*t(i) + V*h(i-1))
+        </mark>
+        , and
+        <mark>
+         t(out) = W*h(out-1)
+        </mark>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       LSTM
+      </b>
+      <ul>
+       <li>
+        LSTM take longer to train than RNNs, and are more prone to overfitting.
+       </li>
+       <li>
+        For each state of time, there is a hidden state and a cell state that allows a long term memory.
+       </li>
+       <li>
+        the network regulate information flow and memory storage; and they control how memory states are updated and information is passed forward.
+       </li>
+       <li>
+        gating at each state; and some information might be forgotten if deemed not necessary.
+       </li>
+       <li>
+        cons: slower to train because of slow backpropagation, and more prone to overfit. More parameters needed.
+       </li>
+       <li>
+        When the sequence are too long, RNN may perform poorly so choose LSTM. But LSTMs are expensive computationally.
+       </li>
+      </ul>
+     </li>
     </ul>
    </p>
    <p>
     Coding examples for RNN:
     <p class="code-text">
-import tensorflow as tf
+     import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, SimpleRNN, LSTM, Activation, Dropout
@@ -855,7 +945,7 @@ model.summary()
     </p>
     Similar is the code example for LSTM:
     <p class="code-text">
-import tensorflow as tf
+     import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, SimpleRNN, LSTM, Activation, Dropout
@@ -872,87 +962,109 @@ model.fit(x_train,y_train, epochs=epoch_num, batch_size=64)
 model.summary()
     </p>
    </p>
-   <hr>
-   <h3>Survival Analysis</h3>
+   <hr/>
+   <h3>
+    Survival Analysis
+   </h3>
    <p>
     <ul>
-        <li>
-            to estimate risk; how likely an event is to occur
-        </li>
-        <li>
-            Survival analysis is estimating the length of time until an event occurs.
-        </li>
-        <li>
-            If our data are complete and unbiased, standard regression methods may work.
-        </li>
-        <li>
-            Survival Analysis allows us to consider cases with incomplete or censored data.
-        </li>
-        <li>
-             Survival function measures the probability that a subject will survive past time t. <br>
-             <mark>S(t) = P(T>t)</mark> where T is the time of event.
-        </li>
-        <li>
-            The function S(t) is non-increasing, and starts at 1.
-        </li>
-        <li>
-            For high enough t, the value of S(t) is 0 and this is where S(t) ends.
-        </li>
-        <li>
-            <mark>Hazard Rate</mark> is the instantaneous rate at which events occur, i.e. <br>
-            <mark>h(t) = f(t)/S(t)</mark>. Sum of all the Hazard rates until a point of time t gives the 
-            cumulative hazard rate. <b>This represents accumulated risk over time</b>.
-        </li>
-        <li>
-            <mark>Kaplan-Meier plot</mark> can be used as a non-parametric estimator for survival probability.
-            <ul>
-                <li>
-                    It plots the cumulative probability of survival beyond each point of time.
-                </li>
-            </ul>
-        </li>
-        <li>
-            To use the Kaplan-Meier curve for our analysis. It gives sample averages.
-            <p class="code-text">
-from lifelines import KaplanMeierFitter
+     <li>
+      to estimate risk; how likely an event is to occur
+     </li>
+     <li>
+      Survival analysis is estimating the length of time until an event occurs.
+     </li>
+     <li>
+      If our data are complete and unbiased, standard regression methods may work.
+     </li>
+     <li>
+      Survival Analysis allows us to consider cases with incomplete or censored data.
+     </li>
+     <li>
+      Survival function measures the probability that a subject will survive past time t.
+      <br/>
+      <mark>
+       S(t) = P(T&gt;t)
+      </mark>
+      where T is the time of event.
+     </li>
+     <li>
+      The function S(t) is non-increasing, and starts at 1.
+     </li>
+     <li>
+      For high enough t, the value of S(t) is 0 and this is where S(t) ends.
+     </li>
+     <li>
+      <mark>
+       Hazard Rate
+      </mark>
+      is the instantaneous rate at which events occur, i.e.
+      <br/>
+      <mark>
+       h(t) = f(t)/S(t)
+      </mark>
+      . Sum of all the Hazard rates until a point of time t gives the 
+            cumulative hazard rate.
+      <b>
+       This represents accumulated risk over time
+      </b>
+      .
+     </li>
+     <li>
+      <mark>
+       Kaplan-Meier plot
+      </mark>
+      can be used as a non-parametric estimator for survival probability.
+      <ul>
+       <li>
+        It plots the cumulative probability of survival beyond each point of time.
+       </li>
+      </ul>
+     </li>
+     <li>
+      To use the Kaplan-Meier curve for our analysis. It gives sample averages.
+      <p class="code-text">
+       from lifelines import KaplanMeierFitter
 
 model = KaplanMeierFitter()
 #here, month and churn are two pd series; for example month and churn values of customers etc
 model.fit(month, churn)
 model.plot()
-            </p>
-        </li>
-        <li>
-            <mark>Survival Regression</mark>
-            <ul>
-                <li>
-                    KM curve gives sample averages; but we may want to use individual level data for survival rate prediction.
-                </li>
-                <li>
-                    survival regression allows us to generate estimates of total risk as a function of time
-                </li>
-                <li>
-                    makes use of censored and uncensored observations to predict hazard rates
-                </li>
-                <li>
-                    allow us to estimate feature effects
-                </li>
-            </ul>
-        </li>
-        <li>
-            TODO: CPH model
-            <ul>
-                <li>
-                    a tool for survival model.
-                </li>
-                <li>
-                    it assumes features have a constant proportional impact on the hazard rate.
-                </li>
-                <li>
-                    using CPH, we can plot estimated survival curves for various categories.
-                </li>
-            </ul>
-        </li>
+      </p>
+     </li>
+     <li>
+      <mark>
+       Survival Regression
+      </mark>
+      <ul>
+       <li>
+        KM curve gives sample averages; but we may want to use individual level data for survival rate prediction.
+       </li>
+       <li>
+        survival regression allows us to generate estimates of total risk as a function of time
+       </li>
+       <li>
+        makes use of censored and uncensored observations to predict hazard rates
+       </li>
+       <li>
+        allow us to estimate feature effects
+       </li>
+      </ul>
+     </li>
+     <li>
+      TODO: CPH model
+      <ul>
+       <li>
+        a tool for survival model.
+       </li>
+       <li>
+        it assumes features have a constant proportional impact on the hazard rate.
+       </li>
+       <li>
+        using CPH, we can plot estimated survival curves for various categories.
+       </li>
+      </ul>
+     </li>
     </ul>
    </p>
   </div>
