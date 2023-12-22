@@ -709,8 +709,251 @@ srm.predict(start=start_idx,end=end_idx) # predict values for given index range
    <p>
     There are auto fit models that will try to find the best models and bit the data. For example, for ARIMA, there is <mark>auto_arima</mark>.
    </p>
+   <hr>
+   <h3>Facebook prophet</h3>
    <p>
-    <b>Facebook prophet</b>
+    It adds g(t), s(t), h(t). Its an additive model. g(t) models the non-periodic functions, s(t) models the seasonality and h(t) models the holidays.
+    we would prefer historical data of at least a year preferrably to make a good prediction.
+    <p class="code-text">
+from fbprophet import Prophet
+
+model = Prophet()
+#you make want to take a log of data before fit() to make the variance smaller
+model.fit(my_data)
+
+#let us make a prediction for a year, by supplying 365 (no of days)
+#.. this will create an empty dataframe with just the dates
+forecast_dates = model.make_future_dataframe(periods=365)
+forecast = model.predict(future)
+    </p>
+    To work with holidays, for the train data, you must specify the holidays in a dataframe; and supply this df as argument when creating 
+    Prophet object, for example, <mark>model=Prophet(holidays=holidays)</mark>
+   </p>
+   <p class="code-text">
+thanksgiving = pd.DataFrame({
+    'holiday': 'thanksgiving',
+    'ds': pd.to_datetime(['xxxx-xx-xx','xxxx-xx-xx']),
+    'lower_window': 0,
+    'upper_window': 1,
+})
+# Similarly, create more if you want to
+holidays = pd.concat((thanksgiving,another_holiday))
+
+model = Prophet(holidays=holidays)
+forecast = model.fit(my_data).predict(forecast_dates)
+   </p>
+   <p>
+    You can also add regressor using <mark>add_regressor</mark>, and do a cross validation using <mark>.cross_validation()</mark>
+   </p>
+   <hr>
+   <h3>
+    Deep Learning
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Automatically able to capture complex patterns and characteristics of time series like trend, seasonality and complex autocorrelations.
+        </li>
+        <li>
+            can simlulatneously model many related series, rather than just one.
+        </li>
+        <li>
+            cons: often overfit
+        </li>
+        <li>
+            cons: challenging to interpret, more like black box
+        </li>
+        <li>
+            cons: computationally expensive
+        </li>
+    </ul>
+   </p>
+   <h4>
+    RNN: Recurrent Neural Networks
+   </h4>
+   <p>
+    <ul>
+        <li>
+            maps a sequence of inputs to predicted outputs. Most common format is <mark>many-to-one</mark> format, which maps
+            many input sequence to one input value.
+        </li>
+        <li>
+            Here, input sequence is fed to update or learn the hidden state. After the hidden state is learned, the model uses the hidden state can be 
+            used to predict the output.
+        </li>
+        <li>
+            Learns patterns, and seasonality.
+        </li>
+        <li>
+            but has dependency over many time steps, and its a problem for RNNs to capture long term dependencies. Thus, <mark>LSTM</mark> is introduced.
+        </li>
+        <li>
+            Following is basic of how RNNs work:
+        </li>
+        <li>
+            <ul>
+                <li>
+                    Three trainiable metrics: U, V and W.
+                </li>
+                <li>
+                    hidden states are represented as h(i)
+                </li>
+                <li>
+                    sigmoid is the activation function, fn(x) = e^x/(e^x + 1)
+                </li>
+                <li>
+                    Weight metrics are applied as linear transformation
+                </li>
+                <li>
+                    Hidden state is updated as <mark>h(i) = fn(U*t(i) + V*h(i-1))</mark>, and <mark>t(out) = W*h(out-1)</mark>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>LSTM</b>
+            <ul>
+                <li>
+                    LSTM take longer to train than RNNs, and are more prone to overfitting.
+                </li>
+                <li>
+                    For each state of time, there is a hidden state and a cell state that allows a long term memory.
+                </li>
+                <li>
+                    the network regulate information flow and memory storage; and they control how memory states are updated and information is passed forward.
+                </li>
+                <li>
+                    gating at each state; and some information might be forgotten if deemed not necessary.
+                </li>
+                <li>
+                    cons: slower to train because of slow backpropagation, and more prone to overfit. More parameters needed.
+                </li>
+                <li>
+                    When the sequence are too long, RNN may perform poorly so choose LSTM. But LSTMs are expensive computationally.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <p>
+    Coding examples for RNN:
+    <p class="code-text">
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, SimpleRNN, LSTM, Activation, Dropout
+
+model = Sequential()
+noofhiddenunits = 10 #could be any number
+model.add(SimpleRNN(noofhiddenunits,input_shape=xxx))
+model.add(Dense(1))
+
+model.compile(loss='mean_squared_error',optimizer='adam')
+model.fit(x_train,y_train, epochs=epoch_num, batch_size=64)
+
+#to print the detail of the model
+model.summary()
+    </p>
+    Similar is the code example for LSTM:
+    <p class="code-text">
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, SimpleRNN, LSTM, Activation, Dropout
+
+model = Sequential()
+noofhiddenunits = 10 #could be any number
+model.add(LSTM(noofhiddenunits,input_shape=xxx))
+model.add(Dense(1))
+
+model.compile(loss='mean_squared_error',optimizer='adam')
+model.fit(x_train,y_train, epochs=epoch_num, batch_size=64)
+
+#to print the detail of the model
+model.summary()
+    </p>
+   </p>
+   <hr>
+   <h3>Survival Analysis</h3>
+   <p>
+    <ul>
+        <li>
+            to estimate risk; how likely an event is to occur
+        </li>
+        <li>
+            Survival analysis is estimating the length of time until an event occurs.
+        </li>
+        <li>
+            If our data are complete and unbiased, standard regression methods may work.
+        </li>
+        <li>
+            Survival Analysis allows us to consider cases with incomplete or censored data.
+        </li>
+        <li>
+             Survival function measures the probability that a subject will survive past time t. <br>
+             <mark>S(t) = P(T>t)</mark> where T is the time of event.
+        </li>
+        <li>
+            The function S(t) is non-increasing, and starts at 1.
+        </li>
+        <li>
+            For high enough t, the value of S(t) is 0 and this is where S(t) ends.
+        </li>
+        <li>
+            <mark>Hazard Rate</mark> is the instantaneous rate at which events occur, i.e. <br>
+            <mark>h(t) = f(t)/S(t)</mark>. Sum of all the Hazard rates until a point of time t gives the 
+            cumulative hazard rate. <b>This represents accumulated risk over time</b>.
+        </li>
+        <li>
+            <mark>Kaplan-Meier plot</mark> can be used as a non-parametric estimator for survival probability.
+            <ul>
+                <li>
+                    It plots the cumulative probability of survival beyond each point of time.
+                </li>
+            </ul>
+        </li>
+        <li>
+            To use the Kaplan-Meier curve for our analysis. It gives sample averages.
+            <p class="code-text">
+from lifelines import KaplanMeierFitter
+
+model = KaplanMeierFitter()
+#here, month and churn are two pd series; for example month and churn values of customers etc
+model.fit(month, churn)
+model.plot()
+            </p>
+        </li>
+        <li>
+            <mark>Survival Regression</mark>
+            <ul>
+                <li>
+                    KM curve gives sample averages; but we may want to use individual level data for survival rate prediction.
+                </li>
+                <li>
+                    survival regression allows us to generate estimates of total risk as a function of time
+                </li>
+                <li>
+                    makes use of censored and uncensored observations to predict hazard rates
+                </li>
+                <li>
+                    allow us to estimate feature effects
+                </li>
+            </ul>
+        </li>
+        <li>
+            TODO: CPH model
+            <ul>
+                <li>
+                    a tool for survival model.
+                </li>
+                <li>
+                    it assumes features have a constant proportional impact on the hazard rate.
+                </li>
+                <li>
+                    using CPH, we can plot estimated survival curves for various categories.
+                </li>
+            </ul>
+        </li>
+    </ul>
    </p>
   </div>
  </body>
