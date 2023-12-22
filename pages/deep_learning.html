@@ -227,12 +227,308 @@ my_net.predict(X_test)
         </li>
         <li>
             <b>Relu</b>: for any values less than x, return 0. Return z for any value equal to or grater than z. More efficient than sigmoid and hyperbolic functions since it zeros out the values.
-            But since zeroing out of nodes losses information, we want to ensure some learning on those nodes. Thus, leaky relu.
+            But since zeroing out of nodes losses information, we want to ensure some learning on those nodes. Thus, leaky relu. No vanishing gradient.
         </li>
         <li>
             <b>LeakyRelu</b>: In leaky relu, for input greater or equal than z, the values are still z, but for smaller values, the output is alpha*z, where alpha is some small number. So the output is max(alpha*z,z)
         </li>
     </ul>
+   </p>
+   <h3>Regularization in Deep Learning</h3>
+   <p>
+    <ul>
+        <li>
+            to prevent overfitting; techniques that prevent generalization error (not necessarily its training error).
+        </li>
+        <li>
+            Different techniques available in deep learning are:
+            <ul>
+                <li>
+                    Add regularization penalty in cost function; Add a term for subtraction in the loss function J.
+                </li>
+                <li>
+                    Dropout: Randomly loose some neurons in the model so that model is not reliant on particular neuron.
+                </li>
+                <li>
+                    Early stopping: so that the model is not perfectly fit to the training data. For eg: check the validation loss every 10 epochs, and if the loss is higher than last time, use the previous model, i.e. from 10 epochs previous.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Optimizers
+   </h3>
+   <p>
+    <ul>
+        <li>
+            There are many variations in the steps of updating weights.
+        </li>
+        <li>
+            <b>Momentum</b>
+            <ul>
+                <li>
+                    the idea is to smooth the variation, by incorporating past values by taking a running average.
+                </li>
+                <li>
+                    its a hyperparameter; generally < 1
+                </li>
+                <li>
+                    often referred by beta or epsilon, and beta is usually chosen as 1-learning rate.
+                </li>
+                <li>
+                    as momentum is gained, the steps of update is going to be more smoother and larger
+                </li>
+                <li>
+                    momentum can overshoot the values also; but overshooting will cause it to shrink and will eventually go to optimum value
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>Nestrov Momentum</b>:
+            <ul>
+                <li>
+                    The idea is to control overshooting by looking ahead.
+                </li>
+                <li>
+                    In this concept, the gradient is applied only to the non-momentum component.
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>AdaGrad</b>:
+            <ul>
+                <li>
+                    Adaptive gradient algorithm
+                </li>
+                <li>
+                    scale the update for each weight separately 
+                </li>
+                <li>
+                    this idea is to update the frequently update weight less.
+                </li>
+                <li>
+                    keeps the running sum of previous updates; and divide the new update by factor of previous sum
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>RMSProp</b>:
+            <ul>
+                <li>
+                    rather than using sum of previous gradients, decay older gradients more than recent ones
+                </li>
+                <li>
+                    quite similar to Adagrad
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>Adam</b>:
+            <ul>
+                <li>
+                    Adaptive Optimization Algorithm
+                </li>
+                <li>
+                    uses first and second order change information and decay both over time.
+                </li>
+                <li>
+                    THus it uses beta-1 and beta-2. The default values can be used as beta-1 = 0.9 and beta-2 = 0.99, and can be let at these values; most of the times, need not to be played around too much.
+                </li>
+                <li>
+                    combines both the idea of RMSProp and Momentum
+                </li>
+            </ul>
+        </li>
+        <li>
+            Adam and RMSProp are quite popular.
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <p>
+    <ul>
+        <li>
+            Gradient descent classical approach to update weight is to do following Wnew = Wold - (learning_rate * derivative)
+        </li>
+        <li>
+            Stochastic Gradient descent take derivate from just one point; but the  data steps are small
+        </li>
+        <li>
+            Mini-batch gradient descent takes a batch for the derivative.Bests of both above points
+        </li>
+        <li>
+            Epoch: refers to the single pass through all of the training data. For full-batch gradient descent, one iteration is one epoch. In SGD or online learning, there would be n-steps taken per epoch where n is the training set size.
+            In minibatch, there will be n/batch-size steps taken per epoch
+        </li>
+        <li>
+            It is recommended to shuffle data after each epoch; so that batches are not the same every time and arrival of data is different.
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h3>
+    Keras and Example
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Keras is high level library that run either on Tensorflow or Theano
+        </li>
+        <li>
+            Provides two approaches to building the structure of model:
+            <ul>
+                <li>
+                    <b>Sequential Model</b>: linear stack of layers, simple and more convenient
+                </li>
+                <li>
+                    <b>Functional API</b>: More detailed and complex; but allows more complicate architectures
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <p>
+    <b>Sequential Model Example:</b>
+    <p class="code-text">
+from keras.models import Sequential
+
+model = Sequential()
+    </p>
+    Then add layers to the model one by one as follows: <i>You may want to pass the data through <mark>StandardScalar()</mark> before passing through NN</i>.
+    <p class="code-text">
+from keras.layers import Dense, Activation
+
+#first hidden layer with 4 neurons
+#.. input_dim is only need at the first hidden layer
+model.add(Dense(units=4, input_dim=3))
+model.add(Activation('sigmoid'))
+
+#next hidden layer
+model.add(Dense(units=1))
+model.add(Activation('sigmoid')) 
+
+#or both lines can be combined as follows
+model.add(Dense(1,activation='sigmoid'))
+
+#print model summary here to see the number of parameters
+model.summary()
+
+#compile the model as
+#defining the learning rate, loss function and metrics
+#use categorical_crossentropy for categorical output
+model.compile(SGD(lr=0.003),'binary_crossentropy',metrics=['accuracy'])
+
+#fit the data, and save the history for analysis
+history = model.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=500)
+
+#--------------------
+#two kinds of predictions are done
+#.. the class predictions
+y_pred_classes = model.predict_classes(x_test)
+#.. the probability predictions
+y_pred_prob = model.predict(x_test)
+    </p>
+    You can draw a ROC curve using following:
+    <p class="code-text">
+roc_curve(y_test, y_pred_classes)
+    </p>
+   </p>
+   <hr>
+   <p>
+    <ul>
+        <li>
+            <b>Multi Class Classification with NN</b>
+            <ul>
+                <li>
+                    Using sigmoid, output are only 0 and 1.
+                </li>
+                <li>
+                    Idea is to use one-hot encoding. (create N- new columns with 1 on the rows for column head)
+                </li>
+                <li>
+                    In NN, let the final layer be a vector with length equal to the number of possible classes.
+                </li>
+                <li>
+                    Extend sigmoid to <mark>softmax()</mark> function. Softmax gives out a vector whose entries are between 0 and 1, the sum of which is 1.
+                </li>
+                <l>
+                    Use <mark>Categorical cross entropy</mark> as loss function.
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>Scaling Inputs</b>
+            <ul>
+                <li>
+                    Going to the formula used to update the weights, it relies on input values at the first layer
+                </li>
+                <li>
+                    So, if we do not normalize, the higher values update more quickly and the lower values do not.
+                </li>
+                <li>
+                    This creates an imbalance; and slows down the speed at which the model converges.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h3>Convolutional Neural Networks</h3>
+   <p>
+    <ul>
+        <li>
+            special features of image data:
+            <ul>
+                <li>
+                    topology of pixels
+                </li>
+                <li>
+                    invariant to translation; invariant to size. A small cat is still a cat
+                </li>
+                <li>
+                    lighting and contrast as factors
+                </li>
+                <li>
+                    closer pixels tend to have similar values
+                </li>
+                <li>
+                    important of edges and shapes in image
+                </li>
+            </ul>
+        </li>
+        <li>
+            fully connected network for image requires a vast number of parameters. For such network, variance will be too high. so a bias is introduced by structuring the network to look for certain kinds of patterns.
+        </li>
+        <li>
+            certain intermediate layers can learn different features; for example using kernel for edge detection.
+        </li>
+        <li>
+            the kernel or filter is performed on all three color matrices; but often times the edges and corners are neglected. Thus padding is introduced.
+        </li>
+        <li>
+            kernel does not need to be square; its better to use an odd size, but not necessary.
+        </li>
+        <li>
+            since the pixels at the edge never get to become center pixel, we pad image with 0. This is called <b>padding</b>.
+        </li>
+        <li>
+            <b>Stride </b>is the step size as the kernel moves across the image. Min = 1; Stride > 1 scales down the output dimension.
+        </li>
+        <li>
+            <b>Depth:</b> no of input channels. FOr example, RGB image has depth of 3. Output from the layer will also have a depth
+        </li>
+        <li>
+            If there are 10 kernels in a layer, the output of that layer will have a depth = 10
+        </li>
+        <li>
+            <b>Pooling</b>: will reduce the size of image by mapping a patch of pixels to a single value. It does not have parameters, but there are different pooling types, for ex: Max pooling, average pooling. It does not move like Kernel though, as there is no overlap in the pooling operations.
+        </li>
+    </ul>
+   </p>
+   <p class="code-text">
+#import libraries
+
    </p>
   </div>
  </body>
