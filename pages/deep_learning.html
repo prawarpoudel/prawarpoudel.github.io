@@ -979,9 +979,324 @@ score,acc = model.evaluate(x_test, y_test, batch_size=batch_size)
    <p>
     <ul>
         <li>
-            Deep Learning model used for unsupervised learning.
+            Deep Learning model used for <b> unsupervised learning.</b>
+        </li>
+        <li>
+            Applications in: Dimensionality Reduction, Preprocessing for classification, identifying essential elements of input data and filtering  out noise
+        </li>
+        <li>
+            PCA only captures linear combination or relationships; but in reality there could be non-linear relationship and best lower dimensional representation could be something else; especially for images.
+        </li>
+        <li>
+            There is <b>encoding step</b>, which is a dense network, that generates some kind of <b>embeddings</b>. The embedding is the lower dimensional representation. This embedding can be fed into a <b>decoder network</b> to reconstruct the original data (image).
+        </li>
+        <li>
+            Some applications may use deep Autoencoders, but most of the times single layer encoding and decoding steps are used.
+        </li>
+        <li>
+            Based on the error in the final reconstructed image, loss function is used to update weight of the networks. Uses the same feed-forward and back-propagation steps
+        </li>
+        <li>
+            <b>Similarly of images</b> can be computed by passing images through the encoder network and by computing similarity score using the latent vectors.
+        </li>
+        <li>
+            Decoders can be used to decompress the data. 
+        </li>
+        <li>
+            Decoders can also used for generative model.
+        </li>
+        <li>
+            Business Applications:
+            <ul>
+                <li>
+                    Dim Redcsn
+                </li>
+                <li>
+                    Information retrieval, compression and decompression
+                </li>
+                <li>
+                    anomaly detection
+                </li>
+                <li>
+                    machine translation
+                </li>
+                <li>
+                    image related applications like denoising, generation, processing, compression
+                </li>
+                <li>
+                    Drug Discovery
+                </li>
+                <li>
+                    Popularity of social media post prediction
+                </li>
+                <li>
+                    sound and music synthesis
+                </li>
+                <li>
+                    sparse Autoencoders used in recommender systems
+                </li>
+            </ul>
         </li>
     </ul>
+   </p>
+   <h3>Variational Autoencoders</h3>
+   <p>
+    <ul>
+        <li>
+            also generate latent representation and can be used to generate samples, new samples
+        </li>
+        <li>
+            it generates parameters, rather than fixed values.
+        </li>
+        <li>
+            uses the (normal) distribution to learn parameters and using those parametes, new samples are generated
+        </li>
+        <li>
+            the loss function has two components:
+            <ul>
+                <li>
+                    1. pixel wise difference between the original imagen and reconstructed image. (eg MSE)
+                </li>
+                <li>
+                    2. difference between the vectors produced by the encoder and the parameters of the standard normal distribution.
+                </li>
+                <li>
+                    For the second component, KL divergence is computed between the generated data and the normal distribution. Thus KL Loss measures the difference between the two distributions.
+                </li>
+                <li>
+                    This second component penalizes the log(sigma) and mean respectively for being different from zero.
+                </li>
+                <li>
+                    KL divergence is not technically necessary to include in the VAE loss function; but it helps to generate the latency space; Similar images are close in the latent space.
+                </li>
+            </ul>
+        </li>
+        <li>
+            to compute the MSE for PCA, similar to .transform(), you can also compute .inverse_transform() to reconstruct the original data.
+        </li>
+        <li>
+            The reconstruction error of variational autoencoders can be higher because variational autoencoders are designed to maximize the interpretability of the latent space, not to minimize the reconstruction error
+        </li>
+        </ul>
+        </p>
+    <h3>
+        Auto Encoder Code
+    </h3>
+    <p>
+        <ul>
+        <li>
+            Following code shows the use of <b>autoencoder</b> using functional API:
+            <p class="code-text">
+from keras.layers import Input, Dense
+from keras.models import Model
+
+#we want to compress it to 64 dimensions with 256 hidden dimension
+ENCODING_DIM = 64
+HIDDEN_DIM = 256
+
+#defining ENCODER with input layer for MNIST dataset (28x28 = 764)
+inputs = Input(shape=(784,)) 
+encoded_hidden = Dense(HIDDEN_DIM, activation="relu")(inputs)
+encoded = Dense(ENCODING_DIM,activation='sigmoid')(encoded_hidden)
+encoder_model = Model(inputs, encoded, name='encoder')
+
+#defining DECODER
+encoded_inputs = Input(shape=(ENCODING_DIM,), name='encoding')
+decoded_hidden = Dense(HIDDEN_DIM, activation="relu")(encoded_inputs)
+reconstruction = Dense(784, activation="sigmoid")(decoded_hiddens)
+decoder_model = Model(encoded_inputs, reconstruction, name='decoder')
+
+#combine the two 
+outputs = decoder_model(encoder_model(inputs))
+
+atuo_Encoder = Model(inputs=inputs, 
+                   outputs=outputs)
+
+atuo_Encoder.compile(optimizer='rmsprop',
+                 loss='binary_crossentropy',
+                 metrics=['accuracy'])
+
+#same input output
+atuo_Encoder.fit(x_train,x_train,shuffle=True,epochs=5,batch_size=32)                 
+            </p>
+            To see only the encoder output
+            <p class="code-text">
+encoded_images = encoder_model.predict(x_test)
+            </p>
+            To encode and decode at the same time: You can compute the MSE comparing the output with the x_test
+            <p class="code-text">
+decoded_images = atuo_Encoder.predict(x_test)
+            </p>
+        </li>
+        <li>
+            Code for <b>Variational Autoencoders</b>: First encoder model
+            <p class="code-text">
+inputs = Input(shape=(784, ), name='encoder_input')
+x = Dense(hidden_dim, activation='relu')(inputs)
+
+z_mean = Dense(latent_dim, name='z_mean')(x)
+z_log_var = Dense(latent_dim, name='z_log_var')(x)
+
+#sampling is a function that we define
+z = Lambda(sampling, name='z')([z_mean, z_log_var])
+encoder_model = Model(inputs, [z_mean, z_log_var, z], name='encoder')
+            </p>
+            Then Decoder model:
+            <p class="code-text">
+latent_inputs = Input(shape=(latent_dim,),)
+x = Dense(hidden_dim, activation='relu')(latent_inputs)
+outputs = Dense(784, activation='sigmoid')(x)
+decoder_model = Model(latent_inputs, outputs, name='decoder')
+            </p>
+            Create complete model:
+            <p class="code-text">
+outputs = decoder_model(encoder_model(inputs)[2])
+vae_model = Model(inputs, outputs, name='vae_mlp')
+            </p>
+            Now add loss function. We need to define our own. For this we need three components that can be defined using the two terms, reconstruction loss, kl loss.
+            Let us name the sum as <b>total_vae_loss</b>
+            <p class="code-text">
+vae_model.add_loss(total_vae_loss)
+
+vae_model.compile(optimizer='rmsprop',
+                    metrics=['accuracy'])
+vae_model.fit(x_train, epochs=50,batch_size=128)
+            </p>
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h3>
+    Generative Adversarial Networks (GAN)s
+   </h3>
+   <p>
+    <ul>
+        <li>
+            The development of GANs is motivated by the vulnerability of standard Deep Learning approach to input manipulation
+        </li>
+        <li>
+            More sensitive to hyperparameters than common NN.
+        </li>
+        <li>
+            Its  a way to train two NN simultaneously; The two NN are:
+            <ul>
+                <li>
+                    <b>Generator:</b> that learns to map random noise to images indistinguishable from those in training set.
+                </li>
+                <li>
+                    <b>Discriminator:</b> Try to identify if the input is real or fake.
+                </li>
+            </ul>
+        </li>
+        <li>
+            Steps:
+            <ul>
+                <li>
+                    Randomly inititalize the weights of generator and discriminator NNs
+                </li>
+                <li>
+                    Randomly initialize the noise vector and genrate image using generator.
+                </li>
+                <li>
+                    Discriminator NN: Predict the probability of generated image to be real.
+                </li>
+                <li>
+                    Compute two losses assuming the generated image is fake (L0) and assuming its real (L1). Combining these two will give total loss function
+                </li>
+                <li>
+                    Using L0 to train the discriminator using backpropagation.
+                </li>
+                <li>
+                    Compute derivate of L1. L1 is not used to train the discriminator but the derivative of L1 is used to train the generator.
+                </li>
+                <li>
+                    Pass the real image in the discriminator (this time the input to discriminator is a real image, directly). Compute L1.
+                </li>
+                <li>
+                    This L1 is then used to train the discriminator NN.
+                </li>
+                <li>
+                    Repeat the process again and again with new random noise; until the images from the generator is close to real.
+                </li>
+                <li>
+                    <b>Inception Score:</b> is a metric that can be used to quantify the image quality. This can also be used to determine when to stop the iterative process.
+                </li>
+            </ul>
+        </li>
+        <li>
+            Both the generator and discriminator should learn at the same rate. It is also more sensitive to other hyperparameters like loss function, optimization techniques, nn architectures etc
+        </li>
+        <li>
+            some examples of GANs are deepfakes, age interpolation, text to image
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h3>
+    LIME: Locally Interpretable Model Agnostic Explanations
+   </h3>
+   <p>
+    <ul>
+        <li>
+            DL and NN are hard to explain or interpret.
+        </li>
+        <li>
+            LIME treats model as black box and focus on the sensitivity of outputs to small changes in inputs.
+        </li>
+        <li>
+            It is analogous to feature importance.
+        </li>
+        <li>
+            summarizes the sensitivity of regression and classification outcomes to each variable
+        </li>
+        <li>
+            cons: nonlinearities and variables that cannot be perturbed pose challenges to this approach
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h3>
+    Reinforcement Learning
+   </h3>
+   <p>
+    <ul>
+        <li>
+            Agents interact with Environment. Agent is the ad on a webpage or a player and Environment is the webpage or game etc
+        </li>
+        <li>
+            action impact environment which impacts agents via Rewards.
+        </li>
+        <li>
+            rewards are generally unknown and must be estimated by agent. Process repeats, so the agents learn how to estimate rewards over time.
+        </li>
+        <li>
+            Playing Atari or AlphaGo are examples for Reinforcement Learning.
+        </li>
+        <li>
+            RL are highly limited by data and computational requirements.
+        </li>
+        <li>
+            However, recommendation engines, marketing, atuotmated biddings are some successful examples of business applications. 
+        </li>
+        <li>
+            <img src="../images/reinforcement.png" width="50%">
+        </li>
+        <li>
+            In the implementation, agent chooses an action though a policy in response to a state. Agents works to maximize the rewards over time.
+        </li>
+        <li>
+            as the state changes, the problem keeps on changing so its different from the other ML algorithms where the problem is static.
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Implementation in Python
+   </h3>
+   <p>
+    Using <mark>gym</mark> library from openAI
+   </p>
+   <p class="code-text">
+import gym
    </p>
   </div>
  </body>
