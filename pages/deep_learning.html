@@ -110,6 +110,9 @@
    <a class="listt" href="../pages/deep_learning.html">
     Deep Learning (Introduction)
    </a>
+   <a class="listt" href="../pages/fastapi_react.html">
+    App Using FastAPI/React
+   </a>
   </div>
   <div class="content">
    <h1>
@@ -120,46 +123,73 @@
    </h3>
    <p>
     <ul>
-        <li>
-            consists of many cells in each layers; the complete structure can have many layers;
-        </li>
-        <li>
-            each cell is a computational unit that combines the inputs from previous layer. 
-            <ul>
-                <li>
-                    The inputs are fed from each cell in the previous layer.
-                </li>
-                <li>
-                    inputs weights are combines in the cell but are weighted. The net input is denoted as <b>z</b>.
-                </li>
-                <li>
-                    The summed value is operated through some function and is passed on to next layer. The function is called <mark>activation function</mark>, and the output is <b>a</b>.
-                </li>
-                <li>
-                    The cells in the next layer uses this as their inputs and the same things keeps propagating.
-                </li>
-                <li>
-                    The model is going to learn the wights.
-                </li>
-                <li>
-                    For each cell, there is an additional bias input <b>b</b>
-                </li>
-                <li>
-                    most common activation function is the sigmoid function, <mark>f = 1/(1+e^-z)</mark>. This is also easier to use because the
-                    derivative of the function is easy to compute, which comes out to be <mark>f(1-f)</mark>.
-                </li>
-                <li>
-                    a sigle cell with all its inputs, outputs, weights, activation function is called <mark>perceptron</mark>.
-                    <br>
-                    <img src="../images/perceptron.png" class="center-image">
-                </li>
-                <li>
-                    a single neuron only allows for linear decision bounday; real world problem decision boundaries are often times complex. so we need more and many neurons and layers
-                </li>
-                <li>
-                    Using sklearn to create multi layer perceptron:
-                    <p class="code-text">
-from sklearn.neural_network import MLPClassifier
+     <li>
+      consists of many cells in each layers; the complete structure can have many layers;
+     </li>
+     <li>
+      each cell is a computational unit that combines the inputs from previous layer.
+      <ul>
+       <li>
+        The inputs are fed from each cell in the previous layer.
+       </li>
+       <li>
+        inputs weights are combines in the cell but are weighted. The net input is denoted as
+        <b>
+         z
+        </b>
+        .
+       </li>
+       <li>
+        The summed value is operated through some function and is passed on to next layer. The function is called
+        <mark>
+         activation function
+        </mark>
+        , and the output is
+        <b>
+         a
+        </b>
+        .
+       </li>
+       <li>
+        The cells in the next layer uses this as their inputs and the same things keeps propagating.
+       </li>
+       <li>
+        The model is going to learn the wights.
+       </li>
+       <li>
+        For each cell, there is an additional bias input
+        <b>
+         b
+        </b>
+       </li>
+       <li>
+        most common activation function is the sigmoid function,
+        <mark>
+         f = 1/(1+e^-z)
+        </mark>
+        . This is also easier to use because the
+                    derivative of the function is easy to compute, which comes out to be
+        <mark>
+         f(1-f)
+        </mark>
+        .
+       </li>
+       <li>
+        a sigle cell with all its inputs, outputs, weights, activation function is called
+        <mark>
+         perceptron
+        </mark>
+        .
+        <br/>
+        <img class="center-image" src="../images/perceptron.png"/>
+       </li>
+       <li>
+        a single neuron only allows for linear decision bounday; real world problem decision boundaries are often times complex. so we need more and many neurons and layers
+       </li>
+       <li>
+        Using sklearn to create multi layer perceptron:
+        <p class="code-text">
+         from sklearn.neural_network import MLPClassifier
 
 # (5,2,5) indicates 3 hidden layers with 5, 2 and 5 neurons respectively.
 # default activation is 'relu'
@@ -167,93 +197,132 @@ my_net = MLPClassifier(hidden_layer_sizes=(5,2,5), activation='logistic')
 
 my_net.fit(X_train, y_train)
 my_net.predict(X_test)
-                    </p>
-                </li>
-            </ul>
-        </li>
-        <li>
-            Gradient descent is used for updating/learning the weight values. This updates the wight values by a learning factor multiplied by the average of all the errors of prediction.
-        </li>
-        <li>
-            Stocahstic gradient descent uses single value to compute the correction factor and update the wight; but has a chance of being impacted by noise.
-        </li>
-        <li>
-            Mini-batch gradient descent uses a certain subset of data to compute the correction factor, and thus it brings best of both worlds. (computationally efficient than gradient descent, and not so much prone to noise as Stocahstic gradient descent.)
-        </li>
-        <li>
-            These are all feed-forward networks.
-        </li>
+        </p>
+       </li>
+      </ul>
+     </li>
+     <li>
+      Gradient descent is used for updating/learning the weight values. This updates the wight values by a learning factor multiplied by the average of all the errors of prediction.
+     </li>
+     <li>
+      Stocahstic gradient descent uses single value to compute the correction factor and update the wight; but has a chance of being impacted by noise.
+     </li>
+     <li>
+      Mini-batch gradient descent uses a certain subset of data to compute the correction factor, and thus it brings best of both worlds. (computationally efficient than gradient descent, and not so much prone to noise as Stocahstic gradient descent.)
+     </li>
+     <li>
+      These are all feed-forward networks.
+     </li>
     </ul>
    </p>
-   <h3>Back Propagation</h3>
+   <h3>
+    Back Propagation
+   </h3>
    <p>
     <ul>
-        <li>
-            Feed-forward networks are not efficient in learning weights.
-        </li>
-        <li>
-            Back propagation uses a loss function <b>J</b> to update weights, that makes the updating the weights very efficient.
-        </li>
-        <li>
-            Here we adjust each weight differently based on the loss function, by using a partial derivative of the loss function with that particular weight value.
-        </li>
-        <li>
-            Gradient to update the weights are computed from the final layer; and the numerical computation is used to replace the partial derivate term. This means the partial derivate of J w.r.t W of final layer is numerically computed as 
-            <mark>(y_actual - y_pred)*(input into the final layer)</mark>.
-        </li>
-        <li>
-            Similarly for the earlier layer, a rather complex term is created, and other earlier layers are built on top of this.
-        </li>
-        <li>
-            Based on the gradient computed, the weight is updated finally using a learning rate.
-        </li>
-        <li>
-            <b>Vanishing Gradient:</b> The max value of the derivative of the sigmoid function is 0.25. if the network layer gets deeper and the more and more terms are being multiplied, the product 
-            gets smaller and smaller at the earlier layers. This is called <mark>Vanishing gradient</mark>. Thus other activation functions like <mark>Relu</mark> etc are more  common.
-        </li>
+     <li>
+      Feed-forward networks are not efficient in learning weights.
+     </li>
+     <li>
+      Back propagation uses a loss function
+      <b>
+       J
+      </b>
+      to update weights, that makes the updating the weights very efficient.
+     </li>
+     <li>
+      Here we adjust each weight differently based on the loss function, by using a partial derivative of the loss function with that particular weight value.
+     </li>
+     <li>
+      Gradient to update the weights are computed from the final layer; and the numerical computation is used to replace the partial derivate term. This means the partial derivate of J w.r.t W of final layer is numerically computed as
+      <mark>
+       (y_actual - y_pred)*(input into the final layer)
+      </mark>
+      .
+     </li>
+     <li>
+      Similarly for the earlier layer, a rather complex term is created, and other earlier layers are built on top of this.
+     </li>
+     <li>
+      Based on the gradient computed, the weight is updated finally using a learning rate.
+     </li>
+     <li>
+      <b>
+       Vanishing Gradient:
+      </b>
+      The max value of the derivative of the sigmoid function is 0.25. if the network layer gets deeper and the more and more terms are being multiplied, the product 
+            gets smaller and smaller at the earlier layers. This is called
+      <mark>
+       Vanishing gradient
+      </mark>
+      . Thus other activation functions like
+      <mark>
+       Relu
+      </mark>
+      etc are more  common.
+     </li>
     </ul>
    </p>
-   <h3>Activation Functions</h3>
+   <h3>
+    Activation Functions
+   </h3>
    <p>
     <ul>
-        <li>
-            <b>Step Function</b>: output is 0 for values < 0 and 1 for values greater than 0. Also allows non-linear decision.
-        </li>
-        <li>
-            <b>Sigmoid Function</b>: talked many times, allows non-linear decision. Keeps the values > 0.0 and < 1.0.
-        </li>
-        <li>
-            <b>Hyperbolic Tan</b>: gives a more range, values are -1 to +1. maybe faster and values are between -1 and +1. Could have a possibility of vanishing gradient.
-        </li>
-        <li>
-            <b>Relu</b>: for any values less than x, return 0. Return z for any value equal to or grater than z. More efficient than sigmoid and hyperbolic functions since it zeros out the values.
+     <li>
+      <b>
+       Step Function
+      </b>
+      : output is 0 for values &lt; 0 and 1 for values greater than 0. Also allows non-linear decision.
+     </li>
+     <li>
+      <b>
+       Sigmoid Function
+      </b>
+      : talked many times, allows non-linear decision. Keeps the values &gt; 0.0 and &lt; 1.0.
+     </li>
+     <li>
+      <b>
+       Hyperbolic Tan
+      </b>
+      : gives a more range, values are -1 to +1. maybe faster and values are between -1 and +1. Could have a possibility of vanishing gradient.
+     </li>
+     <li>
+      <b>
+       Relu
+      </b>
+      : for any values less than x, return 0. Return z for any value equal to or grater than z. More efficient than sigmoid and hyperbolic functions since it zeros out the values.
             But since zeroing out of nodes losses information, we want to ensure some learning on those nodes. Thus, leaky relu. No vanishing gradient.
-        </li>
-        <li>
-            <b>LeakyRelu</b>: In leaky relu, for input greater or equal than z, the values are still z, but for smaller values, the output is alpha*z, where alpha is some small number. So the output is max(alpha*z,z)
-        </li>
+     </li>
+     <li>
+      <b>
+       LeakyRelu
+      </b>
+      : In leaky relu, for input greater or equal than z, the values are still z, but for smaller values, the output is alpha*z, where alpha is some small number. So the output is max(alpha*z,z)
+     </li>
     </ul>
    </p>
-   <h3>Regularization in Deep Learning</h3>
+   <h3>
+    Regularization in Deep Learning
+   </h3>
    <p>
     <ul>
-        <li>
-            to prevent overfitting; techniques that prevent generalization error (not necessarily its training error).
-        </li>
-        <li>
-            Different techniques available in deep learning are:
-            <ul>
-                <li>
-                    Add regularization penalty in cost function; Add a term for subtraction in the loss function J.
-                </li>
-                <li>
-                    Dropout: Randomly loose some neurons in the model so that model is not reliant on particular neuron.
-                </li>
-                <li>
-                    Early stopping: so that the model is not perfectly fit to the training data. For eg: check the validation loss every 10 epochs, and if the loss is higher than last time, use the previous model, i.e. from 10 epochs previous.
-                </li>
-            </ul>
-        </li>
+     <li>
+      to prevent overfitting; techniques that prevent generalization error (not necessarily its training error).
+     </li>
+     <li>
+      Different techniques available in deep learning are:
+      <ul>
+       <li>
+        Add regularization penalty in cost function; Add a term for subtraction in the loss function J.
+       </li>
+       <li>
+        Dropout: Randomly loose some neurons in the model so that model is not reliant on particular neuron.
+       </li>
+       <li>
+        Early stopping: so that the model is not perfectly fit to the training data. For eg: check the validation loss every 10 epochs, and if the loss is higher than last time, use the previous model, i.e. from 10 epochs previous.
+       </li>
+      </ul>
+     </li>
     </ul>
    </p>
    <h3>
@@ -261,143 +330,173 @@ my_net.predict(X_test)
    </h3>
    <p>
     <ul>
-        <li>
-            There are many variations in the steps of updating weights.
-        </li>
-        <li>
-            <b>Momentum</b>
-            <ul>
-                <li>
-                    the idea is to smooth the variation, by incorporating past values by taking a running average.
-                </li>
-                <li>
-                    its a hyperparameter; generally < 1
-                </li>
-                <li>
-                    often referred by beta or epsilon, and beta is usually chosen as 1-learning rate.
-                </li>
-                <li>
-                    as momentum is gained, the steps of update is going to be more smoother and larger
-                </li>
-                <li>
-                    momentum can overshoot the values also; but overshooting will cause it to shrink and will eventually go to optimum value
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>Nestrov Momentum</b>:
-            <ul>
-                <li>
-                    The idea is to control overshooting by looking ahead.
-                </li>
-                <li>
-                    In this concept, the gradient is applied only to the non-momentum component.
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>AdaGrad</b>:
-            <ul>
-                <li>
-                    Adaptive gradient algorithm
-                </li>
-                <li>
-                    scale the update for each weight separately 
-                </li>
-                <li>
-                    this idea is to update the frequently update weight less.
-                </li>
-                <li>
-                    keeps the running sum of previous updates; and divide the new update by factor of previous sum
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>RMSProp</b>:
-            <ul>
-                <li>
-                    rather than using sum of previous gradients, decay older gradients more than recent ones
-                </li>
-                <li>
-                    quite similar to Adagrad
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>Adam</b>:
-            <ul>
-                <li>
-                    Adaptive Optimization Algorithm
-                </li>
-                <li>
-                    uses first and second order change information and decay both over time.
-                </li>
-                <li>
-                    THus it uses beta-1 and beta-2. The default values can be used as beta-1 = 0.9 and beta-2 = 0.99, and can be let at these values; most of the times, need not to be played around too much.
-                </li>
-                <li>
-                    combines both the idea of RMSProp and Momentum
-                </li>
-            </ul>
-        </li>
-        <li>
-            Adam and RMSProp are quite popular.
-        </li>
+     <li>
+      There are many variations in the steps of updating weights.
+     </li>
+     <li>
+      <b>
+       Momentum
+      </b>
+      <ul>
+       <li>
+        the idea is to smooth the variation, by incorporating past values by taking a running average.
+       </li>
+       <li>
+        its a hyperparameter; generally &lt; 1
+       </li>
+       <li>
+        often referred by beta or epsilon, and beta is usually chosen as 1-learning rate.
+       </li>
+       <li>
+        as momentum is gained, the steps of update is going to be more smoother and larger
+       </li>
+       <li>
+        momentum can overshoot the values also; but overshooting will cause it to shrink and will eventually go to optimum value
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       Nestrov Momentum
+      </b>
+      :
+      <ul>
+       <li>
+        The idea is to control overshooting by looking ahead.
+       </li>
+       <li>
+        In this concept, the gradient is applied only to the non-momentum component.
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       AdaGrad
+      </b>
+      :
+      <ul>
+       <li>
+        Adaptive gradient algorithm
+       </li>
+       <li>
+        scale the update for each weight separately
+       </li>
+       <li>
+        this idea is to update the frequently update weight less.
+       </li>
+       <li>
+        keeps the running sum of previous updates; and divide the new update by factor of previous sum
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       RMSProp
+      </b>
+      :
+      <ul>
+       <li>
+        rather than using sum of previous gradients, decay older gradients more than recent ones
+       </li>
+       <li>
+        quite similar to Adagrad
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       Adam
+      </b>
+      :
+      <ul>
+       <li>
+        Adaptive Optimization Algorithm
+       </li>
+       <li>
+        uses first and second order change information and decay both over time.
+       </li>
+       <li>
+        THus it uses beta-1 and beta-2. The default values can be used as beta-1 = 0.9 and beta-2 = 0.99, and can be let at these values; most of the times, need not to be played around too much.
+       </li>
+       <li>
+        combines both the idea of RMSProp and Momentum
+       </li>
+      </ul>
+     </li>
+     <li>
+      Adam and RMSProp are quite popular.
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <p>
     <ul>
-        <li>
-            Gradient descent classical approach to update weight is to do following Wnew = Wold - (learning_rate * derivative)
-        </li>
-        <li>
-            Stochastic Gradient descent take derivate from just one point; but the  data steps are small
-        </li>
-        <li>
-            Mini-batch gradient descent takes a batch for the derivative.Bests of both above points
-        </li>
-        <li>
-            Epoch: refers to the single pass through all of the training data. For full-batch gradient descent, one iteration is one epoch. In SGD or online learning, there would be n-steps taken per epoch where n is the training set size.
+     <li>
+      Gradient descent classical approach to update weight is to do following Wnew = Wold - (learning_rate * derivative)
+     </li>
+     <li>
+      Stochastic Gradient descent take derivate from just one point; but the  data steps are small
+     </li>
+     <li>
+      Mini-batch gradient descent takes a batch for the derivative.Bests of both above points
+     </li>
+     <li>
+      Epoch: refers to the single pass through all of the training data. For full-batch gradient descent, one iteration is one epoch. In SGD or online learning, there would be n-steps taken per epoch where n is the training set size.
             In minibatch, there will be n/batch-size steps taken per epoch
-        </li>
-        <li>
-            It is recommended to shuffle data after each epoch; so that batches are not the same every time and arrival of data is different.
-        </li>
+     </li>
+     <li>
+      It is recommended to shuffle data after each epoch; so that batches are not the same every time and arrival of data is different.
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <h3>
     Keras and Example
    </h3>
    <p>
     <ul>
-        <li>
-            Keras is high level library that run either on Tensorflow or Theano
-        </li>
-        <li>
-            Provides two approaches to building the structure of model:
-            <ul>
-                <li>
-                    <b>Sequential Model</b>: linear stack of layers, simple and more convenient
-                </li>
-                <li>
-                    <b>Functional API</b>: More detailed and complex; but allows more complicate architectures
-                </li>
-            </ul>
-        </li>
+     <li>
+      Keras is high level library that run either on Tensorflow or Theano
+     </li>
+     <li>
+      Provides two approaches to building the structure of model:
+      <ul>
+       <li>
+        <b>
+         Sequential Model
+        </b>
+        : linear stack of layers, simple and more convenient
+       </li>
+       <li>
+        <b>
+         Functional API
+        </b>
+        : More detailed and complex; but allows more complicate architectures
+       </li>
+      </ul>
+     </li>
     </ul>
    </p>
    <p>
-    <b>Sequential Model Example:</b>
+    <b>
+     Sequential Model Example:
+    </b>
     <p class="code-text">
-from keras.models import Sequential
+     from keras.models import Sequential
 
 model = Sequential()
     </p>
-    Then add layers to the model one by one as follows: <i>You may want to pass the data through <mark>StandardScalar()</mark> before passing through NN</i>.
+    Then add layers to the model one by one as follows:
+    <i>
+     You may want to pass the data through
+     <mark>
+      StandardScalar()
+     </mark>
+     before passing through NN
+    </i>
+    .
     <p class="code-text">
-from keras.layers import Dense, Activation
+     from keras.layers import Dense, Activation
 
 #first hidden layer with 4 neurons
 #.. input_dim is only need at the first hidden layer
@@ -431,106 +530,133 @@ y_pred_prob = model.predict(x_test)
     </p>
     You can draw a ROC curve using following:
     <p class="code-text">
-roc_curve(y_test, y_pred_classes)
+     roc_curve(y_test, y_pred_classes)
     </p>
    </p>
-   <hr>
+   <hr/>
    <p>
     <ul>
-        <li>
-            <b>Multi Class Classification with NN</b>
-            <ul>
-                <li>
-                    Using sigmoid, output are only 0 and 1.
-                </li>
-                <li>
-                    Idea is to use one-hot encoding. (create N- new columns with 1 on the rows for column head)
-                </li>
-                <li>
-                    In NN, let the final layer be a vector with length equal to the number of possible classes.
-                </li>
-                <li>
-                    Extend sigmoid to <mark>softmax()</mark> function. Softmax gives out a vector whose entries are between 0 and 1, the sum of which is 1.
-                </li>
-                <l>
-                    Use <mark>Categorical cross entropy</mark> as loss function.
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>Scaling Inputs</b>
-            <ul>
-                <li>
-                    Going to the formula used to update the weights, it relies on input values at the first layer
-                </li>
-                <li>
-                    So, if we do not normalize, the higher values update more quickly and the lower values do not.
-                </li>
-                <li>
-                    This creates an imbalance; and slows down the speed at which the model converges.
-                </li>
-            </ul>
-        </li>
+     <li>
+      <b>
+       Multi Class Classification with NN
+      </b>
+      <ul>
+       <li>
+        Using sigmoid, output are only 0 and 1.
+       </li>
+       <li>
+        Idea is to use one-hot encoding. (create N- new columns with 1 on the rows for column head)
+       </li>
+       <li>
+        In NN, let the final layer be a vector with length equal to the number of possible classes.
+       </li>
+       <li>
+        Extend sigmoid to
+        <mark>
+         softmax()
+        </mark>
+        function. Softmax gives out a vector whose entries are between 0 and 1, the sum of which is 1.
+       </li>
+       <l>
+        Use
+        <mark>
+         Categorical cross entropy
+        </mark>
+        as loss function.
+       </l>
+      </ul>
+     </li>
     </ul>
+    <li>
+     <b>
+      Scaling Inputs
+     </b>
+     <ul>
+      <li>
+       Going to the formula used to update the weights, it relies on input values at the first layer
+      </li>
+      <li>
+       So, if we do not normalize, the higher values update more quickly and the lower values do not.
+      </li>
+      <li>
+       This creates an imbalance; and slows down the speed at which the model converges.
+      </li>
+     </ul>
+    </li>
    </p>
-   <hr>
-   <h3>Convolutional Neural Networks</h3>
+   <hr/>
+   <h3>
+    Convolutional Neural Networks
+   </h3>
    <p>
     <ul>
-        <li>
-            special features of image data:
-            <ul>
-                <li>
-                    topology of pixels
-                </li>
-                <li>
-                    invariant to translation; invariant to size. A small cat is still a cat
-                </li>
-                <li>
-                    lighting and contrast as factors
-                </li>
-                <li>
-                    closer pixels tend to have similar values
-                </li>
-                <li>
-                    important of edges and shapes in image
-                </li>
-            </ul>
-        </li>
-        <li>
-            fully connected network for image requires a vast number of parameters. For such network, variance will be too high. so a bias is introduced by structuring the network to look for certain kinds of patterns.
-        </li>
-        <li>
-            certain intermediate layers can learn different features; for example using kernel for edge detection.
-        </li>
-        <li>
-            the kernel or filter is performed on all three color matrices; but often times the edges and corners are neglected. Thus padding is introduced.
-        </li>
-        <li>
-            kernel does not need to be square; its better to use an odd size, but not necessary.
-        </li>
-        <li>
-            since the pixels at the edge never get to become center pixel, we pad image with 0. This is called <b>padding</b>.
-        </li>
-        <li>
-            <b>Stride </b>is the step size as the kernel moves across the image. Min = 1; Stride > 1 scales down the output dimension.
-        </li>
-        <li>
-            <b>Depth:</b> no of input channels. FOr example, RGB image has depth of 3. Output from the layer will also have a depth
-        </li>
-        <li>
-            If there are 10 kernels in a layer, the output of that layer will have a depth = 10
-        </li>
-        <li>
-            <b>Pooling</b>: will reduce the size of image by mapping a patch of pixels to a single value. It does not have parameters, but there are different pooling types, for ex: Max pooling, average pooling. It does not move like Kernel though, as there is no overlap in the pooling operations.
-        </li>
+     <li>
+      special features of image data:
+      <ul>
+       <li>
+        topology of pixels
+       </li>
+       <li>
+        invariant to translation; invariant to size. A small cat is still a cat
+       </li>
+       <li>
+        lighting and contrast as factors
+       </li>
+       <li>
+        closer pixels tend to have similar values
+       </li>
+       <li>
+        important of edges and shapes in image
+       </li>
+      </ul>
+     </li>
+     <li>
+      fully connected network for image requires a vast number of parameters. For such network, variance will be too high. so a bias is introduced by structuring the network to look for certain kinds of patterns.
+     </li>
+     <li>
+      certain intermediate layers can learn different features; for example using kernel for edge detection.
+     </li>
+     <li>
+      the kernel or filter is performed on all three color matrices; but often times the edges and corners are neglected. Thus padding is introduced.
+     </li>
+     <li>
+      kernel does not need to be square; its better to use an odd size, but not necessary.
+     </li>
+     <li>
+      since the pixels at the edge never get to become center pixel, we pad image with 0. This is called
+      <b>
+       padding
+      </b>
+      .
+     </li>
+     <li>
+      <b>
+       Stride
+      </b>
+      is the step size as the kernel moves across the image. Min = 1; Stride &gt; 1 scales down the output dimension.
+     </li>
+     <li>
+      <b>
+       Depth:
+      </b>
+      no of input channels. FOr example, RGB image has depth of 3. Output from the layer will also have a depth
+     </li>
+     <li>
+      If there are 10 kernels in a layer, the output of that layer will have a depth = 10
+     </li>
+     <li>
+      <b>
+       Pooling
+      </b>
+      : will reduce the size of image by mapping a patch of pixels to a single value. It does not have parameters, but there are different pooling types, for ex: Max pooling, average pooling. It does not move like Kernel though, as there is no overlap in the pooling operations.
+     </li>
     </ul>
    </p>
    <h3>
     Creating a CNN Using Keras
    </h3>
    <p class="code-text">
-#import libraries
+    #import libraries
 
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
@@ -539,19 +665,17 @@ from keras.layers import Conv2D, MaxPooling2D
 
 #image data usually are 3 dims, x-dim, y-dim and 3-channels
 # .. so training data is going to be  4-dims including the no of samples
-
-</p>
-<p>
+   </p>
+   <p>
     Here we also need to mend the y-values so that it fits the NN. We will convert the values to a vector using one-hot encoding.
-</p>
-<p class="code-text">
-y_train = keras.utils.to_categorical(y_train, num_classes)
+   </p>
+   <p class="code-text">
+    y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
-</p>
-
-Let us create the mode.
-<p class="code-text">
-#create a model
+   </p>
+   Let us create the mode.
+   <p class="code-text">
+    #create a model
 model = Sequential()
 #.. add a Convolutional layer
 model.add(Conv2D(32, (5,5), strides=(2,2), padding='same'),input_shape=x_train.shape[1:])
@@ -582,7 +706,7 @@ model.summary()
    <p>
     Now that the model definition is complete, let us define optimizer and compile and fit the model.
     <p class="code-text">
-batch_size = 32
+     batch_size = 32
 
 
 my_optimizer = keras.optimizers.RMSprop(lr=0.0005, decay=1e-6)
@@ -599,246 +723,316 @@ model.fit(x_train, y_train,
     </p>
     After the model is trained, we can call predict as follows:
     <p class="code-text">
-model.predict_classes(x_test)
+     model.predict_classes(x_test)
     </p>
     The accuracy of the model can be determined as follows:
     <p class="code-text">
-from sklearn.metrics import accuracy_score
+     from sklearn.metrics import accuracy_score
 accuracy_score(np.argmax(y_test, axis=1), model.predict_classes(x_test))
     </p>
     Since we had one-hot encoded the y_test, value we used the np.argmax to convert the data back. We can add more convulation layers with different depth to increase model accuracy.
    </p>
    <p>
-    We can also freeze training on a layer by setting <mark>trainable</mark> parameter to <mark>false</mark> for the layer.
+    We can also freeze training on a layer by setting
+    <mark>
+     trainable
+    </mark>
+    parameter to
+    <mark>
+     false
+    </mark>
+    for the layer.
    </p>
-   <hr>
-   <h3>Transfer Learning</h3>
+   <hr/>
+   <h3>
+    Transfer Learning
+   </h3>
    <p>
     <ul>
-        <li>
-            earlier layers are more expensive to train, due to vanishing gradient
-        </li>
-        <li>
-            earlier features/layers are very basic characterisitic or generic anyway
-        </li>
-        <li>
-            later layers have more immediate impact on the results, and are more specific
-        </li>
-        <li>
-            early layers should generalize, and can be reused. Later layers can be added based on problem need, and trained
-        </li>
-        <li>
-            This is transfer learning.
-        </li>
-        <li>
-            its more art than science in that there is no specific rule on how may layers to remove or how many new layers to add etc. Following are some of the guiding principles:
-            <ul>
-                <li>
-                    similar data nad problem requires less fine tuning. For eg. CNN to identify "dogs" can easily be adapted to identify "Cats"
-                </li>
-                <li>
-                    more data available is better for better fine tuning
-                </li>
-                <li>
-                    different problem sets, fine tuning may contribute less
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>Fine Tuning:</b> Additional training of a pre-trained network on a specific new dataset.
-        </li>
+     <li>
+      earlier layers are more expensive to train, due to vanishing gradient
+     </li>
+     <li>
+      earlier features/layers are very basic characterisitic or generic anyway
+     </li>
+     <li>
+      later layers have more immediate impact on the results, and are more specific
+     </li>
+     <li>
+      early layers should generalize, and can be reused. Later layers can be added based on problem need, and trained
+     </li>
+     <li>
+      This is transfer learning.
+     </li>
+     <li>
+      its more art than science in that there is no specific rule on how may layers to remove or how many new layers to add etc. Following are some of the guiding principles:
+      <ul>
+       <li>
+        similar data nad problem requires less fine tuning. For eg. CNN to identify "dogs" can easily be adapted to identify "Cats"
+       </li>
+       <li>
+        more data available is better for better fine tuning
+       </li>
+       <li>
+        different problem sets, fine tuning may contribute less
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       Fine Tuning:
+      </b>
+      Additional training of a pre-trained network on a specific new dataset.
+     </li>
     </ul>
    </p>
-   <hr>
-   <h3>Many Famous CNNs</h3>
+   <hr/>
+   <h3>
+    Many Famous CNNs
+   </h3>
    <p>
     <ul>
-        <li>
-            <b>LeNet</b>:
-            <ul>
-                <li>
-                    Built for MNIST, Yann LeCunn using grayscale image
-                </li>
-                <li>
-                    First convolution used
-                </li>
-                <li>
-                    kernel used is 5x5 and a depth of 6 at first layer. So total no of weights in this layer is 6x((5x5)+1bias) = 156 weights
-                </li>
-                <li>
-                    some kind of pooling layer
-                </li>
-                <li>
-                    another 5x5 filter with stride of 1 and depth of 16. Here the no of weights is (6* (5x5) ) + 1 bias = 151 and times 16 = 2416 weights. The value 6
+     <li>
+      <b>
+       LeNet
+      </b>
+      :
+      <ul>
+       <li>
+        Built for MNIST, Yann LeCunn using grayscale image
+       </li>
+       <li>
+        First convolution used
+       </li>
+       <li>
+        kernel used is 5x5 and a depth of 6 at first layer. So total no of weights in this layer is 6x((5x5)+1bias) = 156 weights
+       </li>
+       <li>
+        some kind of pooling layer
+       </li>
+       <li>
+        another 5x5 filter with stride of 1 and depth of 16. Here the no of weights is (6* (5x5) ) + 1 bias = 151 and times 16 = 2416 weights. The value 6
                     is because of 6 inputs from earlier layer and 16 because of the depth in this layer.
-                </li>
-                <li>
-                    This is flattened and then there are fully connected layers.
-                </li>
-                <li>
-                    Total of 61706 weights.
-                </li>
-                <li>
-                    Convolutional layers have less weights than fully connected layers.
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>AlexNet</b>:
-            <ul>
-                <li>
-                    considered the flash point of modern Deep Learning.
-                </li>
-                <li>
-                    created in 2012, for imagenet for 1000 classes and 1.2 million images.
-                </li>
-                <li>
-                    model was broken down into two parallel paths.
-                </li>
-                <li>
-                    had weeks of training time.
-                </li>
-                <li>
-                    data augmentation was performed like cropping, flipping and other manipulations to help with overfitting.
-                </li>
-                <li>
-                    convolutions were used with ReLU, the first to use ReLU
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>VGG</b>:
-            <ul>
-                <li>
-                    simple network
-                </li>
-                <li>
-                    avoid manual choice of convolution size, but use only 3x3 kernel size, but use deep ore more convolution layers.
-                </li>
-                <li>
-                    this is because two 3x3 stride convolutions in a row is equivalent to one 5x5; whereas three 3x3 convolutions is equivalent to one 7x7 convolution
-                </li>
-                <li>
-                    idea is that <i>more is better</i>, larger model has lesser no of weights.
-                </li>
-                <li>
-                    can be considered a simplified, deeper LeNet.
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>Inception</b>:
-            <ul>
-                <li>
-                    turn each layers into branches of convolutions; of different depths
-                </li>
-                <li>
-                    each branch handles smaller portion of workload
-                </li>
-                <li>
-                    concatenate different branches at the end
-                </li>
-            </ul>
-        </li>
-        <li>
-            <b>ResNet</b>:
-            <ul>
-                <li>
-                    Issue is that as the NN got deeper and deeper, the performance got worse and worse even on training set
-                </li>
-                <li>
-                    Earlier layers are slow to adjust, vanishing gradient.
-                </li>
-                <li>
-                    Then came ResNet as a solution.
-                </li>
-                <li>
-                    The basic idea is that best transformation over multiple layers is close to F(x) + x where x is the input and F(x) is the usual ouput of a layer with activation. Now instead of F(x) we add x and pass it through ReLU one again.
-                </li>
-                <li>
-                    the idea to do this is to keep passing the info from earlier layers to the output of current layer
-                </li>
-                <li>
-                    avoids vanishing gradient
-                </li>
-            </ul>
-        </li>
+       </li>
+       <li>
+        This is flattened and then there are fully connected layers.
+       </li>
+       <li>
+        Total of 61706 weights.
+       </li>
+       <li>
+        Convolutional layers have less weights than fully connected layers.
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       AlexNet
+      </b>
+      :
+      <ul>
+       <li>
+        considered the flash point of modern Deep Learning.
+       </li>
+       <li>
+        created in 2012, for imagenet for 1000 classes and 1.2 million images.
+       </li>
+       <li>
+        model was broken down into two parallel paths.
+       </li>
+       <li>
+        had weeks of training time.
+       </li>
+       <li>
+        data augmentation was performed like cropping, flipping and other manipulations to help with overfitting.
+       </li>
+       <li>
+        convolutions were used with ReLU, the first to use ReLU
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       VGG
+      </b>
+      :
+      <ul>
+       <li>
+        simple network
+       </li>
+       <li>
+        avoid manual choice of convolution size, but use only 3x3 kernel size, but use deep ore more convolution layers.
+       </li>
+       <li>
+        this is because two 3x3 stride convolutions in a row is equivalent to one 5x5; whereas three 3x3 convolutions is equivalent to one 7x7 convolution
+       </li>
+       <li>
+        idea is that
+        <i>
+         more is better
+        </i>
+        , larger model has lesser no of weights.
+       </li>
+       <li>
+        can be considered a simplified, deeper LeNet.
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       Inception
+      </b>
+      :
+      <ul>
+       <li>
+        turn each layers into branches of convolutions; of different depths
+       </li>
+       <li>
+        each branch handles smaller portion of workload
+       </li>
+       <li>
+        concatenate different branches at the end
+       </li>
+      </ul>
+     </li>
+     <li>
+      <b>
+       ResNet
+      </b>
+      :
+      <ul>
+       <li>
+        Issue is that as the NN got deeper and deeper, the performance got worse and worse even on training set
+       </li>
+       <li>
+        Earlier layers are slow to adjust, vanishing gradient.
+       </li>
+       <li>
+        Then came ResNet as a solution.
+       </li>
+       <li>
+        The basic idea is that best transformation over multiple layers is close to F(x) + x where x is the input and F(x) is the usual ouput of a layer with activation. Now instead of F(x) we add x and pass it through ReLU one again.
+       </li>
+       <li>
+        the idea to do this is to keep passing the info from earlier layers to the output of current layer
+       </li>
+       <li>
+        avoids vanishing gradient
+       </li>
+      </ul>
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <h3>
     Recurrent NN
    </h3>
    <p>
     <ul>
-        <li>
-            <b>w</b> is the state at that time or sequence in the event chain, for example a word in text or transaction, <b>U</b> is the linear transformation, <b>S</b> is the state, which is also fed as input to next step. All these three things are combined and passed through an activation to give <b>W</b>.This <b>W</b> is fed into another state. The combined value <b>W</b> is done another linear transformation <v>V</v> and passed through another activation for output <b>o</b>.
-        </li>
-        <li>
-            Following shows unrolled RNN. <br>
-            <img src="../images/unrolled_rnn.png" width="80%">
-        </li>
-        <li>
-            Mathematically, s_i = f(U*w_i + W*s_i-1), i.e. current state = func1(old state, current input)
-        </li>
-        <li>
-            o_i = softmax(V*s_i), i.e. current output = func2(current state)
-        </li>
-        <li>
-            some mathematical notation:
-            <ul>
-                <li>
-                    r = dimension of input vector at each state;
-                </li>
-                <li>
-                    s = dimension of hidden state;
-                </li>
-                <li>
-                    t = dimension of output vector;
-                </li>
-                <li>
-                    Thus, U is sxr matrix
-                </li>
-                <li>
-                    W is sxs matrix
-                </li>
-                <li>
-                    V is txs matrix
-                </li>
-                <li>
-                    The weight matrics U, V and W are same across all positions
-                </li>
-            </ul>
-        </li>
-        <li>
-            slight variation of back propagation called <mark>Backpropagation Through Time</mark>.
-        </li>
-        <li>
-            RNN is prone to vanishing gradient or exploding gradient since the sequence can be too long. To handle this, we set the maximum length of our sequences. Padding or truncating is done to match the length of sequence.
-        </li>
-        <li>
-            RNN is used for following purposes:
-            <ul>
-                <li>
-                    Forecasting sales, loss rates, traffic etc
-                </li>
-                <li>
-                    Speech Recoginition
-                </li>
-                <li>
-                    manufacturing sensor data.
-                </li>
-                <li>
-                    genome sequencing
-                </li>
-            </ul>
-        </li>
-        <li>
-            cons: because of large sequence, it makes it hard to keep information from distant past in current memory.
-        </li>
-        <li>
-            <p class="code-text">
-from keras.models import Sequential
+     <li>
+      <b>
+       w
+      </b>
+      is the state at that time or sequence in the event chain, for example a word in text or transaction,
+      <b>
+       U
+      </b>
+      is the linear transformation,
+      <b>
+       S
+      </b>
+      is the state, which is also fed as input to next step. All these three things are combined and passed through an activation to give
+      <b>
+       W
+      </b>
+      .This
+      <b>
+       W
+      </b>
+      is fed into another state. The combined value
+      <b>
+       W
+      </b>
+      is done another linear transformation
+      <v>
+       V
+      </v>
+      and passed through another activation for output
+      <b>
+       o
+      </b>
+      .
+     </li>
+     <li>
+      Following shows unrolled RNN.
+      <br/>
+      <img src="../images/unrolled_rnn.png" width="80%"/>
+     </li>
+     <li>
+      Mathematically, s_i = f(U*w_i + W*s_i-1), i.e. current state = func1(old state, current input)
+     </li>
+     <li>
+      o_i = softmax(V*s_i), i.e. current output = func2(current state)
+     </li>
+     <li>
+      some mathematical notation:
+      <ul>
+       <li>
+        r = dimension of input vector at each state;
+       </li>
+       <li>
+        s = dimension of hidden state;
+       </li>
+       <li>
+        t = dimension of output vector;
+       </li>
+       <li>
+        Thus, U is sxr matrix
+       </li>
+       <li>
+        W is sxs matrix
+       </li>
+       <li>
+        V is txs matrix
+       </li>
+       <li>
+        The weight matrics U, V and W are same across all positions
+       </li>
+      </ul>
+     </li>
+     <li>
+      slight variation of back propagation called
+      <mark>
+       Backpropagation Through Time
+      </mark>
+      .
+     </li>
+     <li>
+      RNN is prone to vanishing gradient or exploding gradient since the sequence can be too long. To handle this, we set the maximum length of our sequences. Padding or truncating is done to match the length of sequence.
+     </li>
+     <li>
+      RNN is used for following purposes:
+      <ul>
+       <li>
+        Forecasting sales, loss rates, traffic etc
+       </li>
+       <li>
+        Speech Recoginition
+       </li>
+       <li>
+        manufacturing sensor data.
+       </li>
+       <li>
+        genome sequencing
+       </li>
+      </ul>
+     </li>
+     <li>
+      cons: because of large sequence, it makes it hard to keep information from distant past in current memory.
+     </li>
+     <li>
+      <p class="code-text">
+       from keras.models import Sequential
 from keras.layers import Dense, Embedding
 from keras.layers import SimpleRNN
 
@@ -881,8 +1075,8 @@ mode.fit(x_train, y_train,
 
 #evaluate
 score,acc = model.evaluate(x_test, y_test, batch_size=batch_size)
-            </p>
-        </li>
+      </p>
+     </li>
     </ul>
    </p>
    <h3>
@@ -890,36 +1084,45 @@ score,acc = model.evaluate(x_test, y_test, batch_size=batch_size)
    </h3>
    <p>
     <ul>
-        <li>
-            a complex kind of RNN; to solve the long term memory issue of RNN (c. 1997)
-        </li>
-        <li>
-            standard RNNs have poor memory
-        </li>
-        <li>
-            LSTM defines a more complicated update mechanism for changing the internal state
-        </li>
-        <li>
-            LSTM remembers the information from the last step
-        </li>
-        <li>
-            LSTM adds an explicit memory unit; and augments RNNs with few additional Gate Units. These Gates control how long or if the events will stay in memory.
-        </li>
-        <li>
-            <b>Input Gate:</b> causes items to be stored in memory.
-        </li>
-        <li>
-            <b>Forget Gate:</b> causes items to be removed from memory.
-        </li>
-        <li>
-            <b>Output Gate:</b> causes hidden unit to feed forward (output) in the network
-        </li>
-        <li>
-            <p>
-                single unit of unroll LSTM is as follows:
-            </p>
-            <img src="../images/LSTM.png" width="70%">
-        </li>
+     <li>
+      a complex kind of RNN; to solve the long term memory issue of RNN (c. 1997)
+     </li>
+     <li>
+      standard RNNs have poor memory
+     </li>
+     <li>
+      LSTM defines a more complicated update mechanism for changing the internal state
+     </li>
+     <li>
+      LSTM remembers the information from the last step
+     </li>
+     <li>
+      LSTM adds an explicit memory unit; and augments RNNs with few additional Gate Units. These Gates control how long or if the events will stay in memory.
+     </li>
+     <li>
+      <b>
+       Input Gate:
+      </b>
+      causes items to be stored in memory.
+     </li>
+     <li>
+      <b>
+       Forget Gate:
+      </b>
+      causes items to be removed from memory.
+     </li>
+     <li>
+      <b>
+       Output Gate:
+      </b>
+      causes hidden unit to feed forward (output) in the network
+     </li>
+     <li>
+      <p>
+       single unit of unroll LSTM is as follows:
+      </p>
+      <img src="../images/LSTM.png" width="70%"/>
+     </li>
     </ul>
    </p>
    <h3>
@@ -927,15 +1130,23 @@ score,acc = model.evaluate(x_test, y_test, batch_size=batch_size)
    </h3>
    <p>
     <ul>
-        <li>
-            has <b>Reset Gate</b> and <b>Update Gate</b>, what to forget and what to keep
-        </li>
-        <li>
-            <img src="../images/gru.png" width="30%">
-        </li>
-        <li>
-            GRUs perform similarly as LSTM, but with shorter training time, esp for small datasets
-        </li>
+     <li>
+      has
+      <b>
+       Reset Gate
+      </b>
+      and
+      <b>
+       Update Gate
+      </b>
+      , what to forget and what to keep
+     </li>
+     <li>
+      <img src="../images/gru.png" width="30%"/>
+     </li>
+     <li>
+      GRUs perform similarly as LSTM, but with shorter training time, esp for small datasets
+     </li>
     </ul>
    </p>
    <h3>
@@ -943,151 +1154,184 @@ score,acc = model.evaluate(x_test, y_test, batch_size=batch_size)
    </h3>
    <p>
     <ul>
-        <li>
-            convert seq from one domain to another domain, for ex from spanish to french
-        </li>
-        <li>
-            hidden state will have accumulated information from all previous state.
-        </li>
-        <li>
-            works in encoder and decoder fashion for machine translation.
-        </li>
-        <li>
-            <b>Greedy Search:</b> produce words one by one
-        </li>
-        <li>
-            <b>Beam Search:</b> produce multiple different hypotheses to produce words until EOS, and see which full sentence is most likely
-        </li>
-        <li>
-            <b>Attention:</b> the final hidden state of encoder is used as initial state of decoder. Thus each decoder time step depends on same encoder embedding.
+     <li>
+      convert seq from one domain to another domain, for ex from spanish to french
+     </li>
+     <li>
+      hidden state will have accumulated information from all previous state.
+     </li>
+     <li>
+      works in encoder and decoder fashion for machine translation.
+     </li>
+     <li>
+      <b>
+       Greedy Search:
+      </b>
+      produce words one by one
+     </li>
+     <li>
+      <b>
+       Beam Search:
+      </b>
+      produce multiple different hypotheses to produce words until EOS, and see which full sentence is most likely
+     </li>
+     <li>
+      <b>
+       Attention:
+      </b>
+      the final hidden state of encoder is used as initial state of decoder. Thus each decoder time step depends on same encoder embedding.
             Attention allows to look at words that matter. It looks into how close the veector in encoder is closest to the decoder state where we are at; and assigns weight simlarly.
-        </li>
+     </li>
     </ul>
    </p>
    <p>
     Uses:
     <ul>
-        <li>
-            FOrecasting, Speech Recoginition, Machine Translation, Image Captioning, QA, Anamoly detection, Robotic control    
-        </li>
+     <li>
+      FOrecasting, Speech Recoginition, Machine Translation, Image Captioning, QA, Anamoly detection, Robotic control
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <h3>
     Autoencoders
    </h3>
    <p>
     <ul>
-        <li>
-            Deep Learning model used for <b> unsupervised learning.</b>
-        </li>
-        <li>
-            Applications in: Dimensionality Reduction, Preprocessing for classification, identifying essential elements of input data and filtering  out noise
-        </li>
-        <li>
-            PCA only captures linear combination or relationships; but in reality there could be non-linear relationship and best lower dimensional representation could be something else; especially for images.
-        </li>
-        <li>
-            There is <b>encoding step</b>, which is a dense network, that generates some kind of <b>embeddings</b>. The embedding is the lower dimensional representation. This embedding can be fed into a <b>decoder network</b> to reconstruct the original data (image).
-        </li>
-        <li>
-            Some applications may use deep Autoencoders, but most of the times single layer encoding and decoding steps are used.
-        </li>
-        <li>
-            Based on the error in the final reconstructed image, loss function is used to update weight of the networks. Uses the same feed-forward and back-propagation steps
-        </li>
-        <li>
-            <b>Similarly of images</b> can be computed by passing images through the encoder network and by computing similarity score using the latent vectors.
-        </li>
-        <li>
-            Decoders can be used to decompress the data. 
-        </li>
-        <li>
-            Decoders can also used for generative model.
-        </li>
-        <li>
-            Business Applications:
-            <ul>
-                <li>
-                    Dim Redcsn
-                </li>
-                <li>
-                    Information retrieval, compression and decompression
-                </li>
-                <li>
-                    anomaly detection
-                </li>
-                <li>
-                    machine translation
-                </li>
-                <li>
-                    image related applications like denoising, generation, processing, compression
-                </li>
-                <li>
-                    Drug Discovery
-                </li>
-                <li>
-                    Popularity of social media post prediction
-                </li>
-                <li>
-                    sound and music synthesis
-                </li>
-                <li>
-                    sparse Autoencoders used in recommender systems
-                </li>
-            </ul>
-        </li>
+     <li>
+      Deep Learning model used for
+      <b>
+       unsupervised learning.
+      </b>
+     </li>
+     <li>
+      Applications in: Dimensionality Reduction, Preprocessing for classification, identifying essential elements of input data and filtering  out noise
+     </li>
+     <li>
+      PCA only captures linear combination or relationships; but in reality there could be non-linear relationship and best lower dimensional representation could be something else; especially for images.
+     </li>
+     <li>
+      There is
+      <b>
+       encoding step
+      </b>
+      , which is a dense network, that generates some kind of
+      <b>
+       embeddings
+      </b>
+      . The embedding is the lower dimensional representation. This embedding can be fed into a
+      <b>
+       decoder network
+      </b>
+      to reconstruct the original data (image).
+     </li>
+     <li>
+      Some applications may use deep Autoencoders, but most of the times single layer encoding and decoding steps are used.
+     </li>
+     <li>
+      Based on the error in the final reconstructed image, loss function is used to update weight of the networks. Uses the same feed-forward and back-propagation steps
+     </li>
+     <li>
+      <b>
+       Similarly of images
+      </b>
+      can be computed by passing images through the encoder network and by computing similarity score using the latent vectors.
+     </li>
+     <li>
+      Decoders can be used to decompress the data.
+     </li>
+     <li>
+      Decoders can also used for generative model.
+     </li>
+     <li>
+      Business Applications:
+      <ul>
+       <li>
+        Dim Redcsn
+       </li>
+       <li>
+        Information retrieval, compression and decompression
+       </li>
+       <li>
+        anomaly detection
+       </li>
+       <li>
+        machine translation
+       </li>
+       <li>
+        image related applications like denoising, generation, processing, compression
+       </li>
+       <li>
+        Drug Discovery
+       </li>
+       <li>
+        Popularity of social media post prediction
+       </li>
+       <li>
+        sound and music synthesis
+       </li>
+       <li>
+        sparse Autoencoders used in recommender systems
+       </li>
+      </ul>
+     </li>
     </ul>
    </p>
-   <h3>Variational Autoencoders</h3>
+   <h3>
+    Variational Autoencoders
+   </h3>
    <p>
     <ul>
-        <li>
-            also generate latent representation and can be used to generate samples, new samples
-        </li>
-        <li>
-            it generates parameters, rather than fixed values.
-        </li>
-        <li>
-            uses the (normal) distribution to learn parameters and using those parametes, new samples are generated
-        </li>
-        <li>
-            the loss function has two components:
-            <ul>
-                <li>
-                    1. pixel wise difference between the original imagen and reconstructed image. (eg MSE)
-                </li>
-                <li>
-                    2. difference between the vectors produced by the encoder and the parameters of the standard normal distribution.
-                </li>
-                <li>
-                    For the second component, KL divergence is computed between the generated data and the normal distribution. Thus KL Loss measures the difference between the two distributions.
-                </li>
-                <li>
-                    This second component penalizes the log(sigma) and mean respectively for being different from zero.
-                </li>
-                <li>
-                    KL divergence is not technically necessary to include in the VAE loss function; but it helps to generate the latency space; Similar images are close in the latent space.
-                </li>
-            </ul>
-        </li>
-        <li>
-            to compute the MSE for PCA, similar to .transform(), you can also compute .inverse_transform() to reconstruct the original data.
-        </li>
-        <li>
-            The reconstruction error of variational autoencoders can be higher because variational autoencoders are designed to maximize the interpretability of the latent space, not to minimize the reconstruction error
-        </li>
-        </ul>
-        </p>
-    <h3>
-        Auto Encoder Code
-    </h3>
-    <p>
-        <ul>
-        <li>
-            Following code shows the use of <b>autoencoder</b> using functional API:
-            <p class="code-text">
-from keras.layers import Input, Dense
+     <li>
+      also generate latent representation and can be used to generate samples, new samples
+     </li>
+     <li>
+      it generates parameters, rather than fixed values.
+     </li>
+     <li>
+      uses the (normal) distribution to learn parameters and using those parametes, new samples are generated
+     </li>
+     <li>
+      the loss function has two components:
+      <ul>
+       <li>
+        1. pixel wise difference between the original imagen and reconstructed image. (eg MSE)
+       </li>
+       <li>
+        2. difference between the vectors produced by the encoder and the parameters of the standard normal distribution.
+       </li>
+       <li>
+        For the second component, KL divergence is computed between the generated data and the normal distribution. Thus KL Loss measures the difference between the two distributions.
+       </li>
+       <li>
+        This second component penalizes the log(sigma) and mean respectively for being different from zero.
+       </li>
+       <li>
+        KL divergence is not technically necessary to include in the VAE loss function; but it helps to generate the latency space; Similar images are close in the latent space.
+       </li>
+      </ul>
+     </li>
+     <li>
+      to compute the MSE for PCA, similar to .transform(), you can also compute .inverse_transform() to reconstruct the original data.
+     </li>
+     <li>
+      The reconstruction error of variational autoencoders can be higher because variational autoencoders are designed to maximize the interpretability of the latent space, not to minimize the reconstruction error
+     </li>
+    </ul>
+   </p>
+   <h3>
+    Auto Encoder Code
+   </h3>
+   <p>
+    <ul>
+     <li>
+      Following code shows the use of
+      <b>
+       autoencoder
+      </b>
+      using functional API:
+      <p class="code-text">
+       from keras.layers import Input, Dense
 from keras.models import Model
 
 #we want to compress it to 64 dimensions with 256 hidden dimension
@@ -1117,21 +1361,25 @@ atuo_Encoder.compile(optimizer='rmsprop',
                  metrics=['accuracy'])
 
 #same input output
-atuo_Encoder.fit(x_train,x_train,shuffle=True,epochs=5,batch_size=32)                 
-            </p>
-            To see only the encoder output
-            <p class="code-text">
-encoded_images = encoder_model.predict(x_test)
-            </p>
-            To encode and decode at the same time: You can compute the MSE comparing the output with the x_test
-            <p class="code-text">
-decoded_images = atuo_Encoder.predict(x_test)
-            </p>
-        </li>
-        <li>
-            Code for <b>Variational Autoencoders</b>: First encoder model
-            <p class="code-text">
-inputs = Input(shape=(784, ), name='encoder_input')
+atuo_Encoder.fit(x_train,x_train,shuffle=True,epochs=5,batch_size=32)
+      </p>
+      To see only the encoder output
+      <p class="code-text">
+       encoded_images = encoder_model.predict(x_test)
+      </p>
+      To encode and decode at the same time: You can compute the MSE comparing the output with the x_test
+      <p class="code-text">
+       decoded_images = atuo_Encoder.predict(x_test)
+      </p>
+     </li>
+     <li>
+      Code for
+      <b>
+       Variational Autoencoders
+      </b>
+      : First encoder model
+      <p class="code-text">
+       inputs = Input(shape=(784, ), name='encoder_input')
 x = Dense(hidden_dim, activation='relu')(inputs)
 
 z_mean = Dense(latent_dim, name='z_mean')(x)
@@ -1140,163 +1388,179 @@ z_log_var = Dense(latent_dim, name='z_log_var')(x)
 #sampling is a function that we define
 z = Lambda(sampling, name='z')([z_mean, z_log_var])
 encoder_model = Model(inputs, [z_mean, z_log_var, z], name='encoder')
-            </p>
-            Then Decoder model:
-            <p class="code-text">
-latent_inputs = Input(shape=(latent_dim,),)
+      </p>
+      Then Decoder model:
+      <p class="code-text">
+       latent_inputs = Input(shape=(latent_dim,),)
 x = Dense(hidden_dim, activation='relu')(latent_inputs)
 outputs = Dense(784, activation='sigmoid')(x)
 decoder_model = Model(latent_inputs, outputs, name='decoder')
-            </p>
-            Create complete model:
-            <p class="code-text">
-outputs = decoder_model(encoder_model(inputs)[2])
+      </p>
+      Create complete model:
+      <p class="code-text">
+       outputs = decoder_model(encoder_model(inputs)[2])
 vae_model = Model(inputs, outputs, name='vae_mlp')
-            </p>
-            Now add loss function. We need to define our own. For this we need three components that can be defined using the two terms, reconstruction loss, kl loss.
-            Let us name the sum as <b>total_vae_loss</b>
-            <p class="code-text">
-vae_model.add_loss(total_vae_loss)
+      </p>
+      Now add loss function. We need to define our own. For this we need three components that can be defined using the two terms, reconstruction loss, kl loss.
+            Let us name the sum as
+      <b>
+       total_vae_loss
+      </b>
+      <p class="code-text">
+       vae_model.add_loss(total_vae_loss)
 
 vae_model.compile(optimizer='rmsprop',
                     metrics=['accuracy'])
 vae_model.fit(x_train, epochs=50,batch_size=128)
-            </p>
-        </li>
+      </p>
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <h3>
     Generative Adversarial Networks (GAN)s
    </h3>
    <p>
     <ul>
-        <li>
-            The development of GANs is motivated by the vulnerability of standard Deep Learning approach to input manipulation
-        </li>
-        <li>
-            More sensitive to hyperparameters than common NN.
-        </li>
-        <li>
-            Its  a way to train two NN simultaneously; The two NN are:
-            <ul>
-                <li>
-                    <b>Generator:</b> that learns to map random noise to images indistinguishable from those in training set.
-                </li>
-                <li>
-                    <b>Discriminator:</b> Try to identify if the input is real or fake.
-                </li>
-            </ul>
-        </li>
-        <li>
-            Steps:
-            <ul>
-                <li>
-                    Randomly inititalize the weights of generator and discriminator NNs
-                </li>
-                <li>
-                    Randomly initialize the noise vector and genrate image using generator.
-                </li>
-                <li>
-                    Discriminator NN: Predict the probability of generated image to be real.
-                </li>
-                <li>
-                    Compute two losses assuming the generated image is fake (L0) and assuming its real (L1). Combining these two will give total loss function
-                </li>
-                <li>
-                    Using L0 to train the discriminator using backpropagation.
-                </li>
-                <li>
-                    Compute derivate of L1. L1 is not used to train the discriminator but the derivative of L1 is used to train the generator.
-                </li>
-                <li>
-                    Pass the real image in the discriminator (this time the input to discriminator is a real image, directly). Compute L1.
-                </li>
-                <li>
-                    This L1 is then used to train the discriminator NN.
-                </li>
-                <li>
-                    Repeat the process again and again with new random noise; until the images from the generator is close to real.
-                </li>
-                <li>
-                    <b>Inception Score:</b> is a metric that can be used to quantify the image quality. This can also be used to determine when to stop the iterative process.
-                </li>
-            </ul>
-        </li>
-        <li>
-            Both the generator and discriminator should learn at the same rate. It is also more sensitive to other hyperparameters like loss function, optimization techniques, nn architectures etc
-        </li>
-        <li>
-            some examples of GANs are deepfakes, age interpolation, text to image
-        </li>
+     <li>
+      The development of GANs is motivated by the vulnerability of standard Deep Learning approach to input manipulation
+     </li>
+     <li>
+      More sensitive to hyperparameters than common NN.
+     </li>
+     <li>
+      Its  a way to train two NN simultaneously; The two NN are:
+      <ul>
+       <li>
+        <b>
+         Generator:
+        </b>
+        that learns to map random noise to images indistinguishable from those in training set.
+       </li>
+       <li>
+        <b>
+         Discriminator:
+        </b>
+        Try to identify if the input is real or fake.
+       </li>
+      </ul>
+     </li>
+     <li>
+      Steps:
+      <ul>
+       <li>
+        Randomly inititalize the weights of generator and discriminator NNs
+       </li>
+       <li>
+        Randomly initialize the noise vector and genrate image using generator.
+       </li>
+       <li>
+        Discriminator NN: Predict the probability of generated image to be real.
+       </li>
+       <li>
+        Compute two losses assuming the generated image is fake (L0) and assuming its real (L1). Combining these two will give total loss function
+       </li>
+       <li>
+        Using L0 to train the discriminator using backpropagation.
+       </li>
+       <li>
+        Compute derivate of L1. L1 is not used to train the discriminator but the derivative of L1 is used to train the generator.
+       </li>
+       <li>
+        Pass the real image in the discriminator (this time the input to discriminator is a real image, directly). Compute L1.
+       </li>
+       <li>
+        This L1 is then used to train the discriminator NN.
+       </li>
+       <li>
+        Repeat the process again and again with new random noise; until the images from the generator is close to real.
+       </li>
+       <li>
+        <b>
+         Inception Score:
+        </b>
+        is a metric that can be used to quantify the image quality. This can also be used to determine when to stop the iterative process.
+       </li>
+      </ul>
+     </li>
+     <li>
+      Both the generator and discriminator should learn at the same rate. It is also more sensitive to other hyperparameters like loss function, optimization techniques, nn architectures etc
+     </li>
+     <li>
+      some examples of GANs are deepfakes, age interpolation, text to image
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <h3>
     LIME: Locally Interpretable Model Agnostic Explanations
    </h3>
    <p>
     <ul>
-        <li>
-            DL and NN are hard to explain or interpret.
-        </li>
-        <li>
-            LIME treats model as black box and focus on the sensitivity of outputs to small changes in inputs.
-        </li>
-        <li>
-            It is analogous to feature importance.
-        </li>
-        <li>
-            summarizes the sensitivity of regression and classification outcomes to each variable
-        </li>
-        <li>
-            cons: nonlinearities and variables that cannot be perturbed pose challenges to this approach
-        </li>
+     <li>
+      DL and NN are hard to explain or interpret.
+     </li>
+     <li>
+      LIME treats model as black box and focus on the sensitivity of outputs to small changes in inputs.
+     </li>
+     <li>
+      It is analogous to feature importance.
+     </li>
+     <li>
+      summarizes the sensitivity of regression and classification outcomes to each variable
+     </li>
+     <li>
+      cons: nonlinearities and variables that cannot be perturbed pose challenges to this approach
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <h3>
     Reinforcement Learning
    </h3>
    <p>
     <ul>
-        <li>
-            Agents interact with Environment. Agent is the ad on a webpage or a player and Environment is the webpage or game etc
-        </li>
-        <li>
-            action impact environment which impacts agents via Rewards.
-        </li>
-        <li>
-            rewards are generally unknown and must be estimated by agent. Process repeats, so the agents learn how to estimate rewards over time.
-        </li>
-        <li>
-            Playing Atari or AlphaGo are examples for Reinforcement Learning.
-        </li>
-        <li>
-            RL are highly limited by data and computational requirements.
-        </li>
-        <li>
-            However, recommendation engines, marketing, atuotmated biddings are some successful examples of business applications. 
-        </li>
-        <li>
-            <img src="../images/reinforcement.png" width="50%">
-        </li>
-        <li>
-            In the implementation, agent chooses an action though a policy in response to a state. Agents works to maximize the rewards over time.
-        </li>
-        <li>
-            as the state changes, the problem keeps on changing so its different from the other ML algorithms where the problem is static.
-        </li>
+     <li>
+      Agents interact with Environment. Agent is the ad on a webpage or a player and Environment is the webpage or game etc
+     </li>
+     <li>
+      action impact environment which impacts agents via Rewards.
+     </li>
+     <li>
+      rewards are generally unknown and must be estimated by agent. Process repeats, so the agents learn how to estimate rewards over time.
+     </li>
+     <li>
+      Playing Atari or AlphaGo are examples for Reinforcement Learning.
+     </li>
+     <li>
+      RL are highly limited by data and computational requirements.
+     </li>
+     <li>
+      However, recommendation engines, marketing, atuotmated biddings are some successful examples of business applications.
+     </li>
+     <li>
+      <img src="../images/reinforcement.png" width="50%"/>
+     </li>
+     <li>
+      In the implementation, agent chooses an action though a policy in response to a state. Agents works to maximize the rewards over time.
+     </li>
+     <li>
+      as the state changes, the problem keeps on changing so its different from the other ML algorithms where the problem is static.
+     </li>
     </ul>
    </p>
    <h3>
     Implementation in Python
    </h3>
    <p>
-    Using <mark>gym</mark> library from openAI
+    Using
+    <mark>
+     gym
+    </mark>
+    library from openAI
    </p>
    <p class="code-text">
-import gym
+    import gym
    </p>
   </div>
  </body>
