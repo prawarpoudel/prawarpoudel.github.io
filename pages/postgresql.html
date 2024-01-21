@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="Vector Databases, AI, Machine Learning, NLP, GPT" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   POSTGRESQL
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    Various AI Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/reading_systemdesign.html">
+    System Design Topics (Book)
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Various Kubernetes Topics
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Examples
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    Machine Learning Basics
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/kube_health_checks.html">
+    Kube Health Checks
+   </a>
+   <a class="listt" href="../pages/raft_consensus.html">
+    Raft Algorithm (Consensus)
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/primer_systemdesign.html">
+    System Design Primer (Github)
+   </a>
+   <a class="listt" href="../pages/supervised_learning.html">
+    Supervised Machine Learning
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_clustering.html">
+    Unsupervised Machine Learning (Clustering)
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
+    Unsupervised Machine Learning (Dimensn Redcsn)
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
+    Unsupervised Machine Learning (Timeseries)
+   </a>
+   <a class="listt" href="../pages/deep_learning.html">
+    Deep Learning (Introduction)
+   </a>
+   <a class="listt" href="../pages/postgresql.html">
+    PostgreSQL
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    PpostgreSQL
+   </h1>
+   <h2>
+    Installation
+   </h2>
+   <p>
+    We will do the installation in a linux machine (ubuntu-20.04, x86-64).
+    <p class="code-text">
+     sudo apt install postgresql postgresql-contrib
+    </p>
+    Postgresql was already installed in my machine, and according to the postgresql website, it is included by default with ubuntu. After the above step completes, following can be used to check the status of the service.
+    <p class="code-text">
+     :~# sudo service postgresql status
+● postgresql.service - PostgreSQL RDBMS
+        Loaded: loaded (/lib/systemd/system/postgresql.service; enabled; vendor preset: enabled)
+        Active: active (exited) since Mon 2023-05-22 17:23:09 UTC; 8 months 0 days ago
+    Main PID: 790509 (code=exited, status=0/SUCCESS)
+        Tasks: 0 (limit: 77195)
+        Memory: 0B
+        CGroup: /system.slice/postgresql.service
+
+systemd[1]: Starting PostgreSQL RDBMS...
+systemd[1]: Finished PostgreSQL RDBMS.
+    </p>
+   </p>
+   <hr>
+   <hr>
+   <h2>
+    Getting Started
+   </h2>
+   <p>
+    Now that we installed postgresql and made sure that its running, let us create a first toy database to play around with.
+    <p>
+     PostgreSQL has deafult user named
+     <mark>
+      postgres
+     </mark>
+     . Let us start the PostgreSQL prompt as the
+     <mark>
+      postgres
+     </mark>
+     . But first, let us change the current user to <mark>postgres</mark> so that whatever we do will be in the scope of the postgres account.
+     <p class="code-text">
+root@xxxx:~# su - postgres
+
+postgres@xxxx:~$ psql
+psql (12.17 (Ubuntu 12.17-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=#
+     </p>
+     <hr>
+     Now that we are inside the prompt of the postgresql, we can create database using the command <mark>\l</mark> as follows:
+     <p class="code-text">
+postgres-# \l
+
+        List of databases
+Name             |  Owner   | Encoding | Collate |  Ctype  |   Access privileges
+-----------------+----------+----------+---------+---------+---------------
+my_toy_database | postgres | UTF8     | C.UTF-8 | C.UTF-8 |
+     </p>
+     <hr>
+     We can delete (or DROP) a database as follows:
+     <p class="code-text">
+postgres=# drop database my_toy_database;
+DROP DATABASE
+     </p>
+     We can exit out of postgres terminal using either <mark>exit</mark> command or <mark>\q</mark> in the terminal.
+     <hr>
+     <hr>
+     <h2>
+        Creating a user, database and table
+     </h2>
+     Let us create a new user named <mark>tom_postgres</mark> so that we do not mess up with the original default <mark>postgres</mark> user.
+     <p class="code-text">
+postgres=# create user tom_postgres with password 'tom_postgres';
+CREATE ROLE
+     </p>
+     Now, let us create a new database for which the owner is <mark>tom_postgres</mark>.
+     <p class="code-text">
+postgres=# create database tom_postgres_toy1 owner tom_postgres;
+CREATE DATABASE
+    </p>
+     We can list the existing databases as follows:
+    <p class="code-text">
+postgres=# \l
+                                    List of databases
+        Name        |    Owner     | Encoding | Collate |  Ctype  |   Access privileges
+-------------------+--------------+----------+---------+---------+-----------------------
+    postgres          | postgres     | UTF8     | C.UTF-8 | C.UTF-8 |
+    tom_postgres_toy1 | tom_postgres | UTF8     | C.UTF-8 | C.UTF-8 |
+     </p>
+     Now we can exit out of the current terminal, and connect open a new postgresql terminal so that we are logged in as user <mark>tom_postgres</mark>, 
+     and working against database <mark>tom_postgres_toy1</mark>.
+     <p class="code-text">
+    root@xxxx:~# psql -U tom_postgres -d tom_postgres_toy1 -h localhost
+    Password for user tom_postgres:
+     </p>
+     After entering the passowrd in the command above, we can access the terminal as follows:
+     <p class="code-text">
+Password for user tom_postgres:
+psql (12.17 (Ubuntu 12.17-0ubuntu0.20.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+tom_postgres_toy1=>
+     </p>
+     Let us list tables in the database
+     <p class="code-text">
+tom_postgres_toy1=> SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+table_name
+------------
+(0 rows)
+     </p>
+     Now let us create our first table in the database, with some columns
+     <p class="code-text">
+CREATE TABLE address_book (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100)
+);        
+     </p>
+     If we list the tables, we can see the table. 
+     <p class="code-text">
+tom_postgres_toy1=> SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+table_name
+--------------
+address_book
+(1 row)
+     </p>
+    </p>
+   </p>
+   <hr>
+   <hr>
+   <h2>
+    Using python client to access
+   </h2>
+   <p>
+    Let us install a python client and write a small code to access the database.
+   </p>
+   <p>
+    First install python client library <mark>psycopg2-binary</mark>. Here, I first create a virtual environment and install the library in the 
+    virtual environment.
+    <p class="code-text">
+root@xxxx:/dataVol/20240121_postgresql# python3 -m venv postgres
+root@xxxx:/dataVol/20240121_postgresql# source postgres/bin/activate
+(postgres) root@xxxx:/dataVol/20240121_postgresql# python3 -m pip install psycopg2-binary
+Collecting psycopg2-binary
+    Downloading psycopg2_binary-2.9.9-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
+        |████████████████████████████████| 3.0 MB 25.3 MB/s
+    </p>
+   </p>
+   <p>
+    Then using the following code, we can list the table in the database. OR, pretty much run any command.
+    <p class="code-text">
+import psycopg2
+from psycopg2 import sql
+
+db_params = {
+        'dbname':'tom_postgres_toy1',
+        'user':'tom_postgres',
+        'password':'tom_postgres',
+        'host':'localhost',
+        'port':'5432'
+        }
+
+def create_connection():
+    try:
+        connection = psycopg2.connect(**db_params)
+        return connection
+    except psycopg2.Error as e:
+        print(f"Error: Unable to connect to the database\n{e}")
+        return None
+
+def execute_query(connection, query):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            result = cursor.fetchall()
+            return result
+    except psycopg2.Error as e:
+        print(f"Error: Unable to execute query\n{e}")
+        return None
+
+if __name__=="__main__":
+    connection = create_connection()
+    if connection:
+        outcomes = execute_query(connection, "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';")
+        print(outcomes)
+    </p>
+    The output of which looks as follows:
+    <p class="code-text">
+(postgres) root@xxxx:/dataVol/20240121_postgresql# python3 1.py
+[('address_book',)]
+    </p>
+   </p>
+   <hr>
+   <hr>
+   <h2>
+    Using <i>pgAdmin</i>
+   </h2>
+   <p>
+    Now let us use <mark>pgAdmin</mark>, which provides a web based UI for managing postgresql database. It can be run as a container using following command. I usually
+    put them in a script and execute the script to run the container.
+    <p class="code-text">
+root@xxxx:/dataVol/20240121_postgresql# cat run_container.sh
+docker run -p 5050:80\
+    -e PGADMIN_DEFAULT_EMAIL=user@domain.com \
+    -e PGADMIN_DEFAULT_PASSWORD=Supersecret \
+    -d dpage/pgadmin4
+    </p>
+    This exports the port 80 from the container to port 5050 of the virtual machine.
+   </p>
+   <p>
+    Once the container runs, we can connect to the link localhost:5050 in our browser. Since I am running the container inside the virtual machine in a remote server, I need to add one more
+    argument <mark>(-L 5050:localhost:5050)</mark> when ssh-ing into the virtual machine to forward port 5050 from the virtual machine to 5050 of my local computer.
+   </p>
+   <p>
+    The first page that pops up asks for the username and passowrd. These are the same entries that are set up in the command above that we used to run the container.
+   </p>
+  </div>
+ </body>
+</html>

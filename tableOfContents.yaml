@@ -107,7 +107,11 @@ table_contents:
     class: 'listt'
     href: "../pages/deep_learning.html"
     string: "Deep Learning (Introduction)"
-  "28":
+  # "28":
+  #   class: 'listt'
+  #   href: "../pages/fastapi_react.html"
+  #   string: "App Using FastAPI/React"
+  "29":
     class: 'listt'
-    href: "../pages/fastapi_react.html"
-    string: "App Using FastAPI/React"
+    href: "../pages/postgresql.html"
+    string: "PostgreSQL"
