@@ -192,6 +192,24 @@ postgres=# ALTER USER postgres PASSWORD 'postgres';
 ALTER ROLE
         </p>
      </p>
+     <hr>
+     <p>
+        We can restore a database from a <mark>.tar</mark> file using the following command.
+        <p class="code-text">
+postgres@prompt:~$ pg_restore -U postgres -d mydatabase mydatabase.tar
+postgres@prompt:~$ psql
+psql (12.17 (Ubuntu 12.17-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=# \l
+                                    List of databases
+        Name        |    Owner     | Encoding | Collate |  Ctype  |   Access privileges
+-------------------+--------------+----------+---------+---------+-----------------------
+    mydatabase         | postgres     | UTF8     | C.UTF-8 | C.UTF-8 |
+        </p>
+        This can also be done with the <mark>pgadmin</mark> tool which provides a graphical interface for managing postgresql database.
+     </p>
+     <hr>
      We can exit out of postgres terminal using either <mark>exit</mark> command or <mark>\q</mark> in the terminal.
      <hr>
      <hr>
