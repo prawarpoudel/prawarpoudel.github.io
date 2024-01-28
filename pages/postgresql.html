@@ -168,7 +168,7 @@ Type "help" for help.
 postgres=#
      </p>
      <hr>
-     Now that we are inside the prompt of the postgresql, we can create database using the command <mark>\l</mark> as follows:
+     Now that we are inside the prompt of the postgresql, we can list databases using the command <mark>\l</mark> as follows:
      <p class="code-text">
 postgres-# \l
 
@@ -323,19 +323,23 @@ if __name__=="__main__":
     put them in a script and execute the script to run the container.
     <p class="code-text">
 root@xxxx:/dataVol/20240121_postgresql# cat run_container.sh
-docker run -p 5050:80\
+docker run -network="host"\
     -e PGADMIN_DEFAULT_EMAIL=user@domain.com \
     -e PGADMIN_DEFAULT_PASSWORD=Supersecret \
     -d dpage/pgadmin4
     </p>
-    This exports the port 80 from the container to port 5050 of the virtual machine.
+    This configuration uses the same networking as the remote-host; and makes it easy to forward the post to our local machine.
    </p>
    <p>
     Once the container runs, we can connect to the link localhost:5050 in our browser. Since I am running the container inside the virtual machine in a remote server, I need to add one more
-    argument <mark>(-L 5050:localhost:5050)</mark> when ssh-ing into the virtual machine to forward port 5050 from the virtual machine to 5050 of my local computer.
+    argument <mark>(-L 80:localhost:5050)</mark> when ssh-ing into the virtual machine to forward port 80 from the virtual machine (which is essentially used by the <mark>pgadmin</mark>) to 5050 of my local computer.
    </p>
    <p>
     The first page that pops up asks for the username and passowrd. These are the same entries that are set up in the command above that we used to run the container.
+   </p>
+   <p>
+    Once inside, you can set up a server. This is providing the connection info (hostname, port, username, password) to the postgres database to connect to. You can also have multiple 
+    servers connected from the pgadmin web UI.
    </p>
   </div>
  </body>
