@@ -332,7 +332,7 @@ docker run -network="host"\
    </p>
    <p>
     Once the container runs, we can connect to the link localhost:5050 in our browser. Since I am running the container inside the virtual machine in a remote server, I need to add one more
-    argument <mark>(-L 80:localhost:5050)</mark> when ssh-ing into the virtual machine to forward port 80 from the virtual machine (which is essentially used by the <mark>pgadmin</mark>) to 5050 of my local computer.
+    argument <mark>(-L 5050:localhost:80)</mark> when ssh-ing into the virtual machine to forward port 80 from the virtual machine (which is essentially used by the <mark>pgadmin</mark>) to 5050 of my local computer.
    </p>
    <p>
     The first page that pops up asks for the username and passowrd. These are the same entries that are set up in the command above that we used to run the container.
