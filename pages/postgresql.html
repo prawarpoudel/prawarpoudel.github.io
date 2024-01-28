@@ -183,6 +183,15 @@ my_toy_database | postgres | UTF8     | C.UTF-8 | C.UTF-8 |
 postgres=# drop database my_toy_database;
 DROP DATABASE
      </p>
+     <hr>
+     <p>
+        We can update password for the default user <mark>postgres</mark> as follows: This will be necessary when we want to allow remote TCP connections
+        to the postgres database that requires password for authentication. By default, postgres version in Ubuntu does not have any password.
+        <p class="code-text">
+postgres=# ALTER USER postgres PASSWORD 'postgres';
+ALTER ROLE
+        </p>
+     </p>
      We can exit out of postgres terminal using either <mark>exit</mark> command or <mark>\q</mark> in the terminal.
      <hr>
      <hr>
@@ -339,7 +348,7 @@ docker run -network="host"\
    </p>
    <p>
     Once inside, you can set up a server. This is providing the connection info (hostname, port, username, password) to the postgres database to connect to. You can also have multiple 
-    servers connected from the pgadmin web UI.
+    servers connected from the pgadmin web UI. 
    </p>
   </div>
  </body>

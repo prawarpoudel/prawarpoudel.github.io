@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="fastapi, reach" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   App Using FastAPI and React
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    Various AI Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Various Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Various Programming Topics
+   </a>
+   <a class="listt" href="../pages/reading_systemdesign.html">
+    System Design Topics (Book)
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Various Kubernetes Topics
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Examples
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    Machine Learning Basics
+   </a>
+   <a class="listt" href="../pages/rag.html">
+    RAG Concept
+   </a>
+   <a class="listt" href="../pages/rag_code.html">
+    RAG Implementation
+   </a>
+   <a class="listt" href="../pages/redis_benchmarking.html">
+    REDIS Benchmarking
+   </a>
+   <a class="listt" href="../pages/codellama.html">
+    Code Llama Intro
+   </a>
+   <a class="listt" href="../pages/codellama_handson.html">
+    Code Llama Hands-On
+   </a>
+   <a class="listt" href="../pages/breaking_codellama.html">
+    Breaking Code Llama
+   </a>
+   <a class="listt" href="../pages/whyjohnnycantprompt.html">
+    Why Jhonny Cant't Prompt
+   </a>
+   <a class="listt" href="../pages/discriminative.html">
+    Discriminative Vs Generative Models
+   </a>
+   <a class="listt" href="../pages/gan.html">
+    Generative Adversarial Models
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/kube_health_checks.html">
+    Kube Health Checks
+   </a>
+   <a class="listt" href="../pages/raft_consensus.html">
+    Raft Algorithm (Consensus)
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/primer_systemdesign.html">
+    System Design Primer (Github)
+   </a>
+   <a class="listt" href="../pages/supervised_learning.html">
+    Supervised Machine Learning
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_clustering.html">
+    Unsupervised Machine Learning (Clustering)
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
+    Unsupervised Machine Learning (Dimensn Redcsn)
+   </a>
+   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
+    Unsupervised Machine Learning (Timeseries)
+   </a>
+   <a class="listt" href="../pages/deep_learning.html">
+    Deep Learning (Introduction)
+   </a>
+   <a class="listt" href="../pages/postgresql.html">
+    PostgreSQL
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Getting Started
+   </h1>
+   <p>
+    Create a vritual environment.
+    <p class="code-text">
+     python -m env react-env
+    </p>
+    Then, activate the environment.
+    <p class="code-text">
+     source react-env/bin/activate
+    </p>
+    Now install
+    <mark>
+     fastapi, uvicorn, sqlalchemy
+    </mark>
+    <p class="code-text">
+     pip install fastapi uvicorn sqlalchemy
+    </p>
+   </p>
+   <p>
+    We would want to create two folders, one for
+    <mark>
+     fastapi
+    </mark>
+    and the other for
+    <mark>
+     react
+    </mark>
+    . Inside the
+    <mark>
+     fastapi
+    </mark>
+    folder, let us 
+    create three files, namely,
+    <mark>
+     database.py
+    </mark>
+    ,
+    <mark>
+     models.py
+    </mark>
+    and
+    <mark>
+     main.py
+    </mark>
+    .
+   </p>
+   <p>
+    In the file
+    <mark>
+     database.py
+    </mark>
+    , add the following lines of code.
+    <p class="code-text">
+     from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+# just a database name
+URL_DATABASE = "sqlite:///./players.db"
+
+engine = create_engine(URL_DATABASE, connect_args={"check_same_thread": False})
+
+SessionLocal = session_maker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+    </p>
+    In the
+    <mark>
+     models.py
+    </mark>
+    file, add the following lines of code. This code creates a basic table with a few columns.
+    <p class="code-text">
+     from database import Base
+from sqlalchemy import Column, Integer, Float, String, Boolean
+
+# let us create a db table that inherits from Base
+    class Transfer(Base):
+    __tablename__ = "transfers"
+
+    #let us create columns now
+    id = Column(Integer, primary_key=True, index=True)
+    amount = Column(Float)
+    category = Column(String)
+    description = Column(String)
+    is_income = Column(Boolean)
+    date = Column(String)
+    </p>
+   </p>
+  </div>
+ </body>
+</html>
