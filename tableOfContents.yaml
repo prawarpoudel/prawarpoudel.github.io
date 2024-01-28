@@ -6,15 +6,15 @@ table_contents:
   "13":
     class: 'listt'
     href: "../pages/ai_topics.html"
-    string: "Various AI Topics"
+    string: "AI Topics"
   "9":
     class: 'listt'
     href: "../pages/datascience_topics.html"
-    string: "Various Data Science Topics"
+    string: "Data Science Topics"
   "12":
     class: 'listt'
     href: "../pages/programming_topics.html"
-    string: "Various Programming Topics"
+    string: "Programming"
   "21":
     class: 'listt'
     href: "../pages/reading_systemdesign.html"
@@ -22,15 +22,15 @@ table_contents:
   "15":
     class: 'listt'
     href: "../pages/kube_topics.html"
-    string: "Various Kubernetes Topics"
+    string: "Kubernetes"
   "17":
     class: 'listt'
     href: "../pages/coding_topics.html"
-    string: "Various Coding Examples"
+    string: "Coding Examples"
   "18":
     class: 'listt'
     href: "../pages/ml_basics.html"
-    string: "Machine Learning Basics"
+    string: "Machine Learning"
   "2":
     class: 'listt'
     href: "../pages/rag.html"

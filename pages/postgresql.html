@@ -414,7 +414,7 @@ docker run -network="host"\
     -e PGADMIN_DEFAULT_PASSWORD=Supersecret \
     -d dpage/pgadmin4
     </p>
-    This configuration uses the same networking as the remote-host; and makes it easy to forward the post to our local machine.
+    This configuration uses the same networking as the remote-host; and makes it easy to forward the port to our local machine.
    </p>
    <p>
     Once the container runs, we can connect to the link localhost:5050 in our browser. Since I am running the container inside the virtual machine in a remote server, I need to add one more
@@ -434,6 +434,17 @@ docker run -network="host"\
    <p>
     Once inside, you can set up a server. This is providing the connection info (hostname, port, username, password) to the postgres database to connect to. You can also have multiple 
     servers connected from the pgadmin web UI.
+   </p>
+   <h3>
+    Playing with database using pgAdmin
+   </h3>
+   <p>
+    Since we have already seen 2 ways to interact with the database (python client and postgres terminal), we are going to see the third and the most convenient way to interacting with the database. This third technique is 
+    using the <mark>pgadmin</mark> UI.
+   </p>
+   <p>
+    In the pgadmin, once the server set up is complete and database imported from the server, you can right click on the database name to expose <mark>Query Tool</mark> option. This will open a new sub-tab where you can type out the 
+    SQL query and also inspect the output in the output window below.
    </p>
   </div>
  </body>
