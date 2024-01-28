@@ -33,25 +33,25 @@
     About
    </a>
    <a class="listt" href="../pages/ai_topics.html">
-    Various AI Topics
+    AI Topics
    </a>
    <a class="listt" href="../pages/datascience_topics.html">
-    Various Data Science Topics
+    Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
-    Various Programming Topics
+    Programming
    </a>
    <a class="listt" href="../pages/reading_systemdesign.html">
     System Design Topics (Book)
    </a>
    <a class="listt" href="../pages/kube_topics.html">
-    Various Kubernetes Topics
+    Kubernetes
    </a>
    <a class="listt" href="../pages/coding_topics.html">
-    Various Coding Examples
+    Coding Examples
    </a>
    <a class="listt" href="../pages/ml_basics.html">
-    Machine Learning Basics
+    Machine Learning
    </a>
    <a class="listt" href="../pages/rag.html">
     RAG Concept
@@ -141,8 +141,8 @@ systemd[1]: Starting PostgreSQL RDBMS...
 systemd[1]: Finished PostgreSQL RDBMS.
     </p>
    </p>
-   <hr>
-   <hr>
+   <hr/>
+   <hr/>
    <h2>
     Getting Started
    </h2>
@@ -157,9 +157,13 @@ systemd[1]: Finished PostgreSQL RDBMS.
      <mark>
       postgres
      </mark>
-     . But first, let us change the current user to <mark>postgres</mark> so that whatever we do will be in the scope of the postgres account.
+     . But first, let us change the current user to
+     <mark>
+      postgres
+     </mark>
+     so that whatever we do will be in the scope of the postgres account.
      <p class="code-text">
-root@xxxx:~# su - postgres
+      root@xxxx:~# su - postgres
 
 postgres@xxxx:~$ psql
 psql (12.17 (Ubuntu 12.17-0ubuntu0.20.04.1))
@@ -167,36 +171,48 @@ Type "help" for help.
 
 postgres=#
      </p>
-     <hr>
-     Now that we are inside the prompt of the postgresql, we can list databases using the command <mark>\l</mark> as follows:
+     <hr/>
+     Now that we are inside the prompt of the postgresql, we can list databases using the command
+     <mark>
+      \l
+     </mark>
+     as follows:
      <p class="code-text">
-postgres-# \l
+      postgres-# \l
 
         List of databases
 Name             |  Owner   | Encoding | Collate |  Ctype  |   Access privileges
 -----------------+----------+----------+---------+---------+---------------
 my_toy_database | postgres | UTF8     | C.UTF-8 | C.UTF-8 |
      </p>
-     <hr>
+     <hr/>
      We can delete (or DROP) a database as follows:
      <p class="code-text">
-postgres=# drop database my_toy_database;
+      postgres=# drop database my_toy_database;
 DROP DATABASE
      </p>
-     <hr>
+     <hr/>
      <p>
-        We can update password for the default user <mark>postgres</mark> as follows: This will be necessary when we want to allow remote TCP connections
+      We can update password for the default user
+      <mark>
+       postgres
+      </mark>
+      as follows: This will be necessary when we want to allow remote TCP connections
         to the postgres database that requires password for authentication. By default, postgres version in Ubuntu does not have any password.
-        <p class="code-text">
-postgres=# ALTER USER postgres PASSWORD 'postgres';
+      <p class="code-text">
+       postgres=# ALTER USER postgres PASSWORD 'postgres';
 ALTER ROLE
-        </p>
+      </p>
      </p>
-     <hr>
+     <hr/>
      <p>
-        We can restore a database from a <mark>.tar</mark> file using the following command.
-        <p class="code-text">
-postgres@prompt:~$ pg_restore -U postgres -d mydatabase mydatabase.tar
+      We can restore a database from a
+      <mark>
+       .tar
+      </mark>
+      file using the following command.
+      <p class="code-text">
+       postgres@prompt:~$ pg_restore -U postgres -d mydatabase mydatabase.tar
 postgres@prompt:~$ psql
 psql (12.17 (Ubuntu 12.17-0ubuntu0.20.04.1))
 Type "help" for help.
@@ -206,69 +222,101 @@ postgres=# \l
         Name        |    Owner     | Encoding | Collate |  Ctype  |   Access privileges
 -------------------+--------------+----------+---------+---------+-----------------------
     mydatabase         | postgres     | UTF8     | C.UTF-8 | C.UTF-8 |
-        </p>
-        This can also be done with the <mark>pgadmin</mark> tool which provides a graphical interface for managing postgresql database.
+      </p>
+      This can also be done with the
+      <mark>
+       pgadmin
+      </mark>
+      tool which provides a graphical interface for managing postgresql database.
      </p>
-     <hr>
-     We can exit out of postgres terminal using either <mark>exit</mark> command or <mark>\q</mark> in the terminal.
-     <hr>
-     <hr>
+     <hr/>
+     We can exit out of postgres terminal using either
+     <mark>
+      exit
+     </mark>
+     command or
+     <mark>
+      \q
+     </mark>
+     in the terminal.
+     <hr/>
+     <hr/>
      <h2>
-        Creating a user, database and table
+      Creating a user, database and table
      </h2>
-     Let us create a new user named <mark>tom_postgres</mark> so that we do not mess up with the original default <mark>postgres</mark> user.
+     Let us create a new user named
+     <mark>
+      tom_postgres
+     </mark>
+     so that we do not mess up with the original default
+     <mark>
+      postgres
+     </mark>
+     user.
      <p class="code-text">
-postgres=# create user tom_postgres with password 'tom_postgres';
+      postgres=# create user tom_postgres with password 'tom_postgres';
 CREATE ROLE
      </p>
-     Now, let us create a new database for which the owner is <mark>tom_postgres</mark>.
+     Now, let us create a new database for which the owner is
+     <mark>
+      tom_postgres
+     </mark>
+     .
      <p class="code-text">
-postgres=# create database tom_postgres_toy1 owner tom_postgres;
+      postgres=# create database tom_postgres_toy1 owner tom_postgres;
 CREATE DATABASE
-    </p>
+     </p>
      We can list the existing databases as follows:
-    <p class="code-text">
-postgres=# \l
+     <p class="code-text">
+      postgres=# \l
                                     List of databases
         Name        |    Owner     | Encoding | Collate |  Ctype  |   Access privileges
 -------------------+--------------+----------+---------+---------+-----------------------
     postgres          | postgres     | UTF8     | C.UTF-8 | C.UTF-8 |
     tom_postgres_toy1 | tom_postgres | UTF8     | C.UTF-8 | C.UTF-8 |
      </p>
-     Now we can exit out of the current terminal, and connect open a new postgresql terminal so that we are logged in as user <mark>tom_postgres</mark>, 
-     and working against database <mark>tom_postgres_toy1</mark>.
+     Now we can exit out of the current terminal, and connect open a new postgresql terminal so that we are logged in as user
+     <mark>
+      tom_postgres
+     </mark>
+     , 
+     and working against database
+     <mark>
+      tom_postgres_toy1
+     </mark>
+     .
      <p class="code-text">
-    root@xxxx:~# psql -U tom_postgres -d tom_postgres_toy1 -h localhost
+      root@xxxx:~# psql -U tom_postgres -d tom_postgres_toy1 -h localhost
     Password for user tom_postgres:
      </p>
      After entering the passowrd in the command above, we can access the terminal as follows:
      <p class="code-text">
-Password for user tom_postgres:
+      Password for user tom_postgres:
 psql (12.17 (Ubuntu 12.17-0ubuntu0.20.04.1))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
 Type "help" for help.
 
-tom_postgres_toy1=>
+tom_postgres_toy1=&gt;
      </p>
      Let us list tables in the database
      <p class="code-text">
-tom_postgres_toy1=> SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+      tom_postgres_toy1=&gt; SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
 table_name
 ------------
 (0 rows)
      </p>
      Now let us create our first table in the database, with some columns
      <p class="code-text">
-CREATE TABLE address_book (
+      CREATE TABLE address_book (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     email VARCHAR(100)
-);        
+);
      </p>
-     If we list the tables, we can see the table. 
+     If we list the tables, we can see the table.
      <p class="code-text">
-tom_postgres_toy1=> SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+      tom_postgres_toy1=&gt; SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
 table_name
 --------------
 address_book
@@ -276,8 +324,8 @@ address_book
      </p>
     </p>
    </p>
-   <hr>
-   <hr>
+   <hr/>
+   <hr/>
    <h2>
     Using python client to access
    </h2>
@@ -285,10 +333,14 @@ address_book
     Let us install a python client and write a small code to access the database.
    </p>
    <p>
-    First install python client library <mark>psycopg2-binary</mark>. Here, I first create a virtual environment and install the library in the 
+    First install python client library
+    <mark>
+     psycopg2-binary
+    </mark>
+    . Here, I first create a virtual environment and install the library in the 
     virtual environment.
     <p class="code-text">
-root@xxxx:/dataVol/20240121_postgresql# python3 -m venv postgres
+     root@xxxx:/dataVol/20240121_postgresql# python3 -m venv postgres
 root@xxxx:/dataVol/20240121_postgresql# source postgres/bin/activate
 (postgres) root@xxxx:/dataVol/20240121_postgresql# python3 -m pip install psycopg2-binary
 Collecting psycopg2-binary
@@ -299,7 +351,7 @@ Collecting psycopg2-binary
    <p>
     Then using the following code, we can list the table in the database. OR, pretty much run any command.
     <p class="code-text">
-import psycopg2
+     import psycopg2
 from psycopg2 import sql
 
 db_params = {
@@ -336,20 +388,27 @@ if __name__=="__main__":
     </p>
     The output of which looks as follows:
     <p class="code-text">
-(postgres) root@xxxx:/dataVol/20240121_postgresql# python3 1.py
+     (postgres) root@xxxx:/dataVol/20240121_postgresql# python3 1.py
 [('address_book',)]
     </p>
    </p>
-   <hr>
-   <hr>
+   <hr/>
+   <hr/>
    <h2>
-    Using <i>pgAdmin</i>
+    Using
+    <i>
+     pgAdmin
+    </i>
    </h2>
    <p>
-    Now let us use <mark>pgAdmin</mark>, which provides a web based UI for managing postgresql database. It can be run as a container using following command. I usually
+    Now let us use
+    <mark>
+     pgAdmin
+    </mark>
+    , which provides a web based UI for managing postgresql database. It can be run as a container using following command. I usually
     put them in a script and execute the script to run the container.
     <p class="code-text">
-root@xxxx:/dataVol/20240121_postgresql# cat run_container.sh
+     root@xxxx:/dataVol/20240121_postgresql# cat run_container.sh
 docker run -network="host"\
     -e PGADMIN_DEFAULT_EMAIL=user@domain.com \
     -e PGADMIN_DEFAULT_PASSWORD=Supersecret \
@@ -359,14 +418,22 @@ docker run -network="host"\
    </p>
    <p>
     Once the container runs, we can connect to the link localhost:5050 in our browser. Since I am running the container inside the virtual machine in a remote server, I need to add one more
-    argument <mark>(-L 5050:localhost:80)</mark> when ssh-ing into the virtual machine to forward port 80 from the virtual machine (which is essentially used by the <mark>pgadmin</mark>) to 5050 of my local computer.
+    argument
+    <mark>
+     (-L 5050:localhost:80)
+    </mark>
+    when ssh-ing into the virtual machine to forward port 80 from the virtual machine (which is essentially used by the
+    <mark>
+     pgadmin
+    </mark>
+    ) to 5050 of my local computer.
    </p>
    <p>
     The first page that pops up asks for the username and passowrd. These are the same entries that are set up in the command above that we used to run the container.
    </p>
    <p>
     Once inside, you can set up a server. This is providing the connection info (hostname, port, username, password) to the postgres database to connect to. You can also have multiple 
-    servers connected from the pgadmin web UI. 
+    servers connected from the pgadmin web UI.
    </p>
   </div>
  </body>
