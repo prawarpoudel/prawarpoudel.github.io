@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Various Coding Examples
+   Inplace Remove Certain Value from an Array
   </title>
  </head>
  <body>
@@ -116,51 +116,41 @@
   </div>
   <div class="content">
    <h1>
-    Topics
+    Inplace Remove Certain Value from an Array
    </h1>
    <p>
-    <ol>
-     <li>
-      <p class="important">
-       Find Monotonic Array.
-      </p>
-      <a href="../codes/monotonic_array_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Reverse every word in a string.
-      </p>
-      <a href="../codes/reverse_string_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Find values that add up to a target.
-      </p>
-      <a href="../codes/find_index_two_nums_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-04-09): Combine Two Non-decreasing arrays into a final non-decreasing array
-      </p>
-      <a href="../codes/combine_two_arrays_nondecreasing.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-04-10): Inplace modify array to remove certain value
-      </p>
-      <a href="../codes/inplace_remove_val_in_array.html">
-       (Link)
-      </a>
-     </li>
-    </ol>
+    <ul>
+        <li>
+            Given an array of numbers <i>nums</i>, and a number <i>val</i>, modify the array in place so that resulting array does not have the <i>val</i>.
+        </li>
+        <li>
+            The array should be modified in place, and the function should return the number of eligible items in the new array.
+        </li>
+    </ul>
+   </p>
+   <h2>
+    Solution
+   </h2>
+   <p class="'code-text">
+    class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        searchIdx = 0
+        fillIdx = 0
+        rInt = 0
+        for searchIdx in range(len(nums)):
+            if nums[searchIdx]==val:
+                pass
+            else:
+                nums[fillIdx] = nums[searchIdx]
+                fillIdx += 1
+                rInt += 1
+
+        return rInt
    </p>
   </div>
  </body>
