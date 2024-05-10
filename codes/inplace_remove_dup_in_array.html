@@ -129,7 +129,7 @@
     </ul>
    </p>
    <h2>
-    Solution
+    Solution-1
    </h2>
    <p class="code-text">
     class Solution(object):
@@ -152,6 +152,33 @@
                     nums[fillIdx] = nums[searchIdx]
                     fillIdx += 1
             return fillIdx
+   </p>
+   <h2>
+    Solution-2
+   </h2>
+   <p class="code-text">
+    class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+# now using the idea that the array is sorted
+# we do not need to use the defaultDict
+
+        # let us handle the case when the array is empty
+        if not nums:
+            return nums
+        
+        # let us start from idx 1 and search through the array
+        # .. duplicate items in a sorted array are place consecutively
+        # .. we will compate idx and one place before that to see duplicates
+        fillIdx = 1
+        for searchIdx in range(1,len(nums)):
+            if nums[searchIdx]!=nums[searchIdx-1]:
+                nums[fillIdx] = nums[searchIdx]
+                fillIdx += 1
+        return fillIdx
    </p>
   </div>
  </body>
