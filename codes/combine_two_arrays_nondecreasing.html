@@ -135,34 +135,34 @@
    <h2>Solution</h2>
    <p  class="code-text">
     class Solution(object):
-    def merge(self, nums1, m, nums2, n):
-        """
-        :type nums1: List[int]
-        :type m: int
-        :type nums2: List[int]
-        :type n: int
-        :rtype: None Do not return anything, modify nums1 in-place instead.
-        """
-        i,j = 0,0
-        # let us create an array for our result
-        nums1temp = nums1[:]
+        def merge(self, nums1, m, nums2, n):
+            """
+            :type nums1: List[int]
+            :type m: int
+            :type nums2: List[int]
+            :type n: int
+            :rtype: None Do not return anything, modify nums1 in-place instead.
+            """
+            i,j = 0,0
+            # let us create an array for our result
+            nums1temp = nums1[:]
 
-        while True:
-            if i<m:
-                if j>=n:
-                    nums1[i+j:] = nums1temp[i:m]
+            while True:
+                if i<m:
+                    if j>=n:
+                        nums1[i+j:] = nums1temp[i:m]
+                        break
+                    elif nums1temp[i]&lt=nums2[j]:
+                        nums1[i+j] = nums1temp[i]
+                        i+=1
+                    else:
+                        nums1[i+j] = nums2[j]
+                        j+=1
+                elif j<n:
+                    nums1[i+j:] = nums2[j:n]
                     break
-                elif nums1temp[i]&lt=nums2[j]:
-                    nums1[i+j] = nums1temp[i]
-                    i+=1
                 else:
-                    nums1[i+j] = nums2[j]
-                    j+=1
-            elif j<n:
-                nums1[i+j:] = nums2[j:n]
-                break
-            else:
-                break
+                    break
 
    </p>
   </div>

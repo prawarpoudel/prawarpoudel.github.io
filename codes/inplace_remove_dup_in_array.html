@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Inplace Remove Certain Value from an Array
+   Inplace Remove Duplicate Values in an Array
   </title>
  </head>
  <body>
@@ -116,12 +116,12 @@
   </div>
   <div class="content">
    <h1>
-    Inplace Remove Certain Value from an Array
+    Inplace Remove Duplicate Values in an Array
    </h1>
    <p>
     <ul>
         <li>
-            Given an array of numbers <i>nums</i>, and a number <i>val</i>, modify the array in place so that resulting array does not have the <i>val</i>.
+            Given an array of numbers <i>nums</i>, modify the array in place so that resulting array does not have any duplicate items.
         </li>
         <li>
             The array should be modified in place, and the function should return the number of eligible items in the new array.
@@ -133,24 +133,25 @@
    </h2>
    <p class="code-text">
     class Solution(object):
-        def removeElement(self, nums, val):
+        def removeDuplicates(self, nums):
             """
             :type nums: List[int]
-            :type val: int
             :rtype: int
             """
+            from collections import defaultdict
+            myDict = defaultdict(int)
+
             searchIdx = 0
             fillIdx = 0
-            rInt = 0
             for searchIdx in range(len(nums)):
-                if nums[searchIdx]==val:
+                if myDict[nums[searchIdx]]>0:
+                    # this is dup
                     pass
                 else:
+                    myDict[nums[searchIdx]] = 1
                     nums[fillIdx] = nums[searchIdx]
                     fillIdx += 1
-                    rInt += 1
-
-            return rInt
+            return fillIdx
    </p>
   </div>
  </body>
