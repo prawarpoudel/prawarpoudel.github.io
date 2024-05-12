@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Various Coding Examples
+   Inplace Remove Duplicate Values in an Array - II
   </title>
  </head>
  <body>
@@ -116,67 +116,47 @@
   </div>
   <div class="content">
    <h1>
-    Topics
+    Inplace Remove Duplicate Values in an Array
    </h1>
    <p>
-    <ol>
-     <li>
-      <p class="important">
-       Find Monotonic Array.
-      </p>
-      <a href="../codes/monotonic_array_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Reverse every word in a string.
-      </p>
-      <a href="../codes/reverse_string_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Find values that add up to a target.
-      </p>
-      <a href="../codes/find_index_two_nums_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-11): Inplace modify array to remove duplicate items - II
-      </p>
-      <a href="../codes/inplace_remove_dup_in_array_2.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-10): Inplace modify array to remove certain value
-      </p>
-      <a href="../codes/inplace_remove_val_in_array.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-10): Inplace modify array to remove duplicate items
-      </p>
-      <a href="../codes/inplace_remove_dup_in_array.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-09): Combine Two Non-decreasing arrays into a final non-decreasing array
-      </p>
-      <a href="../codes/combine_two_arrays_nondecreasing.html">
-       (Link)
-      </a>
-     </li>
-    </ol>
+    <ul>
+        <li>
+            Given an array of numbers <i>nums</i>, modify the array in place so that resulting array will have at most two of the same values. This is similar to the earlier problem of <a href="../codes/inplace_remove_dup_in_array.html">removing duplicates</a>,
+            but in this problem we are allowed to repeat an item if the repitition is only once. 
+        </li>
+        <li>
+            The array should be modified in place, and the function should return the number of eligible items in the new array.
+        </li>
+    </ul>
+   </p>
+   <h2>
+    Solution
+   </h2>
+   <p>
+    Here we use a count to keep track of the repitition, and skip placement only if the count value is 2 or more.
+   </p>
+   <p class="code-text">
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if  len(nums)&lt;=2:
+            return len(nums)
+        searchIdx = 1
+        putIdx = 1
+
+        count = 0
+        for searchIdx in range(1,len(nums)):
+            if nums[searchIdx]==nums[searchIdx-1]:
+                count+=1
+            else:
+                count = 0
+            if count&lt;2:
+                nums[putIdx] = nums[searchIdx]
+                putIdx += 1
+        return putIdx
    </p>
   </div>
  </body>
