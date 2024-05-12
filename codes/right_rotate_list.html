@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Various Coding Examples
+   Right-rotate a list
   </title>
  </head>
  <body>
@@ -116,83 +116,36 @@
   </div>
   <div class="content">
    <h1>
-    Topics
+    Rotate right a list of items in python
    </h1>
    <p>
-    <ol>
-     <li>
-      <p class="important">
-       Find Monotonic Array.
-      </p>
-      <a href="../codes/monotonic_array_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Reverse every word in a string.
-      </p>
-      <a href="../codes/reverse_string_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Find values that add up to a target.
-      </p>
-      <a href="../codes/find_index_two_nums_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-12): Rotate right a list
-      </p>
-      <a href="../codes/right_rotate_list.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-12): Find majority element in a list
-      </p>
-      <a href="../codes/find_majority_elemeny_in_list.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-12): Inplace modify array to remove duplicate items - II
-      </p>
-      <a href="../codes/inplace_remove_dup_in_array_2.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-10): Inplace modify array to remove certain value
-      </p>
-      <a href="../codes/inplace_remove_val_in_array.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-10): Inplace modify array to remove duplicate items
-      </p>
-      <a href="../codes/inplace_remove_dup_in_array.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       (2024-05-09): Combine Two Non-decreasing arrays into a final non-decreasing array
-      </p>
-      <a href="../codes/combine_two_arrays_nondecreasing.html">
-       (Link)
-      </a>
-     </li>
-    </ol>
+    <ul>
+        <li>
+            Given a list of numbers, rotate right a list by k-steps
+        </li>
+    </ul>
+   </p>
+   <h2>
+    Solution
+   </h2>
+   <p>
+    Following is our code.
+   </p>
+   <p class="code-text">
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        length = len(nums)
+        
+        k = k%length
+
+        tempArr = nums[length-k:].copy()
+        for i in range(length-1,k-1,-1):
+            nums[i] = nums[i-k]
+        nums[:k] = tempArr[:k]
+        
    </p>
   </div>
  </body>
