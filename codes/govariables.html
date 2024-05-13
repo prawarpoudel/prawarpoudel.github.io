@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Learn GoLang
+   Getting Started with GoLang
   </title>
  </head>
  <body>
@@ -116,28 +116,49 @@
   </div>
   <div class="content">
    <h1>
-    Learn GoLang
+    Variablese in Golang
    </h1>
-    <p>
-        <ol>
-            <li>
-                <p class="important">
-                Getting Started: Setting Up
-                </p>
-                <a href="../codes/settingupgolang_mac.html">
-                (Link)
-                </a>
-            </li>
-            <li>
-                <p class="important">
-                Go Variables
-                </p>
-                <a href="../codes/govariables.html">
-                (Link)
-                </a>
-            </li>
-         </ol>
-    </p>
+   <p>
+        Let us look at the code first.
+        <p>
+            Following is from <a href="https://github.com/prawarpoudel/learn_golang/blob/main/2.variables/2_variables.go"><i>2_variables.go</i></a>.
+        </p>
+        <p class="code-text">
+package main
+
+import "fmt"
+
+// this variable is defined in package level;
+// .. and is accessible across all files in the package
+var package_variable = 30
+
+func main() {
+    // following variable is visible only inside this function
+    var func_variable = 20
+
+    fmt.Println("Package Variable is:", package_variable)
+    fmt.Println("Function Variable is:", func_variable)
+
+    // the function name can begin with small letter since they are in same package
+    // .. the function name must be upper case if they are in different packages
+    funcInAnotherFile()
+}                  
+        </p>
+        <p>
+            The called function is defined at code at <a href="https://github.com/prawarpoudel/learn_golang/blob/main/2.variables/2_anotherfile.go">2_anotherfile.go</a>.
+        </p>
+        <p class="code-text">
+package main
+
+import "fmt"
+
+// the function name can begin with small letter since they are in same package
+// .. the function name must be upper case if they are in different packages
+func funcInAnotherFile() {
+    fmt.Println("Printing from another file:", package_variable)
+}
+        </p>
+   </p>
   </div>
  </body>
 </html>
