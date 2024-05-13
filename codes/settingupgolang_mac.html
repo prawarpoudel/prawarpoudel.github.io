@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Various Programming Topics
+   Getting Started with GoLang
   </title>
  </head>
  <body>
@@ -116,67 +116,44 @@
   </div>
   <div class="content">
    <h1>
-    Topics
+    Setting Up GoLang
    </h1>
    <p>
-    <ol>
-     <li>
-      <p class="important">
-       Regex in python.
-      </p>
-      <a href="../pages/regex_py.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Persistent SSH Connections.
-      </p>
-      <a href="../pages/persistent_ssh_connections.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Reading System Design Interview (Book).
-      </p>
-      <a href="../pages/reading_systemdesign.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Alerting.
-      </p>
-      <a href="../pages/alerting.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Learning SQL Using PostgreSQL
-      </p>
-      <a href="../pages/learnSQL.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Setting Up PostgreSQL and pgadmin
-      </p>
-      <a href="../pages/postgresql.html">
-       (Link)
-      </a>
-     </li>
-     <li>
-      <p class="important">
-       Learning GoLang
-      </p>
-      <a href="../pages/learngolang.html">
-       (Link)
-      </a>
-     </li>
-    </ol>
+    Go to the page at <a href="https://go.dev/doc/install">this link</a>, to download the package installer for the OS of your choice.
+   </p>
+   <p>
+    After you download one of the recent stable releases, it will guide through the series of installation steps, and there should be it.
+   </p>
+   <p>
+    The installation will update the environment variable and put <i>/usr/local/go/bin</i> to the PATH variable. Any open terminal may need to be restarted.
+   </p>
+   <p>
+    Verify installation with <i>go version</i> in terminal. Following is my output for <i>go version</i>.
+        <p class="code-text">
+            ~ % go version
+            go version go1.22.3 darwin/arm64
+        </p>
+    I am using VS Code as my IDE. Please install the <i>Go Extension</i> that VS Code prompts to install. It makes life a lot easier.
+   </p>
+   <h1>
+    Hello World !!
+   </h1>
+   <p>
+    Following is the <i>Hello World</i> code that you can run in golang. The code is also located at <a href="https://github.com/prawarpoudel/learn_golang/blob/main/1.helloworld/1_helloworld.go">this link</a>.
+        <p class="code-text">
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello World !!")
+}
+        </p>
+        which produces the following output.
+        <p class="code-text">
+learn_golang % go run 1.helloworld/1_helloworld.go 
+Hello World !!
+        </p>
    </p>
   </div>
  </body>
