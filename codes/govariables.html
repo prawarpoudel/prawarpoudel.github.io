@@ -116,47 +116,138 @@
   </div>
   <div class="content">
    <h1>
-    Variablese in Golang
+    Variables in Golang
    </h1>
    <p>
-        Let us look at the code first.
+        Let us look at the code first. In this two codes that are to be placed in separate files, we explore following things:
+        <ul>
+            <li>
+                Package Scoped Variables vs Local Variables;
+            </li>
+            <li>
+                Variable declaration vs just the definition
+            </li>
+            <li>
+                Assignment Operator '=' vs ':='
+            </li>
+        </ul>
         <p>
             Following is from <a href="https://github.com/prawarpoudel/learn_golang/blob/main/2.variables/2_variables.go"><i>2_variables.go</i></a>.
         </p>
         <p class="code-text">
-package main
+    package main
 
-import "fmt"
-
-// this variable is defined in package level;
-// .. and is accessible across all files in the package
-var package_variable = 30
-
-func main() {
-    // following variable is visible only inside this function
-    var func_variable = 20
-
-    fmt.Println("Package Variable is:", package_variable)
-    fmt.Println("Function Variable is:", func_variable)
-
-    // the function name can begin with small letter since they are in same package
-    // .. the function name must be upper case if they are in different packages
-    funcInAnotherFile()
-}                  
+    import "fmt"
+    
+    // following variables declaration, no values assigned yet
+    // .. we will assign the values from another function using = operator
+    var a int
+    var name string
+    var truee bool
+    
+    // following variables declaration, no values assigned yet
+    // .. we will assign the values from another function using := operator
+    //
+    //	.. we will later see that change in value using := is only in a local scope rather than on a larger scope
+    var aa int
+    var aname string
+    var atruee bool
+    
+    // this variable is defined in package level;
+    // .. and is accessible across all files in the package
+    var package_variable = 30
+    
+    func main() {
+        // following variable is visible only inside this function
+        var func_variable = 20
+    
+        fmt.Println("Package Variable is:", package_variable)
+        fmt.Println("Function Variable is:", func_variable)
+    
+        // the function name can begin with small letter since they are in same package
+        // .. the function name must be upper case if they are in different packages
+        funcInAnotherFile()
+    
+        fmt.Println("** Assign values using = operator. **")
+        // assign values to the variables as following
+        fmt.Println("=========")
+        a = 58
+        fmt.Println("From main function: Value of a is ", a)
+        assignValuesToVariables()
+    
+        // print the values here again
+        // .. following demonstrates that assigning to the values are local to the calling function
+        fmt.Println("=========")
+        fmt.Println("From main function: Name:", name, ",Bool Value:", truee, ",Int:", a)
+    
+        fmt.Println("=========")
+        fmt.Println("** Assign values using := operator. **")
+        // assign values to the variables as following
+        fmt.Println("=========")
+        aa := 58
+        fmt.Println("From main function: Value of aa is ", aa)
+        aassignValuesToVariables()
+    
+        // print the values here again
+        // .. following demonstrates that assigning to the values are local to the calling function
+        fmt.Println("=========")
+        fmt.Println("From main function: Name:", aname, ",Bool Value:", atruee, ",Int:", aa)
+    }
+                           
         </p>
         <p>
             The called function is defined at code at <a href="https://github.com/prawarpoudel/learn_golang/blob/main/2.variables/2_anotherfile.go">2_anotherfile.go</a>.
         </p>
         <p class="code-text">
-package main
+    package main
 
-import "fmt"
-
-// the function name can begin with small letter since they are in same package
-// .. the function name must be upper case if they are in different packages
-func funcInAnotherFile() {
-    fmt.Println("Printing from another file:", package_variable)
-}
+    import "fmt"
+    
+    // the function name can begin with small letter since they are in same package
+    // .. the function name must be upper case if they are in different packages
+    func funcInAnotherFile() {
+        fmt.Println("Printing from another file:", package_variable)
+    }
+    
+    func assignValuesToVariables() {
+        fmt.Println("Before Updating Name:", name, ",Bool Value:", truee, ",Int:", a)
+        name = "Katherine"
+        truee = true
+        a = 34
+        fmt.Println("From another function: Name:", name, ",Bool Value:", truee, ",Int:", a)
+    }
+    
+    func aassignValuesToVariables() {
+        fmt.Println("Before Updating Name:", aname, ",Bool Value:", atruee, ",Int:", aa)
+        aname := "aKatherine"
+        atruee = true
+        aa = 340
+        fmt.Println("From another function: Name:", aname, ",Bool Value:", atruee, ",Int:", aa)
+    }
+        </p>
+        <p>
+            Following is the output of the above code:
+        </p>
+        <p class="code-text">  
+    prawarpoudel@Prawars-MBP 2.variables % ./project2 
+    Package Variable is: 30
+    Function Variable is: 20
+    Printing from another file: 30
+    ** Assign values using = operator. **
+    =========
+    From main function: Value of a is  58
+    Before Updating Name:  ,Bool Value: false ,Int: 58
+    From another function: Name: Katherine ,Bool Value: true ,Int: 34
+    =========
+    From main function: Name: Katherine ,Bool Value: true ,Int: 34
+    =========
+    ** Assign values using := operator. **
+    =========
+    From main function: Value of aa is  58
+    Before Updating Name:  ,Bool Value: false ,Int: 0
+    From another function: Name: aKatherine ,Bool Value: true ,Int: 340
+    =========
+    From main function: Name:  ,Bool Value: true ,Int: 58
         </p>
    </p>
   </div>
