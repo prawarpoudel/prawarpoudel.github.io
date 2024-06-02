@@ -39,7 +39,7 @@
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
-    Programming
+    Programming Topics
    </a>
    <a class="listt" href="../pages/reading_systemdesign.html">
     System Design Topics (Book)
@@ -120,9 +120,9 @@
    </h1>
    <p>
     <ul>
-        <li>
-            Given a list of numbers, rotate right a list by k-steps
-        </li>
+     <li>
+      Given a list of numbers, rotate right a list by k-steps
+     </li>
     </ul>
    </p>
    <h2>
@@ -132,8 +132,8 @@
     Following is our code.
    </p>
    <p class="code-text">
-class Solution:
-    def rotate(self, nums: List[int], k: int) -> None:
+    class Solution:
+    def rotate(self, nums: List[int], k: int) -&gt; None:
         """
         Do not return anything, modify nums in-place instead.
         """
@@ -145,7 +145,6 @@ class Solution:
         for i in range(length-1,k-1,-1):
             nums[i] = nums[i-k]
         nums[:k] = tempArr[:k]
-        
    </p>
   </div>
  </body>

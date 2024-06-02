@@ -14,7 +14,7 @@ table_contents:
   "12":
     class: 'listt'
     href: "../pages/programming_topics.html"
-    string: "Programming"
+    string: "Programming Topics"
   "21":
     class: 'listt'
     href: "../pages/reading_systemdesign.html"

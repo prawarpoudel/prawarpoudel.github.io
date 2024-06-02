@@ -39,7 +39,7 @@
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
-    Programming
+    Programming Topics
    </a>
    <a class="listt" href="../pages/reading_systemdesign.html">
     System Design Topics (Book)
@@ -119,23 +119,29 @@
     Variables in Golang
    </h1>
    <p>
-        Let us look at the code first. In this two codes that are to be placed in separate files, we explore following things:
-        <ul>
-            <li>
-                Package Scoped Variables vs Local Variables;
-            </li>
-            <li>
-                Variable declaration vs just the definition
-            </li>
-            <li>
-                Assignment Operator '=' vs ':='
-            </li>
-        </ul>
-        <p>
-            Following is from <a href="https://github.com/prawarpoudel/learn_golang/blob/main/2.variables/2_variables.go"><i>2_variables.go</i></a>.
-        </p>
-        <p class="code-text">
-    package main
+    Let us look at the code first. In this two codes that are to be placed in separate files, we explore following things:
+    <ul>
+     <li>
+      Package Scoped Variables vs Local Variables;
+     </li>
+     <li>
+      Variable declaration vs just the definition
+     </li>
+     <li>
+      Assignment Operator '=' vs ':='
+     </li>
+    </ul>
+    <p>
+     Following is from
+     <a href="https://github.com/prawarpoudel/learn_golang/blob/main/2.variables/2_variables.go">
+      <i>
+       2_variables.go
+      </i>
+     </a>
+     .
+    </p>
+    <p class="code-text">
+     package main
 
     import "fmt"
     
@@ -193,13 +199,16 @@
         fmt.Println("=========")
         fmt.Println("From main function: Name:", aname, ",Bool Value:", atruee, ",Int:", aa)
     }
-                           
-        </p>
-        <p>
-            The called function is defined at code at <a href="https://github.com/prawarpoudel/learn_golang/blob/main/2.variables/2_anotherfile.go">2_anotherfile.go</a>.
-        </p>
-        <p class="code-text">
-    package main
+    </p>
+    <p>
+     The called function is defined at code at
+     <a href="https://github.com/prawarpoudel/learn_golang/blob/main/2.variables/2_anotherfile.go">
+      2_anotherfile.go
+     </a>
+     .
+    </p>
+    <p class="code-text">
+     package main
 
     import "fmt"
     
@@ -224,12 +233,12 @@
         aa = 340
         fmt.Println("From another function: Name:", aname, ",Bool Value:", atruee, ",Int:", aa)
     }
-        </p>
-        <p>
-            Following is the output of the above code:
-        </p>
-        <p class="code-text">  
-    prawarpoudel@Prawars-MBP 2.variables % ./project2 
+    </p>
+    <p>
+     Following is the output of the above code:
+    </p>
+    <p class="code-text">
+     prawarpoudel@Prawars-MBP 2.variables % ./project2 
     Package Variable is: 30
     Function Variable is: 20
     Printing from another file: 30
@@ -248,7 +257,7 @@
     From another function: Name: aKatherine ,Bool Value: true ,Int: 340
     =========
     From main function: Name:  ,Bool Value: true ,Int: 58
-        </p>
+    </p>
    </p>
   </div>
  </body>

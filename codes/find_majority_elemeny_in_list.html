@@ -39,7 +39,7 @@
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
-    Programming
+    Programming Topics
    </a>
    <a class="listt" href="../pages/reading_systemdesign.html">
     System Design Topics (Book)
@@ -120,9 +120,9 @@
    </h1>
    <p>
     <ul>
-        <li>
-            Given a list of numbers, find the element that is repeated the most number of times in array. 
-        </li>
+     <li>
+      Given a list of numbers, find the element that is repeated the most number of times in array.
+     </li>
     </ul>
    </p>
    <h2>
@@ -133,7 +133,7 @@
     a list with large no of elements.
    </p>
    <p class="code-text">
-class Solution(object):
+    class Solution(object):
     def majorityElement(self, nums):
         """
         :type nums: List[int]
@@ -149,7 +149,7 @@ class Solution(object):
     Following uses a more naiive approach; but is better in terms of performance.
    </p>
    <p class="code-text">
-class Solution(object):
+    class Solution(object):
     def majorityElement(self, nums):
 
         from collections import defaultdict
@@ -161,7 +161,7 @@ class Solution(object):
         max = -1
         ret = 0
         for key,val in mydict.items():
-            if val >= max:
+            if val &gt;= max:
                 max = val
                 ret = key
         return ret

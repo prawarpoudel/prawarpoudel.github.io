@@ -39,7 +39,7 @@
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
-    Programming
+    Programming Topics
    </a>
    <a class="listt" href="../pages/reading_systemdesign.html">
     System Design Topics (Book)
@@ -120,13 +120,21 @@
    </h1>
    <p>
     <ul>
-        <li>
-            Given an array of numbers <i>nums</i>, modify the array in place so that resulting array will have at most two of the same values. This is similar to the earlier problem of <a href="../codes/inplace_remove_dup_in_array.html">removing duplicates</a>,
-            but in this problem we are allowed to repeat an item if the repitition is only once. 
-        </li>
-        <li>
-            The array should be modified in place, and the function should return the number of eligible items in the new array.
-        </li>
+     <li>
+      Given an array of numbers
+      <i>
+       nums
+      </i>
+      , modify the array in place so that resulting array will have at most two of the same values. This is similar to the earlier problem of
+      <a href="../codes/inplace_remove_dup_in_array.html">
+       removing duplicates
+      </a>
+      ,
+            but in this problem we are allowed to repeat an item if the repitition is only once.
+     </li>
+     <li>
+      The array should be modified in place, and the function should return the number of eligible items in the new array.
+     </li>
     </ul>
    </p>
    <h2>
@@ -136,7 +144,7 @@
     Here we use a count to keep track of the repitition, and skip placement only if the count value is 2 or more.
    </p>
    <p class="code-text">
-class Solution(object):
+    class Solution(object):
     def removeDuplicates(self, nums):
         """
         :type nums: List[int]

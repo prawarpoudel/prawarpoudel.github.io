@@ -39,7 +39,7 @@
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
-    Programming
+    Programming Topics
    </a>
    <a class="listt" href="../pages/reading_systemdesign.html">
     System Design Topics (Book)
@@ -119,21 +119,55 @@
     Combine Two Non-Decreasing Arrays
    </h1>
    <p>
-    Given two non-decreasing arrays <i>nums1</i> and <i>nums2</i>, combine them into a final array. 
+    Given two non-decreasing arrays
+    <i>
+     nums1
+    </i>
+    and
+    <i>
+     nums2
+    </i>
+    , combine them into a final array.
     <ul>
-        <li>
-            Instead of returning the resulting array, modify the array <i>nums1</i>.
-        </li>
-        <li>
-            Array <i>nums1</i> is of length <i>m+n</i>, where m is the length of actual values. The remaining n spots are placeholders for final result.
-        </li>
-        <li>
-            Modify <i>nums1</i> with the content of <i>nums2</i> so that final non-decreasing array is stored in <i>nums1</i>.
-        </li>
+     <li>
+      Instead of returning the resulting array, modify the array
+      <i>
+       nums1
+      </i>
+      .
+     </li>
+     <li>
+      Array
+      <i>
+       nums1
+      </i>
+      is of length
+      <i>
+       m+n
+      </i>
+      , where m is the length of actual values. The remaining n spots are placeholders for final result.
+     </li>
+     <li>
+      Modify
+      <i>
+       nums1
+      </i>
+      with the content of
+      <i>
+       nums2
+      </i>
+      so that final non-decreasing array is stored in
+      <i>
+       nums1
+      </i>
+      .
+     </li>
     </ul>
    </p>
-   <h2>Solution</h2>
-   <p  class="code-text">
+   <h2>
+    Solution
+   </h2>
+   <p class="code-text">
     class Solution(object):
         def merge(self, nums1, m, nums2, n):
             """
@@ -148,22 +182,21 @@
             nums1temp = nums1[:]
 
             while True:
-                if i<m:
-                    if j>=n:
+                if i
+    <m: if="" j="">
+     =n:
                         nums1[i+j:] = nums1temp[i:m]
                         break
-                    elif nums1temp[i]&lt=nums2[j]:
+                    elif nums1temp[i]&lt;=nums2[j]:
                         nums1[i+j] = nums1temp[i]
                         i+=1
                     else:
                         nums1[i+j] = nums2[j]
                         j+=1
-                elif j<n:
-                    nums1[i+j:] = nums2[j:n]
-                    break
-                else:
-                    break
-
+                elif j
+     <n: <="" break="" else:="" nums1[i+j:]="nums2[j:n]" p="">
+     </n:>
+    </m:>
    </p>
   </div>
  </body>
