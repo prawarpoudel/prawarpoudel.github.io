@@ -115,3 +115,7 @@ table_contents:
     class: 'listt'
     href: "../pages/postgresql.html"
     string: "PostgreSQL"
+  "30":
+    class: 'listt'
+    href: "../pages/natural_language_processing.html"
+    string: "Natural Language Processing"
