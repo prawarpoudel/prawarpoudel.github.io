@@ -149,10 +149,25 @@
     <p>
         Using <i>ifconfig</i>, we can find out IP address. This is the IP address assigned by the router locally to our MacOS machine. Suppose the IP address is <i>192.168.2.18</i>,
         and considering all the devices that are attached to the router are assigned similar IPs, let us find the IPs assigned to the devices using using a netmask of 
-        <i>192.168.0.0/16</i>.
+        <i>192.168.2.0/24</i>.
     </p>
     <p>
-        <b>Discovery</b>: Using the command <i> % nmap -F -n 192.168.0.0/16</i> to scan all the devices.
+        <b>Discovery</b>: Using the command <i> % nmap -F -O -n 192.168.2.0/24</i> to scan all the devices.
+        <ul>
+            <li>
+                The <b>-F</b> option for fast scan.
+            </li>
+            <li>
+                The <b>-O</b> option for finding out OS detail on the nodes.
+            </li>
+        </ul>
+    </p>
+    <p>
+        <ul>
+            <li>
+                tbd
+            </li>
+        </ul>
     </p>
   </div>
  </body>
