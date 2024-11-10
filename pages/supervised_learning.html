@@ -1616,20 +1616,36 @@
      </li>
      <li>
       Accuracy = (True Positive + True Negative)/All Observations
+        <ul>
+            <li>Correct predictions divided by total no of predictions.</li>
+            <li>Is most useful when the classes are balanced, i.e., when the no of items in both the correct and incorrect classes are similar.</li>
+            <li>Not a good choice for unbalanced situations.</li>
+        </ul>
      </li>
      <li>
       Recall/Sensitivity = (True Positive)/(True Positive + False Negative)
+      <ul>
+        <li>Ability of a model to find all the relevant cases within a dataset..</li>
+        <li>
+            <mark>
+             But a major flaw here is a model can predict all as True Positive, and have a 100% Recall.
+            </mark>
+        </li>
+      </ul>
       <br/>
-      <mark>
-       But a major flaw here is a model can predict all as True Positive, and have a 100% Recall.
-      </mark>
      </li>
      <li>
       Precision = (True Positive)/(True Positive + False Positive)
+      <ul>
+        <li>Ability of a model to find ONLY the relevant cases within a dataset.</li>
+        <li>It quantifies what portion of the datapoint that the model found relevent were actually relevant.</li>
+        <li>
+        <mark>
+            Precision helps to balance the flaw of Recall. It shows how often, from among the positive predicted values, it gets the prediction correct.
+        </mark>
+        </li>
+      </ul>
       <br/>
-      <mark>
-       Precision helps to balance the flaw of Recall. It shows how often, from among the positive predicted values, it gets the prediction correct.
-      </mark>
      </li>
      <li>
       Specificity = (True Negative)/(False Positive + True Negative)
@@ -1640,6 +1656,10 @@
      </li>
      <li>
       F1 Score = Harmonic Mean of Precision and Recall = 2* (Precision * Recall)/(Precision + Recall)
+      <ul>
+        <li>This is the optimal blend of both the precision and recall.</li>
+        <li>Harmonic Mean is taken instead of simple average because harmonic mean will punish the extreme values. For example, in case where one is 0 and other is 1, simple average is 0.5 which does not really reveal the extremety of the value. But HM is 0, which shows one of the values is 0.</li>
+      </ul>
      </li>
     </ul>
    </p>
