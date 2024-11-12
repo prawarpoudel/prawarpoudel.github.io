@@ -8,7 +8,7 @@
   <meta content="" name="description"/>
   <link href="../css/main.css" rel="stylesheet" type="text/css"/>
   <title>
-   Natural Language Processing
+   Natural Language Processing: Sentiment Analysis with NLTK
   </title>
  </head>
  <body>
@@ -119,20 +119,42 @@
   </div>
   <div class="content">
    <h1>
-    Natural Language Processing Topics
+    Natural Language Processing Topics: Sentiment Analysis with NLTK
    </h1>
    <p>
-    <ol>
-        <li>
-            <a href="todo.html">Basic Text Plays, Analysis and Manipulation.</a>
-        </li>
-        <li>
-            <a  href="../pages/simple_text_classifier.html">Simple Text Classifier</a>
-        </li>
-        <li>
-            <a  href="../pages/sentiment_analysis_nltk.html">Sentiment Analysis with NLTK</a>
-        </li>
-    </ol>
+    First let us import nltk and download the VADER lexicon.
+    <p class="code-text">
+        import nltk
+        nltk.download('vader_lexicon')
+    </p>
+    Let us import sentiment intensity analyzer from VADER. And, create an instance of the sentiment analyzer.
+    <p class="code-text">
+        from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+        sid = SentimentIntensityAnalyzer()
+    </p>
+    What we can do is, use this sentiment analyzer and find the intensity of any string. The intensity values are scores on three metrics, <mark>pos, neg and neu</mark>. For example:
+    <p class="code-text">
+        sid.polarity_scores("The movie I watched was okay. I would not watch it second time.")
+        >>>
+        {'neg': 0.0, 'neu': 0.84, 'pos': 0.16, 'compound': 0.2263}
+    </p>
+    The compound value means the vector sum of all the three values, positive, negative and neutral. As the sentence that I provided is pretty neutral, the scores also indicates that 
+    it is pretty neutral.
+    <br>
+    Using a different sentence, we can see it is slightly more postive, but not that much.
+    <p class="code-text">
+        sid.polarity_scores("The movie I watched was perfect to watch. It had the right kind of humor I was looking for.")
+        >>>
+        {'neg': 0.0, 'neu': 0.731, 'pos': 0.269, 'compound': 0.6712}
+    </p>
+    <br>
+   Now using a very negative sentence..
+    <p class="code-text">
+        sid.polarity_scores("The food was very bland. It would not hurt the chef to put in more spices, and not sure why the chef decided to make the food so ghastly. Not eating here again !!!")
+        >>>
+        {'neg': 0.052, 'neu': 0.851, 'pos': 0.097, 'compound': 0.3999}
+    </p>
    </p>
   </div>
  </body>
