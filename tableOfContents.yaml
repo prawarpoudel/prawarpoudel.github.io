@@ -3,43 +3,35 @@ table_contents:
     class: ""
     href: "https://prawarpoudel.github.io/about"
     string: "About"
-  "13":
+  "2":
     class: 'listt'
     href: "../pages/ai_topics.html"
     string: "AI Topics"
-  "18":
+  "3":
     class: 'listt'
     href: "../pages/ml_basics.html"
     string: "ML Topics"
-  "9":
+  "4":
     class: 'listt'
     href: "../pages/datascience_topics.html"
     string: "Data Science Topics"
-  "12":
+  "5":
     class: 'listt'
     href: "../pages/programming_topics.html"
     string: "Programming Topics"
-  "21":
+  "6":
     class: 'listt'
     href: "../pages/systemdesign.html"
     string: "System Design Topics"
-  "15":
+  "7":
     class: 'listt'
     href: "../pages/kube_topics.html"
     string: "Kubernetes"
-  "14":
+  "8":
     class: 'listt'
     href: "../pages/regex_py.html"
     string: "Regex in python"
-  "20":
+  "9":
     class: 'listt'
     href: "../pages/alerting.html"
     string: "Ex-Google SRE on Alerting"
-  "29":
-    class: 'listt'
-    href: "../pages/postgresql.html"
-    string: "PostgreSQL"
-  "30":
-    class: 'listt'
-    href: "../pages/natural_language_processing.html"
-    string: "Natural Language Processing"
