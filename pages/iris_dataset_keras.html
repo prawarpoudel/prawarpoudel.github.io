@@ -35,80 +35,26 @@
    <a class="listt" href="../pages/ai_topics.html">
     AI Topics
    </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
    <a class="listt" href="../pages/datascience_topics.html">
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
     Programming Topics
    </a>
-   <a class="listt" href="../pages/reading_systemdesign.html">
-    System Design Topics (Book)
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
    </a>
    <a class="listt" href="../pages/kube_topics.html">
     Kubernetes
    </a>
-   <a class="listt" href="../pages/coding_topics.html">
-    Coding Examples
-   </a>
-   <a class="listt" href="../pages/ml_basics.html">
-    Machine Learning
-   </a>
-   <a class="listt" href="../pages/rag.html">
-    RAG Concept
-   </a>
-   <a class="listt" href="../pages/rag_code.html">
-    RAG Implementation
-   </a>
-   <a class="listt" href="../pages/redis_benchmarking.html">
-    REDIS Benchmarking
-   </a>
-   <a class="listt" href="../pages/codellama.html">
-    Code Llama Intro
-   </a>
-   <a class="listt" href="../pages/codellama_handson.html">
-    Code Llama Hands-On
-   </a>
-   <a class="listt" href="../pages/breaking_codellama.html">
-    Breaking Code Llama
-   </a>
-   <a class="listt" href="../pages/whyjohnnycantprompt.html">
-    Why Jhonny Cant't Prompt
-   </a>
-   <a class="listt" href="../pages/discriminative.html">
-    Discriminative Vs Generative Models
-   </a>
-   <a class="listt" href="../pages/gan.html">
-    Generative Adversarial Models
-   </a>
    <a class="listt" href="../pages/regex_py.html">
     Regex in python
    </a>
-   <a class="listt" href="../pages/kube_health_checks.html">
-    Kube Health Checks
-   </a>
-   <a class="listt" href="../pages/raft_consensus.html">
-    Raft Algorithm (Consensus)
-   </a>
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
-   </a>
-   <a class="listt" href="../pages/primer_systemdesign.html">
-    System Design Primer (Github)
-   </a>
-   <a class="listt" href="../pages/supervised_learning.html">
-    Supervised Machine Learning
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_clustering.html">
-    Unsupervised Machine Learning (Clustering)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
-    Unsupervised Machine Learning (Dimensn Redcsn)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
-    Unsupervised Machine Learning (Timeseries)
-   </a>
-   <a class="listt" href="../pages/deep_learning.html">
-    Deep Learning (Introduction)
    </a>
    <a class="listt" href="../pages/postgresql.html">
     PostgreSQL
@@ -124,48 +70,56 @@
    <p>
     First, load the data using sklearn.
     <p class="code-text">
-        import numpy as np
+     import numpy as np
         from sklearn.datasets import load_iris
 
         iris_data = load_iris()
     </p>
     Let us get the X- and y- data. iris_data.data contains the X data which is 4 features and iris_data.target contains the labels of the classification.
     <p class="code-text">
-        X = iris_data.data
+     X = iris_data.data
         print(X[:4,:])
         
         y = iris_data.target
         print(y[:4])
     </p>
-    For whatever follows, we will need <mark>tensorflow</mark>. So, make sure to install <mark>tensorflow</mark> package.
+    For whatever follows, we will need
+    <mark>
+     tensorflow
+    </mark>
+    . So, make sure to install
+    <mark>
+     tensorflow
+    </mark>
+    package.
     <p>
-        For making it easy to classification, let us do 1-hot encoding. Our y-data has 3 classes, the values of y- will be mapped as follows: y:0 -> [1, 0, 0], y:1 -> [0, 1, 0] and y:2 -> [0, 0, 1]. 
+     For making it easy to classification, let us do 1-hot encoding. Our y-data has 3 classes, the values of y- will be mapped as follows: y:0 -&gt; [1, 0, 0], y:1 -&gt; [0, 1, 0] and y:2 -&gt; [0, 0, 1]. 
         The index position of the value 1 indicates the actual classification value.
     </p>
     <p class="code-text">
-        from keras.utils import to_categorical
+     from keras.utils import to_categorical
         print(y.shape)
         # we can see the shape changed for the y labels that is now categorical
         # .. i.e. one-hot encoded
         y = to_categorical(y)
         print(y.shape)
-        >>>
+        &gt;&gt;&gt;
         (150,)
         (150, 3)
     </p>
     <p>
-        Let us split the data into test and train data.
+     Let us split the data into test and train data.
     </p>
     <p class="code-text">
-        from sklearn.model_selection import train_test_split        
+     from sklearn.model_selection import train_test_split        
         X_train, X_test, y_train, y_test = train_test_split(
             ...     X, y, test_size=0.33, random_state=42)
     </p>
     <p>
-        Let us also scale the X-data so that its normalized. For this we will fit the scaler model with train data and transform the entire X-data.
+     Let us also scale the X-data so that its normalized. For this we will fit the scaler model with train data and transform the entire X-data.
     </p>
     <p class="code-text">
-        from sklearn.preprocessing import MinMaxScaler
+     from sklearn.preprocessing import MinMaxScaler
         scaling = MinMaxScaler()
 
         # let us fit our training data
@@ -176,10 +130,10 @@
         scaled_X_test = scaling.transform(X_test)
     </p>
     <p>
-        Now, let us create our NN model using keras library.
+     Now, let us create our NN model using keras library.
     </p>
     <p class="code-text">
-        # let us import Keras for our NN creation
+     # let us import Keras for our NN creation
         from keras.models import Sequential
         from keras.layers import Dense
 
@@ -202,11 +156,11 @@
         model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
     </p>
     <p>
-        Once, we compile the model, we can actually see how the model looks like and how many parameters there are.
+     Once, we compile the model, we can actually see how the model looks like and how many parameters there are.
     </p>
     <p class="code-text">
-        model.summary()
-        >>>
+     model.summary()
+        &gt;&gt;&gt;
         Model: "sequential"
 
         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
@@ -228,41 +182,41 @@
         Non-trainable params: 0 (0.00 B)
     </p>
     <p>
-        Now train the model.
+     Now train the model.
     </p>
     <p class="code-text">
-        # now fit our data to train
+     # now fit our data to train
         model.fit(scaled_X_train, y_train, epochs=150,  verbose=2)
     </p>
     <p>
-        Now, let us predict the y-values from the X_test
+     Now, let us predict the y-values from the X_test
     </p>
     <p class="code-text">
-        # we alraedy have scaled data, so
+     # we alraedy have scaled data, so
         # .. so we can directly do predict like in sklearn models
         model.predict(scaled_X_test)
-        # but the above will give out the probability 
+        # but the above will give out the probability
     </p>
     <p>
-        We will predict the class using the argmax. Argmax will give the index of max item in an array, but our 1-hot encoding is based on index location, so this is exactly what
+     We will predict the class using the argmax. Argmax will give the index of max item in an array, but our 1-hot encoding is based on index location, so this is exactly what
         serves our purpose.
     </p>
     <p class="code-text">
-        # so to get the final classes directly, we can use following
+     # so to get the final classes directly, we can use following
         np.argmax(model.predict(scaled_X_test),axis=1)
     </p>
     <p>
-        Let us now print the classification_report using sklearn library.
+     Let us now print the classification_report using sklearn library.
     </p>
     <p class="code-text">
-        predictions = np.argmax(model.predict(scaled_X_test),axis=1)
+     predictions = np.argmax(model.predict(scaled_X_test),axis=1)
         y_test_classes = y_test.argmax(axis=1)
 
         # now compare and find the accuracy and other scores
         from sklearn.metrics import classification_report
 
         print(classification_report(y_test_classes,predictions))
-        >>>
+        &gt;&gt;&gt;
                 precision    recall  f1-score   support
 
            0       1.00      1.00      1.00        19
@@ -277,22 +231,22 @@ weighted avg       0.94      0.94      0.94        50
    <p>
     To save the model, we can do following:
     <p class="code-text">
-        # save the model file 
+     # save the model file 
         model.save('my_model.h5')
     </p>
    </p>
    <p>
     To load a saved model, we can do following:
     <p class="code-text">
-        # to load the model, use following
+     # to load the model, use following
         from keras.models import load_model
 
         my_model = load_model('my_model.h5')
     </p>
     print the loaded model.
     <p class="code-text">
-        my_model.summary()
-        >>>
+     my_model.summary()
+        &gt;&gt;&gt;
         Model: "sequential"
 
         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓

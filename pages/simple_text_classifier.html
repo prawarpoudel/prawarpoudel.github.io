@@ -35,80 +35,26 @@
    <a class="listt" href="../pages/ai_topics.html">
     AI Topics
    </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
    <a class="listt" href="../pages/datascience_topics.html">
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
     Programming Topics
    </a>
-   <a class="listt" href="../pages/reading_systemdesign.html">
-    System Design Topics (Book)
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
    </a>
    <a class="listt" href="../pages/kube_topics.html">
     Kubernetes
    </a>
-   <a class="listt" href="../pages/coding_topics.html">
-    Coding Examples
-   </a>
-   <a class="listt" href="../pages/ml_basics.html">
-    Machine Learning
-   </a>
-   <a class="listt" href="../pages/rag.html">
-    RAG Concept
-   </a>
-   <a class="listt" href="../pages/rag_code.html">
-    RAG Implementation
-   </a>
-   <a class="listt" href="../pages/redis_benchmarking.html">
-    REDIS Benchmarking
-   </a>
-   <a class="listt" href="../pages/codellama.html">
-    Code Llama Intro
-   </a>
-   <a class="listt" href="../pages/codellama_handson.html">
-    Code Llama Hands-On
-   </a>
-   <a class="listt" href="../pages/breaking_codellama.html">
-    Breaking Code Llama
-   </a>
-   <a class="listt" href="../pages/whyjohnnycantprompt.html">
-    Why Jhonny Cant't Prompt
-   </a>
-   <a class="listt" href="../pages/discriminative.html">
-    Discriminative Vs Generative Models
-   </a>
-   <a class="listt" href="../pages/gan.html">
-    Generative Adversarial Models
-   </a>
    <a class="listt" href="../pages/regex_py.html">
     Regex in python
    </a>
-   <a class="listt" href="../pages/kube_health_checks.html">
-    Kube Health Checks
-   </a>
-   <a class="listt" href="../pages/raft_consensus.html">
-    Raft Algorithm (Consensus)
-   </a>
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
-   </a>
-   <a class="listt" href="../pages/primer_systemdesign.html">
-    System Design Primer (Github)
-   </a>
-   <a class="listt" href="../pages/supervised_learning.html">
-    Supervised Machine Learning
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_clustering.html">
-    Unsupervised Machine Learning (Clustering)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
-    Unsupervised Machine Learning (Dimensn Redcsn)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
-    Unsupervised Machine Learning (Timeseries)
-   </a>
-   <a class="listt" href="../pages/deep_learning.html">
-    Deep Learning (Introduction)
    </a>
    <a class="listt" href="../pages/postgresql.html">
     PostgreSQL
@@ -122,10 +68,18 @@
     Natural Language Processing Topics: Simple Text Classifier
    </h1>
    <p>
-    Here we will see the code implementation of a simple text classifier using <mark>sklearn</mark> in python.
+    Here we will see the code implementation of a simple text classifier using
+    <mark>
+     sklearn
+    </mark>
+    in python.
    </p>
    <p>
-    We will use the IMDB movie review dataset that can be found at <a href="https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews?resource=download">this kaggle path</a>. I have the dataset downloaded already in my local machine as a .csv file.
+    We will use the IMDB movie review dataset that can be found at
+    <a href="https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews?resource=download">
+     this kaggle path
+    </a>
+    . I have the dataset downloaded already in my local machine as a .csv file.
    </p>
    <h2>
     Read the dataset
@@ -133,21 +87,29 @@
    <p>
     Let us first import some libraries, and read the dataset into a dataframe.
     <p class="code-text">
-        import pandas as pd
+     import pandas as pd
         import numpy as np
 
         df = pd.read_csv("IMDBDataset.csv")
         print(df.shape)
-        >>> (50000, 2)
+        &gt;&gt;&gt; (50000, 2)
     </p>
    </p>
    <p>
     Let us get some basic info of the dataset.
     <p class="code-text">
-        print(df.columns)
-        >>> Index(['review', 'sentiment'], dtype='object')
+     print(df.columns)
+        &gt;&gt;&gt; Index(['review', 'sentiment'], dtype='object')
     </p>
-    Using the following we can get basic info that there are two columns: <mark>review</mark> column is text whereas <mark>sentiment</mark> column is either 'positive' or 'negative' classification.
+    Using the following we can get basic info that there are two columns:
+    <mark>
+     review
+    </mark>
+    column is text whereas
+    <mark>
+     sentiment
+    </mark>
+    column is either 'positive' or 'negative' classification.
    </p>
    <h2>
     Clean the Dataset
@@ -155,8 +117,12 @@
    <p>
     Here we will do a very simple cleaning in two steps:
     <ul>
-        <li>Delete any rows that have empty review text.</li>
-        <li>Delete any reviews that are only whitespace characters</li>
+     <li>
+      Delete any rows that have empty review text.
+     </li>
+     <li>
+      Delete any reviews that are only whitespace characters
+     </li>
     </ul>
    </p>
    <p class="code-text">
@@ -168,9 +134,9 @@
     # check shape of df before and after dropping whitespace columns
     df = df[~df['review'].str.isspace()].copy()
     print(df.shape)
-    >>> (50000, 2)
-    >>> (50000, 2)
-    >>> (50000, 2)
+    &gt;&gt;&gt; (50000, 2)
+    &gt;&gt;&gt; (50000, 2)
+    &gt;&gt;&gt; (50000, 2)
    </p>
    <p>
     Looks like the data needed no cleaning.
@@ -185,9 +151,17 @@
     Data Selection: Split
    </h3>
    <p>
-    Let us split the train and test data. Of the two columns, our input data is <mark>review</mark> column whereas <mark>sentiment</mark> column is the output column.
+    Let us split the train and test data. Of the two columns, our input data is
+    <mark>
+     review
+    </mark>
+    column whereas
+    <mark>
+     sentiment
+    </mark>
+    column is the output column.
     <p class="code-text">
-    X = df['review']
+     X = df['review']
     y = df['sentiment']
     X_train, X_test, y_train, y_test = train_test_split(
         X,
@@ -196,7 +170,7 @@
         test_size=0.3
     )
     print(X_train.shape,X_test.shape)
-    >>> (35000,) (15000,)
+    &gt;&gt;&gt; (35000,) (15000,)
     </p>
     If we have more than one column that we want to use for input, we can supply them as a list of columns while creating X above.
    </p>
@@ -216,14 +190,14 @@
    <p>
     Now let us fit the model with our data, i.e. train the model.
     <p class="code-text">
-    my_classifier.fit(X_train,y_train)
+     my_classifier.fit(X_train,y_train)
     </p>
     Thats it !!! Its just a single line of code.
    </p>
    <p>
     Now let us predict using the model.
     <p class="code-text">
-    predictions = my_classifier.predict(X_test)
+     predictions = my_classifier.predict(X_test)
     </p>
    </p>
    <h2>
@@ -235,9 +209,9 @@
    <p>
     Let us print the classification report. Classification report generally has all the necessary metrics needed to evaluate a model performance.
     <p class="code-text">
-    from sklearn.metrics import classification_report
+     from sklearn.metrics import classification_report
     print(classification_report(y_test,predictions))
-    >>>
+    &gt;&gt;&gt;
         precision    recall  f1-score   support
 
         negative       0.90      0.89      0.90      7436
@@ -250,14 +224,14 @@
     This shows the model is 90% accurate.
    </p>
    <h3>
-        Looking predictions side-by-side.
+    Looking predictions side-by-side.
    </h3>
    <p>
     We can combine the X_test, y_test with predictions into a single dataframe as follows to go thorugh the output and predictions.
     <p class="code-text">
-    df_temp = pd.concat([X_test.reset_index(drop=True),y_test.reset_index(drop=True),pd.Series(predictions)],axis=1)
+     df_temp = pd.concat([X_test.reset_index(drop=True),y_test.reset_index(drop=True),pd.Series(predictions)],axis=1)
     print(df_temp.head(4))
-    >>>
+    &gt;&gt;&gt;
     review sentiment         0
     0  THE AFFAIR is a very bad TV movie from the 197...  negative  negative
     1  Based on Ray Russell's dark bestseller, this J...  negative  negative
@@ -271,11 +245,11 @@
    <p>
     Let us provide some simple text input to the model to see if it can predict our sentiment.
     <p class="code-text">
-    my_classifier.predict(["I did not like this movie",
+     my_classifier.predict(["I did not like this movie",
     "It was alright movie.",
     "It was above average movie.",
     "I plan to take my son to watch this movie next week."])
-    >>>
+    &gt;&gt;&gt;
     array(['negative', 'negative', 'negative', 'positive'], dtype=object)
     </p>
    </p>

@@ -35,80 +35,26 @@
    <a class="listt" href="../pages/ai_topics.html">
     AI Topics
    </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
    <a class="listt" href="../pages/datascience_topics.html">
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
     Programming Topics
    </a>
-   <a class="listt" href="../pages/reading_systemdesign.html">
-    System Design Topics (Book)
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
    </a>
    <a class="listt" href="../pages/kube_topics.html">
     Kubernetes
    </a>
-   <a class="listt" href="../pages/coding_topics.html">
-    Coding Examples
-   </a>
-   <a class="listt" href="../pages/ml_basics.html">
-    Machine Learning
-   </a>
-   <a class="listt" href="../pages/rag.html">
-    RAG Concept
-   </a>
-   <a class="listt" href="../pages/rag_code.html">
-    RAG Implementation
-   </a>
-   <a class="listt" href="../pages/redis_benchmarking.html">
-    REDIS Benchmarking
-   </a>
-   <a class="listt" href="../pages/codellama.html">
-    Code Llama Intro
-   </a>
-   <a class="listt" href="../pages/codellama_handson.html">
-    Code Llama Hands-On
-   </a>
-   <a class="listt" href="../pages/breaking_codellama.html">
-    Breaking Code Llama
-   </a>
-   <a class="listt" href="../pages/whyjohnnycantprompt.html">
-    Why Jhonny Cant't Prompt
-   </a>
-   <a class="listt" href="../pages/discriminative.html">
-    Discriminative Vs Generative Models
-   </a>
-   <a class="listt" href="../pages/gan.html">
-    Generative Adversarial Models
-   </a>
    <a class="listt" href="../pages/regex_py.html">
     Regex in python
    </a>
-   <a class="listt" href="../pages/kube_health_checks.html">
-    Kube Health Checks
-   </a>
-   <a class="listt" href="../pages/raft_consensus.html">
-    Raft Algorithm (Consensus)
-   </a>
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
-   </a>
-   <a class="listt" href="../pages/primer_systemdesign.html">
-    System Design Primer (Github)
-   </a>
-   <a class="listt" href="../pages/supervised_learning.html">
-    Supervised Machine Learning
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_clustering.html">
-    Unsupervised Machine Learning (Clustering)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
-    Unsupervised Machine Learning (Dimensn Redcsn)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
-    Unsupervised Machine Learning (Timeseries)
-   </a>
-   <a class="listt" href="../pages/deep_learning.html">
-    Deep Learning (Introduction)
    </a>
    <a class="listt" href="../pages/postgresql.html">
     PostgreSQL
@@ -124,29 +70,33 @@
    <p>
     LDA: Latent Dirichlet Allocation
     <ul>
-        <li>
-            Problem: We have certain number of documents that we want to find topics for. Following are the steps we take:
-        </li>
-        <li>
-            Need to identify K topics before hand.
-        </li>
-        <li>
-            works by going through the document and randomly assigning the words to each of the topics
-        </li>
-        <li>
-            the first pass does not make sense; we iterate over every words in every documents and try to improve the topic.
-        </li>
-        <li>
-            use Bayesian probability formula to compute the metric.
-        </li>
+     <li>
+      Problem: We have certain number of documents that we want to find topics for. Following are the steps we take:
+     </li>
+     <li>
+      Need to identify K topics before hand.
+     </li>
+     <li>
+      works by going through the document and randomly assigning the words to each of the topics
+     </li>
+     <li>
+      the first pass does not make sense; we iterate over every words in every documents and try to improve the topic.
+     </li>
+     <li>
+      use Bayesian probability formula to compute the metric.
+     </li>
     </ul>
    </p>
-   <hr>
+   <hr/>
    <h2>
     Using SKlearn for topic modeling of documents
    </h2>
    <p>
-    The dataset used in the following can be found at <a href="https://www.kaggle.com/datasets/gauravduttakiit/npr-data">this link</a>.
+    The dataset used in the following can be found at
+    <a href="https://www.kaggle.com/datasets/gauravduttakiit/npr-data">
+     this link
+    </a>
+    .
    </p>
    <p class="code-text">
     import pandas as pd
@@ -154,11 +104,11 @@
     datafile = 'npr.csv'
     df = pd.read_csv(datafile)
     print(df.shape)
-    >>>
+    &gt;&gt;&gt;
     (11992, 1)
 
     print(df.head(2))
-    >>>
+    &gt;&gt;&gt;
     Article
     0  In the Washington of 2016, even when the polic...
     1    Donald Trump has used Twitter  —   his prefe...
@@ -166,7 +116,7 @@
    <p>
     Now let us do count vectorizer
     <p class="code-text">
-    from sklearn.feature_extraction.text import CountVectorizer
+     from sklearn.feature_extraction.text import CountVectorizer
 
     # max_df = 0.9, gets rid of words that appear in more than 90% of documents
     # min_df = 2, mean the document must appear in 3 documents
@@ -176,22 +126,22 @@
     cv = CountVectorizer(max_df = 0.9, min_df = 2, stop_words='english')
     </p>
     <p class="code-text">
-    len(cv.get_feature_names_out())
-    >>>
+     len(cv.get_feature_names_out())
+    &gt;&gt;&gt;
     54777
     </p>
     <p class="code-text">
-    dtm = cv.fit_transform(df['Article'])
+     dtm = cv.fit_transform(df['Article'])
     </p>
     <p class="code-text">
-    from sklearn.decomposition import LatentDirichletAllocation
+     from sklearn.decomposition import LatentDirichletAllocation
 
     # n_components = 7 means we want to model 7 topics
     LDA = LatentDirichletAllocation(n_components=7, random_state=42)
     LDA.fit(dtm)
     </p>
     <p class="code-text">
-    # After we do the LDA, we want to
+     # After we do the LDA, we want to
     # 1. grab the vocabulary
     # .. cv.get_feature_names() gives us the words in the documents
     # .. we can grab the words by doing cv.get_feature_names()[9000]
@@ -215,28 +165,25 @@
         print()
         print()
     </p>
-    >>><br>
+    &gt;&gt;&gt;
+    <br/>
     For topic no: 0, top 20 words are
 ['president', 'state', 'tax', 'insurance', 'trump', 'companies', 'money', 'year', 'federal', '000', 'new', 'percent', 'government', 'company', 'million', 'care', 'people', 'health', 'said', 'says']
-<br>
-<br>
-
-For topic no: 1, top 20 words are
+    <br/>
+    <br/>
+    For topic no: 1, top 20 words are
 ['white', 'according', 'attack', 'reported', 'war', 'military', 'house', 'security', 'russia', 'government', 'npr', 'reports', 'says', 'news', 'people', 'told', 'police', 'president', 'trump', 'said']
-<br>
-<br>
-
-For topic no: 2, top 20 words are
+    <br/>
+    <br/>
+    For topic no: 2, top 20 words are
 ['little', 'know', 'don', 'year', 'make', 'way', 'world', 'family', 'home', 'day', 'time', 'water', 'city', 'new', 'years', 'food', 'just', 'people', 'like', 'says']
-<br>
-<br>
-
-For topic no: 3, top 20 words are
+    <br/>
+    <br/>
+    For topic no: 3, top 20 words are
 ['world', 'research', 'university', 'percent', 'care', 'time', 'new', 'don', 'years', 'medical', 'disease', 'patients', 'just', 'children', 'study', 'like', 'women', 'health', 'people', 'says']
-<br>
-<br>
-
-For topic no: 4, top 20 words are
+    <br/>
+    <br/>
+    For topic no: 4, top 20 words are
 ['donald', 'political', 'states', 'law', 'just', 'voters', 'vote', 'election', 'party', 'new', 'obama', 'court', 'republican', 'campaign', 'people', 'state', 'president', 'clinton', 'said', 'trump']
    </p>
    <p class="code-text">
@@ -246,7 +193,7 @@ For topic no: 4, top 20 words are
     # .. let us see the probability of each document belonging to the particular topic
     document_probability = LDA.transform(dtm)
     print(document_probability.shape)
-    >>>
+    &gt;&gt;&gt;
     (11992, 7)
    </p>
    <p class="code-text">
@@ -256,8 +203,8 @@ For topic no: 4, top 20 words are
    <p>
     And finally,
     <p class="code-text">
-    print(df.head(15))
-    >>>
+     print(df.head(15))
+    &gt;&gt;&gt;
     Article  topic
     0   In the Washington of 2016, even when the polic...      1
     1     Donald Trump has used Twitter  —   his prefe...      1

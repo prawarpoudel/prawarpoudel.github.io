@@ -35,80 +35,26 @@
    <a class="listt" href="../pages/ai_topics.html">
     AI Topics
    </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
    <a class="listt" href="../pages/datascience_topics.html">
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
     Programming Topics
    </a>
-   <a class="listt" href="../pages/reading_systemdesign.html">
-    System Design Topics (Book)
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
    </a>
    <a class="listt" href="../pages/kube_topics.html">
     Kubernetes
    </a>
-   <a class="listt" href="../pages/coding_topics.html">
-    Coding Examples
-   </a>
-   <a class="listt" href="../pages/ml_basics.html">
-    Machine Learning
-   </a>
-   <a class="listt" href="../pages/rag.html">
-    RAG Concept
-   </a>
-   <a class="listt" href="../pages/rag_code.html">
-    RAG Implementation
-   </a>
-   <a class="listt" href="../pages/redis_benchmarking.html">
-    REDIS Benchmarking
-   </a>
-   <a class="listt" href="../pages/codellama.html">
-    Code Llama Intro
-   </a>
-   <a class="listt" href="../pages/codellama_handson.html">
-    Code Llama Hands-On
-   </a>
-   <a class="listt" href="../pages/breaking_codellama.html">
-    Breaking Code Llama
-   </a>
-   <a class="listt" href="../pages/whyjohnnycantprompt.html">
-    Why Jhonny Cant't Prompt
-   </a>
-   <a class="listt" href="../pages/discriminative.html">
-    Discriminative Vs Generative Models
-   </a>
-   <a class="listt" href="../pages/gan.html">
-    Generative Adversarial Models
-   </a>
    <a class="listt" href="../pages/regex_py.html">
     Regex in python
    </a>
-   <a class="listt" href="../pages/kube_health_checks.html">
-    Kube Health Checks
-   </a>
-   <a class="listt" href="../pages/raft_consensus.html">
-    Raft Algorithm (Consensus)
-   </a>
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
-   </a>
-   <a class="listt" href="../pages/primer_systemdesign.html">
-    System Design Primer (Github)
-   </a>
-   <a class="listt" href="../pages/supervised_learning.html">
-    Supervised Machine Learning
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_clustering.html">
-    Unsupervised Machine Learning (Clustering)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
-    Unsupervised Machine Learning (Dimensn Redcsn)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
-    Unsupervised Machine Learning (Timeseries)
-   </a>
-   <a class="listt" href="../pages/deep_learning.html">
-    Deep Learning (Introduction)
    </a>
    <a class="listt" href="../pages/postgresql.html">
     PostgreSQL
@@ -121,83 +67,91 @@
    <h1>
     Natural Language Processing Topics: Non negative matrix factorization
    </h1>
-    <p>
-        <ul>
-            <li>
-                Unsupervised learning method that performs dimensionality reduction as well as clustering
-            </li>
-            <li>
-                We can use it in conjunction with TF-IDF for model topic for documents.
-            </li>
-            <li>
-                Mathematically, any given matrix A of dimension nxm is broken down into two matrixes W and H such that W is of dimension nxk and H is of dimension kxm.
-            </li>
-            <li>
-                Matrix A is created by column of each object while each row is feautures of the object.
-            </li>
-            <li>
-                Each object, i.e. column of A can be approximated by a linear combination of k basis vectors in W.
-                <ul>
-                    <li>
-                        Each basis vector can be interpreted as a cluster, the membership of the objects in the clusters can be encoded by H.
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </p>
-    <p>
-        For the algorithm to work, we need to provide following inputs:
-        <ul>
-            <li>
-                Matrix A. This is our TFIDF matrix.
-            </li>
-            <li>
-                no of basis vector, k;
-            </li>
-            <li>
-                initial random values for matrix W and H.
-            </li>
-            <li>
-                Goal is to minimize the reconstruction error between A and WH.
-            </li>
-        </ul>
-    </p>
-    <p>
-        Lets do in python scikit learn. The entire process is very similar to <a href="../pages/topic_modeling_lda.html">LDA</a>. The dataset used is derived from <a href="https://www.kaggle.com/datasets/gauravduttakiit/npr-data">this link</a>.
-        <p class="code-text">
-        import pandas as pd
+   <p>
+    <ul>
+     <li>
+      Unsupervised learning method that performs dimensionality reduction as well as clustering
+     </li>
+     <li>
+      We can use it in conjunction with TF-IDF for model topic for documents.
+     </li>
+     <li>
+      Mathematically, any given matrix A of dimension nxm is broken down into two matrixes W and H such that W is of dimension nxk and H is of dimension kxm.
+     </li>
+     <li>
+      Matrix A is created by column of each object while each row is feautures of the object.
+     </li>
+     <li>
+      Each object, i.e. column of A can be approximated by a linear combination of k basis vectors in W.
+      <ul>
+       <li>
+        Each basis vector can be interpreted as a cluster, the membership of the objects in the clusters can be encoded by H.
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </p>
+   <p>
+    For the algorithm to work, we need to provide following inputs:
+    <ul>
+     <li>
+      Matrix A. This is our TFIDF matrix.
+     </li>
+     <li>
+      no of basis vector, k;
+     </li>
+     <li>
+      initial random values for matrix W and H.
+     </li>
+     <li>
+      Goal is to minimize the reconstruction error between A and WH.
+     </li>
+    </ul>
+   </p>
+   <p>
+    Lets do in python scikit learn. The entire process is very similar to
+    <a href="../pages/topic_modeling_lda.html">
+     LDA
+    </a>
+    . The dataset used is derived from
+    <a href="https://www.kaggle.com/datasets/gauravduttakiit/npr-data">
+     this link
+    </a>
+    .
+    <p class="code-text">
+     import pandas as pd
 
         df = pd.read_csv('npr.csv')
         print(df.shape)
-        >>>
+        &gt;&gt;&gt;
         (11992, 1)
-        </p>
-        <p class="code-text">
-        print(df.head(2))
-        >>>
+    </p>
+    <p class="code-text">
+     print(df.head(2))
+        &gt;&gt;&gt;
         Article
         0  In the Washington of 2016, even when the polic...
         1    Donald Trump has used Twitter  —   his prefe...
-        </p>
-        <p  class="code-text">
-        from sklearn.feature_extraction.text import TfidfVectorizer
+    </p>
+    <p class="code-text">
+     from sklearn.feature_extraction.text import TfidfVectorizer
         tfidf = TfidfVectorizer(max_df=0.95, min_df=2, stop_words='english')
         print(tfidf.get_feature_names_out().shape)
-        >>>
+        &gt;&gt;&gt;
         (54777,)
-        </p>
-        <p class="code-text">
-        dtm = tfidf.fit_transform(df['Article'])
-        </p>
-        <p class="code-text">
-        from sklearn.decomposition import NMF
+    </p>
+    <p class="code-text">
+     dtm = tfidf.fit_transform(df['Article'])
+    </p>
+    <p class="code-text">
+     from sklearn.decomposition import NMF
         nmf_model = NMF(n_components=7,random_state=42)
         nmf_model.fit(dtm)
-        </p>
-        <p>
-            Let us print the top words for each topic to see them. They can be used later to determine consensus on what the topic should be.
-            <p  class="code-text">
-            n = 20
+    </p>
+    <p>
+     Let us print the top words for each topic to see them. They can be used later to determine consensus on what the topic should be.
+     <p class="code-text">
+      n = 20
             # let us iterate through each row of the NMF components, i.e. 7 topics
             for i,components in enumerate(nmf_model.components_):
                 print(f"For topic no: {i}, top {n} words are")
@@ -205,10 +159,10 @@
                 print([tfidf.get_feature_names_out()[idx] for idx in components.argsort()[(-1*n):]])
                 print()
                 print()
-            </p>
-            >>>
-            <p class="code-text">
-                For topic no: 0, top 20 words are
+     </p>
+     &gt;&gt;&gt;
+     <p class="code-text">
+      For topic no: 0, top 20 words are
                 ['years', 'brain', 'researchers', 'university', 'scientists', 'new', 'research', 'like', 'patients', 'health', 'disease', 'percent', 'women', 'virus', 'study', 'water', 'food', 'people', 'zika', 'says']
                 
                 
@@ -234,22 +188,20 @@
                 
                 For topic no: 6, top 20 words are
                 ['university', 'colleges', 'public', 'child', 'program', 'teacher', 'state', 'high', 'says', 'parents', 'devos', 'children', 'college', 'kids', 'teachers', 'student', 'education', 'schools', 'school', 'students']
-                
-                
-            </p>
-        </p>
-        <p class="code-text">
-        document_probability = nmf_model.transform(dtm)
+     </p>
+    </p>
+    <p class="code-text">
+     document_probability = nmf_model.transform(dtm)
         
         # let us create a colum in our original df with a topic column
         df['topic'] = document_probability.argmax(axis=1)
-        </p>
-        <p class="code-text">
-        print(df.head(15))
-        </p>
-        >>>
-        <p class="code-text">
-            Article  topic
+    </p>
+    <p class="code-text">
+     print(df.head(15))
+    </p>
+    &gt;&gt;&gt;
+    <p class="code-text">
+     Article  topic
             0   In the Washington of 2016, even when the polic...      1
             1     Donald Trump has used Twitter  —   his prefe...      1
             2     Donald Trump is unabashedly praising Russian...      1
@@ -265,8 +217,8 @@
             12  The Colorado River is like a giant bank accoun...      0
             13  For the last installment of NPR’s holiday reci...      5
             14  Being overweight can raise your blood pressure...      0
-        </p>
     </p>
+   </p>
   </div>
  </body>
 </html>

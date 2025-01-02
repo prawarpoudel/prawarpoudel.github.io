@@ -7,6 +7,10 @@ table_contents:
     class: 'listt'
     href: "../pages/ai_topics.html"
     string: "AI Topics"
+  "18":
+    class: 'listt'
+    href: "../pages/ml_basics.html"
+    string: "ML Topics"
   "9":
     class: 'listt'
     href: "../pages/datascience_topics.html"
@@ -17,100 +21,20 @@ table_contents:
     string: "Programming Topics"
   "21":
     class: 'listt'
-    href: "../pages/reading_systemdesign.html"
-    string: "System Design Topics (Book)"
+    href: "../pages/systemdesign.html"
+    string: "System Design Topics"
   "15":
     class: 'listt'
     href: "../pages/kube_topics.html"
     string: "Kubernetes"
-  "17":
-    class: 'listt'
-    href: "../pages/coding_topics.html"
-    string: "Coding Examples"
-  "18":
-    class: 'listt'
-    href: "../pages/ml_basics.html"
-    string: "Machine Learning"
-  "2":
-    class: 'listt'
-    href: "../pages/rag.html"
-    string: "RAG Concept"
-  "3":
-    class: 'listt'
-    href: "../pages/rag_code.html"
-    string: "RAG Implementation"
-  "4":
-    class: 'listt'
-    href: "../pages/redis_benchmarking.html"
-    string: "REDIS Benchmarking"
-  "5":
-    class: 'listt'
-    href: "../pages/codellama.html"
-    string: "Code Llama Intro"
-  "6":
-    class: 'listt'
-    href: "../pages/codellama_handson.html"
-    string: "Code Llama Hands-On"
-  "7":
-    class: 'listt'
-    href: "../pages/breaking_codellama.html"
-    string: "Breaking Code Llama"
-  "8":
-    class: 'listt'
-    href: "../pages/whyjohnnycantprompt.html"
-    string: "Why Jhonny Cant't Prompt"
-  "10":
-    class: 'listt'
-    href: "../pages/discriminative.html"
-    string: "Discriminative Vs Generative Models"
-  "11":
-    class: 'listt'
-    href: "../pages/gan.html"
-    string: "Generative Adversarial Models"
   "14":
     class: 'listt'
     href: "../pages/regex_py.html"
     string: "Regex in python"
-  "16":
-    class: 'listt'
-    href: "../pages/kube_health_checks.html"
-    string: "Kube Health Checks"
-  "19":
-    class: 'listt'
-    href: "../pages/raft_consensus.html"
-    string: "Raft Algorithm (Consensus)"
   "20":
     class: 'listt'
     href: "../pages/alerting.html"
     string: "Ex-Google SRE on Alerting"
-  "22":
-    class: 'listt'
-    href: "../pages/primer_systemdesign.html"
-    string: "System Design Primer (Github)"
-  "23":
-    class: 'listt'
-    href: "../pages/supervised_learning.html"
-    string: "Supervised Machine Learning"
-  "24":
-    class: 'listt'
-    href: "../pages/unsupervised_learning_clustering.html"
-    string: "Unsupervised Machine Learning (Clustering)"
-  "25":
-    class: 'listt'
-    href: "../pages/unsupervised_learning_dimsreduction.html"
-    string: "Unsupervised Machine Learning (Dimensn Redcsn)"
-  "26":
-    class: 'listt'
-    href: "../pages/unsupervised_learning_timeseries.html"
-    string: "Unsupervised Machine Learning (Timeseries)"
-  "27":
-    class: 'listt'
-    href: "../pages/deep_learning.html"
-    string: "Deep Learning (Introduction)"
-  # "28":
-  #   class: 'listt'
-  #   href: "../pages/fastapi_react.html"
-  #   string: "App Using FastAPI/React"
   "29":
     class: 'listt'
     href: "../pages/postgresql.html"

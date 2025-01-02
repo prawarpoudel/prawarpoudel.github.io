@@ -35,80 +35,26 @@
    <a class="listt" href="../pages/ai_topics.html">
     AI Topics
    </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
    <a class="listt" href="../pages/datascience_topics.html">
     Data Science Topics
    </a>
    <a class="listt" href="../pages/programming_topics.html">
     Programming Topics
    </a>
-   <a class="listt" href="../pages/reading_systemdesign.html">
-    System Design Topics (Book)
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
    </a>
    <a class="listt" href="../pages/kube_topics.html">
     Kubernetes
    </a>
-   <a class="listt" href="../pages/coding_topics.html">
-    Coding Examples
-   </a>
-   <a class="listt" href="../pages/ml_basics.html">
-    Machine Learning
-   </a>
-   <a class="listt" href="../pages/rag.html">
-    RAG Concept
-   </a>
-   <a class="listt" href="../pages/rag_code.html">
-    RAG Implementation
-   </a>
-   <a class="listt" href="../pages/redis_benchmarking.html">
-    REDIS Benchmarking
-   </a>
-   <a class="listt" href="../pages/codellama.html">
-    Code Llama Intro
-   </a>
-   <a class="listt" href="../pages/codellama_handson.html">
-    Code Llama Hands-On
-   </a>
-   <a class="listt" href="../pages/breaking_codellama.html">
-    Breaking Code Llama
-   </a>
-   <a class="listt" href="../pages/whyjohnnycantprompt.html">
-    Why Jhonny Cant't Prompt
-   </a>
-   <a class="listt" href="../pages/discriminative.html">
-    Discriminative Vs Generative Models
-   </a>
-   <a class="listt" href="../pages/gan.html">
-    Generative Adversarial Models
-   </a>
    <a class="listt" href="../pages/regex_py.html">
     Regex in python
    </a>
-   <a class="listt" href="../pages/kube_health_checks.html">
-    Kube Health Checks
-   </a>
-   <a class="listt" href="../pages/raft_consensus.html">
-    Raft Algorithm (Consensus)
-   </a>
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
-   </a>
-   <a class="listt" href="../pages/primer_systemdesign.html">
-    System Design Primer (Github)
-   </a>
-   <a class="listt" href="../pages/supervised_learning.html">
-    Supervised Machine Learning
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_clustering.html">
-    Unsupervised Machine Learning (Clustering)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_dimsreduction.html">
-    Unsupervised Machine Learning (Dimensn Redcsn)
-   </a>
-   <a class="listt" href="../pages/unsupervised_learning_timeseries.html">
-    Unsupervised Machine Learning (Timeseries)
-   </a>
-   <a class="listt" href="../pages/deep_learning.html">
-    Deep Learning (Introduction)
    </a>
    <a class="listt" href="../pages/postgresql.html">
     PostgreSQL
@@ -124,35 +70,39 @@
    <p>
     First let us import nltk and download the VADER lexicon.
     <p class="code-text">
-        import nltk
+     import nltk
         nltk.download('vader_lexicon')
     </p>
     Let us import sentiment intensity analyzer from VADER. And, create an instance of the sentiment analyzer.
     <p class="code-text">
-        from nltk.sentiment.vader import SentimentIntensityAnalyzer
+     from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
         sid = SentimentIntensityAnalyzer()
     </p>
-    What we can do is, use this sentiment analyzer and find the intensity of any string. The intensity values are scores on three metrics, <mark>pos, neg and neu</mark>. For example:
+    What we can do is, use this sentiment analyzer and find the intensity of any string. The intensity values are scores on three metrics,
+    <mark>
+     pos, neg and neu
+    </mark>
+    . For example:
     <p class="code-text">
-        sid.polarity_scores("The movie I watched was okay. I would not watch it second time.")
-        >>>
+     sid.polarity_scores("The movie I watched was okay. I would not watch it second time.")
+        &gt;&gt;&gt;
         {'neg': 0.0, 'neu': 0.84, 'pos': 0.16, 'compound': 0.2263}
     </p>
     The compound value  some combination of all the three values, positive, negative and neutral. As the sentence that I provided is pretty neutral, the scores also indicates that 
     it is pretty neutral.
-    <br>
+    <br/>
     Using a different sentence, we can see it is slightly more postive, but not that much.
     <p class="code-text">
-        sid.polarity_scores("The movie I watched was perfect to watch. It had the right kind of humor I was looking for.")
-        >>>
+     sid.polarity_scores("The movie I watched was perfect to watch. It had the right kind of humor I was looking for.")
+        &gt;&gt;&gt;
         {'neg': 0.0, 'neu': 0.731, 'pos': 0.269, 'compound': 0.6712}
     </p>
-    <br>
-   Now using a very negative sentence..
+    <br/>
+    Now using a very negative sentence..
     <p class="code-text">
-        sid.polarity_scores("The food was very bland. It would not hurt the chef to put in more spices, and not sure why the chef decided to make the food so ghastly. Not eating here again !!!")
-        >>>
+     sid.polarity_scores("The food was very bland. It would not hurt the chef to put in more spices, and not sure why the chef decided to make the food so ghastly. Not eating here again !!!")
+        &gt;&gt;&gt;
         {'neg': 0.052, 'neu': 0.851, 'pos': 0.097, 'compound': 0.3999}
     </p>
    </p>
