@@ -61,18 +61,45 @@
    <h1>
     Ex-Google SRE on Alerting
    </h1>
-   <p class="important">
-    The contents in this document is derived from a document titiled
+   <p>
+    The contents in this document is derived from a document titled 
+        <i>
+        My Philosophy on Alerting by Rob Ewaschuk.
+        </i>
    </p>
-   My Philosophy on Alerting by Rob Ewaschuk.
-   <p class="important">
+   <p>
     The origiinal document is publicly available at
     <a href="https://docs.google.com/document/d/199PqyG3UsyXlwieHaqbGiWVa8eMWi8zzAn0YfcApr8Q/">
      this link.
     </a>
    </p>
    <h2>
+    Some ideas from the document linked above:
    </h2>
+   <p>
+    <ul>
+        <li>
+            over monitoring is a harder problem to solve than under monitoring
+        </li>
+        <li>
+            alert rules must be able to classify problems into one of the following classes:
+            <ul>
+                <li>
+                    avaiiability and basic functionality
+                </li>
+                <li>
+                    correctness (completeness, freshness and durability of data)
+                </li>
+                <li>
+                    feature specific problem
+                </li>
+            </ul>
+        </li>
+        <li>
+            focus on symptoms to catch the problem. include cause-based information, but alert should be based on symptoms. For example, alert should be based on <i>query failing</i> rather than <i>database server is down</i>.
+        </li>
+    </ul>
+   </p>
   </div>
  </body>
 </html>
