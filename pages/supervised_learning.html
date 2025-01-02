@@ -56,12 +56,6 @@
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
    </a>
-   <a class="listt" href="../pages/postgresql.html">
-    PostgreSQL
-   </a>
-   <a class="listt" href="../pages/natural_language_processing.html">
-    Natural Language Processing
-   </a>
   </div>
   <div class="content">
    <ul>
@@ -184,95 +178,95 @@
      </li>
     </ul>
    </p>
-   <hr>
-    <p>
-     It is not a requirement that the target variable is normally distributed; but normally distributed target variable gives better result.
-     <mark>
-      What is required is 
+   <hr/>
+   <p>
+    It is not a requirement that the target variable is normally distributed; but normally distributed target variable gives better result.
+    <mark>
+     What is required is 
             that the error needs to be normally distributed.
-     </mark>
-    </p>
-    <p>
-     If the target variable is not normally distributed, you can make it by transforming it. Then, fit our regression to the transformed values.
-    </p>
-    <p>
-     To see if the target variable is normally distributed, we can see manually or do a statistical test.
-     <ul>
-      <li>
-       For manual approach, we can plot the distribution using
-       <mark>
-        df['target_variable'].hist()
-       </mark>
-       . It should visually show the data 
+    </mark>
+   </p>
+   <p>
+    If the target variable is not normally distributed, you can make it by transforming it. Then, fit our regression to the transformed values.
+   </p>
+   <p>
+    To see if the target variable is normally distributed, we can see manually or do a statistical test.
+    <ul>
+     <li>
+      For manual approach, we can plot the distribution using
+      <mark>
+       df['target_variable'].hist()
+      </mark>
+      . It should visually show the data 
                 thus helping us see if the data is normally distributed.
-      </li>
-      <li>
-       Using
-       <mark>
-        D'Agostino K^2 Test
-       </mark>
-       , you can use library function
-       <mark>
-        normaltest()
-       </mark>
-       from library
-       <mark>
-        scipy.stats.mstats
-       </mark>
-       . This gives out a p-value. 
+     </li>
+     <li>
+      Using
+      <mark>
+       D'Agostino K^2 Test
+      </mark>
+      , you can use library function
+      <mark>
+       normaltest()
+      </mark>
+      from library
+      <mark>
+       scipy.stats.mstats
+      </mark>
+      . This gives out a p-value. 
                 The higher p-value indicates the distribution is more closer to being normal. A lower p-value indicates distribution is far low probability of being a normal distribution.
                 A threshold of 0.05 or 0.01 can be used for cutoff.
-      </li>
-     </ul>
-    </p>
-    <p>
-     To transform a variable (target variable) to make it normally distributed, commonly used techniques are:
-     <ul>
-      <li>
-       <u>
-        Log transform:
-       </u>
-       Just take log of the data. The data will look a lot more normal distributed. This works best for data that exhibits exponential property.
-      </li>
-      <li>
-       <u>
-        Square Root:
-       </u>
-       Just take square root of the data.
-      </li>
-      <li>
-       <u>
-        Box Cox:
-       </u>
-       It is a parameterized transformation.
-       <ul>
-        <li>
-         Box-Cox transformed value of a variable y is (y^lambda -1)/lambda.
-        </li>
-        <li>
-         This is a generalization of the square root transformation, but it allows for the root value to vary and find the best one.
-        </li>
-        <li>
-         Use
-         <mark>
-          boxcox from scipy.stats
-         </mark>
-         in code; as
-         <mark>
-          y_transformed = boxcox(df['y'])[0]
-         </mark>
-         . Function
-         <mark>
-          boxcox
-         </mark>
-         returns an array,
+     </li>
+    </ul>
+   </p>
+   <p>
+    To transform a variable (target variable) to make it normally distributed, commonly used techniques are:
+    <ul>
+     <li>
+      <u>
+       Log transform:
+      </u>
+      Just take log of the data. The data will look a lot more normal distributed. This works best for data that exhibits exponential property.
+     </li>
+     <li>
+      <u>
+       Square Root:
+      </u>
+      Just take square root of the data.
+     </li>
+     <li>
+      <u>
+       Box Cox:
+      </u>
+      It is a parameterized transformation.
+      <ul>
+       <li>
+        Box-Cox transformed value of a variable y is (y^lambda -1)/lambda.
+       </li>
+       <li>
+        This is a generalization of the square root transformation, but it allows for the root value to vary and find the best one.
+       </li>
+       <li>
+        Use
+        <mark>
+         boxcox from scipy.stats
+        </mark>
+        in code; as
+        <mark>
+         y_transformed = boxcox(df['y'])[0]
+        </mark>
+        . Function
+        <mark>
+         boxcox
+        </mark>
+        returns an array,
                         the first item is the transfored array whereas the second item the lambda that was used.
-        </li>
-       </ul>
-      </li>
-     </ul>
-    </p>
-    <hr/>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </p>
+   <hr>
     <p>
      How to use:
      <ol>
