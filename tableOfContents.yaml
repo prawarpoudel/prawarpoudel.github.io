@@ -35,3 +35,7 @@ table_contents:
     class: 'listt'
     href: "../pages/alerting.html"
     string: "Ex-Google SRE on Alerting"
+  "10":
+    class: 'listt'
+    href: "../pages/coding_topics.html"
+    string: "Various Coding Exercises"

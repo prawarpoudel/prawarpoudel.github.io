@@ -56,16 +56,19 @@
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
    </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
   </div>
   <div class="content">
    <h1>
     Ex-Google SRE on Alerting
    </h1>
    <p>
-    The contents in this document is derived from a document titled 
-        <i>
-        My Philosophy on Alerting by Rob Ewaschuk.
-        </i>
+    The contents in this document is derived from a document titled
+    <i>
+     My Philosophy on Alerting by Rob Ewaschuk.
+    </i>
    </p>
    <p>
     The origiinal document is publicly available at
@@ -78,26 +81,34 @@
    </h2>
    <p>
     <ul>
-        <li>
-            over monitoring is a harder problem to solve than under monitoring
-        </li>
-        <li>
-            alert rules must be able to classify problems into one of the following classes:
-            <ul>
-                <li>
-                    avaiiability and basic functionality
-                </li>
-                <li>
-                    correctness (completeness, freshness and durability of data)
-                </li>
-                <li>
-                    feature specific problem
-                </li>
-            </ul>
-        </li>
-        <li>
-            focus on symptoms to catch the problem. include cause-based information, but alert should be based on symptoms. For example, alert should be based on <i>query failing</i> rather than <i>database server is down</i>.
-        </li>
+     <li>
+      over monitoring is a harder problem to solve than under monitoring
+     </li>
+     <li>
+      alert rules must be able to classify problems into one of the following classes:
+      <ul>
+       <li>
+        avaiiability and basic functionality
+       </li>
+       <li>
+        correctness (completeness, freshness and durability of data)
+       </li>
+       <li>
+        feature specific problem
+       </li>
+      </ul>
+     </li>
+     <li>
+      focus on symptoms to catch the problem. include cause-based information, but alert should be based on symptoms. For example, alert should be based on
+      <i>
+       query failing
+      </i>
+      rather than
+      <i>
+       database server is down
+      </i>
+      .
+     </li>
     </ul>
    </p>
   </div>

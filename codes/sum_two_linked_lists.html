@@ -56,19 +56,26 @@
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
    </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
   </div>
   <div class="content">
    <h1>
     Add Two Linked Lists
    </h1>
    <p>
-    Given two linked lists, add them to form a third linked list. This is a problem from leetcode at <a href="https://leetcode.com/problems/add-two-numbers/description/">this link</a>.
+    Given two linked lists, add them to form a third linked list. This is a problem from leetcode at
+    <a href="https://leetcode.com/problems/add-two-numbers/description/">
+     this link
+    </a>
+    .
    </p>
    <h2>
     Solution: Naiive Solution
    </h2>
    <p class="code-text">
-# Definition for singly-linked list.
+    # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
@@ -101,16 +108,16 @@ def get_listnode(my_arr):
 class Solution:
     def addTwoNumbers(
         self, l1: Optional[ListNode], l2: Optional[ListNode]
-    ) -> Optional[ListNode]:
+    ) -&gt; Optional[ListNode]:
         arr1 = get_arr(l1)
         arr2 = get_arr(l2)
 
         c_o = 0
         my_list = list()
         for i in range(max(len(arr1), len(arr2))):
-            if i >= len(arr1):
+            if i &gt;= len(arr1):
                 arr1.append(0)
-            if i >= len(arr2):
+            if i &gt;= len(arr2):
                 arr2.append(0)
             c_o, su_o = carry_sum(arr1[i], arr2[i], c_o)
             my_list.append(su_o)
@@ -124,7 +131,7 @@ class Solution:
     Solution: Optimized Solution
    </h2>
    <p class="code-text">
-# Definition for singly-linked list.
+    # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
@@ -135,7 +142,7 @@ def carry_sum(n1, n2, co):
 
 
 class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -&gt; Optional[ListNode]:
     
         temp_head = ListNode(val = 0)
         c_o = 0
@@ -153,7 +160,7 @@ class Solution:
             l2 = l2.next if l2 else None
 
         return temp_head.next
-    </p>
+   </p>
   </div>
  </body>
 </html>

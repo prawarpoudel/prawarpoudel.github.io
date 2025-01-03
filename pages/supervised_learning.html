@@ -56,6 +56,9 @@
    <a class="listt" href="../pages/alerting.html">
     Ex-Google SRE on Alerting
    </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
   </div>
   <div class="content">
    <ul>
@@ -266,214 +269,214 @@
      </li>
     </ul>
    </p>
-   <hr>
-    <p>
-     How to use:
-     <ol>
-      <li>
-       Import sklearn library as
-       <mark>
-        sklearn.linear_model.LinearRegression
-       </mark>
-      </li>
-      <li>
-       create an object as
-       <mark>
-        LR=LinearRegression()
-       </mark>
-       . You can also pass many other hyperparameters into the object creation.
-      </li>
-      <li>
-       Create X df from the actual dataset by dropping the target variable column so that it is easy for further computation. Similarly,
+   <hr/>
+   <p>
+    How to use:
+    <ol>
+     <li>
+      Import sklearn library as
+      <mark>
+       sklearn.linear_model.LinearRegression
+      </mark>
+     </li>
+     <li>
+      create an object as
+      <mark>
+       LR=LinearRegression()
+      </mark>
+      . You can also pass many other hyperparameters into the object creation.
+     </li>
+     <li>
+      Create X df from the actual dataset by dropping the target variable column so that it is easy for further computation. Similarly,
                 create Y by just grabbing the target variable as it column.
-      </li>
-      <li>
-       Fit and transform the X data with the polynomial feature object.
-       <ul>
-        <li>
-         First create an object as
-         <mark>
-          pf = PolynomialFeature(degree=2,include_bias=False)
-         </mark>
-         , that is from
-         <mark>
-          sklearn.preprocessing
-         </mark>
-         . The
-         <mark>
-          include_bias
-         </mark>
-         is False 
+     </li>
+     <li>
+      Fit and transform the X data with the polynomial feature object.
+      <ul>
+       <li>
+        First create an object as
+        <mark>
+         pf = PolynomialFeature(degree=2,include_bias=False)
+        </mark>
+        , that is from
+        <mark>
+         sklearn.preprocessing
+        </mark>
+        . The
+        <mark>
+         include_bias
+        </mark>
+        is False 
                         because later on LinearRegression will take care of that part.
-        </li>
-        <li>
-         Fit and transform as
-         <mark>
-          X_pf = pf.fit_transform(X)
-         </mark>
-         . X_pf now has a lot more columns that what X had.
-        </li>
-       </ul>
-      </li>
-      <li>
-       Test-Train split:
-       <ul>
-        <li>
-         <mark>
-          x_train, x_test, y_train, y_test = test_train_split(X_pf,y,test_size=0.3,random_state="some int value")
-         </mark>
-         where test_train_split is from
-         <mark>
-          sklearn.model_selection
-         </mark>
-         .
-        </li>
-       </ul>
-      </li>
-      <li>
-       Now apply standard scaler to the train data.
-       <ul>
-        <li>
-         s = StandardScalar()
-        </li>
-        <li>
-         x_train_s = s.fit_transform(x_train)
-        </li>
-       </ul>
-      </li>
-      <li>
-       Now to bring the target variable to the normal distribution, we will use boxcox as discussed above.
-       <ul>
-        <li>
-         <mark>
-          y_train_bc = boxcox(y_train)[0]
-         </mark>
-        </li>
-        <li>
-         We also need the lambda value for later when we need to compute inverse. so,
-         <mark>
-          lam=boxcox(y_train)[1]
-         </mark>
-        </li>
-       </ul>
-      </li>
-      <li>
-       Fit the train data as
-       <mark>
-        LR = LR.fit(x_train_s, y_train_bc)
-       </mark>
-       . Here we used:
-       <ul>
-        <li>
-         standard scalar fit and transfored x- data.
-        </li>
-        <li>
-         boxcoxed y- data
-        </li>
-       </ul>
-      </li>
-      <li>
-       Since the x- data used for modeling was transformed data, let us fit and transform the x_test data to StandardScalar, i.e.
-       <mark>
-        x_test_s = s.transform(x_test)
-       </mark>
-      </li>
-      <li>
-       The predicted value will be boxcoxed transformed; i.e.
-       <mark>
-        y_pred_bc = lr.predict(x_test_s)
-       </mark>
-       .
-      </li>
-      <li>
-       To find the y_pred_bc back to the same scale as y, we can inverse boxcox.
-       <mark>
-        y_pred = inv_boxcox(y_pred_bc,lam)
-       </mark>
-       .
-      </li>
-      <li>
-       Finally, compute the R2 score using
-       <mark>
-        R2 = r2_score(y_pred,y_test)
-       </mark>
-       .
-      </li>
-      <li>
-       Using boxcox on the target variable improves the R2 score (higher is better). In the above example, if done without boxcox, 
+       </li>
+       <li>
+        Fit and transform as
+        <mark>
+         X_pf = pf.fit_transform(X)
+        </mark>
+        . X_pf now has a lot more columns that what X had.
+       </li>
+      </ul>
+     </li>
+     <li>
+      Test-Train split:
+      <ul>
+       <li>
+        <mark>
+         x_train, x_test, y_train, y_test = test_train_split(X_pf,y,test_size=0.3,random_state="some int value")
+        </mark>
+        where test_train_split is from
+        <mark>
+         sklearn.model_selection
+        </mark>
+        .
+       </li>
+      </ul>
+     </li>
+     <li>
+      Now apply standard scaler to the train data.
+      <ul>
+       <li>
+        s = StandardScalar()
+       </li>
+       <li>
+        x_train_s = s.fit_transform(x_train)
+       </li>
+      </ul>
+     </li>
+     <li>
+      Now to bring the target variable to the normal distribution, we will use boxcox as discussed above.
+      <ul>
+       <li>
+        <mark>
+         y_train_bc = boxcox(y_train)[0]
+        </mark>
+       </li>
+       <li>
+        We also need the lambda value for later when we need to compute inverse. so,
+        <mark>
+         lam=boxcox(y_train)[1]
+        </mark>
+       </li>
+      </ul>
+     </li>
+     <li>
+      Fit the train data as
+      <mark>
+       LR = LR.fit(x_train_s, y_train_bc)
+      </mark>
+      . Here we used:
+      <ul>
+       <li>
+        standard scalar fit and transfored x- data.
+       </li>
+       <li>
+        boxcoxed y- data
+       </li>
+      </ul>
+     </li>
+     <li>
+      Since the x- data used for modeling was transformed data, let us fit and transform the x_test data to StandardScalar, i.e.
+      <mark>
+       x_test_s = s.transform(x_test)
+      </mark>
+     </li>
+     <li>
+      The predicted value will be boxcoxed transformed; i.e.
+      <mark>
+       y_pred_bc = lr.predict(x_test_s)
+      </mark>
+      .
+     </li>
+     <li>
+      To find the y_pred_bc back to the same scale as y, we can inverse boxcox.
+      <mark>
+       y_pred = inv_boxcox(y_pred_bc,lam)
+      </mark>
+      .
+     </li>
+     <li>
+      Finally, compute the R2 score using
+      <mark>
+       R2 = r2_score(y_pred,y_test)
+      </mark>
+      .
+     </li>
+     <li>
+      Using boxcox on the target variable improves the R2 score (higher is better). In the above example, if done without boxcox, 
                 the R2 score will be lower.
-      </li>
-     </ol>
-    </p>
-    <h2>
-     Data Splits and Cross Validation
-    </h2>
-    <p>
-     To split to have a hold out data, so that its used for cross validation.
-    </p>
-    <p>
-     Training data:
-     <ul>
-      <li>
-       Used for training.
-      </li>
-      <li>
-       <mark>
-        model(x_train,y_train).fit()
-       </mark>
-       = model
-      </li>
-     </ul>
-    </p>
-    <p>
-     Test data:
-     <ul>
-      <li>
-       Used for testing and prediction.
-      </li>
-      <li>
-       <mark>
-        model.predict(x_test)
-       </mark>
-       = y_pred
-      </li>
-      <l>
-       Use actual y_test to compare and calculate
-       <mark>
-        test_error
-       </mark>
-       .
-      </l>
-     </ul>
-    </p>
-    <p>
-     Syntax for test train split
-     <ul>
-      <li>
-       <mark>
-        from sklearn.model_selection import test_train_split
-       </mark>
-      </li>
-      <li>
-       <mark>
-        train,test = test_train_split(data,test_size=0.3)
-       </mark>
-      </li>
-      <li>
-       <mark>
-        x_train,x_test, y_train, y_test = test_train_split(x,y,test_size=0.3)
-       </mark>
-      </li>
-      <li>
-       There are other many ways for splitting, like shuffle split or stratified shuffle split.
-       <br/>
-       <mark>
-        from sklearn.model_selection import ShuffleSplit
-       </mark>
-      </li>
-     </ul>
-    </p>
-    <hr/>
+     </li>
+    </ol>
+   </p>
+   <h2>
+    Data Splits and Cross Validation
+   </h2>
+   <p>
+    To split to have a hold out data, so that its used for cross validation.
+   </p>
+   <p>
+    Training data:
+    <ul>
+     <li>
+      Used for training.
+     </li>
+     <li>
+      <mark>
+       model(x_train,y_train).fit()
+      </mark>
+      = model
+     </li>
+    </ul>
+   </p>
+   <p>
+    Test data:
+    <ul>
+     <li>
+      Used for testing and prediction.
+     </li>
+     <li>
+      <mark>
+       model.predict(x_test)
+      </mark>
+      = y_pred
+     </li>
+     <l>
+      Use actual y_test to compare and calculate
+      <mark>
+       test_error
+      </mark>
+      .
+     </l>
+    </ul>
+   </p>
+   <p>
+    Syntax for test train split
+    <ul>
+     <li>
+      <mark>
+       from sklearn.model_selection import test_train_split
+      </mark>
+     </li>
+     <li>
+      <mark>
+       train,test = test_train_split(data,test_size=0.3)
+      </mark>
+     </li>
+     <li>
+      <mark>
+       x_train,x_test, y_train, y_test = test_train_split(x,y,test_size=0.3)
+      </mark>
+     </li>
+     <li>
+      There are other many ways for splitting, like shuffle split or stratified shuffle split.
+      <br/>
+      <mark>
+       from sklearn.model_selection import ShuffleSplit
+      </mark>
+     </li>
+    </ul>
+   </p>
+   <hr>
     <p>
      Categorical Data is one-hot encoded. The number of columns that is made as a result of one-hot encoding is equal to no of category values 
         - 1. The process is outline below:
