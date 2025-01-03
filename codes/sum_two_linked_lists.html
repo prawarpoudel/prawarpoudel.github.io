@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Add Two Linked Lists
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    AI Topics
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Programming Topics
+   </a>
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Kubernetes
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Add Two Linked Lists
+   </h1>
+   <p>
+    Given two linked lists, add them to form a third linked list. This is a problem from leetcode at <a href="https://leetcode.com/problems/add-two-numbers/description/">this link</a>.
+   </p>
+   <h2>
+    Solution: Naiive Solution
+   </h2>
+   <p class="code-text">
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+def carry_sum(n1, n2, co):
+    summ = n1 + n2 + co
+    return summ // 10, summ % 10
+
+
+def get_arr(ll):
+    my_arr = list()
+    while ll:
+        my_arr.append(ll.val)
+        ll = ll.next
+    return my_arr
+
+
+def get_listnode(my_arr):
+    if len(my_arr):
+        headnode = ListNode(val=my_arr[0])
+        currentnode = headnode
+        for i in my_arr[1:]:
+            currentnode.next = ListNode(val=i)
+            currentnode = currentnode.next
+    else:
+        return None
+    return headnode
+
+
+class Solution:
+    def addTwoNumbers(
+        self, l1: Optional[ListNode], l2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        arr1 = get_arr(l1)
+        arr2 = get_arr(l2)
+
+        c_o = 0
+        my_list = list()
+        for i in range(max(len(arr1), len(arr2))):
+            if i >= len(arr1):
+                arr1.append(0)
+            if i >= len(arr2):
+                arr2.append(0)
+            c_o, su_o = carry_sum(arr1[i], arr2[i], c_o)
+            my_list.append(su_o)
+
+        if c_o:
+            my_list.append(c_o)
+        print(my_list)
+        return get_listnode(my_list)
+   </p>
+   <h2>
+    Solution: Optimized Solution
+   </h2>
+   <p class="code-text">
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+def carry_sum(n1, n2, co):
+    summ = n1 + n2 + co
+    return summ // 10, summ % 10
+
+
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    
+        temp_head = ListNode(val = 0)
+        c_o = 0
+        pointer = temp_head
+
+        while l1 or l2 or c_o:
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
+
+            c_o,s_o = carry_sum(val1, val2, c_o)
+            pointer.next = ListNode(val = s_o)
+            pointer = pointer.next
+
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
+        return temp_head.next
+    </p>
+  </div>
+ </body>
+</html>
