@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Find Additive 0 Triples
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    AI Topics
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Programming Topics
+   </a>
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Kubernetes
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Find A Set of Three Numbers in a List that add upto 0
+   </h1>
+   <p>
+    Given an array of integers, and a target integer, return numbers that add upto 0. There could be more than 1 set of numbers, so return all of them. This is a problem from leetcode at
+    <a href="https://leetcode.com/problems/3sum/">
+     this link
+    </a>
+    .
+   </p>
+   <h2>
+    Solution: Naiive Solution: But Wrong
+   </h2>
+   <p class="code-text">
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        my_list = []
+        for idx1,i in enumerate(nums):
+            for idx2,j in enumerate(nums[idx1+1:]):
+                for idx3,k in enumerate(nums[idx2+1:]):
+                    if i+j+k==0:
+                        my_list.append([i,j,k])
+        return my_list
+   </p>
+
+  <p>
+    The above solution is highly unoptimized, but it does not meet other criteria specified in the question. The question says that output set should not contain the duplicate set of items. This means lets say is -1, 0, 1 is already in the solution set, and the same set of numbers appear later in the array, it should not go into the solution.
+  </p>
+  <hr>
+  <hr>
+  <h2>
+    Solution: Optimized and Non Duplicated
+  </h2>
+  <p class="code-text">
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        N = len(nums)
+        nums.sort()
+        
+        my_arr = []
+        for idx1,i in enumerate(nums):
+            # if we have already worked for same number in earlier iteration, 
+            # .. we skip this iteration
+            if idx1>0 and nums[idx1]==nums[idx1-1]:
+                continue
+
+            left_pointer = idx1+1
+            right_pointer = N-1
+            while left_pointer < right_pointer:
+                summ = i+nums[left_pointer]+nums[right_pointer]
+                if summ>0:
+                    # since they are in ascending order, sum >0 means we reduce right pointer
+                    right_pointer -= 1
+                elif summ<0:
+                    # .. if sum<0 means we increase left pointer
+                    left_pointer += 1
+                else:
+                    my_arr.append([i,nums[left_pointer],nums[right_pointer]])
+                    right_pointer -= 1
+                    left_pointer += 1
+
+                    # to handle repeated numbers pointed by pointer, we do following
+                    # .. this means we do not want to point to same value again
+                    while(left_pointer < right_pointer and nums[left_pointer-1]==nums[left_pointer]):
+                        left_pointer += 1
+                    while(left_pointer < right_pointer and nums[right_pointer+1] == nums[right_pointer]):
+                        right_pointer -= 1
+        return my_arr
+  </p>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Find Mountain with Min Sum from a List
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    AI Topics
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Programming Topics
+   </a>
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Kubernetes
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Find Mountain Numbers with Min Sum in a List
+   </h1>
+   <p>
+    Given an array of integers, find three number at indices i, j, k such that a[j] is greater than a[i] and a[k] and i < j < k. We do not need to return the indices or the numbers, ,but just the sum. If more than one triplets of number exist, return the min sum. If none exists, return -1. This is a problem from leetcode at
+    <a href="https://leetcode.com/problems/minimum-sum-of-mountain-triplets-ii/">
+     this link
+    </a>
+    .
+   </p>
+   <h2>
+    Solution: Naiive Solution, But only works if consecutive
+   </h2>
+   <p class="code-text">
+class Solution:
+    def minimumSum(self, nums: List[int]) -> int:
+        diff_arr = []
+        N = len(nums)
+
+        # find diff array
+        for i in range(1,N):
+            diff_arr.append(nums[i]-nums[i-1])
+        
+        # find mountain here
+        # mountain is characterized by +ve number in diff_arr followed by a -ve number
+        mountain_list = []
+        for idx,i in enumerate(diff_arr[:-1]):
+            if i>0 and diff_arr[idx+1]<0:
+                mountain_list.append(idx)
+        
+        if len(mountain_list):
+            print(mountain_list)
+            ret_sum = 9999999999
+            for i in mountain_list:
+                summ = sum(nums[i:i+3])
+                print(f"For mountain {nums[i:i+3]}, sum is {summ}")
+                if summ < ret_sum:
+                    ret_sum = summ
+        else:
+            return -1
+        return ret_sum
+   </p>
+   <p>
+    The above solution works if we are only considering the result to include consecutive numbers. For the case like, [5,4,8,7,10,2], this does not work because the min sum mountain is 4, 7, 2 which are not consecutive numbers.
+    We should run some kind of pointers here to find the best solution to handle case of non-consecutives.
+   </p>
+   <h2>
+    Solution: For Non Consecutive
+   </h2>
+   <p class="code-text">
+class Solution:
+    def minimumSum(self, nums: List[int]) -> int:
+        N = len(nums)
+        return_val = float("inf")
+        found_one = False
+
+        for idx, i in enumerate(nums):
+            if idx==0:
+                continue
+            
+            left_pointer = idx-1
+            right_pointer = idx+1
+            
+            # let us find numbers smaller than i in either direction of i
+            l_mountain = False
+            l_val = i
+            while(left_pointer >= 0):
+                if nums[left_pointer] < i and nums[left_pointer] < l_val:
+                    l_mountain = True
+                    l_val = nums[left_pointer]
+                left_pointer -= 1
+            
+            if not l_mountain:
+                continue
+
+            r_mountain = False
+            r_val = i
+            while(right_pointer < N):
+                if nums[right_pointer] < i and nums[right_pointer] < r_val:
+                    r_mountain = True
+                    r_val = nums[right_pointer]
+                right_pointer += 1
+            
+
+            if r_mountain and l_mountain:
+                found_one = True
+                summ = i + r_val + l_val
+                if summ < return_val:
+                    return_val = summ
+        return return_val if found_one else -1
+   </p>
+   <p>
+    The above solution works, but it is highly unoptimized. What we do here is, we consider every iteration as the peak of the mountain. Thus, for each, if we are 
+    able to find min on each side, if they exist, we can compute the sum of the mountain. If min does not exist on any one of the sides, then mountain does not exist.
+   </p>
+   <h2>
+    Solution: Optimized Solution
+   </h2>
+   <p class="code-text">
+class Solution:
+    def minimumSum(self, nums: List[int]) -> int:
+        N = len(nums)
+        ret_val = float('inf')
+        
+        # we will create two lists, l_list and r_list
+        # l_list will hold min value to the left of each item in nums
+        l_list = [float('inf')]*N
+        r_list = [float('inf')]*N
+
+        for i in range(1,N):
+            l_list[i] = min(l_list[i-1],nums[i-1])
+        for i in range(N-2,0,-1):
+            r_list[i] = min(r_list[i+1],nums[i+1])
+        
+        # now let us compute the mountain and sum
+        found = False
+        for i in range(0,N-1):
+            if nums[i]>l_list[i] and nums[i]>r_list[i]:
+                found = True
+                summ = nums[i] + l_list[i] + r_list[i]
+                if summ < ret_val:
+                    ret_val = summ
+        
+        if found:
+            return ret_val
+        else:
+            return -1
+   </p>
+  </div>
+ </body>
+</html>
