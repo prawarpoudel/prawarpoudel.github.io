@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Find Sum of Beauty Values of a List
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    AI Topics
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Programming Topics
+   </a>
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Kubernetes
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Find Sum of Beauty Values of a List
+   </h1>
+   <p>
+    Given an array of integers, find the sum of beauty values of a the items in the list. The beauty values for each index element is defined by certain conditions.
+    The description of which I would defer to the original source in leetcode at <a href="https://leetcode.com/problems/sum-of-beauty-in-the-array/description/">this link</a> .
+   </p>
+   <h2>
+    Solution: Solution
+   </h2>
+   <p class="code-text">
+class Solution:
+    def sumOfBeauties(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        min_on_right = [float('inf')]*n
+        max_on_left = [-float('inf')]*n
+
+        # lets populate max_on_left
+        # .. idx i on this array holds max value in nums in range[0..i]
+        for i in range(1,n):
+            max_on_left[i] = max(max_on_left[i-1],nums[i-1])
+        for i in range(n-2,-1,-1):
+            min_on_right[i] = min(min_on_right[i+1],nums[i+1])
+
+        ret = 0
+        for i in range(1,n-1):
+            if nums[i] > max_on_left[i] and nums[i] < min_on_right[i]:
+                ret += 2
+            elif nums[i-1] < nums[i] and nums[i] < nums[i+1]:
+                ret += 1
+        return ret
+   </p>
+  </div>
+ </body>
+</html>
