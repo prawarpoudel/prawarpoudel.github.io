@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Find Max Profit of Stock
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    AI Topics
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Programming Topics
+   </a>
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Kubernetes
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Find Best Time To Buy and Sell Stock
+   </h1>
+   <p>
+    Given an array of integers that are the stock prices, find the max profit that you can achieve by buying a stock and selling stock at a later date. The progression
+    of the array indicates the progression of time.
+    This problem can be found in leetcode at <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">this link</a> .
+   </p>
+   <h2>
+    Solution: Solution
+   </h2>
+   <p class="code-text">
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        best_buying_price = prices.copy()
+
+        for i in range(1,n):
+            best_buying_price[i] = min(best_buying_price[i-1],prices[i])
+        
+        profit = 0
+        for idx in range(n):
+            pr = prices[idx]-best_buying_price[idx]
+            if pr > profit:
+                profit = pr
+        
+        return profit
+   </p>
+   <p>
+    In the above code, what we do is we create an array to have the best possible price to buy the stock. We iterate again through this loop and the main price
+    loop to find the profit to maximize.
+   </p>
+   <h2>
+    Solution: More Optimized Solution
+   </h2>
+   <p>
+    In the following code, we run only one loop wherein we find the best time to buy the stock. If the current time is not the best time to buy the stock, then it is possible candidate for selling stock. If the profit is maximixed, we can sell it. This way we can run just one for loop.
+   </p>
+   <p class="code-text">
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit=0
+        buying_price=float("inf")
+        for price in prices:
+            if price < buying_price:
+                buying_price = price
+            elif price - buying_price > profit:
+                profit = price-buying_price
+        return profit
+    </p>
+  </div>
+ </body>
+</html>
