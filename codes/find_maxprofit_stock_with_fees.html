@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Find Max Profit of Buying and Selling Stock
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    AI Topics
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Programming Topics
+   </a>
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Kubernetes
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Find Max Profit By Buying And Selling Stock
+   </h1>
+   <p>
+    In the given problem, we are provided with an array named "prices," where prices[i] represents the current price of a stock on day i. The task is to determine the maximum profit that can be achieved from selling the stock.
+    There is a price that is charged for a set of buy and sell of a stock.
+    This problem can be found in leetcode at <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee">this link</a> .
+   </p>
+   <p>
+    In the greedy approach solution presented below, we iterate through the prices and see if its selling worthy or buying worthy price or nothing. We 
+    also incorporate fees as we go along.
+   </p>
+   <p class="code-text">
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        n = len(prices)
+        maxProfit = 0
+        cost_price = float('inf')
+        for i in range(0,n):
+            # at each iteration, we check to see if the price is viable for min price so that we can buy it
+            # .. if not, we see if its okay to sell it on that day
+            if prices[i]<cost_price:
+                cost_price = prices[i]
+            elif prices[i] > (cost_price + fee):
+                maxProfit += (prices[i] - cost_price - fee)
+                # if we do sell it, we also set a potential new buying price 
+                cost_price = prices[i] - fee # this so that we buy next time only if the incoming cost price is profitable
+        return maxProfit
+   </p>
+   <p>
+    The above solution works and passes 97% solution in Leetcode, but I am not confident that this works well in call the cases.
+   </p>
+   <h2>
+    Solution: Dynamic Solution
+   </h2>
+   <p>
+    Following is a dynamic approach that beats only 57% of submission in leetcode, but is more clear.
+   </p>
+   <p class="code-text">
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        n = len(prices)
+        if n<=1:
+            return 0
+        letsbuy_profit = [0]*n
+        letssell_profit = [0]*n
+
+        # since we are buying on first day, profit is negative the cost
+        letsbuy_profit[0] = -prices[0]
+        # if we are selling on the first day, we do not have anything to sell, so 
+        # .. initialization is working for now
+
+        for i in range(1,n):
+            # max profit today if we decide to buy
+            letsbuy_profit[i] = max(letsbuy_profit[i-1],letssell_profit[i-1]-prices[i])
+            # max profit today if we decide to sell
+            letssell_profit[i] = max(letssell_profit[i-1],letsbuy_profit[i-1]+prices[i]-fee)
+        return letssell_profit[n-1]
+  </div>
+ </body>
+</html>
