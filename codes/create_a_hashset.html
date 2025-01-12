@@ -107,6 +107,44 @@ class MyHashSet:
 # obj.remove(key)
 # param_3 = obj.contains(key)
    </p>
+   <h2>
+    Another solution: same solution
+   </h2>
+   <p>
+    The code looks a bit better if we use set() instead of list().
+   </p>
+   <p>
+class MyHashSet:
+    def get_hash(self,key):
+        return key%self.hashsize
+
+    def __init__(self):
+        self.hashsize = 1000
+        self.arr = [set() for i in range(self.hashsize)]
+
+    def add(self, key: int) -> None:
+        hashval = self.get_hash(key)
+        self.arr[hashval].add(key)
+
+    def remove(self, key: int) -> None:
+        hashval = self.get_hash(key)
+        self.arr[hashval].discard(key)
+        
+
+    def contains(self, key: int) -> bool:
+        hashval = self.get_hash(key)
+        if key in self.arr[hashval]:
+            return True
+        else:
+            return False
+
+
+# Your MyHashSet object will be instantiated and called as such:
+# obj = MyHashSet()
+# obj.add(key)
+# obj.remove(key)
+# param_3 = obj.contains(key)
+   </p>
   </div>
  </body>
 </html>
