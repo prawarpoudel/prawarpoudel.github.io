@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Time Series Forecasting (Python): Chapter 03
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../../index.html">
+    Home
+   </a>
+   <a href="../../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Time Series Forecasting in Python: Chapter 02
+   </h1>
+   <h2>
+    Disclaimer
+   </h2>
+   <p>
+    The contents here are the notes taken by me while I was reading the book <i>Time Series Forecasting in Python</i> by <b><i>Marco Peixeiro</i></b>. The book can be 
+    found online at <a href="https://www.manning.com/books/time-series-forecasting-in-python-book">this link</a>. The book is also available at Oreilly online library if 
+    your organization has a subscription to Oreilly.
+   </p>
+   <p>
+    The write up here is merely for notes so that I can revisit later on demand. The rights to the contents of the books remain with the author.
+   </p>
+   <p>
+    <a href="../time_series_forecasting_python.html">Back To Chapter List </a>
+   </p>
+   <h2>
+    My Notes from Chapter-03: Random Walk
+   </h2>
+   <p>
+    <ul>
+        <li>
+            To use random walk, the series must be <i>Stationary Model</i>.
+            <ul>
+                <li>
+                    For a series that is not stationary, we can make is stationary using <i>Differencing</i>, which is a transformation.
+                </li>
+                <li>
+                    After applying <i>Differencing</i>, we can use <i>auto-correlation</i> plot to determine if the resulting series can be applied with random walk.
+                </li>
+            </ul>
+        </li>
+        <li>
+            Under the concept of random walk, any point in time t+1 is the value in time t plus a constant value C and a time dependent random number E which is standard normal distributed with a mean of 0 and 
+            variance of 1.
+        </li>
+        <li>
+            Thus, y(t+1) = y(t) + C + E(t) is the equation in Random Walk for predicting a y-value in time t+1 on the basis of value in time t.
+        </li>
+        <li>
+            TODO
+        </li>
+    </ul>
+    </p>
+  </div>
+ </body>
+</html>
