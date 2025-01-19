@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Time Series Forecasting (Python): Chapter 02
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../../index.html">
+    Home
+   </a>
+   <a href="../../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Time Series Forecasting in Python: Chapter 02
+   </h1>
+   <h2>
+    Disclaimer
+   </h2>
+   <p>
+    The contents here are the notes taken by me while I was reading the book <i>Time Series Forecasting in Python</i> by <b><i>Marco Peixeiro</i></b>. The book can be 
+    found online at <a href="https://www.manning.com/books/time-series-forecasting-in-python-book">this link</a>. The book is also available at Oreilly online library if 
+    your organization has a subscription to Oreilly.
+   </p>
+   <p>
+    The write up here is merely for notes so that I can revisit later on demand. The rights to the contents of the books remain with the author.
+   </p>
+   <p>
+    <a href="../time_series_forecasting_python.html">Back To Chapter List </a>
+   </p>
+   <h2>
+    My Notes from Chapter-02: Naiive Forecasting
+   </h2>
+   <p>
+    <ul>
+        <li>
+            Future data can be predicted to the best ability as the past data is available. Thus some statistical function of past data can be used for prediction.
+        </li>
+        <li>
+            <b>Option 1: Historical Mean</b>: Taking a historical mean of the available data. This gives a fair idea on expected behavior of the data that might occur in the future.
+            However, this is not always accurate. But very naiive and easy to implement.
+        </li>
+        <li>
+            <b>Option 2: Mean of recent past</b>: For example taking mean of only past year data. This is going to be more accurate than overall historical mean since any recent trend will be captured in this mean.
+        </li>
+        <li>
+            <b>Option 3: Last Value</b>: Simply taking the last observed value at t=n and considering it as predited value of t=n+1. However, this also does not address the concern of seasonality. For example,
+            we might take mean from Q4 of last year as the predicted earnings profit for Q1 of this year, but this could be guided my quartely seasonality in the data.
+        </li>
+        <li>
+            <b>Option 4: Seasonal Mean</b>: Taking mean of data for Q1 from last year to predict the expected value of earnings for Q1 of this year, and similarly extending the same concept for other quarters. 
+            In the naiive approaches this is the best approach.
+        </li>
+        <li>
+            <b>Naiive Error Calculations</b>: Use MAPE which is Mean Average Percentage Error. This is computed by find the percentage deviation of each predicted data 
+            points from observed datapoints; and taking absolute mean of all these percentage errors. In computing each individual percentage error, the denominator is actual or observed value.
+        </li>
+    </ul>
+    </p>
+  </div>
+ </body>
+</html>
