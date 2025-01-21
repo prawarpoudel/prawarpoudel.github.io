@@ -61,15 +61,147 @@
                 </li>
             </ul>
         </li>
+        <br>
         <li>
             Under the concept of random walk, any point in time t+1 is the value in time t plus a constant value C and a time dependent random number E which is standard normal distributed with a mean of 0 and 
             variance of 1.
         </li>
+        <br>
         <li>
             Thus, y(t+1) = y(t) + C + E(t) is the equation in Random Walk for predicting a y-value in time t+1 on the basis of value in time t.
         </li>
+        <br>
         <li>
-            TODO
+            <b>Let us create our own random walk</b>
+            <ul>
+                <li>
+                    For easiness, let us consider <b>C=0</b>, and the initial value of y at t=0 is <b>y(t=0) = 0</b>.
+                </li>
+                <li>
+                    Thus, at any time time t = T, the valye of y(t=T) will be <b>sum(E(t) for t = 0 to T)</b>, where E is a random variable that follows standard normal distribution.
+                </li>
+                <li>
+                    Thus, y(t) for this simplified case is basically cumulative sum of E(t).
+                </li>
+            </ul>
+        </li>
+        <br>
+        <li>
+            <b>Coding Random Walk in Python</b>
+            <ul>
+                <li>
+                    <p class="code-text">
+import numpy as np
+
+# let us set a seed value
+np.random.seed(21)
+
+# let us set the first value y(0) to be 0 for simplicity
+y0 = 0
+
+# let us create 1000 values for our series
+E = np.random.standard_normal(1000)
+
+# let us compute other y-values using cumsum function
+# .. for cumulative sum computation
+y = np.cumsum(E)
+
+
+import plotly.express as px
+
+# import plotly.io as pio
+# pio.renderers.default = 'iframe'
+
+
+px.line(y)
+                    </p>
+                    <p>
+                        <img src="ch03_1.jpg" height="400px">
+                    </p>
+                </li>
+            </ul>
+        </li>
+        <br>
+        <li>
+            <b>Testing If Some Series Satisfies Random Walk</b>:
+            <ul>
+                <li>
+                    The first difference must be <b>stationary</b> and <b>uncorrelated</b>.
+                </li>
+                <br>
+                <li>
+                    <b>Stationary</b>: Means the statistical properties should remain the same. Meaning, mean, median, std etc of the series should always remain the same with time.
+                </li>
+                <br>
+                <li>
+                    If a series is not stationary, we will find ways to make it stationary, thereby stabilizong mean and variance if the series.
+                </li>
+                <br>
+                <li>
+                    One of the simplest transformation that we can apply is <b>differencing</b>, where yd(t) = y(t) - y(t-1). 
+                </li>
+                <li>
+                    Differencing helps to remove the seasonality and trend from the series, and thus stabilize mean.
+                </li>
+                <br>
+                <li>
+                    Sometimes differencing can be applied multiple times, thus called, second order differencing, third order differencing and so on
+                    <br>
+                    In python, there is a function <i>np.diff(series, n)</i> where n=1 means first order differencing.
+                </li>
+                <br>
+                <li>
+                    <b>Log Function</b>: Logarithms can be applied to stabilize variance.
+                </li>
+                <br>
+                <li>
+                    A series is Stationary or not can be confirmed by using <b>Dickey Fuller Test</b>, which tests if the root of a series is between -1 and +1 (exclusive). If it is, then the series is stationary.
+                    <br>
+                    There is a function in <i>from statsmodels.tsa.stattools import adfuller</i>, where you can pass your series to perform the Dickey Fuller test.
+                    <br>
+                    The function returns a tuple of two values. If the first element of the tuple is large negative number, we can confirm the series to be stationary with second element confidence. (The second element gives the confidence or p-value).
+                </li>
+                <br>
+                <li>
+                    Uncorrelated can be tested using AutoCorrelation Function. There is function in python in <i>from statsmodels.graphics.tsaplots import plot_acf </i> that can be used to plot auto-correlation.
+                </li>
+                <li>
+                    In order for auto correlatiion to be insignificant, all the plots obtained for different lags should be close to 0.
+                </li>
+                <li>
+                    We use lag value of 20 (i.e. upto 20) in general usages.
+                </li>
+                <br>
+            </ul>
+        </li>
+        <br>
+        <li>
+            <b>Forecasting Random Walk</b>:
+            <ul>
+                <li>
+                    A random walk can only be forecasted using naiive methods that we learned in Ch02.
+                </li>
+                <br>
+                <li>
+                    <b>Drift Method</b>:
+                </li>
+                <li>
+                    Drift method is similar to forecasting using the last value, or is a modification of that technique.
+                </li>
+                <li>
+                    Here, we compute the overall slope, using the first data point of the series and the last data point.
+                </li>
+                <li>
+                    Once the slope is identified, this captures the overall trend of data. We can predict the next value using this slope and initial value or the value at t=T-1. 
+                </li>
+                <br>
+                <li>
+                    <b>Simply Using the Last Value</b>
+                </li>
+                <li>
+                    Based on this book chapter, simply using the last value gives a better prediction and overall MSE.
+                </li>
+            </ul>
         </li>
     </ul>
     </p>
