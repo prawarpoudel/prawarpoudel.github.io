@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="deepseek, r1, ollama, llm,ai" name="keywords"/>
+  <meta content="Deepseek Local Installation" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Setup Local ChatServer: Deepseek
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    AI Topics
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Programming Topics
+   </a>
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Kubernetes
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Setup local chat server: Deepseek and Ollama
+   </h1>
+   <p>
+    In this page, we will do following. Please feel free to jump to the section of your choice.
+    <ul>
+        <li>
+            <a href="#install_ollama">Install Ollama</a>
+        </li>
+        <li>
+            <a href="#download_deepseek">Download Deepseek</a>
+        </li>
+        <li>
+            <a href="#talk_to_deepseek">Talk to Deepseek</a>
+        </li>
+        <li>
+            <a href="#create_chat">Use OpenWebUI to Create ChatServer</a>
+        </li>
+    </ul>
+   </p>
+   <h2>
+    System Info
+   </h2>
+   <p>
+    The setup is being performed on Apple Metal 3 Pro Macbook machine with 36GB memory. At the time of commencing this installation, I still have about 320GB of storage left.
+   </p>
+   <h2 id="install_ollama">
+    Installing Ollama
+   </h2>
+   <p>
+    Ollama installation is a very straightforward process.
+    <ul>
+        <li>
+            Ollama installer can be downloaded from the offical site for macbook at: https://ollama.com/download/mac.
+            <ul>
+                <li>
+                    Once downloaded, extract the executable and double click on it to perfrom the installation. The installation should finish in no time.
+                </li>
+            </ul>
+        </li>
+    </ul>
+   </p>
+   <h3>
+    Verify Installation
+   </h3>
+   <p>
+        <ul>
+            <li>
+                Once Ollama is installed, you can go to the terminal of choice, and type in <i>Ollama</i>. This should show the help messages that are associated with Ollama.
+            </li>
+            <br>
+            <li>
+                Ollama also exposes port 11434 by default. Any curl message to that port in localhost should show <i>Ollama is running</i> message if the installation is successful.
+                <p class="code-text">
+                    % curl localhost:11434
+                    Ollama is running%
+                </p>
+            </li>
+        </ul>
+    </p>
+    <h2 id="download_deepseek">
+        Model Download
+    </h2>
+    <p>
+        A list of model that is supported by Ollama can be found at <a href="https://ollama.com/library">this link</a>.
+    </p>
+    <p>
+        Since Deepseek R1 is most capable of these, and is available for free to download, we will attempt to download R1. Considering the hardware limits of a personal computer,
+        we will attempt to play around with 14B parameter model.s
+    </p>
+    <p>
+        The model can be pulled into the local machine to be used with Ollama by doing following:
+        <p class="code-text">
+            % ollama pull deepseek-r1:14b
+
+            pulling manifest
+            pulling 6e9f90f02bb3... 100% ▕██   9.0 GB
+            pulling 369ca498f347... 100% ▕██▏  387 B
+            pulling 6e4c38e1172f... 100% ▕██▏  1.1 KB
+            pulling f4d24e9138dd... 100% ▕██▏  148 B
+            pulling 3c24b0c80794... 100% ▕██▏  488 B
+            verifying sha256 digest
+            writing manifest
+            success
+        </p>
+    </p>
+    <p>
+        The downloaded model is saved locally at <i>~/.ollama/models</i>
+    </p>
+    <p>
+        If you have multiple models downloaded, you can list them using following command:
+        <p class="code-text">
+            % ollama list
+
+            NAME               ID              SIZE      MODIFIED
+            deepseek-r1:14b    ea35dfe18182    9.0 GB    7 minutes ago
+        </p>
+    </p>
+    <h2>
+        Asking Questions
+    </h2>
+    <h3 id="talk_to_deepseek">
+        Using Terminal Access: Chat Server
+    </h3>
+    <p>
+        Of the many ways that we can use Ollama to talk to a LLM model, we will first see the most straightforward method. Here, we will use Ollama to load the model, and talk to it through terminal.
+    </p>
+    <p>
+        You can start this process by simply running following in your terminal.
+        <p class="code-text">
+            prawarpoudel@Mac ~ % ollama run deepseek-r1:14b
+            >>> Send a message (/? for help)
+        </p>
+        Upon which you can send message and talk to it just like any LLM service available.
+    </p>
+    <p>
+        Following is an example of me talking to the Deepseek R1 model that I just instantiated.
+        <p class="code-text">
+            >>> Can you interpret a dream? Why do we dream when we sleep? Please limit your answer to within 150 words.
+
+            ;think;
+            Alright, I need to answer the user's query about whether I can interpret dreams and why people dream during sleep, keeping it under 150 words.
+            
+            First, from our previous conversation, I know that REM sleep is linked with vivid dreaming. The user seems interested in both the interpretation of dreams and their purpose.
+            
+            I should confirm that while I can provide interpretations based on common symbols and theories, there's no definitive method for interpreting dreams scientifically. Also, I should briefly explain why we dream, touching on REM sleep's role
+            in processing emotions, memories, and possibly aiding problem-solving.
+            
+            I need to make it concise, so I'll focus on the key points: no scientific consensus on interpretation methods and the purposes of REM sleep.
+            ;think;
+            
+            While there is no definitive method for scientifically interpreting all dreams, many people use symbolic meanings or personal associations to gain insights. Dreams often reflect emotions, experiences, or thoughts from waking life. Why we
+            dream during sleep remains unclear, but REM (Rapid Eye Movement) sleep, when most vivid dreaming occurs, may help process emotions, consolidate memories, and aid problem-solving. However, the exact purpose of dreams is still debated.
+        </p>
+    </p>
+    <p>
+        To quit:
+        <p class="code-text">
+            Use Ctrl + d or /bye to exit.
+            >>> /bye
+        </p>
+    </p>
+    <h3>
+        Using CURL
+    </h3>
+    <p>
+        Curl requests can be useful when designing an agent for completing other tasks with the help of LLM models. To send a CURL request, we first need to condition our request that we will see below:
+    </p>
+    <p>
+        <ul>
+            <li>
+                <b>URI</b>: <i>http://localhost:11434/api/generate</i>
+            </li>
+            <br>
+            <li>
+                <b>Header</b>: <i>"Content-Type: application/json"</i>
+            </li>
+            <br>
+            <li>
+                <b>model</b>: <i>deepseek-r1:14b</i>
+            </li>
+            <br>
+            <li>
+                <b>prompt</b>: <i>Can you interpret a dream? Why do we dream when we sleep? Please limit your answer to within 150 words</i>
+            </li>
+        </ul>
+    </p>
+    <p>
+        Finally, putting it all together.
+        <p class="code-text">
+            % curl -X POST http://localhost:11434/api/generate -H "Content-Type: application/json" 
+            -d '{"model":"deepseek-r1:14b","prompt":"Can you interpret a dream? Why do we dream when we sleep? Please limit your answer to within 150 words","stream":false}'
+        </p>
+        The response to which is following:
+        <p class="code-text">
+        {"model":"deepseek-r1:14b","created_at":"2025-02-02T22:13:31.237735Z",
+        "response":"\u003cthink\u003e\nOkay, xxxx \n\u003c/think\u003e\n\nDreams occur during xxx significance.","done":true,"done_reason":"stop","context":[...],
+           "total_duration":27204042750,"load_duration":571147333,"prompt_eval_count":28,
+           "prompt_eval_duration":465000000,"eval_count":368,"eval_duration":26166000000}%
+        </p>
+        <p>
+            The <i>response</i> field in the above response is the answer we are looking for. There are <b>think</b> delimiters as part of response as well, so duing AI agents
+            desigh, these can be use appropriately.
+        </p>
+        <p>
+            The reason for supplying <b>stream: false</b> in the CURL request is to not allow streaming output. Otherwise, the response would be streaming, and each token
+            in the output is sent as a separate response with an additional field <b>done</b>.
+        </p>
+    </p>
+    <h3 id="create_chat">
+        Using UI Similar to OpenAI ChatGPT UI
+    </h3>
+    <p>
+        OpenWebUI project provides a UI that is similar to all state of the art chat LLM projects. Installing openWebUI allows us to have a local set up that is similar to the commercial projects.
+    </p>
+    <p>
+        To install open web UI, I am following the instructions at <a href="https://docs.openwebui.com/getting-started/quick-start">the official link</a>.
+    </p>
+    <p>
+        Following are the exact steps that I took:
+        <ul>
+            <li>
+                Make sure that you have docker installed in your machine.
+            </li>
+            <br>
+            <li>
+                Following command to run the image: <i><u>docker run -d -p 3000:8080 -v open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:main</u></i>
+            </li>
+            <br>
+            <li>
+                Once the image is downloaded and the process starts to run, you can access it via <i><u>localhost:3000</u></i> in your browser.
+            </li>
+            <br>
+            <li>
+                The first page that loads in your browser is the <b>Getting Started Page</b>. You will be asked to enter your email and password; which they claim to be save locally.
+                <br>
+                <img class="center-image" src="../images/oopenwebui_1.png">
+            </li>
+            <li>
+                Once we provide the username, email and password to create an admin account; it should automatically, take us to the webpage with chat set up. Since we only have single
+                LLM model with ollama, it auto detects and loads that model.
+            </li>
+        </ul>
+    </p>
+    <h4>
+        Chat with UI
+    </h4>
+    <p>
+        Now we can start to chat with the set up that we just made. Following shows a snippet of the chat that I did in my local setup, where I had asked <i>can you write a python code to find the sum of all the numbers in a csv file.</i>
+        <img class="center-image" src="../images/deepseek_2.png">
+    </p>
+    <h3>
+        Using Python Library
+    </h3>
+    <p>
+        We can use python library <i>ollama</i> to talk to the local installation of the ollama and the model that we downloaded. Following is an example.
+    </p>
+    <p>
+        <p class="code-text">
+            import ollama
+
+            prompt = f"Can you interpret a dream? Why do we dream when we sleep? Please limit your answer to within 150 words."
+            model = "deepseek-r1:14b"
+            response = ollama.generate(model=model,prompt=prompt)
+            
+            print(response['response'])
+        </p>
+    </p>
+    <h3>
+        Hardware Usage:
+    </h3>
+    <p>
+        During the answering of question, following is the display in the GPU History window in the Activity Monitor of Macbook.
+    </p>
+    <p>
+        <img class="center-image" src="../images/deepseek_usage.png">
+    </p>
+   </div>
+ </body>
+</html>
