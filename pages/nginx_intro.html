@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Prawar Poudel" name="author"/>
+  <meta content="Vector Databases, AI, Machine Learning, NLP, GPT" name="keywords"/>
+  <meta content="" name="description"/>
+  <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+  <title>
+   Introduction to NGINX
+  </title>
+ </head>
+ <body>
+  <!-- this one is on the top for navigation -->
+  <div class="navbar">
+   <a href="../index.html">
+    Home
+   </a>
+   <a href="../about.html">
+    About
+   </a>
+   <a href="https://www.linkedin.com/in/prawarpoudel/">
+    LinkedIn
+   </a>
+   <a href="https://scholar.google.com/citations?user=qa8tuSIAAAAJ&amp;hl=en">
+    Google Scholar
+   </a>
+  </div>
+  <!-- following is the sidebar -->
+  <div class="sidebar">
+   <a class="" href="https://prawarpoudel.github.io/about">
+    About
+   </a>
+   <a class="listt" href="../pages/ai_topics.html">
+    AI Topics
+   </a>
+   <a class="listt" href="../pages/ml_basics.html">
+    ML Topics
+   </a>
+   <a class="listt" href="../pages/datascience_topics.html">
+    Data Science Topics
+   </a>
+   <a class="listt" href="../pages/programming_topics.html">
+    Programming Topics
+   </a>
+   <a class="listt" href="../pages/systemdesign.html">
+    System Design Topics
+   </a>
+   <a class="listt" href="../pages/kube_topics.html">
+    Kubernetes
+   </a>
+   <a class="listt" href="../pages/regex_py.html">
+    Regex in python
+   </a>
+   <a class="listt" href="../pages/alerting.html">
+    Ex-Google SRE on Alerting
+   </a>
+   <a class="listt" href="../pages/coding_topics.html">
+    Various Coding Exercises
+   </a>
+  </div>
+  <div class="content">
+   <h1>
+    Introduction to NGINX
+   </h1>
+   <hr>
+   <h2>
+    What is ingress?
+   </h2>
+   <p>
+    Ingress is like the main door in the building with signs that tells  you which room to go to.
+   </p>
+   <p>
+    This is more clear in the context of the cluster. Lets say in our kubernetes cluster, we have many applications hosted, like a blog, a ecommerce store and a portfolio site.
+    Any incoming request needs to be redirected to the right application. Ingress is what performs this task.
+   </p>
+   <p>
+    NGINX is the application that enforces the ingress. In the building analogy, NGINX is the security guard in the building that looks at the incoming request and directs them to the right room based on the ingress rules.
+   </p>
+   <hr>
+   <h2>
+    Usage
+   </h2>
+   <p>
+    Following use cases:
+    <ul>
+        <li>
+            to expose multiple applications hosted in a cluster;
+        </li>
+        <li>
+            route traffic based on different URLs or domains that have same base URL.
+        </li>
+        <li>
+            add TLS/SSL to your application
+        </li>
+        <li>
+            manage load balancing to your services
+        </li>
+    </ul>
+   </p>
+   <hr>
+   <h2>Hands On: Kubernetes Cluster</h2>
+   <h3>Install Minikube</h3>
+   <p>
+    Let us first set up a simple kubernetes cluster to demonstrate the use of nginx ingress controller.
+   </p>
+   <p>
+    In a linux machine, run the following commands to install minikube:
+    <ul>
+        <li>
+            First download: <br>
+            <p class="code-text">
+                curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+            </p>
+        </li>
+        <li>
+            Then, install <br>
+            <p class="code-text">
+                sudo install minikube-linux-amd64 /usr/local/bin/minikube
+            </p>
+        </li>
+    </ul>
+   </p>
+   <h3>Create a kube cluster</h3>
+   <p>
+    Let us create a simple kube cluster. Since we do not want to create any VMs, let us use <i>--driver=none</i> option to start minikube.
+   </p>
+   <p class="code-text">
+    minikube start --driver=none --container-runtime=containerd
+   </p>
+   <div style="background-color: #f5d1c9;">
+    <ul>
+    <li>
+        <p >
+            The above command might be greeted with the following error.
+            <p class="code-text">
+    Exiting due to GUEST_MISSING_CONNTRACK: Sorry, Kubernetes 1.32.0 requires conntrack to be installed in root's path
+            </p>
+            This can be mitigated by installing conntrack using following command:
+            <p class="code-text">
+    sudo apt install conntrack -y
+            </p>
+        </p>
+    <li>
+            <p>
+                Please also check for the containerd toml file. If it does not exist, we can create one manually as follows
+            </p>
+            <p class="code-text">
+mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+            </p>
+        </p>
+    </li>
+    </ul>
+    <br>
+    </div>
+    <p>
+        If the minikube command runs correctly, it will install kubectl and point the config to the local cluster so that we can use kubectl command.
+    </p>
+    <p class="code-text">
+    minikube kubectl -- get nodes -A -o wide
+    NAME           STATUS   ROLES           AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION    CONTAINER-RUNTIME
+    vmname         Ready    control-plane   5m35s   v1.32.0   &lt;ip&gt;                  Ubuntu 22.04.4 LTS   5.15.0-1058-ibm   containerd://1.7.24
+    </p>
+    <p>
+        At this point, basic kube control plane pods are running in the cluster.
+    </p>
+    <h3>Deploy NGINX</h3>
+    <p>
+        Let us deploy NGINX ingress controller in our cluster. We will use help for this purpose, which is a package manager for kubernetes.
+    </p>
+    <p>
+      Let us first download helm:
+      <p class="code-text">
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+      </p>  
+      The above command will add help into the binary location, so helm should be readily usable now.
+    </p>
+    <p>
+        Then, let us download and install nginx ingress in our cluster.
+        <p class="code-text">
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install nginx-ingress ingress-nginx/ingress-nginx            
+        </p>
+        If we check the current running pods, we should see following:
+        <p class="code-text">
+            # minikube kubectl -- get po -A
+NAMESPACE     NAME                                                      READY   STATUS    RESTARTS   AGE
+default       nginx-ingress-ingress-nginx-controller-78d94b756c-r4gzt   1/1     Running   0          59s
+        </p>
+    </p>
+    <hr>
+    <h2>
+        Running Our Apps with Exposed Ports
+    </h2>
+    <p>
+        Here, we will run two applications each of which will have port 80 exposed. For the sake of ease, we will run a simple nginx container and expose their port 80.
+    </p>
+    <p>
+        To expose the port, we will create a SERVICE type object along with the deployment of the application.
+    </p>
+    <p>
+        Our first application definition and service definition in file <i>app1.yaml</i>.
+        <p class="code-text">
+            # cat app1.yaml
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: app1
+            spec:
+              replicas: 1
+              selector:
+                matchLabels:
+                  app: app1
+              template:
+                metadata:
+                  labels:
+                    app: app1
+                spec:
+                  containers:
+                  - name: nginx
+                    image: nginx:latest
+                    ports:
+                    - containerPort: 80
+            ---
+            apiVersion: v1
+            kind: Service
+            metadata:
+              name: app1-service
+            spec:
+              selector:
+                app: app1
+              ports:
+              - protocol: TCP
+                port: 80
+                targetPort: 80
+              type: ClusterIP
+        </p>
+        Our second application, which is basically the copy of the first application but with a different name.
+        <p class="code-text">
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: app2
+            spec:
+              replicas: 1
+              selector:
+                matchLabels:
+                  app: app2
+              template:
+                metadata:
+                  labels:
+                    app: app2
+                spec:
+                  containers:
+                  - name: nginx
+                    image: nginx:latest
+                    ports:
+                    - containerPort: 80
+            ---
+            apiVersion: v1
+            kind: Service
+            metadata:
+              name: app2-service
+            spec:
+              selector:
+                app: app2
+              ports:
+              - protocol: TCP
+                port: 80
+                targetPort: 80
+              type: ClusterIP            
+        </p>
+        Let us apply the yaml files so that apps are created.
+        <p class="code-text">
+            # minikube kubectl -- apply -f app1.yaml
+            deployment.apps/app1 created
+            service/app1-service created
+
+            # minikube kubectl -- apply -f app2.yaml
+            deployment.apps/app2 created
+            service/app2-service created
+        </p>
+    </p>
+    <h2>
+        Create INGRESS object to direct request
+    </h2>
+    <p>
+        At this point, we have created applications with exposed ports. But if any external requests are to access the applications, we need to define some rules so that the 
+        requests are properly routed. Going back to the building analogy, we need to create the sign at the door to tell which room to go to.
+    </p>
+    <p class="code-text">
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: multi-app-ingress
+        spec:
+          rules:
+          - host: app1.local
+            http:
+              paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: app1-service
+                    port:
+                      number: 80
+          - host: app2.local
+            http:
+              paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: app2-service
+                    port:
+                      number: 80        
+    </p>
+    <p>
+        The above ingress object routes any requests coming to app1.local to app1-service port number 80, which in turn routes it to our application 1. Similar is the case for app2.
+    </p>
+    <p>
+        Apply the yaml file for ingress object above similar to how we applied for deployment creation in earlier section.
+    </p>
+    <h3>
+        Update /etc/hosts
+    </h3>
+    <p>
+        Just so that our requests are properly decoded by our local DNS server, we should add following entries into our /etc/hosts file.
+        <p class="code-text">
+            127.0.0.1 app1.local
+            127.0.0.1 app2.local            
+        </p>
+    </p>
+  </div>
+ </body>
+</html>
