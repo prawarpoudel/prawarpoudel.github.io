@@ -161,3 +161,22 @@ mark{
     color: green;
     display: inline-block;
 }
+.note-page {
+    max-width: 800px; /* Or whatever width looks good on your blog */
+    height: auto;
+    display: block;
+    margin: 20px auto; /* Center the image and add some spacing */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: add a subtle shadow */
+    border: 1px solid #ddd; /* Optional: add a border */
+}
+.pdf-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.1em;
+}
+
+.pdf-container {
+    width: 100vw; /* 100% of viewport width */
+    height: 100vh; /* 100% of viewport height */
+}
